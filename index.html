@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>proto — trynewthings</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfaf8;
+    --fg: #16150f;
+    --muted: #6c6a60;
+    --line: #e2ded4;
+    --accent: #b4451f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121210;
+      --fg: #eceae2;
+      --muted: #8f8d84;
+      --line: #2b2a26;
+      --accent: #e5824f;
+    }
+  }
+  * { box-sizing: border-box; }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  .brand img { width: 34px; height: 34px; display: block; }
+  .brand:hover { color: var(--fg); }
+  body {
+    margin: 0;
+    padding: 12vh 24px 20vh;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 9vw, 4.5rem);
+    letter-spacing: -0.04em;
+    font-weight: 640;
+  }
+  .sub { margin: 0.4rem 0 0; color: var(--muted); }
+  ul { list-style: none; margin: 4rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+  li { border-bottom: 1px solid var(--line); }
+  a.demo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    align-items: baseline;
+    padding: 1.1rem 0.25rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  a.demo:hover { color: var(--accent); }
+  a.demo .name { font-weight: 600; letter-spacing: -0.01em; }
+  a.demo .desc { color: var(--muted); font-size: 0.94rem; }
+  a.demo:hover .desc { color: inherit; }
+  .empty {
+    margin: 4rem 0 0;
+    padding: 2rem;
+    border: 1px dashed var(--line);
+    border-radius: 6px;
+    color: var(--muted);
+  }
+  .empty code {
+    font: 0.9em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--fg);
+  }
+  footer { margin-top: 6rem; color: var(--muted); font-size: 0.85rem; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="https://trynewthings.fail">
+    <img src="logo.svg" alt="try new things" width="34" height="34">
+    <span>trynewthings.fail</span>
+  </a>
+
+  <h1>proto</h1>
+  <p class="sub">Demos och skisser. Inget här är färdigt.</p>
+
+  <!-- Lägg till en demo: kopiera raden nedan, peka på mappen, skriv en rad om vad den gör.
+  <ul>
+    <li><a class="demo" href="namn/"><span class="name">namn</span><span class="desc">vad den gör</span></a></li>
+  </ul>
+  -->
+
+  <div class="empty">
+    Tomt än så länge. Lägg en mapp med en <code>index.html</code> i repot och länka den härifrån.
+  </div>
+
+  <footer>
+    <a href="https://trynewthings.fail">trynewthings.fail</a> &nbsp;·&nbsp;
+    <a href="https://github.com/trynewthings-fail/proto">github.com/trynewthings-fail/proto</a>
+  </footer>
+</main>
+</body>
+</html>
