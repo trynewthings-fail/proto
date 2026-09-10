@@ -1,0 +1,6 @@
+#!/bin/sh
+# Bygger om demolistan i index.html innan varje commit.
+set -e
+root=$(git rev-parse --show-toplevel)
+python3 "$root/tools/build-index.py"
+git add "$root/index.html"
