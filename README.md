@@ -8,6 +8,9 @@ github pages demos — [proto.trynewthings.studio](https://proto.trynewthings.st
 2. Sätt `<title>` och gärna `<meta name="description">` — de blir namn och beskrivning i listan.
 3. Commit. Listan på startsidan byggs om automatiskt.
 
+Listan byggs på två ställen: en pre-commit-hook lokalt, och en GitHub Action vid push
+(så att demos som läggs till i webbeditorn också kommer med).
+
 Hooken ligger i repot. Efter en fresh clone, kör en gång:
 
 ```
