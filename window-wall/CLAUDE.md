@@ -2,7 +2,7 @@
 
 Live page: https://proto.trynewthings.studio/window-wall/ · deep link to one idea: `…/window-wall/#<id>`
 
-A 3D sketch of Exploratoriet's façade. Two window units of 3 × 2 panes (12 panes) have a rear-projected screen behind them. Each **idea** is one small JS file that draws onto that screen. This file is everything you need. Read all of it: it is short on purpose.
+A 3D sketch of Exploratoriet's façade. Two window units of 3 × 2 panes (12 panes) have a rear-projected screen behind them. Each **idea** is one JS file that draws onto that screen. This file has the rules and the API. Read all of it.
 
 ## 1. Scope: what you may touch
 
@@ -16,12 +16,24 @@ A 3D sketch of Exploratoriet's façade. Two window units of 3 × 2 panes (12 pan
 
 If an idea needs something the core doesn't offer, build it inside your idea file. If that isn't possible, don't change the core. Create a task on the Order board *Window Wall* (project *Exploratoriet: WindowProjection*) describing what's needed, and say so in your reply.
 
-## 2. Token budget: keep it cheap
+## 2. Effort: quality over thrift
 
-- **Read only:** this file, `ideas/_template.js` and `ideas/index.js`. Optionally read **one** existing idea if it is close to the request (see the table in section 6). Do not read `core.js`, `app.js`, `style.css` or `index.html`. The API below covers them.
-- **Write once.** One idea file, aim for **under 150 lines (about 8 KB)**. The hard limit is 20 KB. This is a sketch, not production code.
-- **No polishing loops.** If something is unclear, pick a sensible option and put the doubt in `pitch.open` instead of asking several questions.
+These run on people's Claude subscriptions, so spend what it takes to make the idea look and feel good. An idea should be as polished as `tetris.js`, `relay.js` or `residents.js`, not a quick placeholder.
+
+- **Read:** this file, `ideas/_template.js` and `ideas/index.js`, plus **two or three** existing ideas, the closest ones from section 6 and at least one of the polished ones above. You may read `core.js` if you need to know exactly how a helper behaves. Skip `app.js`, `style.css` and `index.html`; you never need them.
+- **Size:** most good ideas land at **150–300 lines (10–20 KB)**. The hard limit is 40 KB.
+- **Make two passes.** Write the idea, then review it against the quality bar below and do one improvement pass before pushing. Don't keep looping after that.
+- If the request is unclear, pick the most interesting reading and put the doubt in `pitch.open` instead of asking several questions.
 - Reuse helpers from `WW` (below) rather than writing your own drawing utilities.
+
+**Quality bar** (check each before pushing):
+1. **Readable from 20 m.** Key objects are at least ~0.15 m (30 px) across and drawn in bold, saturated `PC` colours on dark backgrounds. There's no small text on the panes; numbers are big or not there at all.
+2. **Alive within 2 seconds with nobody playing.** Bots, AI players or simulated people (`tracked()`) drive it like a real session: scores change, rounds end and restart.
+3. **Uses the architecture on purpose.** Something crosses a mullion, the transom or the pier and pops out again. Or each pane is its own world. Or a whole 3-pane unit is used as one body-sized frame. Explain it in `pitch.trick`.
+4. **Juice.** Feedback when something happens: flashes, glow (`g.shadowBlur`), particles or confetti, squash-and-stretch, trails, short text pops like "PERFECT". Use the TNT `smiley` for win/lose moments.
+5. **The plaza takes part.** `cast(i)` gives players colours matching their objects on the wall, and `fig(i,T)` makes them jump on success or slump on failure.
+6. **A HUD line that tells a story:** score, time left, who's winning, or what's happening next. Not just a static label.
+7. **A full loop:** start → play → end or success moment → restart. Nothing gets stuck after a few minutes.
 - **Build what was asked.** Don't run the full creative process (three tracks, the TNT test) here. Put your doubts in `pitch.open`; one line of creative feedback in your reply is fine.
 - **Language:** all text on the page and in the pitch card is in English, whatever language the request was in.
 
@@ -113,7 +125,7 @@ Units are **metres**. x runs along the wall from left to right, y is height abov
 - Use the house style: lime on black, the player colours in `PC`, and Alegreya.
 - Keep it to one clear verb ("stomp", "rotate", "draw") and something that only works together.
 
-Closest existing idea to copy from (read at most one):
+Closest existing ideas to learn from (read two or three, see section 2):
 
 | If the idea is… | Read |
 |---|---|

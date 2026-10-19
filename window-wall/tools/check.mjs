@@ -72,7 +72,7 @@ for(const file of files){
   const before=W.ideas.length,errBefore=errors.length;
   const src=fs.readFileSync(path.join(ROOT,'ideas',file+'.js'),'utf8');
   const kb=Buffer.byteLength(src)/1024,lines=src.split('\n').length;
-  if(kb>20)errors.push(`${file}: ${kb.toFixed(1)} KB, over the 20 KB budget`);else if(kb>12)warnings.push(`${file}: ${kb.toFixed(1)} KB (aim for under 12 KB)`);
+  if(kb>40)errors.push(`${file}: ${kb.toFixed(1)} KB, over the 40 KB limit`);else if(kb>25)warnings.push(`${file}: ${kb.toFixed(1)} KB (most ideas fit in 10–20 KB)`);
   try{run(`ideas/${file}.js`);}catch(err){errors.push(`${file}: crashed while loading: ${err.message}`);continue;}
   const d=W.ideas[before];
   if(W.ideas.length!==before+1){errors.push(`${file}: must call WW.register exactly once`);continue;}
