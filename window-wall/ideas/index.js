@@ -14,4 +14,5 @@ WW.IDEA_FILES=[
   'aurora',
   'shadows',
   'snow',
+  'frog-stones',
 ];
