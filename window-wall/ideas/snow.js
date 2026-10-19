@@ -2,16 +2,18 @@
 WW.register(W=>{
 const {g,LIME,SW,SH,SX0,SX1,SY1,PPM,PY_BOT,clamp,hexA,wx,wy,tracked,silhouette}=W;
 return {
-  id:'snow',cat:'visual',by:'Lukas',name:'Snow Catcher',short:'Snow Catcher',crowd:true,
+  id:'snow',cat:'visual',by:'Lukas',name:{sv:'Snöfångaren',en:'Snow Catcher'},short:{sv:'Snöfångaren',en:'Snow Catcher'},steam:'S',crowd:true,
+  fraga:{sv:'Varför blir snö liggande på vissa ytor men inte på andra?',en:'Why does snow settle on some surfaces but not others?'},
+  verb:{sv:'stå still, fånga, skaka av',en:'stand still, catch, shake off'},
   pitch:{
-    tagline:'Digital snow falls across the panes and piles up on your silhouette.',
-    players:['group','1–8'],mode:'ambient',round:'Drop in',
-    input:[['cam','Your silhouette']],
+    tagline:{sv:'Digital snö faller över rutorna och lägger sig på din siluett.',en:'Digital snow falls across the panes and piles up on your silhouette.'},
+    players:['group','1–8'],mode:'ambient',round:{sv:'Kom när du vill',en:'Drop in'},
+    input:[['cam',{sv:'Din siluett',en:'Your silhouette'}]],
     for:['kid','family'],
-    how:['Snow falls across all 12 panes.','It lands on your head and shoulders.','Move fast to shake it off.'],
-    trick:'Flakes drift behind the transom and mullions as if snow is falling on the other side of real glass.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2']],
-    open:['Summer version: leaves or confetti?','Real snow plus digital snow in January!'],
+    how:[{sv:'Snön faller över alla 12 rutor.',en:'Snow falls across all 12 panes.'},{sv:'Den landar på ditt huvud och dina axlar.',en:'It lands on your head and shoulders.'},{sv:'Rör dig snabbt för att skaka av den.',en:'Move fast to shake it off.'}],
+    trick:{sv:'Flingorna driver bakom tvärposten och spröjsen, som om snön faller på andra sidan riktigt glas.',en:'Flakes drift behind the transom and mullions as if snow is falling on the other side of real glass.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}]],
+    open:[{sv:'Sommarversion: löv eller konfetti?',en:'Summer version: leaves or confetti?'},{sv:'Riktig snö plus digital snö i januari!',en:'Real snow plus digital snow in January!'}],
     meters:{read:4,crowd:4,effort:2}
   },
   init(){this.f=[];this.stuck=[];this.t=0;this.pile=new Float32Array(Math.ceil((SX1-SX0)/0.04)+1);},

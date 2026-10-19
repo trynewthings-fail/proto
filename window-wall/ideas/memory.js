@@ -12,16 +12,18 @@ function symbol(s,X,Y,R,col){
   g.restore();
 }
 return {
-  id:'memory',cat:'puzzle',by:'Lukas',name:'Window Memory',short:'Memory',
+  id:'memory',cat:'puzzle',by:'Lukas',name:{sv:'Fönstermemory',en:'Window Memory'},short:{sv:'Memory',en:'Memory'},steam:'M',
+  fraga:{sv:'Hur få försök behövs som minst för att hitta 6 par?',en:'What is the fewest tries needed to find 6 pairs?'},
+  verb:{sv:'minnas, peka, para ihop',en:'remember, point, match'},
   pitch:{
-    tagline:'12 panes, 6 pairs. Two teams take turns.',
-    players:['group','2 teams'],mode:'teams',round:'1–2 min',
-    input:[['cam','Stand + raise a hand'],['button','12-button panel']],
+    tagline:{sv:'12 rutor, 6 par. Två lag turas om.',en:'12 panes, 6 pairs. Two teams take turns.'},
+    players:['group',{sv:'2 lag',en:'2 teams'}],mode:'teams',round:{sv:'1–2 min',en:'1–2 min'},
+    input:[['cam',{sv:'Ställ dig + räck upp handen',en:'Stand + raise a hand'}],['button',{sv:'Panel med 12 knappar',en:'12-button panel'}]],
     for:['kid','family'],
-    how:['Each pane is a face-down card.','Stand in front of a column, raise a hand for the top pane.','Match a pair and your team goes again.'],
-    trick:'Exactly 12 panes, exactly 6 pairs. The whole façade is the board, so it is the easiest first build.',
-    needs:[['projector','Projector'],['cam','Depth cam']],
-    open:['Too slow for passers-by?','Science symbols: planets, animals, elements?'],
+    how:[{sv:'Varje ruta är ett kort med baksidan upp.',en:'Each pane is a face-down card.'},{sv:'Ställ dig framför en kolumn och räck upp handen för den övre rutan.',en:'Stand in front of a column, raise a hand for the top pane.'},{sv:'Hittar ni ett par får laget köra igen.',en:'Match a pair and your team goes again.'}],
+    trick:{sv:'Exakt 12 rutor, exakt 6 par. Hela fasaden är spelplanen, så det är det enklaste att bygga först.',en:'Exactly 12 panes, exactly 6 pairs. The whole façade is the board, so it is the easiest first build.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera',en:'Depth cam'}]],
+    open:[{sv:'För långsamt för förbipasserande?',en:'Too slow for passers-by?'},{sv:'Vetenskapssymboler: planeter, djur, grundämnen?',en:'Science symbols: planets, animals, elements?'}],
     meters:{read:5,crowd:3,effort:1}
   },
   init(){this.cards=shuffle([0,0,1,1,2,2,3,3,4,4,5,5]).map(s=>({s,up:false,m:-1,f:0}));this.state='p1';this.timer=1.0;this.team=0;this.scores=[0,0];this.seen={};this.a=-1;this.b=-1;this.plan=-1;this.cheer=[0,0];},

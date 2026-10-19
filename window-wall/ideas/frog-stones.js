@@ -35,16 +35,18 @@ function frog(f,i,T){
 }
 
 return {
-  id:'frog-stones',cat:'puzzle',by:'Lukas',name:'Frog Stones',short:'Frog Stones',crowd:true,
+  id:'frog-stones',cat:'puzzle',by:'Lukas',name:{sv:'Grodstenar',en:'Frog Stones'},short:{sv:'Grodstenar',en:'Frog Stones'},steam:'E',crowd:true,
+  fraga:{sv:'Hur långt kan en groda hoppa, och var måste stenen ligga?',en:'How far can a frog jump, and where must the stone be?'},
+  verb:{sv:'gå, lyfta, samarbeta',en:'walk, lift, cooperate'},
   pitch:{
-    tagline:'You are the stepping stone. Walk, and the frogs hop with you.',
-    players:['group','2–8'],mode:'coop',round:'Drop in',
-    input:[['cam','Depth cam: where you stand'],['pad','Floor pads']],
+    tagline:{sv:'Du är stenen i dammen. Gå, så hoppar grodorna med dig.',en:'You are the stepping stone. Walk, and the frogs hop with you.'},
+    players:['group','2–8'],mode:'coop',round:{sv:'Kom när du vill',en:'Drop in'},
+    input:[['cam',{sv:'Djupkamera: var du står',en:'Depth cam: where you stand'}],['pad',{sv:'Golvplattor',en:'Floor pads'}]],
     for:['kid','family','school'],
-    how:['Stand in front of a window: a stone appears in the pond.','Walk to move it. Step back to lift it higher.','Line up together so the frogs reach the flower on the far lily pad.'],
-    trick:'Frogs arc up past the transom and vanish behind mullions. Only two people, one on each side of the pier, can get them across the gap.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2'],['speaker','Croaks and splashes']],
-    open:['Score the frogs that get across, or just let them live?','Walk away with a frog on your stone: splash, or let the stone fade gently?','Should step-back-to-lift stay, or is left/right enough?'],
+    how:[{sv:'Ställ dig framför ett fönster: en sten dyker upp i dammen.',en:'Stand in front of a window: a stone appears in the pond.'},{sv:'Gå för att flytta den. Ta ett steg bakåt för att lyfta den högre.',en:'Walk to move it. Step back to lift it higher.'},{sv:'Ställ er på rad så att grodorna når blomman på den bortre näckrosen.',en:'Line up together so the frogs reach the flower on the far lily pad.'}],
+    trick:{sv:'Grodorna hoppar i en båge förbi tvärposten och försvinner bakom spröjsen. Bara två personer, en på var sida om muren, kan få dem över glappet.',en:'Frogs arc up past the transom and vanish behind mullions. Only two people, one on each side of the pier, can get them across the gap.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}],['speaker',{sv:'Kvack och plask',en:'Croaks and splashes'}]],
+    open:[{sv:'Räkna grodorna som tar sig över, eller bara låta dem leva?',en:'Score the frogs that get across, or just let them live?'},{sv:'Går du iväg med en groda på stenen: plask, eller tonar stenen mjukt bort?',en:'Walk away with a frog on your stone: splash, or let the stone fade gently?'},{sv:'Ska steg-bakåt-för-att-lyfta vara kvar, eller räcker vänster/höger?',en:'Should step-back-to-lift stay, or is left/right enough?'}],
     meters:{read:5,crowd:4,effort:2}
   },
   init(){

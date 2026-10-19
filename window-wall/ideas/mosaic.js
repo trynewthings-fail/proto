@@ -3,16 +3,18 @@ WW.register(W=>{
 const {g,LIME,PINK,PPM,FONT,SW,SH,PY_BOT,PY_TOP,COLS,ROWS,bcell,unitCX,cellBg,clearScreen,smiley,shuffle,wx,wy}=W;
 const tc=document.createElement('canvas');tc.width=SW;tc.height=SH;const tx=tc.getContext('2d');
 return {
-  id:'mosaic',cat:'crafty',by:'Lukas',name:'Pixel Mosaic',short:'Pixel Mosaic',crowd:true,
+  id:'mosaic',cat:'crafty',by:'Lukas',name:{sv:'Pixelmosaik',en:'Pixel Mosaic'},short:{sv:'Pixelmosaik',en:'Pixel Mosaic'},steam:'M',crowd:true,
+  fraga:{sv:'Hur många pixlar behövs innan man ser en bild?',en:'How many pixels does it take before you see a picture?'},
+  verb:{sv:'välja, placera, bygga ihop',en:'pick, place, assemble'},
   pitch:{
-    tagline:'Everyone places one pixel. Together you paint the whole wall.',
-    players:['crowd','∞'],mode:'coop',round:'10–20 min',
-    input:[['phone','Place a pixel'],['kiosk','Touch kiosk']],
+    tagline:{sv:'Alla lägger en pixel. Tillsammans målar ni hela väggen.',en:'Everyone places one pixel. Together you paint the whole wall.'},
+    players:['crowd','∞'],mode:'coop',round:{sv:'10–20 min',en:'10–20 min'},
+    input:[['phone',{sv:'Lägg en pixel',en:'Place a pixel'}],['kiosk',{sv:'Pekskärm',en:'Touch kiosk'}]],
     for:['all','school'],
-    how:['Scan the QR code to get a colour and a spot.','Tap to place your pixel.','A picture slowly appears across all 12 panes.'],
-    trick:'The image runs behind the frames, so the mullions and pier become part of the grid instead of breaking it.',
-    needs:[['projector','Projector'],['wifi','Web server']],
-    open:['Free drawing or paint-by-numbers?','Kids design the next picture?'],
+    how:[{sv:'Skanna QR-koden och få en färg och en plats.',en:'Scan the QR code to get a colour and a spot.'},{sv:'Tryck för att lägga din pixel.',en:'Tap to place your pixel.'},{sv:'En bild växer fram över alla 12 rutor.',en:'A picture slowly appears across all 12 panes.'}],
+    trick:{sv:'Bilden löper bakom ramarna, så spröjsen och muren blir en del av rutnätet i stället för att bryta det.',en:'The image runs behind the frames, so the mullions and pier become part of the grid instead of breaking it.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['wifi',{sv:'Webbserver',en:'Web server'}]],
+    open:[{sv:'Fritt ritande eller måla efter nummer?',en:'Free drawing or paint-by-numbers?'},{sv:'Får barn designa nästa bild?',en:'Kids design the next picture?'}],
     meters:{read:4,crowd:4,effort:1}
   },
   init(){this.img=-1;this.time=0;this.next();},

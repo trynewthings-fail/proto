@@ -1,31 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="sv">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Exploratoriet Window Wall</title>
-<meta name="description" content="Idea sketchbook for an interactive projection on Exploratoriet's 6 × 2 windows. Add ideas from Slack via Order.">
+<title>Nattfönstren · Window Wall</title>
+<meta name="description" content="Idéer för en interaktiv projektion i Exploratoriets tolv fönsterrutor: torget i 3D, fasaden i 2D, projektorerna inifrån. Av Linus och Lukas, Try New Things.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-  <section class="stage" id="stage" aria-label="3D view of the Exploratoriet façade">
-    <canvas id="gl"></canvas>
+  <section class="stage" id="stage">
+    <div class="verktyg">
+      <nav class="flikar" id="flikar" aria-label="Vy"></nav>
+      <div class="hoger">
+        <button class="pill" id="btn-reset" type="button"></button>
+        <a class="pill" id="lank-specs" href="specs.html"></a>
+        <div class="sprak" role="group" aria-label="Språk / Language"><button type="button" data-sprak="sv">SV</button><button type="button" data-sprak="en">EN</button></div>
+      </div>
+    </div>
     <div class="hud" id="hud" aria-live="polite"></div>
-    <div class="stage-top"><button class="pill" id="btn-reset" type="button">Reset view</button></div>
+    <div class="vy" id="vy-torget"></div>
+    <div class="vy" id="vy-fasad" hidden>
+      <canvas id="fasad"></canvas>
+      <canvas id="gatan"></canvas>
+      <p class="hint" id="fasad-hint"></p>
+    </div>
+    <div class="vy" id="vy-inifran" hidden><div id="vy3dCanvas"></div><div id="vy3dPanel"></div></div>
     <div class="pad" id="pad" hidden>
-      <button type="button" data-k="left" aria-label="Move left">◀</button>
-      <button type="button" data-k="rot" aria-label="Rotate">⟳</button>
-      <button type="button" data-k="right" aria-label="Move right">▶</button>
-      <button type="button" data-k="soft" aria-label="Soft drop">▼</button>
-      <button type="button" data-k="drop" aria-label="Hard drop">⤓</button>
+      <button type="button" data-k="left" aria-label="←">◀</button>
+      <button type="button" data-k="rot" aria-label="⟳">⟳</button>
+      <button type="button" data-k="right" aria-label="→">▶</button>
+      <button type="button" data-k="soft" aria-label="↓">▼</button>
+      <button type="button" data-k="drop" aria-label="⤓">⤓</button>
     </div>
   </section>
 
-  <aside class="panel">
+  <aside class="panel" id="panel">
     <header class="brand">
       <div class="brand-row">
         <svg class="smile" viewBox="0 0 321 322" aria-hidden="true"><use href="#tnt-smile"/></svg>
@@ -33,14 +46,15 @@
         <span class="x" aria-hidden="true">×</span>
         <span class="exp">Exploratoriet</span>
       </div>
-      <p class="eyebrow">Interactive façade · 6 × 2 panes</p>
-      <h1>Window Wall</h1>
-      <p class="lede">Two window units, twelve panes, one rear-projected screen behind them. Pick an idea and watch it play on the façade.</p>
+      <p class="eyebrow" id="eyebrow"></p>
+      <h1 id="rubrik"></h1>
+      <p class="lede" id="lede"></p>
     </header>
-
-    <nav class="cats" id="ideas" aria-label="Ideas"></nav>
+    <div class="filter" id="filter"></div>
+    <nav class="cats" id="ideas" aria-label="Idéer"></nav>
     <article class="pitch" id="pitch" aria-live="polite"></article>
-    <p class="foot">Got an idea? In a Claude chat with the Order connector, write <em>“Add this idea to the Window Wall sketch: …”</em>. Drag to orbit, scroll or pinch to zoom, right-drag to pan. Sketches only: bots and animations stand in for players. Depth-cam inputs assume our Azure Kinect and Orbbec cameras.</p>
+    <details class="labb" id="labb"><summary id="labb-rubrik"></summary><div id="labb-innehall"></div></details>
+    <p class="foot" id="foot"></p>
   </aside>
 </div>
 
@@ -48,13 +62,25 @@
   <symbol id="tnt-smile" viewBox="0 0 321 322"><path d="M289.254 65.5384C236.472 -5.5506 136.056 -20.3936 64.9662 32.3864C-6.12378 85.1674 -20.9658 185.585 31.8152 256.674C84.5952 327.765 185.012 342.606 256.102 289.826C327.192 237.045 342.035 136.627 289.254 65.5384Z" fill="#CAFD03"/><g fill="#1D1D1B"><path d="M118.232 134.602C127.249 146.746 130.853 159.342 126.284 162.736C121.715 166.128 110.7 159.033 101.683 146.889C92.6673 134.745 89.0613 122.149 93.6313 118.756C98.2013 115.364 109.215 122.458 118.232 134.602Z"/><path d="M163.949 100.659C172.966 112.803 176.57 125.399 172.001 128.792C167.432 132.184 156.417 125.09 147.4 112.946C138.384 100.802 134.778 88.2063 139.348 84.8123C143.918 81.4203 154.932 88.5153 163.949 100.659Z"/><path d="M199.771 244.427C208.789 256.571 212.393 269.167 207.823 272.56C203.254 275.952 192.239 268.857 183.222 256.713C174.206 244.569 170.601 231.973 175.17 228.58C179.741 225.188 190.754 232.283 199.771 244.427Z"/><path d="M245.489 210.484C254.507 222.628 258.111 235.224 253.541 238.617C248.972 242.009 237.957 234.914 228.94 222.77C219.924 210.626 216.319 198.029 220.888 194.636C225.459 191.244 236.472 198.34 245.489 210.484Z"/><path d="M116.73 215.645C111.127 215.645 105.489 215.231 99.8448 214.399C69.7648 209.951 43.2168 194.059 25.0908 169.646L31.9708 164.535C48.7338 187.111 73.2818 201.809 101.098 205.921C128.914 210.03 156.665 203.063 179.241 186.302C201.817 169.542 216.514 144.991 220.625 117.177C224.735 89.3608 217.769 61.6088 201.009 39.0348L207.889 33.9248C226.015 58.3388 233.55 88.3498 229.103 118.43C224.657 148.509 208.762 175.058 184.35 193.183C164.517 207.91 140.987 215.645 116.73 215.645Z"/></g></symbol>
 </svg>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-<script src="core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="config/fasad.js"></script>
+<script src="motor/stilar.js"></script>
+<script src="motor/rita.js"></script>
+<script src="motor/indata.js"></script>
+<script src="motor/fasadvy.js"></script>
+<script src="motor/motor.js"></script>
+<script src="config/schema.js"></script>
+<script src="motor/schema.js"></script>
+<script src="motor/ww.js"></script>
 <script src="ideas/index.js"></script>
 <script>
-/* Load every idea listed in ideas/index.js (in order, downloaded in parallel), then the app. A missing or broken idea is skipped. */
-[...WW.IDEA_FILES.map(id=>'ideas/'+id+'.js'),'app.js'].forEach(src=>{const s=document.createElement('script');s.src=src;s.async=false;s.onerror=()=>console.error('Could not load '+src);document.body.appendChild(s);});
+/* Laddar alla idéer i ideas/index.js (i ordning, parallellt), sedan vyerna och gränssnittet. En trasig idé hoppas över. */
+[...window.IDEA_FILES.map(id => 'ideas/' + id + '.js'), 'motor/vy3d.js', 'motor/torget.js', 'motor/ui.js'].forEach(src => {
+  const s = document.createElement('script'); s.src = src; s.async = false;
+  s.onerror = () => console.error('Kunde inte ladda ' + src);
+  document.body.appendChild(s);
+});
 </script>
 </body>
 </html>

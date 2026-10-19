@@ -1,8 +1,8 @@
-# Window Wall: rules for adding or changing an idea
+# Nattfönstren / Window Wall: rules for adding or changing an idea
 
-Live page: https://proto.trynewthings.studio/window-wall/ · deep link to one idea: `…/window-wall/#<id>`
+Live: https://proto.trynewthings.studio/window-wall/ · one idea: `…/window-wall/#<id>` · output only (for the installation): `…/window-wall/?utgang=1&sim=1`
 
-A 3D sketch of Exploratoriet's façade. Two window units of 3 × 2 panes (12 panes) have a rear-projected screen behind them. Each **idea** is one JS file that draws onto that screen. This file has the rules and the API. Read all of it.
+This is a sketchbook for an interactive rear-projection on Exploratoriet's façade: two window units of 3 × 2 panes (12 panes) with a plaster pier between. It merges Linus's *Nattfönstren* (engine, inputs, 2D façade, projector room, schedule) and Lukas's *Window Wall* (3D plaza, categories, pitch cards). Every **idea** is one JS file. The site is **Swedish first with an English toggle**.
 
 ## 1. Scope: what you may touch
 
@@ -12,126 +12,101 @@ A 3D sketch of Exploratoriet's façade. Two window units of 3 × 2 panes (12 pan
 
 **Changing an idea** touches only `ideas/<id>.js`. Keep its `id` and `by` unless the request says otherwise.
 
-**Never edit** `core.js`, `app.js`, `style.css`, `index.html`, `tools/`, other ideas, other folders in `proto`, or proto's root `index.html` (it is generated).
-
-If an idea needs something the core doesn't offer, build it inside your idea file. If that isn't possible, don't change the core. Create a task on the Order board *Window Wall* (project *Exploratoriet: WindowProjection*) describing what's needed, and say so in your reply.
+**Never edit** anything under `motor/`, `config/`, `tools/`, `media/`, or `index.html`, `specs.html`, `style.css`, other ideas, other folders in `proto`, or proto's root `index.html` (it is generated). If an idea needs something the engine doesn't offer, build it inside the idea file. If that's impossible, create a task on the Order board *Window Wall* (project *Exploratoriet: WindowProjection*) describing what's needed, and say so in your reply.
 
 ## 2. Effort: quality over thrift
 
-These run on people's Claude subscriptions, so spend what it takes to make the idea look and feel good. An idea should be as polished as `tetris.js`, `relay.js` or `residents.js`, not a quick placeholder.
+These run on people's Claude subscriptions, so spend what it takes to make the idea look and feel good. Polished references: `glaslador.js`, `skuggteatern.js`, `jaga-ljuset.js` (engine format), `tetris.js`, `relay.js` (WW format).
 
-- **Read:** this file, `ideas/_template.js` and `ideas/index.js`, plus **two or three** existing ideas, the closest ones from section 6 and at least one of the polished ones above. You may read `core.js` if you need to know exactly how a helper behaves. Skip `app.js`, `style.css` and `index.html`; you never need them.
-- **Size:** most good ideas land at **150–300 lines (10–20 KB)**. The hard limit is 40 KB.
-- **Make two passes.** Write the idea, then review it against the quality bar below and do one improvement pass before pushing. Don't keep looping after that.
+- **Read:** this file, the template for your format (`ideas/_mall-nattfonster.js` or `ideas/_mall-ww.js`), `ideas/index.js`, plus **two or three** existing ideas: the closest ones from section 8 and at least one polished one. You may read `motor/motor.js`, `motor/rita.js` or `motor/indata.js` to see exactly how a helper works. Skip `motor/ui.js`, `motor/torget.js`, `motor/vy3d.js`, `index.html` and `style.css`; you never need them.
+- **Size:** most good ideas land at 150–300 lines (10–20 KB). The hard limit is 40 KB.
+- **Make two passes.** Write the idea, review it against the quality bar (section 6), and do one improvement pass before pushing. Don't keep looping after that.
 - If the request is unclear, pick the most interesting reading and put the doubt in `pitch.open` instead of asking several questions.
-- Reuse helpers from `WW` (below) rather than writing your own drawing utilities.
-
-**Quality bar** (check each before pushing):
-1. **Readable from 20 m.** Key objects are at least ~0.15 m (30 px) across and drawn in bold, saturated `PC` colours on dark backgrounds. There's no small text on the panes; numbers are big or not there at all.
-2. **Alive within 2 seconds with nobody playing.** Bots, AI players or simulated people (`tracked()`) drive it like a real session: scores change, rounds end and restart.
-3. **Uses the architecture on purpose.** Something crosses a mullion, the transom or the pier and pops out again. Or each pane is its own world. Or a whole 3-pane unit is used as one body-sized frame. Explain it in `pitch.trick`.
-4. **Juice.** Feedback when something happens: flashes, glow (`g.shadowBlur`), particles or confetti, squash-and-stretch, trails, short text pops like "PERFECT". Use the TNT `smiley` for win/lose moments.
-5. **The plaza takes part.** `cast(i)` gives players colours matching their objects on the wall, and `fig(i,T)` makes them jump on success or slump on failure.
-6. **A HUD line that tells a story:** score, time left, who's winning, or what's happening next. Not just a static label.
-7. **A full loop:** start → play → end or success moment → restart. Nothing gets stuck after a few minutes.
-- **Build what was asked.** Don't run the full creative process (three tracks, the TNT test) here. Put your doubts in `pitch.open`; one line of creative feedback in your reply is fine.
-- **Language:** all text on the page and in the pitch card is in English, whatever language the request was in.
+- **Build what was asked.** Don't run the full creative process (three tracks, the TNT test) here. One line of creative feedback in your reply is fine.
 
 ## 3. Delivery
 
-This works the same from a Claude chat with the Order connector, Claude Code, or a bot.
-
-1. **Push straight to `main`**, with no pull request: this is a low-risk sketch site, and breakage is fixed by hand. Use `push_to_repo` with `direct:true` on `trynewthings-fail/proto`. Use the commit message `window-wall: add <Name>'s <idea name>`. If Order answers that direct push isn't allowed and opens a PR instead, say so and give the PR link. A team admin can tick "Allow direct push to main" for proto on the Window Wall board in Order.
-   If Order refuses with *"Only members of the project … can push"*, the requester isn't a member of the Order project *Exploratoriet: WindowProjection*. Don't retry another way. Give them the finished idea in a code block, and tell them a team admin must add them to the project; then the same push works. Before you push, make sure the review pass is done, because you may only get one try.
-2. Reply where you were asked (the chat or the Slack thread) with the live link `https://proto.trynewthings.studio/window-wall/#<id>` (GitHub Pages updates about a minute after the push) and the commit link. Reply in the requester's language.
-3. The *Window Wall check* GitHub Action runs the checker after the push. If you can't see the result (Order tools can't), ask the requester to open the link. If the idea shows "Idea crashed", they paste the message back and you push one fix.
+1. **Push straight to `main`** (low-risk site, breakage is reverted by hand): use `push_to_repo` with `direct:true` on `trynewthings-fail/proto`. Commit message: `window-wall: add <Name>'s <idea name>`.
+   - If Order says direct push isn't allowed and opens a PR, say so and give the PR link. A team admin can tick "Allow direct push to main" for proto on the Window Wall board.
+   - If Order refuses with *"Only members of the project … can push"*, the requester isn't a member of the Order project *Exploratoriet: WindowProjection*. Don't retry another way. Give them the finished idea in a code block, and tell them to get added to the project (a role in it, or a task assigned to them); then the same push works.
+2. Reply where you were asked, in the requester's language, with the live link `https://proto.trynewthings.studio/window-wall/#<id>` (GitHub Pages updates about a minute after the push) and the commit link.
+3. The *Window Wall check* GitHub Action runs the checker after each push. Order tools can't see it, so ask the requester to open the link. If the façade shows "Scenfel: …" or "Idea crashed", they paste the message back and you push one fix.
 
 If you can run commands (Claude Code), run `node window-wall/tools/check.mjs <id>` before pushing.
 
-## 4. Writing an idea
+## 4. Two formats: pick the engine format for new ideas
 
-Start from `ideas/_template.js`. The shape is:
+| | **Engine format** (recommended) | **WW format** (still supported) |
+|---|---|---|
+| Starts with | `Nattfonster.registrera({ … })` | `WW.register(W => ({ … }))` |
+| Draws in | **metres**, on the engine canvas (`ctx.g` is pre-scaled), y = 0 at the windows' top edge, y grows downward | **pixels** on its own canvas (`W.g`, 200 px/m), y = height above ground |
+| People | `input.personer`: `{id, x, avstand, hojd, barn, vx, fart, still, vinkar, …}` | `W.people` / `W.tracked()`: `{id, x, z, vx, walk, hojd, barn, vinkar}` |
+| Template | `ideas/_mall-nattfonster.js` | `ideas/_mall-ww.js` |
 
-```js
-WW.register(W=>{
-  const {g,PC,cellPx,cellBg,clearScreen,text}=W;   // take only what you use
-  return { id, cat, by, name, short, pitch:{…}, init(){}, update(dt){}, draw(T){}, hud(){}, cast(i){}, fig(i,T){} };
-});
-```
+The engine format gets real inputs for free: waving detection, children vs adults (`barn`, `hojd`), weather, aurora Kp, sun and darkness for Skellefteå, phones, and a WebSocket from TouchDesigner or sensors. That's why it's the default.
+
+## 5. Metadata (both formats). Every visible text is `{ sv, en }`
 
 | Field | Rule |
 |---|---|
 | `id` | lowercase-with-dashes, unique, same as the file name |
 | `cat` | `arcade` (fast, competitive) · `puzzle` (think together) · `crafty` (visitors make the content) · `visual` (stunning first, game second) |
-| `by` | **First name of the person who asked for the idea** (in chat or Slack). The page shows the title as "Anna's Bubble Pop". |
-| `name` | Idea name **without** the owner. `short` is 1–2 words for the menu pill. |
-| `playable` | Optional `true` only if a person can actually play it in the browser (keys or clicks). |
-| `crowd` | Optional `true` for depth-cam ideas: people wander the plaza, read them with `tracked()`. In the sketch there are always simulated people walking, so `tracked()` is never empty. |
-| Extra methods and state | Allowed on the returned object, or as closure variables inside `WW.register`. |
+| `by` | first name of the person who asked for the idea. The title shows as "Annas Bubblor" / "Anna's Bubbles" |
+| `steam` | one letter: `S` science · `T` technology · `E` engineering · `A` arts · `M` maths |
+| name, question, verbs | engine: `titel`, `fraga`, `verb` (Swedish) + `en: { titel, fraga, verb }`. WW: `name`, `short`, `fraga`, `verb` as `{ sv, en }` |
+| `pitch` | see below |
 
-**Pitch card**, kept short (icons do the talking):
-- `tagline`: one sentence.
-- `players`: `[icon,label]` with icon `person`, `group` or `crowd`.
-- `mode`: `versus`, `coop`, `teams` or `ambient`.
-- `round`: e.g. `'2 min'`; `'Drop in'`, `'Always on'` and `'All evening'` show an infinity icon.
-- `input`: a list of `[icon,label]`, main option first. **Prefer the depth cam (`cam`): we have Azure Kinect and Orbbec cameras.**
-- `for`: `kid teen family group school all`.
-- `how`: 3 short steps.
-- `trick`: how it uses the panes, mullions, transom or pier.
-- `needs`: a list of `[icon,label]`.
-- `open`: questions.
-- `meters`: `{read,crowd,effort}`, each 1–5.
+```js
+pitch: {
+  tagline: { sv, en },                       // one sentence that sells it
+  players: ['crowd', { sv: 'Alla', en: 'Anyone' }],   // icon person|group|crowd + label
+  mode: 'ambient',                           // versus | coop | teams | ambient
+  round: { sv: 'Kom när du vill', en: 'Drop in' },    // English starting All/Always/Drop gets ∞
+  input: [['cam', { sv, en }], …],           // main option first; prefer the depth cam
+  for: ['kid', 'family'],                    // kid teen family group school all
+  how: [{ sv, en }, { sv, en }, { sv, en }], // exactly 3 short steps
+  trick: { sv, en },                         // how it uses panes, mullions (spröjs), transom (tvärpost) or pier (muren)
+  needs: [['projector', { sv, en }], …],
+  open: [{ sv, en }],                        // 1–3 open questions
+  meters: { read: 4, crowd: 4, effort: 2 }   // 1–5: readable from 20 m, crowd pull, build effort
+}
+```
+Icons: `person group crowd kid teen family school phone cam pad button dial pencil scan touch kiosk clock infinity versus coop sparkle projector speaker wifi music eye wrench question joystick puzzle drop gear motion bolt`.
+Write natural Swedish, not translated-sounding. Text drawn **on the façade** may be one language; keep it short and big.
 
-Icon names: `person group crowd kid teen family school phone cam pad button dial pencil scan touch kiosk clock infinity versus coop sparkle projector speaker wifi music eye wrench question joystick puzzle drop gear motion bolt`
+## 6. Quality bar (check each before pushing)
 
-**Methods**
-- `init()`: reset everything; called each time the idea is selected.
-- `update(dt)`: simulate. `dt` is in seconds.
-- `draw(T)`: repaint the **whole** screen every frame, starting with `clearScreen()` or a full fill.
-- `hud()`: one short status string.
-- `cast(i)`: head colour for plaza person `i`. People 0–5 stand at the six columns and 6–14 are spectators. Return `null` for grey.
-- `fig(i,T)`: optional, returns `{jump:metres, slump:bool}`.
-- Optional extras:
-  - `click(px,py)`: the user clicked the façade, in canvas px.
-  - `key(key,down)`: return true if handled.
-  - `panel()`: extra HTML for the pitch card.
-  - `exit()`: called when leaving the idea.
+1. **Readable from 20 m.** Key objects are at least ~0.15 m across, bold and saturated on dark backgrounds. Almost no text on the panes.
+2. **Alive within 2 seconds with nobody playing.** Use simulated passers-by, bots or an attract mode. Real visitors will mostly see that state.
+3. **Uses the architecture on purpose.** Things cross a mullion, the transom or the pier and pop out again, or each pane is its own world, or a whole 3-pane unit is one body-sized frame. Explain it in `pitch.trick`.
+4. **Juice.** Glow, particles, squash-and-stretch, pops, ripples. Use the TNT smiley (`W.smiley`, or draw a face) for win and lose moments.
+5. **The plaza takes part.** React to `vinkar` (waving), standing still (`still`), children (`barn`) and distance. WW ideas: `cast(i)` colours the 3D figures, `fig(i,T)` makes them jump or slump.
+6. **A status line that tells a story.** WW: `hud()`. Engine format: the question is shown; draw scores big on the façade.
+7. **A full loop:** start → play → end or success moment → restart. Nothing gets stuck after a few minutes.
 
-**Make it alive with nobody playing.** Bots, attract mode or an animation must show the idea within about 2 seconds.
+## 7. API cheat sheet
 
-## 5. The WW API (from core.js)
+**Engine format.** `setup(ctx)` returns the state, `frame(ctx, st, input)` runs every frame, and `avsluta(st, ctx)` is optional cleanup. Optional extras: `knappar: [{ namn, gor(st, ctx) }]` (test buttons in the pitch card), `tangenter: true` plus `tangent(e, st, ctx)` for keys.
+- `ctx.g` (metres), `ctx.W`/`ctx.H`, `ctx.t`/`ctx.dt`, `ctx.rutor[12]` `{nr 1–12, sektion, kol 0–5, rad 0–1, x, y, w, h, cx, cy}`, `ctx.kolumner[6]` `{kol, x, w, cx, rutor}`, `ctx.sektioner[2]` (`_inner`, `_kol`, `_rader`).
+- `ctx.farg.<natt|krita|orange|is|norrsken|glod|rosa|kant>`, `ctx.steamFarg('S')`, `ctx.rgba(name|hex, a)`, `ctx.text(str, x, y, {storlek, typ:'grotesk'|'mono', farg, align, baseline, alpha, vikt, maxBredd})`, `ctx.form(farg, {fyllAlpha, bredd})`, `ctx.linje(k)`, `ctx.kolumnVid(x)`, `ctx.yForHojd(m)`, `ctx.slump(seed)`, `ctx.sprak` ('sv'|'en').
+- `input.personer[]`, `input.vader {temp, vind, vindriktning, nederbord, moln}`, `input.norrsken {kp}`, `input.sol {hojd, morker 0–1, tand}`, `input.tid` (Date), `input.telefon[]`.
+- `Rita`: `clamp lerp ease brus rgba blanda rundrekt oga klump blick narmast(personer, x, maxAvst)`.
+- Everything outside the 12 panes is masked black after `frame`, so draw freely.
 
-Units are **metres**. x runs along the wall from left to right, y is height above the ground. Panes are `(c,r)`: column `c` 0–5 from left, row `r` 0 top or 1 bottom. Columns 0–2 are unit 0 and 3–5 are unit 1, with the wide pier between columns 2 and 3.
+**WW format.** `init() update(dt) draw(T) hud()`, plus optional `cast fig click(px,py) key(key,down) panel() panelClick(act) exit() resetView() padVisible() pad(k,down) crowd`.
+- `W.g` (px), `wx(x) wy(y)`, `cellPx(c,r)` → `{x,y,w,h}`, `paneX paneY paneH colX unitCX`, `PY_BOT PY_TOP SX0 SX1 SY0 SY1 PW PHT PHB MUL TR PIER X0 PPM SW SH` (metres unless noted).
+- `clearScreen cellBg text rr smiley(ctx,…) silhouette bcell COLS ROWS RT`.
+- `people tracked() PC LIME PINK CYAN ORANGE VIOLET YELLOW FONT hexA clamp shuffle ic esc L`.
+- `W.view.reset/seat(c)`, `W.ui.refresh()`.
 
-| Name | What |
-|---|---|
-| `g` | The 2D context of the projector canvas (`SW × SH` px, `PPM` = 200 px per metre). The whole wall, including the hidden areas behind frames. |
-| `wx(x)`, `wy(y)` | Metres → canvas px (`wy` flips, so higher y means a smaller px value). |
-| `cellPx(c,r)` | `{x,y,w,h}` pane rect in px. Each pane is 0.60 m wide; the top pane is 1.48 m tall, the bottom 1.28 m. |
-| `paneX(c)` `paneY(r)` `paneH(r)` `colX(c)` `unitCX(u)` | Pane left edge, bottom edge, height, column centre x, unit centre x (m). |
-| `PY_BOT` `PY_TOP` `SX0` `SX1` `SY0` `SY1` `PW` `PHT` `PHB` `MUL` `TR` `PIER` `X0` | All in **metres**: bottom of the bottom panes / top of the top panes, canvas extents, pane width (0.60) and heights (1.48 / 1.28), mullion (0.14), transom (0.19), pier (0.75), centre x of the pier. Convert with `wx`/`wy`. |
-| `clearScreen(col)` `cellBg(c,r,top,bottom)` `text(str,x,y,size,col,weight)` `rr(x,y,w,h,r)` | Fill all; pane gradient (returns rect); centred Alegreya text; rounded-rect path. |
-| `smiley(ctx,x,y,R,happy,col,wobble)` | The Try New Things smiley. `happy=false` turns it sad. |
-| `silhouette(x,h,variant,T,wave,walk,fill,eyes)` | A person shape `h` m tall standing on the sill. Variants: 0 human, 1 moose, 2 troll, 3 hare. |
-| `bcell(c,x,y)` `COLS` `ROWS` `RT` | A 6 × 28 block grid per column (rows 0–14 top pane). Returns `[x,y,w,h]`. |
-| `people` `tracked()` | Plaza visitors `{x,z,vx,walk}`: `x` along the wall, `z` metres from the wall. `tracked()` = those in range of the cameras. |
-| `PC` `LIME` `PINK` `CYAN` `ORANGE` `VIOLET` `YELLOW` `FONT` | Palette: `PC` is these 6 colours in that order (lime `#CAFE03` first), all `#rrggbb`. Plus the font. |
-| `hexA('#rrggbb',a)` `clamp(v,a,b)` `shuffle(arr)` `ic(name)` `esc(str)` `ICONS` | Small utilities. `hexA` only takes 6-digit hex. |
-| `W.view.reset(anim)` `W.view.seat(c)` `W.ui.refresh()` | Camera to default / behind column `c`; re-render the pitch card. |
-
-## 6. Design rules
-
-- It's seen from about 20 m, so use big shapes, strong contrast and almost no text on the panes.
-- **Use the frames.** Things can pass behind mullions, the transom or the pier and pop out again. Each 3-pane unit is roughly body-sized.
-- Use the house style: lime on black, the player colours in `PC`, and Alegreya.
-- Keep it to one clear verb ("stomp", "rotate", "draw") and something that only works together.
-
-Closest existing ideas to learn from (read two or three, see section 2):
+## 8. Closest existing ideas
 
 | If the idea is… | Read |
 |---|---|
-| Per-pane cards or rooms | `memory.js` or `residents.js` |
-| Things falling down columns | `rhythm.js` |
-| A ball or objects crossing the whole wall | `pong.js` or `aquarium.js` |
-| Reacting to people (depth cam) | `shadows.js` (28 lines) or `aurora.js` |
-| Click/tap tiles | `relay.js` (large; only if you need clicks) |
+| Each pane its own world, reacting to people | `glaslador.js`, `huset-tittar.js`, `munnarna.js` |
+| Silhouettes and shadows of visitors | `skuggteatern.js`, `shadows.js` |
+| Things moving across the whole wall, behind the pier | `upp-och-ner.js`, `stjarnfall.js`, `aquarium.js` |
+| A game where people run between columns | `jaga-ljuset.js`, `tolv-rutor.js` |
+| Weather or sky data | `kyla.js`, `stjarnfall.js` |
+| Click or tap tiles on the façade | `relay.js` (WW) |
+| Keys or a playable game | `fonstertetris.js`, `tetris.js` |

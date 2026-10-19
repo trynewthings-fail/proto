@@ -2,16 +2,18 @@
 WW.register(W=>{
 const {g,PC,PW,PPM,PY_BOT,PY_TOP,colX,cellPx,cellBg,clearScreen,text,hexA,rr,shuffle,wx,wy}=W;
 return {
-  id:'rhythm',cat:'arcade',by:'Lukas',name:'Stomp Lanes',short:'Stomp Lanes',
+  id:'rhythm',cat:'arcade',by:'Lukas',name:{sv:'Stampbanor',en:'Stomp Lanes'},short:{sv:'Stampbanor',en:'Stomp Lanes'},steam:'A',
+  fraga:{sv:'Kan du känna takten utan att se den?',en:'Can you feel a beat without seeing it?'},
+  verb:{sv:'stampa, lyssna, träffa',en:'stomp, listen, hit'},
   pitch:{
-    tagline:'Six lanes, six spots on the ground. Stomp when the note lands.',
-    players:['person','6'],mode:'coop',round:'90 s',
-    input:[['cam','Depth cam sees stomps'],['pad','Floor pads']],
+    tagline:{sv:'Sex banor, sex fläckar på marken. Stampa när noten landar.',en:'Six lanes, six spots on the ground. Stomp when the note lands.'},
+    players:['person','6'],mode:'coop',round:{sv:'90 s',en:'90 s'},
+    input:[['cam',{sv:'Djupkameran ser stampen',en:'Depth cam sees stomps'}],['pad',{sv:'Golvplattor',en:'Floor pads'}]],
     for:['kid','group','school'],
-    how:['Notes fall down each column.','Stomp on your painted spot as they hit the line.','All lanes add up to one team score.'],
-    trick:'Notes disappear behind the transom on the way down, so you have to feel the beat instead of reading it.',
-    needs:[['projector','Projector'],['cam','Depth cam'],['speaker','Speaker'],['music','Music']],
-    open:['License music or make our own?','Evening volume limits.'],
+    how:[{sv:'Noter faller ner i varje kolumn.',en:'Notes fall down each column.'},{sv:'Stampa på din målade fläck när de når linjen.',en:'Stomp on your painted spot as they hit the line.'},{sv:'Alla banor blir en gemensam lagpoäng.',en:'All lanes add up to one team score.'}],
+    trick:{sv:'Noterna försvinner bakom tvärposten på vägen ner, så du måste känna takten i stället för att läsa den.',en:'Notes disappear behind the transom on the way down, so you have to feel the beat instead of reading it.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera',en:'Depth cam'}],['speaker',{sv:'Högtalare',en:'Speaker'}],['music',{sv:'Musik',en:'Music'}]],
+    open:[{sv:'Licensera musik eller göra egen?',en:'License music or make our own?'},{sv:'Hur högt får det låta på kvällen?',en:'Evening volume limits.'}],
     meters:{read:5,crowd:5,effort:2}
   },
   bpm:116,yTop:PY_TOP+0.12,yHit:PY_BOT+0.22,travel:2.4,

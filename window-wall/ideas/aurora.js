@@ -5,16 +5,18 @@ function vgrad(stops){const c=document.createElement('canvas');c.width=1;c.heigh
 const AUR1=vgrad([[0,'rgba(169,139,255,0)'],[0.45,'rgba(53,224,255,.45)'],[0.9,'rgba(202,254,3,.95)'],[1,'rgba(202,254,3,0)']]);
 const AUR2=vgrad([[0,'rgba(255,79,184,0)'],[0.6,'rgba(255,79,184,.6)'],[1,'rgba(255,79,184,0)']]);
 return {
-  id:'aurora',cat:'visual',by:'Lukas',name:'Plaza Aurora',short:'Aurora',crowd:true,
+  id:'aurora',cat:'visual',by:'Lukas',name:{sv:'Torgets norrsken',en:'Plaza Aurora'},short:{sv:'Norrsken',en:'Aurora'},steam:'S',crowd:true,
+  fraga:{sv:'Varför lyser himlen grönt och lila nära polerna?',en:'Why does the sky glow green and purple near the poles?'},
+  verb:{sv:'gå, samlas, lysa upp',en:'walk, gather, light up'},
   pitch:{
-    tagline:'Northern lights that follow the people on the plaza.',
-    players:['crowd','∞'],mode:'ambient',round:'Always on',
-    input:[['cam','Your movement']],
+    tagline:{sv:'Norrsken som följer människorna på torget.',en:'Northern lights that follow the people on the plaza.'},
+    players:['crowd','∞'],mode:'ambient',round:{sv:'Alltid på',en:'Always on'},
+    input:[['cam',{sv:'Dina rörelser',en:'Your movement'}]],
     for:['all'],
-    how:['Aurora curtains ripple across all 12 panes.','Walk past and the light gathers above you.','More people, brighter sky.'],
-    trick:'One continuous sky behind the frames makes the panes read as real windows looking out, not twelve screens.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2'],['speaker','Ambient sound']],
-    open:['Default look when the plaza is empty?','Add a soft sound layer?'],
+    how:[{sv:'Norrskensdraperier böljar över alla 12 rutor.',en:'Aurora curtains ripple across all 12 panes.'},{sv:'Gå förbi så samlas ljuset ovanför dig.',en:'Walk past and the light gathers above you.'},{sv:'Fler människor, ljusare himmel.',en:'More people, brighter sky.'}],
+    trick:{sv:'En sammanhängande himmel bakom ramarna gör att rutorna ser ut som riktiga fönster ut mot himlen, inte tolv skärmar.',en:'One continuous sky behind the frames makes the panes read as real windows looking out, not twelve screens.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}],['speaker',{sv:'Stämningsljud',en:'Ambient sound'}]],
+    open:[{sv:'Hur ser det ut när torget är tomt?',en:'Default look when the plaza is empty?'},{sv:'Lägga till ett mjukt ljudlager?',en:'Add a soft sound layer?'}],
     meters:{read:5,crowd:3,effort:1}
   },
   init(){this.stars=[...Array(140)].map(()=>[Math.random()*SW,Math.random()*SH*0.85,Math.random()*6]);},

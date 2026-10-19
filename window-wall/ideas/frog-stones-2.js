@@ -279,16 +279,18 @@ function drawReeds(T){
 }
 
 return {
-  id:'frog-stones-2',cat:'puzzle',by:'Lukas',name:'Frog Stones 2',short:'Frogs 2',crowd:true,
+  id:'frog-stones-2',cat:'puzzle',by:'Lukas',name:{sv:'Grodstenar 2',en:'Frog Stones 2'},short:{sv:'Grodor 2',en:'Frogs 2'},steam:'E',crowd:true,
+  fraga:{sv:'Hur bygger man en bro som är för lång för en ensam?',en:'How do you build a bridge too long for one person?'},
+  verb:{sv:'lyfta, mötas, rädda',en:'lift, meet, rescue'},
   pitch:{
-    tagline:'Raise the stones with your body. Get the frogs across the pond before dawn.',
-    players:['group','2–8'],mode:'coop',round:'90 s',
-    input:[['cam','Depth cam: where you stand'],['pad','Floor pads']],
+    tagline:{sv:'Lyft stenarna med kroppen. Få grodorna över dammen innan gryningen.',en:'Raise the stones with your body. Get the frogs across the pond before dawn.'},
+    players:['group','2–8'],mode:'coop',round:{sv:'90 s',en:'90 s'},
+    input:[['cam',{sv:'Djupkamera: var du står',en:'Depth cam: where you stand'}],['pad',{sv:'Golvplattor',en:'Floor pads'}]],
     for:['kid','family','school'],
-    how:['Stand at a window: a stone in your colour rises from the pond.','Step back to lift it into the top panes, where the fireflies are.','Meet at the pier: no frog can leap it alone.'],
-    trick:'One moonlit pond runs behind all 12 panes. Step back and your stone grows past the transom into the top pane; frogs leap behind mullions and pop out. The pier is too wide for any frog, so someone has to stand right beside it. The moon is the clock and slides behind the frames.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2'],['speaker','Croaks and splashes']],
-    open:['A 90 s night, or drop in with no clock?','Running knocks the frogs off: fair, or too harsh for small kids?','Should fireflies count towards the goal?','Does step-back-to-lift read without a sign?'],
+    how:[{sv:'Ställ dig vid ett fönster: en sten i din färg stiger ur dammen.',en:'Stand at a window: a stone in your colour rises from the pond.'},{sv:'Ta ett steg bakåt för att lyfta den till de övre rutorna, där eldflugorna är.',en:'Step back to lift it into the top panes, where the fireflies are.'},{sv:'Mötas vid muren: ingen groda klarar hoppet över den ensam.',en:'Meet at the pier: no frog can leap it alone.'}],
+    trick:{sv:'En månbelyst damm löper bakom alla 12 rutor. Ta ett steg bakåt så växer din sten förbi tvärposten upp i den övre rutan; grodorna hoppar bakom spröjsen och dyker upp igen. Muren är för bred för alla grodor, så någon måste stå precis bredvid den. Månen är klockan och glider bakom ramarna.',en:'One moonlit pond runs behind all 12 panes. Step back and your stone grows past the transom into the top pane; frogs leap behind mullions and pop out. The pier is too wide for any frog, so someone has to stand right beside it. The moon is the clock and slides behind the frames.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}],['speaker',{sv:'Kvack och plask',en:'Croaks and splashes'}]],
+    open:[{sv:'En natt på 90 s, eller kom när du vill utan klocka?',en:'A 90 s night, or drop in with no clock?'},{sv:'Springer man ramlar grodorna av: rättvist, eller för hårt för små barn?',en:'Running knocks the frogs off: fair, or too harsh for small kids?'},{sv:'Ska eldflugorna räknas mot målet?',en:'Should fireflies count towards the goal?'},{sv:'Förstår man steg-bakåt-för-att-lyfta utan skylt?',en:'Does step-back-to-lift read without a sign?'}],
     meters:{read:5,crowd:4,effort:3}
   },
   init(){

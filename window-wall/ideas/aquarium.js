@@ -2,16 +2,18 @@
 WW.register(W=>{
 const {g,LIME,PC,PPM,SW,SH,SX0,SX1,SY0,SY1,PY_BOT,PY_TOP,cellPx,text,hexA,rr,clamp,wx,wy}=W;
 return {
-  id:'aquarium',cat:'crafty',by:'Lukas',name:'Draw-a-Creature Aquarium',short:'Aquarium',crowd:true,
+  id:'aquarium',cat:'crafty',by:'Lukas',name:{sv:'Ritakvariet',en:'Draw-a-Creature Aquarium'},short:{sv:'Akvariet',en:'Aquarium'},steam:'A',crowd:true,
+  fraga:{sv:'Hur skulle ett djur du hittat på simma?',en:'How would a creature you invented swim?'},
+  verb:{sv:'rita, skanna, släppa ut',en:'draw, scan, release'},
   pitch:{
-    tagline:'Draw a creature inside, watch it swim across the façade outside.',
-    players:['crowd','∞'],mode:'ambient',round:'All evening',
-    input:[['scan','Scan a drawing'],['phone','Draw on phone']],
+    tagline:{sv:'Rita ett djur där inne, se det simma över fasaden där ute.',en:'Draw a creature inside, watch it swim across the façade outside.'},
+    players:['crowd','∞'],mode:'ambient',round:{sv:'Hela kvällen',en:'All evening'},
+    input:[['scan',{sv:'Skanna en teckning',en:'Scan a drawing'}],['phone',{sv:'Rita i mobilen',en:'Draw on phone'}]],
     for:['kid','family'],
-    how:['Colour a fish template in the lobby.','Scan it.','It swims out on the façade with a NEW tag.'],
-    trick:'The panes become portholes into one big tank. Fish swim behind the frames, so the whole building seems full of water.',
-    needs:[['projector','Projector'],['scan','Scanner station'],['wifi','Web server']],
-    open:['Moderating phone drawings?','Fish that follow people outside (depth cam)?'],
+    how:[{sv:'Färglägg en fiskmall i entrén.',en:'Colour a fish template in the lobby.'},{sv:'Skanna den.',en:'Scan it.'},{sv:'Den simmar ut på fasaden, märkt NEW.',en:'It swims out on the façade with a NEW tag.'}],
+    trick:{sv:'Rutorna blir hyttventiler in i en enda stor tank. Fiskarna simmar bakom ramarna, så hela huset ser ut att vara fullt av vatten.',en:'The panes become portholes into one big tank. Fish swim behind the frames, so the whole building seems full of water.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['scan',{sv:'Skannerstation',en:'Scanner station'}],['wifi',{sv:'Webbserver',en:'Web server'}]],
+    open:[{sv:'Hur modererar vi teckningar från mobilen?',en:'Moderating phone drawings?'},{sv:'Fiskar som följer folk där ute (djupkamera)?',en:'Fish that follow people outside (depth cam)?'}],
     meters:{read:4,crowd:5,effort:3}
   },
   mk(isNew){const dir=isNew?1:(Math.random()<.5?1:-1);const jelly=!isNew&&Math.random()<0.2;

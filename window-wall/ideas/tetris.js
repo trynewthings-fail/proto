@@ -98,16 +98,18 @@ function block(c,x,y,col){
 const KEYS={ArrowLeft:'left',a:'left',ArrowRight:'right',d:'right',ArrowUp:'rot',w:'rot',x:'rot',z:'ccw',ArrowDown:'soft',s:'soft',' ':'drop'};
 
 return {
-  id:'tetris',cat:'arcade',by:'Lukas',name:'Tetris Battle',short:'Tetris Battle',playable:true,
+  id:'tetris',cat:'arcade',by:'Lukas',name:{sv:'Tetrisduell',en:'Tetris Battle'},short:{sv:'Tetrisduell',en:'Tetris Battle'},steam:'M',playable:true,
+  fraga:{sv:'Hur många sätt kan fyra rutor sitta ihop på?',en:'How many ways can four squares fit together?'},
+  verb:{sv:'vrida, stapla, rensa',en:'rotate, stack, clear'},
   pitch:{
-    tagline:'Six tall wells. Clear lines to bury your neighbours.',
-    players:['person','6'],mode:'versus',round:'2–3 min',
-    input:[['phone','Phone'],['cam','Depth cam gestures']],
+    tagline:{sv:'Sex höga brunnar. Rensa rader och begrav grannarna.',en:'Six tall wells. Clear lines to bury your neighbours.'},
+    players:['person','6'],mode:'versus',round:{sv:'2–3 min',en:'2–3 min'},
+    input:[['phone',{sv:'Mobil',en:'Phone'}],['cam',{sv:'Djupkamera: gester',en:'Depth cam gestures'}]],
     for:['teen','family'],
-    how:['One column is one well: top pane plus bottom pane.','Clear 2+ lines to send garbage to your neighbours.','Last stack standing wins.'],
-    trick:'The transom is a blind spot: pieces vanish for a beat between panes. Garbage flies behind the mullions to the person standing next to you.',
-    needs:[['projector','Projector'],['wifi','Web server'],['speaker','Speaker']],
-    open:['Six blocks wide: too narrow?','Join mid-round, or wait?'],
+    how:[{sv:'En kolumn är en brunn: övre plus nedre rutan.',en:'One column is one well: top pane plus bottom pane.'},{sv:'Rensa 2+ rader så flyger skräp till grannarna.',en:'Clear 2+ lines to send garbage to your neighbours.'},{sv:'Sista stapeln kvar vinner.',en:'Last stack standing wins.'}],
+    trick:{sv:'Tvärposten är en död vinkel: bitarna försvinner en stund mellan rutorna. Skräpet flyger bakom spröjsen till den som står bredvid dig.',en:'The transom is a blind spot: pieces vanish for a beat between panes. Garbage flies behind the mullions to the person standing next to you.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['wifi',{sv:'Webbserver',en:'Web server'}],['speaker',{sv:'Högtalare',en:'Speaker'}]],
+    open:[{sv:'Sex block brett: för smalt?',en:'Six blocks wide: too narrow?'},{sv:'Hoppa in mitt i rundan, eller vänta?',en:'Join mid-round, or wait?'}],
     meters:{read:3,crowd:5,effort:3}
   },
   wells:[],proj:[],t:0,phase:'play',endT:0,winner:null,human:-1,sdT:0,

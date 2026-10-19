@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Projektorer och mått · Nattfönstren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: en läsbar kolumn: förslaget först, sedan tabeller, bilder, mått och frågor. Samma svarta/lime look som skissen. */
+  :root { --natt:#000; --linje:rgba(244,255,216,.16); --krita:#f4ffd8; --dim:rgba(244,255,216,.66); --lime:#cafe03; --E:#ffb21e; --varn:#ff6b6b;
+    --serif:"Alegreya", Georgia, "Times New Roman", serif; --mono:"IBM Plex Mono", Menlo, monospace; color-scheme:dark; }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body { margin:0; background:var(--natt); color:var(--krita); font:18px/1.5 var(--serif); }
+  .wrap { max-width:1060px; margin:0 auto; padding:32px max(16px, env(safe-area-inset-right,0px)) 80px max(16px, env(safe-area-inset-left,0px)); display:grid; gap:40px; }
+  .topp { display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; }
+  .topp a { color:var(--lime); font-weight:700; text-decoration:none; }
+  .sprak { display:inline-flex; border:1.5px solid var(--linje); border-radius:999px; overflow:hidden; }
+  .sprak button { font:600 13px/1 var(--mono); background:transparent; color:var(--krita); border:0; padding:7px 10px; cursor:pointer; }
+  .sprak button[aria-pressed="true"] { background:var(--lime); color:#000; }
+  h1, h2, h3 { margin:0; text-wrap:balance; }
+  h1 { font-size:clamp(40px, 7vw, 76px); line-height:.95; font-weight:800; }
+  h1 em { font-style:italic; color:var(--lime); font-weight:400; }
+  h2 { font-size:clamp(28px, 4vw, 40px); font-weight:800; }
+  h3 { font-size:22px; }
+  .eyebrow { font:500 12px/1.4 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  section { display:grid; gap:16px; }
+  section > p, .lista { max-width:68ch; margin:0; color:var(--dim); }
+  .lista { padding-left:1.1em; display:grid; gap:6px; }
+  .rek { border:2px solid var(--lime); border-radius:14px; padding:18px 20px; display:grid; gap:8px; max-width:76ch; }
+  .rek h3 { color:var(--lime); }
+  .rek p { margin:0; }
+  .tabell { overflow-x:auto; border:1px solid var(--linje); border-radius:10px; }
+  table { border-collapse:collapse; width:100%; font-size:16px; min-width:620px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--linje); vertical-align:top; }
+  th { font:500 12px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  td.num { font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .ok { color:var(--lime); } .oklart { color:var(--E); }
+  .bilder { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:14px; }
+  .bilder figure { margin:0; }
+  .bilder img { width:100%; border-radius:8px; border:1px solid var(--linje); display:block; }
+  .bilder figcaption { font:12px var(--mono); color:var(--dim); margin-top:6px; }
+  .not { font:13px/1.5 var(--mono); color:var(--dim); max-width:90ch; margin:0; }
+  .kallor { font:13px/1.6 var(--mono); color:var(--dim); columns:2 280px; gap:24px; margin:0; padding-left:1.1em; }
+  .kallor a { color:var(--krita); }
+  ol.fragor { margin:0; padding-left:1.3em; display:grid; gap:6px; max-width:72ch; }
+  .av { font:13px var(--mono); color:var(--dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topp">
+    <a href="./" data-sv="← Tillbaka till skissen" data-en="← Back to the sketch">← Tillbaka till skissen</a>
+    <div class="sprak" role="group" aria-label="Språk / Language"><button type="button" data-sprak="sv">SV</button><button type="button" data-sprak="en">EN</button></div>
+  </div>
+
+  <header style="display:grid;gap:12px">
+    <span class="eyebrow" data-sv="Underlag · uppskattningar, inte uppmätt" data-en="Background · estimates, not measured">Underlag · uppskattningar, inte uppmätt</span>
+    <h1><span data-sv="Projektorer och mått" data-en="Projectors and measurements">Projektorer och mått</span> <em data-sv="för 1,5 m djup" data-en="for 1.5 m depth">för 1,5 m djup</em></h1>
+    <p class="av" data-sv="Projektoranalysen är gjord av Linus. Måtten från fotot är gjorda av Lukas." data-en="Projector analysis by Linus. Measurements from the photo by Lukas.">Projektoranalysen är gjord av Linus. Måtten från fotot är gjorda av Lukas.</p>
+  </header>
+
+  <section>
+    <h2 data-sv="Förslag: två liggande projektorer per fönster" data-en="Proposal: two landscape projectors per window">Förslag: två liggande projektorer per fönster</h2>
+    <div class="rek">
+      <p lang="sv">En projektor per rad om tre rutor, fyra totalt. Skarven hamnar bakom fönstrets tvärpost. Det ryms på 1,5 m med vanligt kort kast, ger nästan dubbelt så mycket ljus som en stående projektor och kostar ungefär en sjättedel. Den övre projektorn hänger i taket och den nedre står på golvet, så att inget stativ skär genom en ljuskägla.</p>
+      <p lang="en">One projector per row of three panes, four in total. The seam lands behind the window's transom. It fits in 1.5 m with an ordinary short throw, gives almost twice the light of a single portrait projector and costs about a sixth. The upper projector hangs from the ceiling and the lower stands on the floor, so no stand cuts through a light cone.</p>
+    </div>
+    <div class="tabell"><table>
+      <thead><tr><th></th><th data-sv="A: 1 per fönster, stående" data-en="A: 1 per window, portrait">A: 1 per fönster, stående</th><th data-sv="B: 2 per fönster, liggande" data-en="B: 2 per window, landscape">B: 2 per fönster, liggande</th></tr></thead>
+      <tbody>
+        <tr><td data-sv="Modell" data-en="Model">Modell</td><td data-sv="Panasonic PT-RZ790 + objektiv ET-DLE020" data-en="Panasonic PT-RZ790 + ET-DLE020 lens">Panasonic PT-RZ790 + objektiv ET-DLE020</td><td data-sv="Epson EB-L210SF eller Optoma ZH450ST" data-en="Epson EB-L210SF or Optoma ZH450ST">Epson EB-L210SF eller Optoma ZH450ST</td></tr>
+        <tr><td data-sv="Kast som krävs" data-en="Throw needed">Kast som krävs</td><td class="num" data-sv="≤ 0,28–0,30:1 (specialobjektiv)" data-en="≤ 0.28–0.30:1 (special lens)">≤ 0,28–0,30:1 (specialobjektiv)</td><td class="num" data-sv="≤ 0,47:1 (vanligt kort kast)" data-en="≤ 0.47:1 (ordinary short throw)">≤ 0,47:1 (vanligt kort kast)</td></tr>
+        <tr><td data-sv="Ryms i 1,5 m?" data-en="Fits in 1.5 m?">Ryms i 1,5 m?</td><td class="oklart" data-sv="Oklart: projektorns djup med objektiv saknas" data-en="Unclear: the projector's depth with lens is unknown">Oklart: projektorns djup med objektiv saknas</td><td class="ok" data-sv="Ja, ca 1,37–1,49 m" data-en="Yes, about 1.37–1.49 m">Ja, ca 1,37–1,49 m</td></tr>
+        <tr><td data-sv="Ljus på filmen" data-en="Light on the film">Ljus på filmen</td><td class="num" data-sv="ca 690 lux" data-en="about 690 lux">ca 690 lux</td><td class="num" data-sv="ca 1 000–1 200 lux" data-en="about 1,000–1,200 lux">ca 1 000–1 200 lux</td></tr>
+        <tr><td data-sv="Överspill" data-en="Spill">Överspill</td><td data-sv="ca 0,9 m per fönster hamnar på väggen" data-en="about 0.9 m per window lands on the wall">ca 0,9 m per fönster hamnar på väggen</td><td data-sv="nästan inget" data-en="almost none">nästan inget</td></tr>
+        <tr><td data-sv="Hårdvara" data-en="Hardware">Hårdvara</td><td class="num" data-sv="ca 50 000 € (≈ 550 tkr)" data-en="about €50,000 (≈ SEK 550k)">ca 50 000 € (≈ 550 tkr)</td><td class="num" data-sv="ca 6 500–8 700 € (≈ 72–96 tkr)" data-en="about €6,500–8,700 (≈ SEK 72–96k)">ca 6 500–8 700 € (≈ 72–96 tkr)</td></tr>
+      </tbody></table></div>
+    <div class="tabell"><table>
+      <thead><tr><th data-sv="Modell" data-en="Model">Modell</th><th data-sv="Kast" data-en="Throw">Kast</th><th data-sv="Ljus" data-en="Light">Ljus</th><th data-sv="Upplösning" data-en="Resolution">Upplösning</th><th data-sv="Djup" data-en="Depth">Djup</th><th data-sv="Pris per styck" data-en="Price each">Pris per styck</th></tr></thead>
+      <tbody>
+        <tr><td>Epson EB-L210SF</td><td class="num">0,45–0,61:1 zoom</td><td class="num">4 000 lm</td><td>1080p</td><td class="num">337 mm</td><td class="num" data-sv="ca 1 630–2 190 €" data-en="about €1,630–2,190">ca 1 630–2 190 €</td></tr>
+        <tr><td>Optoma ZH450ST</td><td class="num">0,496:1</td><td class="num">4 200 lm</td><td>1080p</td><td class="num">216 mm</td><td class="num" data-sv="ca 1 700–1 840 €" data-en="about €1,700–1,840">ca 1 700–1 840 €</td></tr>
+        <tr><td>Panasonic PT-RZ790</td><td data-sv="med objektiv nedan" data-en="with the lens below">med objektiv nedan</td><td class="num">7 000 lm</td><td>WUXGA</td><td data-sv="okänt" data-en="unknown">okänt</td><td class="num" data-sv="ca 12 400 €" data-en="about €12,400">ca 12 400 €</td></tr>
+        <tr><td data-sv="Panasonic ET-DLE020 (objektiv)" data-en="Panasonic ET-DLE020 (lens)">Panasonic ET-DLE020 (objektiv)</td><td class="num">0,280–0,299:1</td><td></td><td></td><td data-sv="okänt" data-en="unknown">okänt</td><td class="num" data-sv="ca 12 400 €" data-en="about €12,400">ca 12 400 €</td></tr>
+      </tbody></table></div>
+    <p class="not" lang="sv">Priserna kommer från europeiska återförsäljare och är omräknade med en antagen kurs på 11 kr/€. Ljuset är räknat som lumen × 0,85 / bildyta, utan filmens förstärkning, spill och gatubelysning. Det som avgör är en svensk offert och en testkväll på plats. Projektorvyn (Inifrån 3D i skissen) räknar om allt när du byter modell eller djup.</p>
+    <p class="not" lang="en">Prices are from European resellers, converted at an assumed 11 SEK/€. Light is estimated as lumens × 0.85 / image area, without screen gain, spill or street lighting. What decides it is a Swedish quote and a test evening on site. The projector view (Inside 3D in the sketch) recalculates everything when you change model or depth.</p>
+    <div class="bilder">
+      <figure><img src="media/3d-profil-2per.jpg" alt="" loading="lazy"><figcaption data-sv="Profil: två per fönster inom 1,5 m. Den gula linjen är bakväggen." data-en="Profile: two per window within 1.5 m. The yellow line is the back wall.">Profil: två per fönster inom 1,5 m. Den gula linjen är bakväggen.</figcaption></figure>
+      <figure><img src="media/3d-inifran-epson-l210sf.jpg" alt="" loading="lazy"><figcaption data-sv="Inifrån: 4 × Epson EB-L210SF. Innehållet syns spegelvänt, som vid bakprojektion. (Bilden är från Linus första mått.)" data-en="From inside: 4 × Epson EB-L210SF. The content is mirrored, as with rear projection. (Image from Linus's first measurements.)">Inifrån: 4 × Epson EB-L210SF. Innehållet syns spegelvänt, som vid bakprojektion. (Bilden är från Linus första mått.)</figcaption></figure>
+    </div>
+    <h3 data-sv="Övrigt att räkna med" data-en="Also budget for">Övrigt att räkna med</h3>
+    <ul class="lista" lang="sv"><li>Bakprojektionsfilm, ca 12–15 m². Märkesfilm verkar kosta några hundra dollar per m²; behöver offert.</li><li>Uppspelningsdator med fyra utgångar, TouchDesigner-licens, fästen, takstänger, el och nätverk.</li><li>Djupkameror (Azure Kinect / Orbbec, finns redan) och en dator som skickar personerna till utgången (WebSocket, se ?ws= i skissen).</li><li>Hyra i stället för att köpa första vintern? Inga svenska hyrpriser hittades.</li><li>En dag för installation och injustering, plus testkvällen.</li></ul>
+    <ul class="lista" lang="en"><li>Rear-projection film, about 12–15 m². Branded film seems to cost a few hundred dollars per m²; needs a quote.</li><li>Playback computer with four outputs, TouchDesigner licence, mounts, ceiling poles, power and network.</li><li>Depth cameras (Azure Kinect / Orbbec, already owned) and a computer that sends the people to the output (WebSocket, see ?ws= in the sketch).</li><li>Rent instead of buy the first winter? No Swedish rental prices were found.</li><li>A day for installation and calibration, plus the test evening.</li></ul>
+  </section>
+
+  <section>
+    <h2 data-sv="Måtten: två uppskattningar" data-en="The measurements: two estimates">Måtten: två uppskattningar</h2>
+    <p lang="sv">Skissen använder måtten från fotot (de skiljer sig från briefen). Alla vyer läser samma fil, <code>config/fasad.js</code>, så ändra där när fönstren är uppmätta.</p>
+    <p lang="en">The sketch uses the measurements from the photo (they differ from the brief). Every view reads the same file, <code>config/fasad.js</code>, so change it there once the windows are measured.</p>
+    <div class="tabell"><table>
+      <thead><tr><th></th><th data-sv="Fotot (används)" data-en="Photo (in use)">Fotot (används)</th><th data-sv="Briefen" data-en="The brief">Briefen</th></tr></thead>
+      <tbody>
+        <tr><td data-sv="Fönster (karm till karm)" data-en="Window (frame to frame)">Fönster (karm till karm)</td><td class="num">2,24 × 3,11 m</td><td class="num">2,5 × 3,0 m</td></tr>
+        <tr><td data-sv="Ruta" data-en="Pane">Ruta</td><td class="num" data-sv="0,60 m bred · 1,48 m (övre) / 1,28 m (nedre)" data-en="0.60 m wide · 1.48 m (top) / 1.28 m (bottom)">0,60 m bred · 1,48 m (övre) / 1,28 m (nedre)</td><td class="num" data-sv="ca 0,74 × 1,38 m" data-en="about 0.74 × 1.38 m">ca 0,74 × 1,38 m</td></tr>
+        <tr><td data-sv="Spröjs / tvärpost" data-en="Mullion / transom">Spröjs / tvärpost</td><td class="num">0,14 / 0,19 m</td><td class="num">0,07 / 0,07 m</td></tr>
+        <tr><td data-sv="Karm" data-en="Frame">Karm</td><td class="num">0,08 m</td><td class="num">0,09 m</td></tr>
+        <tr><td data-sv="Mur mellan fönstren" data-en="Pier between windows">Mur mellan fönstren</td><td class="num">0,75 m</td><td class="num">0,75 m</td></tr>
+        <tr><td data-sv="Fönstrets underkant över mark" data-en="Window sill above ground">Fönstrets underkant över mark</td><td class="num">0,75 m</td><td class="num">0,9 m</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <section>
+    <h2 data-sv="Att ta reda på innan offert" data-en="To find out before a quote">Att ta reda på innan offert</h2>
+    <ol class="fragor" lang="sv"><li>Glasets exakta bredd och höjd, och spröjsens och tvärpostens bredd.</li><li>Är 1,5 m fritt golv från glaset, utan radiatorer eller fönsterbänkar?</li><li>Sitter spröjsen på insidan av glaset? Då kastar de skuggor, och ju kortare kast desto större.</li><li>Går det att fästa i taket, och hur högt är det?</li><li>Finns el och nätverk vid fönstren?</li><li>Var kan djupkamerorna sitta så att de ser torget, och klarar de kylan?</li><li>Köpa eller hyra första vintern?</li></ol>
+    <ol class="fragor" lang="en"><li>The glass's exact width and height, and the mullion and transom widths.</li><li>Is there 1.5 m of free floor behind the glass, without radiators or window sills?</li><li>Are the mullions on the inside of the glass? Then they cast shadows, and the shorter the throw the bigger.</li><li>Can we mount to the ceiling, and how high is it?</li><li>Is there power and network by the windows?</li><li>Where can the depth cameras sit to see the plaza, and do they cope with the cold?</li><li>Buy or rent the first winter?</li></ol>
+  </section>
+
+  <section>
+    <h3 data-sv="Källor" data-en="Sources">Källor</h3>
+    <ul class="kallor">
+      <li><a href="https://epson.com.au/products/projector/EB-L210SF_Specs.asp">Epson EB-L210SF, spec</a></li>
+      <li><a href="https://shop.avoira.com/catalog/product/view/id/9212009/category/3">EB-L210SF, mått / dimensions</a></li>
+      <li><a href="https://www.ox.ee/en/product/2477818">EB-L210SF, OX.ee</a></li>
+      <li><a href="https://www.pccomponentes.fr/epson-eb-l210sf-video-projecteur-projecteur-a-focale-courte-4000-ansi-lumens-3lcd-compatibilite-3d-blanc">EB-L210SF, PcComponentes</a></li>
+      <li><a href="https://www.grosbill.com/epson-eb-l210sf-v11ha75080-166200">EB-L210SF, Grosbill</a></li>
+      <li><a href="https://www.bhphotovideo.com/c/product/1767974-REG/optoma_technology_zh450st_4200_lumen_full_hd.html">Optoma ZH450ST, spec</a></li>
+      <li><a href="https://soundpro.com/optoma-zh450st-4200-lumen-1080p-short-throw-laser-projector">ZH450ST, mått / dimensions</a></li>
+      <li><a href="https://www.huss-licht-ton.de/print_product_info.php/en/products_id/53654">ZH450ST, Huss-Licht-Ton</a></li>
+      <li><a href="https://bechtle.com/be/shop/optoma-zh450st-short-throw-projector--4721925-73--p">ZH450ST, Bechtle</a></li>
+      <li><a href="https://connect.na.panasonic.com/av/projectors/lens/et-dle020-ultra-short-throw-projector-lens">Panasonic ET-DLE020, spec</a></li>
+      <li><a href="https://www.visunext.de/p/panasonic-et-dle020-beamer-objektiv-1000010135">ET-DLE020, visunext</a></li>
+      <li><a href="https://www.sonovente.com/nl-nl/panasonic-pt-rz790be-black-p98672.html">PT-RZ790, Sonovente</a></li>
+      <li><a href="https://projector-database.com/pro/panasonicptrz790-en.html">PT-RZ790, 360° installation</a></li>
+      <li><a href="https://www.fullcompass.com/prod/601623-epson-elplx02s-ultra-short-throw-lens-0-35-1">Epson ELPLX02S, 0,35:1</a></li>
+    </ul>
+  </section>
+</div>
+<script>
+(function () {
+  let sprak = 'sv'; try { sprak = localStorage.getItem('nf-sprak') || 'sv'; } catch (e) {}
+  function satt(s) {
+    sprak = s === 'en' ? 'en' : 'sv'; document.documentElement.lang = sprak;
+    try { localStorage.setItem('nf-sprak', sprak); } catch (e) {}
+    document.querySelectorAll('[data-sv]').forEach(el => { el.textContent = el.getAttribute('data-' + sprak); });
+    document.querySelectorAll('[lang="sv"],[lang="en"]').forEach(el => { if (el !== document.documentElement) el.hidden = el.getAttribute('lang') !== sprak; });
+    document.querySelectorAll('[data-sprak]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sprak === sprak)));
+    document.title = sprak === 'sv' ? 'Projektorer och mått · Nattfönstren' : 'Projectors and measurements · Night Windows';
+  }
+  document.querySelectorAll('[data-sprak]').forEach(b => b.onclick = () => satt(b.dataset.sprak));
+  satt(sprak);
+})();
+</script>
+</body>
+</html>

@@ -20,16 +20,18 @@ function fieldGlyph(icon,cx,cy,S,col){
   g.restore();
 }
 return {
-  id:'relay',cat:'puzzle',by:'Lukas',name:'Energy Relay',short:'Energy Relay',playable:true,
+  id:'relay',cat:'puzzle',by:'Lukas',name:{sv:'Energistafett',en:'Energy Relay'},short:{sv:'Energistafett',en:'Energy Relay'},steam:'E',playable:true,
+  fraga:{sv:'Hur många gånger kan energi byta form på vägen till en lampa?',en:'How many times can energy change form on its way to a lamp?'},
+  verb:{sv:'vrida, koppla, tända',en:'rotate, connect, light'},
   pitch:{
-    tagline:'Water turns gears, gears push, motion makes current. Build the path across all 12 panes.',
-    players:['group','1–12'],mode:'coop',round:'3–5 min',
-    input:[['cam','Point + hold'],['phone','Tap a tile'],['kiosk','Touch kiosk']],
+    tagline:{sv:'Vatten driver kugghjul, kugghjul knuffar, rörelse blir ström. Bygg vägen genom alla 12 rutor.',en:'Water turns gears, gears push, motion makes current. Build the path across all 12 panes.'},
+    players:['group','1–12'],mode:'coop',round:{sv:'3–5 min',en:'3–5 min'},
+    input:[['cam',{sv:'Peka + håll',en:'Point + hold'}],['phone',{sv:'Tryck på en bricka',en:'Tap a tile'}],['kiosk',{sv:'Pekskärm',en:'Touch kiosk'}]],
     for:['family','school','kid'],
-    how:['Each window row is a field: fluids, gears, motion, circuits.','Rotate tiles until the path connects through every pane.','Energy changes form at the pier and transom, then lights the lamp.'],
-    trick:'Each 3-pane row is one physics field. Converters sit where the frames are, so you see the energy change form as it crosses the wall.',
-    needs:[['projector','Projector'],['cam','Depth cam'],['wifi','Web server']],
-    open:['How accurate is pointing at 4 m?','Harder levels: leaks, timers, splitters?','A real lamp on the plaza that lights up?'],
+    how:[{sv:'Varje fönsterrad är ett fält: vätskor, kugghjul, rörelse, kretsar.',en:'Each window row is a field: fluids, gears, motion, circuits.'},{sv:'Vrid brickorna tills vägen går genom varje ruta.',en:'Rotate tiles until the path connects through every pane.'},{sv:'Energin byter form vid muren och tvärposten och tänder sedan lampan.',en:'Energy changes form at the pier and transom, then lights the lamp.'}],
+    trick:{sv:'Varje rad med 3 rutor är ett eget fysikfält. Omvandlarna sitter där ramarna är, så du ser energin byta form när den korsar väggen.',en:'Each 3-pane row is one physics field. Converters sit where the frames are, so you see the energy change form as it crosses the wall.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera',en:'Depth cam'}],['wifi',{sv:'Webbserver',en:'Web server'}]],
+    open:[{sv:'Hur exakt går det att peka på 4 m håll?',en:'How accurate is pointing at 4 m?'},{sv:'Svårare nivåer: läckor, tidsgränser, förgreningar?',en:'Harder levels: leaks, timers, splitters?'},{sv:'En riktig lampa på torget som tänds?',en:'A real lamp on the plaza that lights up?'}],
     meters:{read:3,crowd:4,effort:3}
   },
   init(){this.time=0;this.count=0;this.gen();},

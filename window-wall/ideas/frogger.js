@@ -5,16 +5,18 @@ const CARC=[PINK,CYAN,ORANGE,VIOLET,YELLOW,'#ffffff'];
 const FYMIN=PY_BOT-1.0,FYMAX=PY_TOP+1.0,FRANGE=FYMAX-FYMIN;
 const frogY=r=>paneY(r)+paneH(r)/2;
 return {
-  id:'frogger',cat:'arcade',by:'Lukas',name:'Sideways Frogger',short:'Frogger',
+  id:'frogger',cat:'arcade',by:'Lukas',name:{sv:'Frogger på tvären',en:'Sideways Frogger'},short:{sv:'Frogger',en:'Frogger'},steam:'E',
+  fraga:{sv:'Hur styr man en sak när alla drar åt olika håll?',en:'How do you steer one thing when everyone pulls a different way?'},
+  verb:{sv:'luta, rösta, hoppa',en:'lean, vote, hop'},
   pitch:{
-    tagline:'Frogger turned 90°. The whole plaza steers one frog.',
-    players:['crowd','∞'],mode:'coop',round:'60 s',
-    input:[['cam','Crowd leans left/right'],['phone','Phone vote']],
+    tagline:{sv:'Frogger vriden 90°. Hela torget styr en groda.',en:'Frogger turned 90°. The whole plaza steers one frog.'},
+    players:['crowd','∞'],mode:'coop',round:{sv:'60 s',en:'60 s'},
+    input:[['cam',{sv:'Publiken lutar vänster/höger',en:'Crowd leans left/right'}],['phone',{sv:'Röstning i mobilen',en:'Phone vote'}]],
     for:['group','family'],
-    how:['Roads run vertically through columns 2 to 5.','The crowd decides each hop.','Reach the goal on the right.'],
-    trick:'Every hop crosses a mullion or the pier: the frog leaps behind the frame and lands in the next pane.',
-    needs:[['projector','Projector'],['cam','Depth cam'],['speaker','Speaker']],
-    open:['Does crowd voting feel sluggish?','One frog, or two racing frogs?'],
+    how:[{sv:'Vägarna går lodrätt genom kolumn 2 till 5.',en:'Roads run vertically through columns 2 to 5.'},{sv:'Publiken bestämmer varje hopp.',en:'The crowd decides each hop.'},{sv:'Nå målet till höger.',en:'Reach the goal on the right.'}],
+    trick:{sv:'Varje hopp korsar en spröjs eller muren: grodan hoppar bakom ramen och landar i nästa ruta.',en:'Every hop crosses a mullion or the pier: the frog leaps behind the frame and lands in the next pane.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera',en:'Depth cam'}],['speaker',{sv:'Högtalare',en:'Speaker'}]],
+    open:[{sv:'Känns publikröstning seg?',en:'Does crowd voting feel sluggish?'},{sv:'En groda, eller två som tävlar?',en:'One frog, or two racing frogs?'}],
     meters:{read:4,crowd:3,effort:2}
   },
   init(){

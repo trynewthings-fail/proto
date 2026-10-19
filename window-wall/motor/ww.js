@@ -1,32 +1,36 @@
-/* Window Wall core: façade geometry, drawing helpers, icons and the idea registry.
-   Ideas never touch three.js. They draw into WW.g, the projector canvas behind the wall.
-   API reference: CLAUDE.md. Don't change this file when adding an idea. */
+/* motor/ww.js · Window Wall-formatet ovanpå Nattfönstrens motor.
+   Idéer skrivna som WW.register(W => ({ … })) ritar i pixlar på en egen duk (W.g) med geometrin nedan.
+   Den här filen räknar fram den geometrin ur config/fasad.js, håller W.people i takt med motorns personer
+   och kör varje WW-idé som en vanlig scen i motorn. API:t beskrivs i CLAUDE.md. Ändra inte filen för en ny idé. */
 (function(){
 'use strict';
 const W=window.WW={};
+const F=window.FASAD, N=window.Nattfonster, I=window.Indata;
 
-/* ---------- Palette ---------- */
+/* ---------- Palett ---------- */
 const LIME='#CAFE03',PINK='#FF4FB8',CYAN='#35E0FF',ORANGE='#FF8A1F',VIOLET='#A98BFF',YELLOW='#FFE14D';
 const PC=[LIME,PINK,CYAN,ORANGE,VIOLET,YELLOW];
 const FONT='Alegreya, Georgia, serif';
 
-/* ---------- Façade geometry (metres), measured from a photo ----------
-   Two window units, each 3 panes wide × 2 high, separated by a plaster pier. */
-const PW=0.60,PHT=1.48,PHB=1.28,MUL=0.14,TR=0.19,FR=0.08,PIER=0.75,Y0=0.75;
-const UW=2*FR+3*PW+2*MUL,UH=2*FR+PHB+TR+PHT,GW=2*UW+PIER,X0=-1.2;
-const UX=[X0-GW/2,X0-GW/2+UW+PIER];
-const paneX=c=>UX[c<3?0:1]+FR+(c%3)*(PW+MUL);
-const paneY=r=>r===0?Y0+FR+PHB+TR:Y0+FR;
-const paneH=r=>r===0?PHT:PHB;
-const colX=c=>paneX(c)+PW/2;
-const unitCX=u=>UX[u]+UW/2;
-const PY_BOT=Y0+FR,PY_TOP=Y0+FR+PHB+TR+PHT;
+/* ---------- Geometri (meter), framräknad ur config/fasad.js ----------
+   x = samma som motorns x (0 = vänstra fönstrets vänsterkant), y = höjd över mark (uppåt). */
+const S0=F.sektioner[0],S1=F.sektioner[1];
+const PW=N.rutor[0].w,PHT=S0._rader[0].h,PHB=S0._rader[1].h,MUL=F.sprojs,TR=F.tvarpost??F.sprojs,FR=F.ram;
+const PIER=S1.x-(S0.x+S0.bredd),Y0=F.fonsterUnderkant,UW=S0.bredd,UH=F.hojd,GW=N.W;
+const UX=[S0.x,S1.x],X0=(S0.x+S0.bredd+S1.x)/2;
+const hojd=yMotor=>Y0+UH-yMotor;                               // motorns y (nedåt från överkant) → höjd över mark
+const paneX=c=>N.kolumner[c].x;
+const paneY=r=>hojd(S0._rader[r].y+S0._rader[r].h);           // rutans underkant, höjd över mark
+const paneH=r=>S0._rader[r].h;
+const colX=c=>N.kolumner[c].cx;
+const unitCX=u=>F.sektioner[u].x+F.sektioner[u].bredd/2;
+const PY_BOT=paneY(1),PY_TOP=paneY(0)+paneH(0);
 const SX0=UX[0]-0.05,SX1=UX[1]+UW+0.05,SY0=Y0-0.05,SY1=Y0+UH+0.05,PPM=200;
 const SW=Math.round((SX1-SX0)*PPM),SH=Math.round((SY1-SY0)*PPM);
 const wx=x=>(x-SX0)*PPM,wy=y=>(SY1-y)*PPM;
 function cellPx(c,r){return {x:wx(paneX(c)),y:wy(paneY(r)+paneH(r)),w:PW*PPM,h:paneH(r)*PPM};}
 
-/* ---------- Helpers ---------- */
+/* ---------- Hjälpfunktioner ---------- */
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
 function hexA(h,a){const n=parseInt(h.slice(1),16);return `rgba(${n>>16},${n>>8&255},${n&255},${a})`;}
@@ -70,11 +74,6 @@ function silhouette(x,h,v,T,wave,walk,fill,eyes){
   if(eyes){g.fillStyle=eyes;g.shadowBlur=12;g.shadowColor=eyes;g.beginPath();g.arc(hd[0]-0.035*L,hd[1]-0.01*L,0.016*L,0,7);g.arc(hd[0]+0.035*L,hd[1]-0.01*L,0.016*L,0,7);g.fill();g.shadowBlur=0;}
 }
 
-/* ---------- People on the plaza (moved by app.js) ----------
-   Each person: {x, z, vx, walk}. x = along the wall (m), z = distance from the wall (m). */
-const people=[];
-const tracked=()=>people.filter(p=>p.z<9&&p.x>SX0-0.6&&p.x<SX1+0.6);
-
 /* ---------- Icons (24 × 24 stroke paths) for pitch cards ---------- */
 const ICONS={
   person:'<circle cx="12" cy="7" r="3.2"/><path d="M5.5 20.5c0-3.9 2.9-6.5 6.5-6.5s6.5 2.6 6.5 6.5"/>',
@@ -113,24 +112,81 @@ const ICONS={
   bolt:'<path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/>'
 };
 const ic=n=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
-const AUD={kid:['kid','Kids'],teen:['teen','Teens'],family:['family','Families'],group:['group','Groups'],school:['school','School classes'],all:['crowd','Everyone']};
-const MODE={versus:['versus','Versus'],coop:['coop','Co-op'],teams:['group','Teams'],ambient:['sparkle','Ambient']};
+
+/* ---------- Språk ---------- */
+W.sprak='sv';
+const L=v=>v==null?'':(typeof v==='object'&&!Array.isArray(v))?(v[W.sprak]??v.sv??v.en??''):String(v);
+const AUD={kid:['kid',{sv:'Barn',en:'Kids'}],teen:['teen',{sv:'Tonåringar',en:'Teens'}],family:['family',{sv:'Familjer',en:'Families'}],group:['group',{sv:'Grupper',en:'Groups'}],school:['school',{sv:'Skolklasser',en:'School classes'}],all:['crowd',{sv:'Alla',en:'Everyone'}]};
+const MODE={versus:['versus',{sv:'Mot varandra',en:'Versus'}],coop:['coop',{sv:'Tillsammans',en:'Co-op'}],teams:['group',{sv:'Lag',en:'Teams'}],ambient:['sparkle',{sv:'Stämning',en:'Ambient'}]};
 const CATS=[
-  {id:'arcade',name:'Arcade',icon:'joystick',desc:'fast, replayable'},
-  {id:'puzzle',name:'Puzzles',icon:'puzzle',desc:'think together'},
-  {id:'crafty',name:'Crafty',icon:'pencil',desc:'kids make the content'},
-  {id:'visual',name:'Visual',icon:'sparkle',desc:'stunning first, game second'}
+  {id:'arcade',icon:'joystick',name:{sv:'Arkad',en:'Arcade'},desc:{sv:'snabbt, spela igen',en:'fast, replayable'}},
+  {id:'puzzle',icon:'puzzle',name:{sv:'Klurigt',en:'Puzzles'},desc:{sv:'tänk tillsammans',en:'think together'}},
+  {id:'crafty',icon:'pencil',name:{sv:'Skapa',en:'Crafty'},desc:{sv:'barnen gör innehållet',en:'kids make the content'}},
+  {id:'visual',icon:'sparkle',name:{sv:'Visuellt',en:'Visual'},desc:{sv:'vackert först, spel sen',en:'stunning first, game second'}}
 ];
+const STEAM={S:{f:'#2fd6e0',sv:'Naturvetenskap',en:'Science'},T:{f:'#7b93ff',sv:'Teknik',en:'Technology'},E:{f:'#ffb21e',sv:'Ingenjörskonst',en:'Engineering'},A:{f:'#ff4fa3',sv:'Estetik',en:'Arts'},M:{f:'#cafe03',sv:'Matematik',en:'Mathematics'}};
+
+/* ---------- Personerna på torget ----------
+   W.people följer motorns personer (Indata) varje bildruta: {id,x,z,vx,walk,hojd,barn,vinkar}.
+   x = längs fasaden, z = avstånd från glaset. Idéer utan crowd:true får sex spelare som står still framför
+   var sin kolumn (W.people[0..5]); resten är förbipasserande. */
+const people=[];
+const tracked=()=>people.filter(p=>p.z<=F.zonDjup&&p.x>SX0-0.6&&p.x<SX1+0.6);
+const gang=new Map();
+function synkaPersoner(input,dt){
+  const lista=input.personer.slice().sort((a,b)=>(a.kalla==='plats'?0:1)-(b.kalla==='plats'?0:1)||String(a.id).localeCompare(String(b.id),undefined,{numeric:true}));
+  people.length=0;
+  for(const p of lista){
+    let o=gang.get(p.id);if(!o){o={id:p.id,walk:Math.random()*6};gang.set(p.id,o);}
+    o.x=p.x;o.z=p.avstand;o.vx=p.vx;o.hojd=p.hojd;o.barn=p.barn;o.vinkar=p.vinkar;o.kalla=p.kalla;o.walk+=p.fart*dt*7;
+    people.push(o);
+  }
+  if(gang.size>200)for(const id of [...gang.keys()])if(!lista.some(p=>p.id===id))gang.delete(id);
+}
+const PLATS_AVSTAND=2.2;
+function placeraSpelare(){for(let i=0;i<6;i++)I.satt('plats'+i,colX(i),PLATS_AVSTAND,'plats',1.6+((i*37)%10)/40);}
+function taBortSpelare(){for(let i=0;i<6;i++)I.ta('plats'+i);}
+
+/* ---------- Registrering: varje WW-idé blir en scen i motorn ---------- */
+W.ideas=[];
+W.register=fn=>{
+  let idea;try{idea=fn(W);}catch(e){console.error('Idén kunde inte laddas',e);return null;}
+  W.ideas.push(idea);
+  N.registrera({
+    id:idea.id, ww:idea, stil:'ren', steam:idea.steam,
+    get titel(){return L(idea.name);}, get fraga(){return L(idea.fraga);}, get verb(){return L(idea.verb);},
+    tangenter:false,
+    tangent(e){if(idea.key&&idea.key(e.key,true))e.preventDefault();},
+    setup(){if(!idea.crowd)placeraSpelare();idea.init();return {};},
+    avsluta(){taBortSpelare();if(idea.exit)idea.exit();},
+    frame(ctx,st,input){
+      const dt=Math.min(0.05,ctx.dt);
+      synkaPersoner(input,dt);
+      idea.update(dt);idea.draw(ctx.t);
+      const G=ctx.g,P=ctx.px;
+      G.save();G.setTransform(1,0,0,1,0,0);G.drawImage(scr,SX0*P,(Y0+UH-SY1)*P,(SX1-SX0)*P,(SY1-SY0)*P);G.restore();
+    }
+  });
+  return idea;
+};
+/* motorns koordinater (x, y nedåt från överkant) → pixel på WW-duken, för klick på fasaden */
+W.klick=(id,xM,yM)=>{const s=N.scener.find(x=>x.id===id);if(s&&s.ww&&s.ww.click)s.ww.click((xM-SX0)*PPM,(yM+(SY1-(Y0+UH)))*PPM);};
+W.harKlick=id=>{const s=N.scener.find(x=>x.id===id);return !!(s&&s.ww&&s.ww.click);};
+
+/* ---------- Gemensam metadata för båda formaten (används av menyn, receptkortet och kontrollen) ---------- */
+W.meta=s=>{
+  if(s.ww){const d=s.ww;return {id:d.id,ww:true,cat:d.cat,by:d.by,steam:d.steam,name:d.name,short:d.short||d.name,fraga:d.fraga,verb:d.verb,
+    playable:!!d.playable,pitch:d.pitch,thumb:null,knappar:[]};}
+  const en=s.en||{};
+  return {id:s.id,ww:false,cat:s.cat,by:s.by,steam:s.steam,name:{sv:s.titel,en:en.titel||s.titel},short:{sv:s.titel,en:en.titel||s.titel},
+    fraga:{sv:s.fraga,en:en.fraga||s.fraga},verb:{sv:s.verb,en:en.verb||s.verb},playable:!!s.tangenter,pitch:s.pitch,
+    thumb:'media/thumbs/'+s.id+'.jpg',stamning:s.stamning,lage:s.lage,indata:s.indata,knappar:s.knappar||[]};
+};
 
 Object.assign(W,{LIME,PINK,CYAN,ORANGE,VIOLET,YELLOW,PC,FONT,
   PW,PHT,PHB,MUL,TR,FR,PIER,Y0,UW,UH,GW,X0,UX,paneX,paneY,paneH,colX,unitCX,PY_BOT,PY_TOP,SX0,SX1,SY0,SY1,PPM,SW,SH,wx,wy,cellPx,
-  clamp,shuffle,hexA,esc,scr,g,rr,clearScreen,cellBg,text,smiley,COLS,RT,RB,ROWS,bcell,silhouette,people,tracked,ICONS,ic,AUD,MODE,CATS});
-
-/* ---------- Idea registry ----------
-   Each ideas/<id>.js calls WW.register(W => ({...idea})). Menu order = <script> order in index.html. */
-W.ideas=[];
-W.register=fn=>{const idea=fn(W);W.ideas.push(idea);return idea;};
-/* Filled in by app.js: camera moves and pitch-card refresh. */
-W.view={reset(){},seat(){}};
-W.ui={refresh(){}};
+  clamp,shuffle,hexA,esc,scr,g,rr,clearScreen,cellBg,text,smiley,COLS,RT,RB,ROWS,bcell,silhouette,people,tracked,ICONS,ic,AUD,MODE,CATS,STEAM,L,
+  PLATS_AVSTAND});
+W.view={reset(){},seat(){}};   // fylls i av torget-vyn
+W.ui={refresh(){}};            // fylls i av ui.js
 })();

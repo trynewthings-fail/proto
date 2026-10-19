@@ -2,16 +2,18 @@
 WW.register(W=>{
 const {g,LIME,PC,PW,PPM,colX,cellPx,clearScreen,text,hexA,rr,smiley,people}=W;
 return {
-  id:'residents',cat:'crafty',by:'Lukas',name:'Window Residents',short:'Residents',crowd:true,
+  id:'residents',cat:'crafty',by:'Lukas',name:{sv:'Fönstergrannarna',en:'Window Residents'},short:{sv:'Grannarna',en:'Residents'},steam:'A',crowd:true,
+  fraga:{sv:'Vad får ett hus att kännas levande?',en:'What makes a building feel alive?'},
+  verb:{sv:'rita, flytta in, vinka',en:'draw, move in, wave'},
   pitch:{
-    tagline:'Draw a character. It moves into one of twelve tiny apartments.',
-    players:['crowd','∞'],mode:'ambient',round:'All season',
-    input:[['pencil','Draw a resident'],['cam','They wave back']],
+    tagline:{sv:'Rita en figur. Den flyttar in i en av tolv små lägenheter.',en:'Draw a character. It moves into one of twelve tiny apartments.'},
+    players:['crowd','∞'],mode:'ambient',round:{sv:'Hela säsongen',en:'All season'},
+    input:[['pencil',{sv:'Rita en granne',en:'Draw a resident'}],['cam',{sv:'De vinkar tillbaka',en:'They wave back'}]],
     for:['kid','family','school'],
-    how:['Draw a resident at the lobby station.','It moves into a pane-sized room with a NEW tag.','Residents wave at people outside and visit the neighbours.'],
-    trick:'Twelve panes, twelve rooms. Residents walk behind the mullions to visit each other, and the lights go on and off like a real building.',
-    needs:[['projector','Projector'],['scan','Scanner station'],['cam','Depth cam']],
-    open:['How long does a resident stay?','Name tags, or anonymous?'],
+    how:[{sv:'Rita en granne vid stationen i entrén.',en:'Draw a resident at the lobby station.'},{sv:'Den flyttar in i ett rum stort som en ruta, märkt NEW.',en:'It moves into a pane-sized room with a NEW tag.'},{sv:'Grannarna vinkar åt folk utanför och hälsar på varandra.',en:'Residents wave at people outside and visit the neighbours.'}],
+    trick:{sv:'Tolv rutor, tolv rum. Grannarna går bakom spröjsen för att hälsa på varandra, och lamporna tänds och släcks som i ett riktigt hus.',en:'Twelve panes, twelve rooms. Residents walk behind the mullions to visit each other, and the lights go on and off like a real building.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['scan',{sv:'Skannerstation',en:'Scanner station'}],['cam',{sv:'Djupkamera',en:'Depth cam'}]],
+    open:[{sv:'Hur länge bor en granne kvar?',en:'How long does a resident stay?'},{sv:'Namnskyltar, eller anonymt?',en:'Name tags, or anonymous?'}],
     meters:{read:4,crowd:4,effort:3}
   },
   init(){this.rooms=[...Array(12)].map((_,k)=>({hue:(k*47+20)%360,lamp:true,lampT:5+Math.random()*12,pat:k%3}));this.res=[...Array(12)].map((_,k)=>this.mk(k,false));this.moveT=4;this.moved=0;},

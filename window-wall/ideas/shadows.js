@@ -2,16 +2,18 @@
 WW.register(W=>{
 const {g,LIME,cellBg,clearScreen,clamp,PPM,people,tracked,silhouette}=W;
 return {
-  id:'shadows',cat:'visual',by:'Lukas',name:'Shadow Giants',short:'Shadow Giants',crowd:true,
+  id:'shadows',cat:'visual',by:'Lukas',name:{sv:'Skuggjättar',en:'Shadow Giants'},short:{sv:'Skuggjättar',en:'Shadow Giants'},steam:'S',crowd:true,
+  fraga:{sv:'Varför växer din skugga ju närmare ljuset du står?',en:'Why does your shadow grow the closer you stand to the light?'},
+  verb:{sv:'gå, stå still, vinka',en:'walk, freeze, wave'},
   pitch:{
-    tagline:'Your shadow on the lit blinds, three times your size, with antlers.',
-    players:['group','1–8'],mode:'ambient',round:'Drop in',
-    input:[['cam','Your silhouette']],
+    tagline:{sv:'Din skugga på de upplysta persiennerna, tre gånger så stor, med älghorn.',en:'Your shadow on the lit blinds, three times your size, with antlers.'},
+    players:['group','1–8'],mode:'ambient',round:{sv:'Kom när du vill',en:'Drop in'},
+    input:[['cam',{sv:'Din siluett',en:'Your silhouette'}]],
     for:['kid','family'],
-    how:['Walk in front of the windows.','Your silhouette appears behind the blinds, giant-sized.','Kids become moose, trolls and hares. Stand still and the giant waves.'],
-    trick:'It looks like lit rooms with giants behind the blinds, so the building looks alive even to people driving past.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2']],
-    open:['Privacy: silhouettes only, nothing stored.','Gets messy with a big crowd?'],
+    how:[{sv:'Gå framför fönstren.',en:'Walk in front of the windows.'},{sv:'Din siluett dyker upp bakom persiennerna, jättestor.',en:'Your silhouette appears behind the blinds, giant-sized.'},{sv:'Barn blir älgar, troll och harar. Stå still så vinkar jätten.',en:'Kids become moose, trolls and hares. Stand still and the giant waves.'}],
+    trick:{sv:'Det ser ut som tända rum med jättar bakom persiennerna, så huset ser levande ut även för den som kör förbi.',en:'It looks like lit rooms with giants behind the blinds, so the building looks alive even to people driving past.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}]],
+    open:[{sv:'Integritet: bara siluetter, inget sparas.',en:'Privacy: silhouettes only, nothing stored.'},{sv:'Blir det rörigt med mycket folk?',en:'Gets messy with a big crowd?'}],
     meters:{read:5,crowd:5,effort:2}
   },
   init(){},update(){},

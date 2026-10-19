@@ -18,16 +18,18 @@ function drawPose(cx,P,Wd,col){
   g.beginPath();g.arc(X(q.head),Y(q.head),Math.max(4,0.2*PPM+Wd*0.1),0,7);g.fill();
 }
 return {
-  id:'shape',cat:'puzzle',by:'Lukas',name:'Shape Match',short:'Shape Match',
+  id:'shape',cat:'puzzle',by:'Lukas',name:{sv:'Passa formen',en:'Shape Match'},short:{sv:'Passa formen',en:'Shape Match'},steam:'A',
+  fraga:{sv:'Känns en form igen när den är skuren i bitar?',en:'Can you still recognise a shape when it is cut into pieces?'},
+  verb:{sv:'posera, frysa, matcha',en:'pose, freeze, match'},
   pitch:{
-    tagline:'A body-sized outline fills each window unit. Strike the pose.',
-    players:['group','1–3 per unit'],mode:'coop',round:'60 s',
-    input:[['cam','Body pose']],
+    tagline:{sv:'En kroppsstor kontur fyller varje fönsterparti. Gör posen.',en:'A body-sized outline fills each window unit. Strike the pose.'},
+    players:['group',{sv:'1–3 per parti',en:'1–3 per unit'}],mode:'coop',round:{sv:'60 s',en:'60 s'},
+    input:[['cam',{sv:'Kroppspose',en:'Body pose'}]],
     for:['kid','group','school'],
-    how:['An outline appears across a whole 3-pane unit.','Your silhouette shows up live in the panes.','Hold the pose until it locks. Both units together score double.'],
-    trick:'Each window unit is body-sized. The mullions slice your silhouette and the outline the same way, so it still reads as one shape.',
-    needs:[['projector','Projector'],['cam','Depth cam ×2'],['speaker','Speaker']],
-    open:['Scale poses for kids and adults?','What if five people crowd one frame?'],
+    how:[{sv:'En kontur dyker upp över ett helt parti med 3 rutor.',en:'An outline appears across a whole 3-pane unit.'},{sv:'Din siluett syns direkt i rutorna.',en:'Your silhouette shows up live in the panes.'},{sv:'Håll posen tills den låser. Båda partierna samtidigt ger dubbla poäng.',en:'Hold the pose until it locks. Both units together score double.'}],
+    trick:{sv:'Varje fönsterparti är lagom stort för en kropp. Spröjsen delar din siluett och konturen på samma sätt, så det läses ändå som en form.',en:'Each window unit is body-sized. The mullions slice your silhouette and the outline the same way, so it still reads as one shape.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera ×2',en:'Depth cam ×2'}],['speaker',{sv:'Högtalare',en:'Speaker'}]],
+    open:[{sv:'Hur skalar vi poserna för både barn och vuxna?',en:'Scale poses for kids and adults?'},{sv:'Vad händer om fem personer trängs i en ram?',en:'What if five people crowd one frame?'}],
     meters:{read:4,crowd:4,effort:2}
   },
   init(){this.t=0;this.u=[0,1].map(k=>({cur:{...NEUTRAL},tgt:(Math.random()*POSES.length|0),hold:0,score:0,flash:0,rest:0,match:0,k}));},

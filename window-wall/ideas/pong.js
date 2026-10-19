@@ -3,16 +3,18 @@ WW.register(W=>{
 const {g,LIME,PINK,PW,PPM,X0,PY_BOT,PY_TOP,paneX,cellPx,cellBg,clearScreen,text,hexA,rr,clamp,wx,wy}=W;
 const PXL=paneX(0)+0.1,PXR=paneX(5)+PW-0.1,PADH=0.8,BR=0.06;
 return {
-  id:'pong',cat:'arcade',by:'Lukas',name:'Window Pong',short:'Pong',
+  id:'pong',cat:'arcade',by:'Lukas',name:{sv:'Fönsterpong',en:'Window Pong'},short:{sv:'Pong',en:'Pong'},steam:'S',
+  fraga:{sv:'Vart tar bollen vägen när du inte ser den?',en:'Where does the ball go when you cannot see it?'},
+  verb:{sv:'flytta, förutse, studsa',en:'move, predict, bounce'},
   pitch:{
-    tagline:'Two teams. The pier in the middle is the net.',
-    players:['group','2 teams'],mode:'versus',round:'2 min',
-    input:[['cam','Team position'],['dial','Two big dials']],
+    tagline:{sv:'Två lag. Muren i mitten är nätet.',en:'Two teams. The pier in the middle is the net.'},
+    players:['group',{sv:'2 lag',en:'2 teams'}],mode:'versus',round:{sv:'2 min',en:'2 min'},
+    input:[['cam',{sv:'Lagets position',en:'Team position'}],['dial',{sv:'Två stora rattar',en:'Two big dials'}]],
     for:['teen','group'],
-    how:['Paddles slide up and down the outer columns.','Your team moves its paddle by moving on the plaza.','First to 5.'],
-    trick:'The ball tunnels behind the wide pier and every mullion, so you keep predicting where it pops out.',
-    needs:[['projector','Projector'],['cam','Depth cam'],['speaker','Speaker']],
-    open:['Can we track 10+ people at once?','Is the ball readable while hidden?'],
+    how:[{sv:'Racken glider upp och ner i ytterkolumnerna.',en:'Paddles slide up and down the outer columns.'},{sv:'Laget flyttar sitt rack genom att röra sig på torget.',en:'Your team moves its paddle by moving on the plaza.'},{sv:'Först till 5.',en:'First to 5.'}],
+    trick:{sv:'Bollen tunnlar bakom den breda muren och varje spröjs, så du gissar hela tiden var den dyker upp.',en:'The ball tunnels behind the wide pier and every mullion, so you keep predicting where it pops out.'},
+    needs:[['projector',{sv:'Projektor',en:'Projector'}],['cam',{sv:'Djupkamera',en:'Depth cam'}],['speaker',{sv:'Högtalare',en:'Speaker'}]],
+    open:[{sv:'Kan vi följa 10+ personer samtidigt?',en:'Can we track 10+ people at once?'},{sv:'Går bollen att följa när den är gömd?',en:'Is the ball readable while hidden?'}],
     meters:{read:5,crowd:4,effort:2}
   },
   init(){this.s=[0,0];this.L={y:(PY_BOT+PY_TOP)/2,err:0};this.R={y:(PY_BOT+PY_TOP)/2,err:0};this.trail=[];this.cheer=[0,0];this.serve(Math.random()<.5?-1:1);},
