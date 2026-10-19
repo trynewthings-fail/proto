@@ -29,12 +29,9 @@ If an idea needs something the core doesn't offer, build it inside your idea fil
 
 This works the same from a Claude chat with the Order connector, Claude Code, or a bot.
 
-1. Push both files to `trynewthings-fail/proto` with `push_to_repo` as a **pull request** (`direct:false`). Use the commit message `window-wall: add <Name>'s <idea name>`.
-2. Reply where you were asked (the chat or the Slack thread) with:
-   - the PR link,
-   - `https://proto.trynewthings.studio/window-wall/#<id>`, live about a minute after merge.
-   Reply in the requester's language.
-3. The *Window Wall check* GitHub Action runs the checker on the PR. If you can't see the result (Order tools can't), tell the requester to check that the PR's check is green before merging, and to paste the error back to you if it's red. Then fix the idea file **once**.
+1. **Push straight to `main`**, with no pull request: this is a low-risk sketch site, and breakage is fixed by hand. Use `push_to_repo` with `direct:true` on `trynewthings-fail/proto`. Use the commit message `window-wall: add <Name>'s <idea name>`. If Order answers that direct push isn't allowed and opens a PR instead, say so and give the PR link. A team admin can tick "Allow direct push to main" for proto on the Window Wall board in Order.
+2. Reply where you were asked (the chat or the Slack thread) with the live link `https://proto.trynewthings.studio/window-wall/#<id>` (GitHub Pages updates about a minute after the push) and the commit link. Reply in the requester's language.
+3. The *Window Wall check* GitHub Action runs the checker after the push. If you can't see the result (Order tools can't), ask the requester to open the link. If the idea shows "Idea crashed", they paste the message back and you push one fix.
 
 If you can run commands (Claude Code), run `node window-wall/tools/check.mjs <id>` before pushing.
 

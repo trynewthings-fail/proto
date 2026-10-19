@@ -10,7 +10,7 @@ Open a Claude chat (claude.ai, the desktop app or Claude Code) with the **Order*
 
 > Add this idea to the Window Wall sketch (Order project *Exploratoriet: WindowProjection*): the panes turn into soap bubbles that people pop by jumping. Bigger groups make bigger bubbles. My name is Anna.
 
-Claude finds the rules through Order, writes `ideas/<id>.js`, opens a pull request on this repo and replies with the link. Your name goes on the idea ("Anna's Bubble Pop"). Check that the PR's *Window Wall check* is green, then merge; the idea is live about a minute later.
+Claude finds the rules through Order, writes `ideas/<id>.js`, pushes it straight to `main`, and replies with the link. Your name goes on the idea ("Anna's Bubble Pop"). It's live about a minute later. If it breaks, revert the commit.
 
 The Order **Slack bot** can't do this yet, because it has no GitHub tools.
 
