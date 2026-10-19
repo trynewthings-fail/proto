@@ -42,6 +42,7 @@ These run on people's Claude subscriptions, so spend what it takes to make the i
 This works the same from a Claude chat with the Order connector, Claude Code, or a bot.
 
 1. **Push straight to `main`**, with no pull request: this is a low-risk sketch site, and breakage is fixed by hand. Use `push_to_repo` with `direct:true` on `trynewthings-fail/proto`. Use the commit message `window-wall: add <Name>'s <idea name>`. If Order answers that direct push isn't allowed and opens a PR instead, say so and give the PR link. A team admin can tick "Allow direct push to main" for proto on the Window Wall board in Order.
+   If Order refuses with *"Only members of the project … can push"*, the requester isn't a member of the Order project *Exploratoriet: WindowProjection*. Don't retry another way. Give them the finished idea in a code block, and tell them a team admin must add them to the project; then the same push works. Before you push, make sure the review pass is done, because you may only get one try.
 2. Reply where you were asked (the chat or the Slack thread) with the live link `https://proto.trynewthings.studio/window-wall/#<id>` (GitHub Pages updates about a minute after the push) and the commit link. Reply in the requester's language.
 3. The *Window Wall check* GitHub Action runs the checker after the push. If you can't see the result (Order tools can't), ask the requester to open the link. If the idea shows "Idea crashed", they paste the message back and you push one fix.
 
