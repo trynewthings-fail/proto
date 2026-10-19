@@ -4,13 +4,15 @@ An idea sketchbook for an interactive projection on **Exploratoriet's** ground-f
 
 **Open it:** https://proto.trynewthings.studio/window-wall/ (link to one idea with `#<id>`, e.g. `#relay`)
 
-## Add an idea from Slack
+## Add an idea
 
-Ask the Order bot in a channel it listens to (start with #newbiz), for example:
+Open a Claude chat (claude.ai, the desktop app or Claude Code) with the **Order** connector on, and write for example:
 
-> @Order add a Window Wall idea: the panes turn into soap bubbles that people pop by jumping. Bigger groups make bigger bubbles.
+> Add this idea to the Window Wall sketch (Order project *Exploratoriet: WindowProjection*): the panes turn into soap bubbles that people pop by jumping. Bigger groups make bigger bubbles. My name is Anna.
 
-Order writes `ideas/<id>.js`, opens a pull request on this repo, and replies with the link. Your name goes on the idea ("Anna's Bubble Pop"). Merge the PR and the idea is live about a minute later.
+Claude finds the rules through Order, writes `ideas/<id>.js`, opens a pull request on this repo and replies with the link. Your name goes on the idea ("Anna's Bubble Pop"). Check that the PR's *Window Wall check* is green, then merge; the idea is live about a minute later.
+
+The Order **Slack bot** can't do this yet, because it has no GitHub tools.
 
 More detail makes a better sketch. Useful things to include:
 - what people **do** (the verb),

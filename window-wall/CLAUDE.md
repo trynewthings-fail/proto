@@ -22,12 +22,19 @@ If an idea needs something the core doesn't offer, build it inside your idea fil
 - **Write once.** One idea file, aim for **under 150 lines (about 8 KB)**. The hard limit is 20 KB. This is a sketch, not production code.
 - **No polishing loops.** If something is unclear, pick a sensible option and put the doubt in `pitch.open` instead of asking several questions.
 - Reuse helpers from `WW` (below) rather than writing your own drawing utilities.
+- **Build what was asked.** Don't run the full creative process (three tracks, the TNT test) here. Put your doubts in `pitch.open`; one line of creative feedback in your reply is fine.
+- **Language:** all text on the page and in the pitch card is in English, whatever language the request was in.
 
-## 3. Delivery (Order bot)
+## 3. Delivery
 
-1. Push both files to `trynewthings-fail/proto` with `push_to_repo` as a **pull request** (not direct). Use the commit message `window-wall: add <Name>'s <idea name>`.
-2. The *Window Wall check* GitHub Action runs `node window-wall/tools/check.mjs <id>` on the PR. If it fails, read the error in the PR, fix the idea file **once** and push again.
-3. Reply in the Slack thread with the PR link. Mention that after merge the idea is live at `https://proto.trynewthings.studio/window-wall/#<id>` (Pages updates about a minute after merge).
+This works the same from a Claude chat with the Order connector, Claude Code, or a bot.
+
+1. Push both files to `trynewthings-fail/proto` with `push_to_repo` as a **pull request** (`direct:false`). Use the commit message `window-wall: add <Name>'s <idea name>`.
+2. Reply where you were asked (the chat or the Slack thread) with:
+   - the PR link,
+   - `https://proto.trynewthings.studio/window-wall/#<id>`, live about a minute after merge.
+   Reply in the requester's language.
+3. The *Window Wall check* GitHub Action runs the checker on the PR. If you can't see the result (Order tools can't), tell the requester to check that the PR's check is green before merging, and to paste the error back to you if it's red. Then fix the idea file **once**.
 
 If you can run commands (Claude Code), run `node window-wall/tools/check.mjs <id>` before pushing.
 
@@ -46,10 +53,11 @@ WW.register(W=>{
 |---|---|
 | `id` | lowercase-with-dashes, unique, same as the file name |
 | `cat` | `arcade` (fast, competitive) · `puzzle` (think together) · `crafty` (visitors make the content) · `visual` (stunning first, game second) |
-| `by` | **First name of the person who asked in Slack.** The page shows the title as "Anna's Bubble Pop". |
+| `by` | **First name of the person who asked for the idea** (in chat or Slack). The page shows the title as "Anna's Bubble Pop". |
 | `name` | Idea name **without** the owner. `short` is 1–2 words for the menu pill. |
 | `playable` | Optional `true` only if a person can actually play it in the browser (keys or clicks). |
-| `crowd` | Optional `true` for depth-cam ideas: people wander the plaza, read them with `tracked()`. |
+| `crowd` | Optional `true` for depth-cam ideas: people wander the plaza, read them with `tracked()`. In the sketch there are always simulated people walking, so `tracked()` is never empty. |
+| Extra methods and state | Allowed on the returned object, or as closure variables inside `WW.register`. |
 
 **Pitch card**, kept short (icons do the talking):
 - `tagline`: one sentence.
@@ -91,14 +99,14 @@ Units are **metres**. x runs along the wall from left to right, y is height abov
 | `wx(x)`, `wy(y)` | Metres → canvas px (`wy` flips, so higher y means a smaller px value). |
 | `cellPx(c,r)` | `{x,y,w,h}` pane rect in px. Each pane is 0.60 m wide; the top pane is 1.48 m tall, the bottom 1.28 m. |
 | `paneX(c)` `paneY(r)` `paneH(r)` `colX(c)` `unitCX(u)` | Pane left edge, bottom edge, height, column centre x, unit centre x (m). |
-| `PY_BOT` `PY_TOP` `SX0` `SX1` `SY0` `SY1` `PW` `PHT` `PHB` `X0` | Visible pane extents, canvas extents, pane sizes, wall centre x. |
+| `PY_BOT` `PY_TOP` `SX0` `SX1` `SY0` `SY1` `PW` `PHT` `PHB` `MUL` `TR` `PIER` `X0` | All in **metres**: bottom of the bottom panes / top of the top panes, canvas extents, pane width (0.60) and heights (1.48 / 1.28), mullion (0.14), transom (0.19), pier (0.75), centre x of the pier. Convert with `wx`/`wy`. |
 | `clearScreen(col)` `cellBg(c,r,top,bottom)` `text(str,x,y,size,col,weight)` `rr(x,y,w,h,r)` | Fill all; pane gradient (returns rect); centred Alegreya text; rounded-rect path. |
 | `smiley(ctx,x,y,R,happy,col,wobble)` | The Try New Things smiley. `happy=false` turns it sad. |
 | `silhouette(x,h,variant,T,wave,walk,fill,eyes)` | A person shape `h` m tall standing on the sill. Variants: 0 human, 1 moose, 2 troll, 3 hare. |
 | `bcell(c,x,y)` `COLS` `ROWS` `RT` | A 6 × 28 block grid per column (rows 0–14 top pane). Returns `[x,y,w,h]`. |
 | `people` `tracked()` | Plaza visitors `{x,z,vx,walk}`: `x` along the wall, `z` metres from the wall. `tracked()` = those in range of the cameras. |
-| `PC` `LIME` `PINK` `CYAN` `ORANGE` `VIOLET` `YELLOW` `FONT` | Palette (lime `#CAFE03` on black) and font. |
-| `hexA(hex,a)` `clamp` `shuffle` `ic(name)` `esc` `ICONS` | Small utilities. |
+| `PC` `LIME` `PINK` `CYAN` `ORANGE` `VIOLET` `YELLOW` `FONT` | Palette: `PC` is these 6 colours in that order (lime `#CAFE03` first), all `#rrggbb`. Plus the font. |
+| `hexA('#rrggbb',a)` `clamp(v,a,b)` `shuffle(arr)` `ic(name)` `esc(str)` `ICONS` | Small utilities. `hexA` only takes 6-digit hex. |
 | `W.view.reset(anim)` `W.view.seat(c)` `W.ui.refresh()` | Camera to default / behind column `c`; re-render the pitch card. |
 
 ## 6. Design rules
