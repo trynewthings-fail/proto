@@ -7,7 +7,7 @@
       "status": "printing",
       "date": "2026-10-22",
       "material": "PLA prototype (TPU for the final case)",
-      "timelapse": false
+      "timelapse": true
     }
   ]
 }
