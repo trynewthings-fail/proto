@@ -84,6 +84,9 @@
   .parts .pd { color: var(--muted); font-size: .8rem; }
   .parts label { font-size: .8rem; color: var(--muted); display: flex; gap: .3rem; align-items: center; cursor: pointer; }
   .close { position: absolute; top: 12px; right: 12px; }
+  .tl { margin: .8rem 0 .2rem; }
+  .tl video { width: 100%; border-radius: 6px; display: block; background: #000; }
+  .tl span { display: block; font-size: .8rem; color: var(--muted); margin-bottom: .3rem; }
   .hint { position: absolute; bottom: 10px; right: 14px; font-size: .78rem; color: var(--muted); }
   .collapse { display: none; }
   @media (max-width: 640px) {
@@ -234,7 +237,7 @@ function renderGrid() {
       <div class="meta">
         <span class="t">${esc(p.title)}</span>
         <span class="s">${esc(p.summary)}</span>
-        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
+        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${p.timelapse ? '<span class="chip">▶ Timelapse</span>' : ''}${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
       </div>
     </a>`).join('');
   (async () => {
@@ -293,6 +296,7 @@ async function open(slug) {
     <p><span class="chip st-${esc(m.status)}">${esc(STATUS[m.status]?.label || m.status)}</span>
       &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}</p>
     ${m.notes ? `<p>${esc(m.notes)}</p>` : ''}
+    ${m.timelapse ? `<div class="tl"><span>Timelapse from the printer camera</span><video src="${esc(slug)}/${esc(m.timelapse)}" controls muted loop playsinline preload="metadata"></video></div>` : ''}
     <div class="tools">
       ${canExplode ? '<button type="button" id="b-explode">Explode</button>' : ''}
       <button type="button" id="b-flip">Flip over</button>
