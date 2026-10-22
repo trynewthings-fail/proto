@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Print Desk</title>
+<meta name="description" content="Office 3D print requests: 3D previews of everything on its way to the printer. Request a print on the Order board 3D Print Requests.">
+<link rel="icon" href="../logo.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfaf8;
+    --fg: #16150f;
+    --muted: #6c6a60;
+    --line: #e2ded4;
+    --card: #ffffff;
+    --accent: #b4451f;
+    --stage: #efede7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121210;
+      --fg: #eceae2;
+      --muted: #8f8d84;
+      --line: #2b2a26;
+      --card: #1a1a17;
+      --accent: #e5824f;
+      --stage: #1c1c19;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 10vh 16px 16vh;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 64rem; margin: 0 auto; }
+  .brand { display: inline-flex; align-items: center; gap: .6rem; margin-bottom: 2.5rem; color: var(--muted); text-decoration: none; font-size: .92rem; }
+  .brand img { width: 34px; height: 34px; display: block; }
+  .brand:hover { color: var(--fg); }
+  h1 { margin: 0; font-size: clamp(2.3rem, 8vw, 4.2rem); letter-spacing: -.04em; font-weight: 640; line-height: 1.05; }
+  .sub { margin: .6rem 0 0; color: var(--muted); max-width: 38rem; }
+  .how { margin: 2.2rem 0 0; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: 8px; max-width: 40rem; font-size: .95rem; }
+  .how b { font-weight: 620; }
+  .how ol { margin: .4rem 0 0; padding-left: 1.2rem; }
+  .how code { font: .88em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .filters { display: flex; flex-wrap: wrap; gap: .4rem; margin: 3rem 0 1.2rem; }
+  .filters button { font: inherit; font-size: .88rem; padding: .3rem .8rem; border-radius: 99px; border: 1px solid var(--line); background: none; color: var(--muted); cursor: pointer; }
+  .filters button[aria-pressed="true"] { color: var(--fg); border-color: var(--fg); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+  .card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--card); color: inherit; text-decoration: none; transition: border-color .15s; }
+  .card:hover { border-color: var(--muted); }
+  .thumb { aspect-ratio: 4 / 3; background: var(--stage); display: grid; place-items: center; color: var(--muted); font-size: .85rem; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .meta { padding: .8rem .95rem 1rem; display: grid; gap: .25rem; }
+  .meta .t { font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .meta .s { color: var(--muted); font-size: .88rem; line-height: 1.4; }
+  .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; font-size: .8rem; color: var(--muted); margin-top: .3rem; }
+  .chip { padding: .05rem .55rem; border-radius: 99px; border: 1px solid currentColor; font-size: .75rem; }
+  .st-preview { color: #2f6fe8; } .st-approved { color: #8a6d00; } .st-printing { color: var(--accent); } .st-done { color: #3a8a3a; }
+  @media (prefers-color-scheme: dark) { .st-preview { color: #7aa5ff; } .st-approved { color: #e0c050; } .st-done { color: #7cc77c; } }
+  .empty { margin-top: 1rem; padding: 2rem; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); }
+  footer { margin-top: 6rem; color: var(--muted); font-size: .85rem; }
+  footer a { color: inherit; }
+
+  /* viewer */
+  dialog { padding: 0; border: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; background: var(--stage); color: var(--fg); }
+  dialog::backdrop { background: rgba(0,0,0,.4); }
+  #stage { position: absolute; inset: 0; }
+  #stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  .panel { position: absolute; top: 12px; left: 12px; width: min(22rem, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow: auto; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; font-size: .92rem; }
+  .panel h2 { margin: 0 0 .2rem; font-size: 1.15rem; letter-spacing: -.01em; line-height: 1.3; }
+  .panel p { margin: .3rem 0; color: var(--muted); }
+  .panel .tools { display: flex; flex-wrap: wrap; gap: .4rem; margin: .8rem 0; }
+  .panel button, .close { font: inherit; font-size: .85rem; padding: .35rem .75rem; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; }
+  .panel button:hover, .close:hover { border-color: var(--muted); }
+  .parts { list-style: none; margin: .4rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .parts li { display: grid; grid-template-columns: auto 1fr auto; gap: .6rem; align-items: center; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+  .parts input[type=color] { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 6px; padding: 0; background: none; cursor: pointer; }
+  .parts .pn { font-weight: 560; }
+  .parts .pd { color: var(--muted); font-size: .8rem; }
+  .parts label { font-size: .8rem; color: var(--muted); display: flex; gap: .3rem; align-items: center; cursor: pointer; }
+  .close { position: absolute; top: 12px; right: 12px; }
+  .hint { position: absolute; bottom: 10px; right: 14px; font-size: .78rem; color: var(--muted); }
+  .collapse { display: none; }
+  @media (max-width: 640px) {
+    .panel { top: auto; bottom: 12px; max-height: 45dvh; }
+    .hint { display: none; }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<main>
+  <a class="brand" href="../">
+    <img src="../logo.svg" alt="try new things" width="34" height="34">
+    <span>proto</span>
+  </a>
+
+  <h1>3D Print Desk</h1>
+  <p class="sub">Everything on its way to the office printer, as a 3D preview you can spin around before it gets printed.</p>
+
+  <div class="how">
+    <b>Want something printed?</b>
+    <ol>
+      <li>Add a task on the Order board <b>3D Print Requests</b> (project Internal), or ask your Claude: <code>request a 3D print of …</code></li>
+      <li>A 3D preview shows up here and the link lands on your task. Approve it or ask for changes in a comment.</li>
+      <li>It gets printed. You'll find it at the printer when the task moves to <b>Klar</b>.</li>
+    </ol>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filter by status"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <a href="../">proto</a> &nbsp;·&nbsp; printed on an Elegoo Centauri Carbon
+  </footer>
+</main>
+
+<dialog id="viewer" aria-label="3D preview">
+  <div id="stage"></div>
+  <div class="panel" id="panel"></div>
+  <button class="close" id="close" aria-label="Close preview">Close ✕</button>
+  <div class="hint">Drag to rotate · scroll or pinch to zoom · right-drag to pan</div>
+</dialog>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+const STATUS = {
+  preview:  { label: 'Preview',  order: 0 },
+  approved: { label: 'Approved', order: 1 },
+  printing: { label: 'Printing', order: 2 },
+  done:     { label: 'Printed',  order: 3 },
+};
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmtTime = m => m >= 60 ? `${Math.floor(m / 60)} h ${Math.round(m % 60)} min` : `${Math.round(m)} min`;
+
+const loader = new STLLoader();
+const geoCache = new Map();
+function loadGeo(url) {
+  if (!geoCache.has(url)) {
+    geoCache.set(url, new Promise((res, rej) => loader.load(url, g => { g.computeVertexNormals(); res(g); }, undefined, rej)));
+  }
+  return geoCache.get(url);
+}
+const manifests = new Map();
+async function manifest(slug) {
+  if (!manifests.has(slug)) manifests.set(slug, fetch(`${slug}/print.json`).then(r => r.json()));
+  return manifests.get(slug);
+}
+
+function lights(scene) {
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f99, 1.5));
+  const key = new THREE.DirectionalLight(0xffffff, 1.7); key.position.set(1, -1.4, 2.2); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.7); rim.position.set(-1.2, 1, -1.5); scene.add(rim);
+}
+
+// Builds a group of meshes for a print. Parts are in assembly coordinates (mm, z up).
+async function buildGroup(slug, m) {
+  const group = new THREE.Group();
+  const meshes = await Promise.all(m.parts.map(async p => {
+    const g = await loadGeo(`${slug}/${p.file}`);
+    const mesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: p.color || '#dddddd', roughness: 0.7, metalness: 0 }));
+    mesh.userData.explode = new THREE.Vector3(...(p.explode || [0, 0, 0]));
+    group.add(mesh);
+    return mesh;
+  }));
+  const r = (m.view?.rotate || [0, 0, 0]).map(d => THREE.MathUtils.degToRad(d));
+  group.rotation.set(r[0], r[1], r[2]);
+  // centre the assembly on the origin
+  const box = new THREE.Box3().setFromObject(group);
+  const c = box.getCenter(new THREE.Vector3());
+  const outer = new THREE.Group(); outer.add(group); group.position.sub(c);
+  return { outer, group, meshes, radius: box.getSize(new THREE.Vector3()).length() / 2 };
+}
+
+function frame(camera, radius, controls) {
+  const dir = new THREE.Vector3(0.55, -0.9, 1.05).normalize();
+  const vfov = THREE.MathUtils.degToRad(camera.fov);
+  const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+  const dist = radius / Math.sin(Math.min(vfov, hfov) / 2) * 0.9;
+  camera.position.copy(dir.multiplyScalar(dist));
+  camera.near = dist / 100; camera.far = dist * 10; camera.updateProjectionMatrix();
+  if (controls) { controls.target.set(0, 0, 0); controls.update(); }
+}
+
+/* ---------- thumbnails: one shared offscreen renderer ---------- */
+let thumbR;
+async function thumbnail(slug, m) {
+  if (!thumbR) {
+    thumbR = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    thumbR.setSize(640, 480, false);
+  }
+  const scene = new THREE.Scene(); lights(scene);
+  const cam = new THREE.PerspectiveCamera(30, 4 / 3); cam.up.set(0, 0, 1);
+  const { outer, radius } = await buildGroup(slug, m);
+  scene.add(outer); frame(cam, radius); cam.lookAt(0, 0, 0);
+  thumbR.render(scene, cam);
+  return thumbR.domElement.toDataURL('image/png');
+}
+
+/* ---------- gallery ---------- */
+const grid = document.getElementById('grid');
+const filters = document.querySelector('.filters');
+let all = [], filter = 'all';
+
+function renderFilters() {
+  const counts = all.reduce((a, p) => (a[p.status] = (a[p.status] || 0) + 1, a), {});
+  const opts = [['all', 'All', all.length], ...Object.entries(STATUS).filter(([k]) => counts[k]).map(([k, v]) => [k, v.label, counts[k]])];
+  filters.innerHTML = opts.map(([k, l, n]) => `<button type="button" data-f="${k}" aria-pressed="${k === filter}">${esc(l)} · ${n}</button>`).join('');
+}
+filters.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filter = b.dataset.f; renderFilters(); renderGrid();
+});
+
+function renderGrid() {
+  const list = all.filter(p => filter === 'all' || p.status === filter);
+  if (!list.length) { grid.innerHTML = '<div class="empty">Nothing here yet. Requests show up as soon as their first preview is ready.</div>'; return; }
+  grid.innerHTML = list.map(p => `
+    <a class="card" href="#${esc(p.slug)}" data-slug="${esc(p.slug)}">
+      <div class="thumb">Loading preview…</div>
+      <div class="meta">
+        <span class="t">${esc(p.title)}</span>
+        <span class="s">${esc(p.summary)}</span>
+        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
+      </div>
+    </a>`).join('');
+  (async () => {
+    for (const card of grid.querySelectorAll('.card')) {
+      try {
+        const slug = card.dataset.slug;
+        const src = await thumbnail(slug, await manifest(slug));
+        card.querySelector('.thumb').innerHTML = `<img src="${src}" alt="">`;
+      } catch { card.querySelector('.thumb').textContent = 'No preview'; }
+    }
+  })();
+}
+
+/* ---------- viewer ---------- */
+const dlg = document.getElementById('viewer');
+const stage = document.getElementById('stage');
+const panel = document.getElementById('panel');
+let V = null;
+
+function setupViewer() {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  stage.appendChild(renderer.domElement);
+  const scene = new THREE.Scene(); lights(scene);
+  const camera = new THREE.PerspectiveCamera(32, 1); camera.up.set(0, 0, 1);
+  const controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping = true;
+  const size = () => { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+  new ResizeObserver(size).observe(stage);
+  V = { renderer, scene, camera, controls, size, current: null, ex: 0, exT: 0 };
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!dlg.open) return;
+    V.ex += (V.exT - V.ex) * 0.12;
+    if (V.current) for (const m of V.current.meshes) m.position.copy(m.userData.explode).multiplyScalar(V.ex);
+    controls.update(); renderer.render(scene, camera);
+  })();
+}
+
+async function open(slug) {
+  if (!V) setupViewer();
+  if (!dlg.open) dlg.showModal();
+  V.size();
+  panel.innerHTML = '<p>Loading…</p>';
+  let m;
+  try { m = await manifest(slug); } catch { panel.innerHTML = '<p>Could not find that print.</p>'; return; }
+  if (V.current) V.scene.remove(V.current.outer);
+  V.current = await buildGroup(slug, m);
+  V.scene.add(V.current.outer); V.ex = V.exT = 0;
+  frame(V.camera, V.current.radius, V.controls);
+
+  const total = m.parts.reduce((a, p) => ({ t: a.t + (p.print?.minutes || 0), g: a.g + (p.print?.grams || 0) }), { t: 0, g: 0 });
+  const canExplode = m.parts.some(p => (p.explode || []).some(v => v));
+  panel.innerHTML = `
+    <h2>${esc(m.title)}</h2>
+    <p>${esc(m.summary)}</p>
+    <p><span class="chip st-${esc(m.status)}">${esc(STATUS[m.status]?.label || m.status)}</span>
+      &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}</p>
+    ${m.notes ? `<p>${esc(m.notes)}</p>` : ''}
+    <div class="tools">
+      ${canExplode ? '<button type="button" id="b-explode">Explode</button>' : ''}
+      <button type="button" id="b-flip">Flip over</button>
+      <button type="button" id="b-reset">Reset view</button>
+    </div>
+    <ul class="parts">${m.parts.map((p, i) => `
+      <li>
+        <input type="color" value="${esc(p.color || '#dddddd')}" data-i="${i}" aria-label="Color of ${esc(p.name)}">
+        <span><span class="pn">${esc(p.name)}</span><br><span class="pd">${esc(p.material || m.material || '')}${p.print ? ` · ${fmtTime(p.print.minutes)} · ${Math.round(p.print.grams)} g` : ''}</span></span>
+        <label><input type="checkbox" checked data-v="${i}"> show</label>
+      </li>`).join('')}
+    </ul>`;
+  panel.querySelector('#b-explode')?.addEventListener('click', e => { V.exT = V.exT ? 0 : 1; e.target.textContent = V.exT ? 'Assemble' : 'Explode'; });
+  panel.querySelector('#b-flip').addEventListener('click', () => { V.current.outer.rotation.y += Math.PI; });
+  panel.querySelector('#b-reset').addEventListener('click', () => { V.current.outer.rotation.set(0, 0, 0); frame(V.camera, V.current.radius, V.controls); });
+  panel.querySelectorAll('input[type=color]').forEach(el => el.addEventListener('input', () => V.current.meshes[el.dataset.i].material.color.set(el.value)));
+  panel.querySelectorAll('input[data-v]').forEach(el => el.addEventListener('change', () => { V.current.meshes[el.dataset.v].visible = el.checked; }));
+}
+
+function route() {
+  const slug = decodeURIComponent(location.hash.slice(1));
+  if (slug && /^[a-z0-9-]+$/.test(slug)) open(slug);
+  else if (dlg.open) dlg.close();
+}
+document.getElementById('close').addEventListener('click', () => history.pushState('', '', location.pathname) || dlg.close());
+dlg.addEventListener('close', () => { if (location.hash) history.pushState('', '', location.pathname); });
+addEventListener('hashchange', route);
+
+/* ---------- boot ---------- */
+fetch('prints.json', { cache: 'no-cache' }).then(r => r.json()).then(d => {
+  all = (d.prints || []).sort((a, b) => (STATUS[a.status]?.order ?? 9) - (STATUS[b.status]?.order ?? 9) || String(b.date).localeCompare(String(a.date)));
+  renderFilters(); renderGrid(); route();
+}).catch(() => { grid.innerHTML = '<div class="empty">Could not load the print list.</div>'; });
+</script>
+</body>
+</html>
