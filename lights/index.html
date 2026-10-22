@@ -47,50 +47,81 @@
     // The gist the studio PC keeps up to date with the tunnel's current address.
     const GIST_ID = "3f27817a5e1f3033a8e178da7438ade0";
     const GIST_FILE = "room-lights.json";
+    const GIST_RAW = `https://gist.githubusercontent.com/Goose812/${GIST_ID}/raw/${GIST_FILE}`;
     const sv = (navigator.language || "").toLowerCase().startsWith("sv");
     const T = sv ? {
       sleeping: "Ljuset sover just nu", sleeping_text: "Datorn i studion som styr taket svarar inte. Testa igen om en stund.",
-      last: "Senast online {t}.", retry: "Försök igen", open: "Öppna i egen flik",
+      last: "Online sedan {t}.", retry: "Försök igen", open: "Försök öppna ändå",
+      why_address: "(kunde inte läsa adressen)", why_check: "(ljuset svarade inte)",
     } : {
       sleeping: "The lights are asleep", sleeping_text: "The studio PC that runs the ceiling isn't answering. Try again in a bit.",
-      last: "Last online {t}.", retry: "Try again", open: "Open in its own tab",
+      last: "Online since {t}.", retry: "Try again", open: "Try opening it anyway",
+      why_address: "(couldn't read the address)", why_check: "(the lights didn't answer)",
     };
     const $ = (id) => document.getElementById(id);
 
-    async function withTimeout(url, ms, opts) {
+    async function withTimeout(url, ms) {
       const ctl = new AbortController();
       const timer = setTimeout(() => ctl.abort(), ms);
-      try { return await fetch(url, { ...opts, signal: ctl.signal, cache: "no-store" }); }
+      try { return await fetch(url, { signal: ctl.signal, cache: "no-store" }); }
       finally { clearTimeout(timer); }
     }
 
-    function asleep(updated) {
+    // Where the tunnel is right now. The gist's plain file comes first: it has no
+    // rate limit. GitHub's API allows only 60 anonymous requests an hour per IP,
+    // which phones on mobile data / iCloud Private Relay share with many others.
+    async function currentAddress() {
+      try {
+        return await (await withTimeout(`${GIST_RAW}?t=${Date.now()}`, 10000)).json();
+      } catch (e) {
+        const g = await (await withTimeout(`https://api.github.com/gists/${GIST_ID}`, 10000)).json();
+        return JSON.parse(g.files[GIST_FILE].content);
+      }
+    }
+
+    async function answers(origin) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try { if ((await withTimeout(`${origin}/api/state`, 12000)).ok) return true; } catch (e) { /* try again */ }
+      }
+      return false;
+    }
+
+    function asleep(info, why) {
       $("title").textContent = T.sleeping;
       $("text").textContent = T.sleeping_text;
-      $("extra").textContent = updated ? T.last.replace("{t}", new Date(updated).toLocaleString(sv ? "sv-SE" : undefined)) : "";
+      $("extra").textContent = [info && info.updated
+        ? T.last.replace("{t}", new Date(info.updated).toLocaleString(sv ? "sv-SE" : undefined)) : "", why].join(" ");
       const b = document.createElement("button");
       b.type = "button"; b.textContent = T.retry; b.onclick = () => location.reload();
       $("extra").after(b);
+      if (info && info.origin) {                       // the check can fail on odd networks; let people try anyway
+        const a = document.createElement("a");
+        a.href = info.origin + "/"; a.textContent = T.open;
+        const p = document.createElement("p"); p.append(a);
+        b.after(p);
+      }
+    }
+
+    function show(origin) {
+      const frame = document.createElement("iframe");
+      frame.src = origin + "/";
+      frame.title = "Room Lights";
+      frame.allow = "clipboard-write";
+      document.body.replaceChildren(frame);
     }
 
     async function start() {
-      let info = null;
+      let info;
       try {
-        const g = await (await withTimeout(`https://api.github.com/gists/${GIST_ID}`, 8000)).json();
-        info = JSON.parse(g.files[GIST_FILE].content);
+        info = await currentAddress();
         const url = new URL(info.url);
         if (url.protocol !== "https:" || !url.hostname.endsWith(".trycloudflare.com")) throw new Error("unexpected address");
-        const ok = (await withTimeout(`${url.origin}/api/state`, 8000)).ok;
-        if (!ok) throw new Error("not answering");
-        const frame = document.createElement("iframe");
-        frame.src = url.origin + "/";
-        frame.title = "Room Lights";
-        frame.allow = "clipboard-write";
-        document.body.replaceChildren(frame);
-        document.title = "Room Lights";
+        info.origin = url.origin;
       } catch (e) {
-        asleep(info && info.updated);
+        return asleep(null, T.why_address);
       }
+      if (await answers(info.origin)) show(info.origin);
+      else asleep(info, T.why_check);
     }
     start();
   </script>
