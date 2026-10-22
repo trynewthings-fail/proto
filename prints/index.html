@@ -191,7 +191,8 @@ async function buildGroup(slug, m) {
 function frame(camera, radius, controls) {
   const dir = new THREE.Vector3(0.55, -0.9, 1.05).normalize();
   const vfov = THREE.MathUtils.degToRad(camera.fov);
-  const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+  const aspect = isFinite(camera.aspect) && camera.aspect > 0 ? camera.aspect : 1;
+  const hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
   const dist = radius / Math.sin(Math.min(vfov, hfov) / 2) * 0.9;
   camera.position.copy(dir.multiplyScalar(dist));
   camera.near = dist / 100; camera.far = dist * 10; camera.updateProjectionMatrix();
@@ -264,7 +265,12 @@ function setupViewer() {
   const scene = new THREE.Scene(); lights(scene);
   const camera = new THREE.PerspectiveCamera(32, 1); camera.up.set(0, 0, 1);
   const controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping = true;
-  const size = () => { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+  const size = () => {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;                      // not laid out yet (e.g. opened in a background tab)
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    if (V?.current && V.needsFrame) { V.needsFrame = false; frame(camera, V.current.radius, controls); }
+  };
   new ResizeObserver(size).observe(stage);
   V = { renderer, scene, camera, controls, size, current: null, ex: 0, exT: 0 };
   (function loop() {
@@ -286,6 +292,7 @@ async function open(slug) {
   if (V.current) V.scene.remove(V.current.outer);
   V.current = await buildGroup(slug, m);
   V.scene.add(V.current.outer); V.ex = V.exT = 0;
+  V.needsFrame = !(stage.clientWidth && stage.clientHeight);
   frame(V.camera, V.current.radius, V.controls);
 
   const total = m.parts.reduce((a, p) => ({ t: a.t + (p.print?.minutes || 0), g: a.g + (p.print?.grams || 0) }), { t: 0, g: 0 });
