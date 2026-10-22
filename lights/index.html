@@ -10,10 +10,9 @@
   <style>
     /*
       Room Lights lives on a PC in the studio (it drives the WLED strips in the
-      ceiling). That PC opens a Cloudflare quick tunnel whose address changes on
-      every restart and publishes the current one to a GitHub Gist; this page
-      reads the gist and shows the lights' own control site full-screen.
-      Source: the LedControl project on that PC (tunnel.py, server.py, web/).
+      ceiling). That PC is on the internet through Tailscale Funnel at a fixed
+      address; this page checks the lights answer and shows their own control
+      site full-screen. Source: the LedControl project on that PC (server.py, web/).
     */
     :root { --bg: #10120b; --ink: #f2f4ea; --muted: #a9ad9c; --lime: #c6ff3d; }
     html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
@@ -44,84 +43,47 @@
     </div>
   </main>
   <script>
-    // The gist the studio PC keeps up to date with the tunnel's current address.
-    const GIST_ID = "3f27817a5e1f3033a8e178da7438ade0";
-    const GIST_FILE = "room-lights.json";
-    const GIST_RAW = `https://gist.githubusercontent.com/Goose812/${GIST_ID}/raw/${GIST_FILE}`;
+    // The studio PC, on the internet through Tailscale Funnel (a fixed address).
+    const LIGHTS = "https://lukas.tailf5b7ee.ts.net";
     const sv = (navigator.language || "").toLowerCase().startsWith("sv");
     const T = sv ? {
       sleeping: "Ljuset sover just nu", sleeping_text: "Datorn i studion som styr taket svarar inte. Testa igen om en stund.",
-      last: "Online sedan {t}.", retry: "Försök igen", open: "Försök öppna ändå",
-      why_address: "(kunde inte läsa adressen)", why_check: "(ljuset svarade inte)",
+      retry: "Försök igen", open: "Försök öppna ändå",
     } : {
       sleeping: "The lights are asleep", sleeping_text: "The studio PC that runs the ceiling isn't answering. Try again in a bit.",
-      last: "Online since {t}.", retry: "Try again", open: "Try opening it anyway",
-      why_address: "(couldn't read the address)", why_check: "(the lights didn't answer)",
+      retry: "Try again", open: "Try opening it anyway",
     };
     const $ = (id) => document.getElementById(id);
 
-    async function withTimeout(url, ms) {
-      const ctl = new AbortController();
-      const timer = setTimeout(() => ctl.abort(), ms);
-      try { return await fetch(url, { signal: ctl.signal, cache: "no-store" }); }
-      finally { clearTimeout(timer); }
-    }
-
-    // Where the tunnel is right now. The gist's plain file comes first: it has no
-    // rate limit. GitHub's API allows only 60 anonymous requests an hour per IP,
-    // which phones on mobile data / iCloud Private Relay share with many others.
-    async function currentAddress() {
-      try {
-        return await (await withTimeout(`${GIST_RAW}?t=${Date.now()}`, 10000)).json();
-      } catch (e) {
-        const g = await (await withTimeout(`https://api.github.com/gists/${GIST_ID}`, 10000)).json();
-        return JSON.parse(g.files[GIST_FILE].content);
-      }
-    }
-
-    async function answers(origin) {
+    async function answers() {
       for (let attempt = 0; attempt < 2; attempt++) {
-        try { if ((await withTimeout(`${origin}/api/state`, 12000)).ok) return true; } catch (e) { /* try again */ }
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), 12000);
+        try {
+          if ((await fetch(`${LIGHTS}/api/state`, { signal: ctl.signal, cache: "no-store" })).ok) return true;
+        } catch (e) { /* try again */ } finally { clearTimeout(timer); }
       }
       return false;
     }
 
-    function asleep(info, why) {
+    function asleep() {
       $("title").textContent = T.sleeping;
       $("text").textContent = T.sleeping_text;
-      $("extra").textContent = [info && info.updated
-        ? T.last.replace("{t}", new Date(info.updated).toLocaleString(sv ? "sv-SE" : undefined)) : "", why].join(" ");
       const b = document.createElement("button");
       b.type = "button"; b.textContent = T.retry; b.onclick = () => location.reload();
-      $("extra").after(b);
-      if (info && info.origin) {                       // the check can fail on odd networks; let people try anyway
-        const a = document.createElement("a");
-        a.href = info.origin + "/"; a.textContent = T.open;
-        const p = document.createElement("p"); p.append(a);
-        b.after(p);
-      }
-    }
-
-    function show(origin) {
-      const frame = document.createElement("iframe");
-      frame.src = origin + "/";
-      frame.title = "Room Lights";
-      frame.allow = "clipboard-write";
-      document.body.replaceChildren(frame);
+      const a = document.createElement("a");          // the check can fail on odd networks; let people try anyway
+      a.href = LIGHTS + "/"; a.textContent = T.open;
+      const p = document.createElement("p"); p.append(a);
+      $("extra").after(b, p);
     }
 
     async function start() {
-      let info;
-      try {
-        info = await currentAddress();
-        const url = new URL(info.url);
-        if (url.protocol !== "https:" || !url.hostname.endsWith(".trycloudflare.com")) throw new Error("unexpected address");
-        info.origin = url.origin;
-      } catch (e) {
-        return asleep(null, T.why_address);
-      }
-      if (await answers(info.origin)) show(info.origin);
-      else asleep(info, T.why_check);
+      if (!(await answers())) return asleep();
+      const frame = document.createElement("iframe");
+      frame.src = LIGHTS + "/";
+      frame.title = "Room Lights";
+      frame.allow = "clipboard-write";
+      document.body.replaceChildren(frame);
     }
     start();
   </script>
