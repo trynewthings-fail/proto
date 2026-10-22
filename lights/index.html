@@ -77,13 +77,20 @@
       $("extra").after(b, p);
     }
 
+    // Start loading the lights straight away (hidden), and check they answer in parallel:
+    // that saves a whole round trip compared to checking first.
     async function start() {
-      if (!(await answers())) return asleep();
       const frame = document.createElement("iframe");
       frame.src = LIGHTS + "/";
       frame.title = "Room Lights";
       frame.allow = "clipboard-write";
-      document.body.replaceChildren(frame);
+      frame.style.visibility = "hidden";
+      document.body.append(frame);
+      const loaded = new Promise((done) => frame.addEventListener("load", done, { once: true }));
+      if (!(await answers())) { frame.remove(); return asleep(); }
+      await loaded;
+      frame.style.visibility = "visible";
+      $("msg").remove();
     }
     start();
   </script>
