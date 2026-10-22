@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Room Lights</title>
+  <meta name="description" content="Play with the ceiling lights at the studio: music sync, presets, weather, northern lights and more.">
+  <meta name="theme-color" content="#10120b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23c6ff3d' stroke-width='5'/%3E%3Ccircle cx='23' cy='27' r='3.5' fill='%23c6ff3d'/%3E%3Ccircle cx='41' cy='27' r='3.5' fill='%23c6ff3d'/%3E%3Cpath d='M20 38c4 7 20 7 24 0' fill='none' stroke='%23c6ff3d' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    /*
+      Room Lights lives on a PC in the studio (it drives the WLED strips in the
+      ceiling). That PC opens a Cloudflare quick tunnel whose address changes on
+      every restart and publishes the current one to a GitHub Gist; this page
+      reads the gist and shows the lights' own control site full-screen.
+      Source: the LedControl project on that PC (tunnel.py, server.py, web/).
+    */
+    :root { --bg: #10120b; --ink: #f2f4ea; --muted: #a9ad9c; --lime: #c6ff3d; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+                 font: 18px/1.5 Alegreya, Georgia, "Palatino Linotype", serif; }
+    iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: var(--bg); }
+    .msg { min-height: 100%; display: grid; place-items: center; text-align: center; padding: 24px 16px; box-sizing: border-box; }
+    .msg svg { width: 72px; height: 72px; }
+    .msg h1 { font-size: 1.6rem; margin: 16px 0 4px; }
+    .msg p { color: var(--muted); margin: 4px 0; max-width: 32ch; }
+    .msg a, .msg button { color: var(--lime); }
+    .msg button { margin-top: 16px; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid var(--lime);
+                  background: transparent; font: inherit; cursor: pointer; }
+    .msg button:focus-visible, .msg a:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+    .spin { animation: spin 6s linear infinite; transform-origin: center; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+  </style>
+</head>
+<body>
+  <main class="msg" id="msg" aria-live="polite">
+    <div>
+      <svg viewBox="0 0 64 64" aria-hidden="true"><g class="spin"><circle cx="32" cy="32" r="27" fill="none" stroke="#c6ff3d" stroke-width="5" stroke-dasharray="150 20"/></g>
+        <circle cx="23" cy="27" r="3.5" fill="#c6ff3d"/><circle cx="41" cy="27" r="3.5" fill="#c6ff3d"/>
+        <path d="M20 38c4 7 20 7 24 0" fill="none" stroke="#c6ff3d" stroke-width="5" stroke-linecap="round"/></svg>
+      <h1 id="title">Finding the lights…</h1>
+      <p id="text">Connecting to the ceiling at the studio.</p>
+      <p id="extra"></p>
+    </div>
+  </main>
+  <script>
+    // The gist the studio PC keeps up to date with the tunnel's current address.
+    const GIST_ID = "3f27817a5e1f3033a8e178da7438ade0";
+    const GIST_FILE = "room-lights.json";
+    const sv = (navigator.language || "").toLowerCase().startsWith("sv");
+    const T = sv ? {
+      sleeping: "Ljuset sover just nu", sleeping_text: "Datorn i studion som styr taket svarar inte. Testa igen om en stund.",
+      last: "Senast online {t}.", retry: "Försök igen", open: "Öppna i egen flik",
+    } : {
+      sleeping: "The lights are asleep", sleeping_text: "The studio PC that runs the ceiling isn't answering. Try again in a bit.",
+      last: "Last online {t}.", retry: "Try again", open: "Open in its own tab",
+    };
+    const $ = (id) => document.getElementById(id);
+
+    async function withTimeout(url, ms, opts) {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), ms);
+      try { return await fetch(url, { ...opts, signal: ctl.signal, cache: "no-store" }); }
+      finally { clearTimeout(timer); }
+    }
+
+    function asleep(updated) {
+      $("title").textContent = T.sleeping;
+      $("text").textContent = T.sleeping_text;
+      $("extra").textContent = updated ? T.last.replace("{t}", new Date(updated).toLocaleString(sv ? "sv-SE" : undefined)) : "";
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = T.retry; b.onclick = () => location.reload();
+      $("extra").after(b);
+    }
+
+    async function start() {
+      let info = null;
+      try {
+        const g = await (await withTimeout(`https://api.github.com/gists/${GIST_ID}`, 8000)).json();
+        info = JSON.parse(g.files[GIST_FILE].content);
+        const url = new URL(info.url);
+        if (url.protocol !== "https:" || !url.hostname.endsWith(".trycloudflare.com")) throw new Error("unexpected address");
+        const ok = (await withTimeout(`${url.origin}/api/state`, 8000)).ok;
+        if (!ok) throw new Error("not answering");
+        const frame = document.createElement("iframe");
+        frame.src = url.origin + "/";
+        frame.title = "Room Lights";
+        frame.allow = "clipboard-write";
+        document.body.replaceChildren(frame);
+        document.title = "Room Lights";
+      } catch (e) {
+        asleep(info && info.updated);
+      }
+    }
+    start();
+  </script>
+</body>
+</html>
