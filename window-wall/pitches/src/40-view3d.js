@@ -1,7 +1,7 @@
 /* ================= Window 3D: the façade at night, the screen canvas behind real frames, people on the plaza =================
    World: metres, y up, the glass plane at z = 0, the plaza at z > 0. Façade x maps to world x - F.W/2. */
 const View3D=(()=>{
-  let R,scene,cam,ctl,tex,screenLight,built=false,figs=new Map(),host,avgC,avgX,frameN=0;
+  let mid=null,midX=null,R,scene,cam,ctl,tex,screenLight,built=false,figs=new Map(),host,avgC,avgX,frameN=0;
   const GY=F.SILL,TOPY=F.SILL+F.H,wx=x=>x-F.W/2,wy=y=>TOPY-y;
   function canvasTex(w,h,paint){const c=document.createElement('canvas');c.width=w;c.height=h;paint(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;return t;}
   function build(){
@@ -83,9 +83,11 @@ const View3D=(()=>{
     const arm=new THREE.Mesh(new THREE.CapsuleGeometry(.05,.5,4,8),coat);arm.geometry.translate(0,.25,0);arm.position.set(.24,1.22,0);grp.add(arm);
     grp.scale.setScalar(s*(p.h/1.7));scene.add(grp);f={grp,arm};figs.set(p.id,f);return f;
   }
-  function render(T){
+  function render(T,src){
     if(!built)build();
-    tex.needsUpdate=true;
+    // a WebGL canvas can't be read reliably by another context, so styled frames go through a 2D copy
+    if(src&&src!==scr){if(!mid){mid=document.createElement('canvas');mid.width=scr.width;mid.height=scr.height;midX=mid.getContext('2d');}midX.drawImage(src,0,0);src=mid;}
+    tex.image=src||scr;tex.needsUpdate=true;
     if(++frameN%5===0){avgX.drawImage(scr,0,0,1,1);const d=avgX.getImageData(0,0,1,1).data;const m=Math.max(d[0],d[1],d[2],1);
       screenLight.color.setRGB(d[0]/m,d[1]/m,d[2]/m);screenLight.intensity=.25+1.8*(d[0]+d[1]+d[2])/765;}
     const alive=new Set();

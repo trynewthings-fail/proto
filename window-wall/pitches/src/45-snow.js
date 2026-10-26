@@ -75,3 +75,19 @@ function drawFlake(c,fl,habit,x,y,R,rot=0,alpha=1){
   }
   c.restore();
 }
+/* paper-cut version: the crystal as one flat white cut-out (for Jul) */
+Flake.prototype.renderPaper=function(){
+  if(!this.pc){this.pc=document.createElement('canvas');this.pc.width=this.pc.height=this.res;this.px=this.pc.getContext('2d');this.pimg=this.px.createImageData(this.res,this.res);}
+  if(this.pdirty===this.steps+this.col)return this.pc;this.pdirty=this.steps+this.col;
+  const d=this.pimg.data,fz=this.fz,map=this.map,s=this.s;
+  for(let p=0;p<map.length;p++){const k=map[p],o=p*4;if(k<0||!fz[k]){d[o+3]=0;continue;}const v=clamp((s[k]-1)*1.6);d[o]=255;d[o+1]=lerp(250,236,v);d[o+2]=lerp(242,214,v);d[o+3]=255;}
+  this.px.putImageData(this.pimg,0,0);return this.pc;
+};
+function drawPaperFlake(c,fl,x,y,R,rot=0,alpha=1){
+  c.save();c.translate(x,y);c.rotate(rot);c.globalAlpha*=alpha;
+  c.shadowColor='rgba(0,0,0,.55)';c.shadowBlur=10;c.shadowOffsetX=4;c.shadowOffsetY=6;
+  if(fl.col>0){const len=R*(.3+1.5*fl.col),wd=R*.08;c.fillStyle='#fff8ee';for(const a of[0,Math.PI/3,-Math.PI/3]){c.save();c.rotate(a);c.beginPath();c.moveTo(0,-len/2-wd);c.lineTo(wd,-len/2);c.lineTo(wd,len/2);c.lineTo(0,len/2+wd);c.lineTo(-wd,len/2);c.lineTo(-wd,-len/2);c.closePath();c.fill();c.restore();}}
+  if(fl.rad>1.5)c.drawImage(fl.renderPaper(),-R,-R,R*2,R*2);
+  else if(!(fl.col>0)){c.fillStyle='#fff8ee';c.beginPath();for(let i=0;i<6;i++){const a=i/6*TAU;c.lineTo(Math.cos(a)*R*.12,Math.sin(a)*R*.12);}c.fill();}
+  c.restore();
+}

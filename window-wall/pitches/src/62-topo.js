@@ -252,7 +252,7 @@ function drawBlockOverlay(t,lift){
 }
 
 const idea={
-  id:'topografi',n:3,steam:'T',col:'#ff7a1a',
+  id:'topografi',n:3,post:'crt',steam:'T',col:'#ff7a1a',
   name:{sv:'Topografi',en:'Topography'},sub:{sv:'Skellefteå i lager',en:'Skellefteå in layers'},
   q:{sv:'Hur ser marken under Skellefteå ut, och var låg havet för 10 000 år sedan?',en:'What is under Skellefteå, and where was the sea 10,000 years ago?'},
   pitch:{tagline:{sv:'En terrängleksak av Skellefteå. Vänster enhet är ett isometriskt block med lagren GEO, ISO och DAT, delat av tvärposten. Höger enhet är samma karta i tre filter, och under den ligger marken uppskuren längs skannerlinjen. Höj havet och se hur kusten låg när isen smälte.',en:'A terrain toy of Skellefteå. The left unit is an isometric block with GEO, ISO and DAT layers, split by the transom. The right unit is the same map through three filters, with the ground cut open along the scan line below. Raise the sea and see where the coast was when the ice melted.'},

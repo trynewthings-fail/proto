@@ -287,7 +287,7 @@ function drawPaneFx(T){
 }
 
 const idea={
-  id:'temperatur',n:1,steam:'S',col:C.cyan,
+  id:'temperatur',n:1,post:'riso',steam:'S',col:C.cyan,
   name:{sv:'Temperatur',en:'Temperature'},sub:{sv:'Vatten i fyra skalor',en:'Water at four scales'},
   q:{sv:'Vad händer med vattnet när det blir kallare eller varmare?',en:'What happens to water when it gets colder or warmer?'},
   pitch:{tagline:{sv:'Samma vatten på fyra skalor samtidigt: molekyler, mikroskop, ett glas och vädret över Skellefteå. Står ingen framför fönstren är det en termometer för dagens väder. Rör ni er blir det varmare, står ni stilla blir det kallare, precis som molekylerna.',en:'The same water at four scales at once: molecules, microscope, a glass and the weather over Skellefteå. With nobody there it is a thermometer for today. Move and it warms up, stand still and it cools down, just like the molecules.'},

@@ -30,12 +30,14 @@ function drawFrames(c,{s,ox,oy}){
   c.fillStyle='rgba(255,255,255,.05)';for(const p of F.panes)c.fillRect(p.x,p.y,p.w,.012);
   c.restore();
 }
+let styleOn=true;
 function present(){
-  if(view==='3d'){View3D.render((performance.now()-T0)/1000);return;}
+  const T=(performance.now()-T0)/1000,src=styleOn?POST.run(cur.post,T):scr;
+  if(view==='3d'){View3D.render(T,src);return;}
   const P=placement();
   octx.setTransform(1,0,0,1,0,0);octx.fillStyle='#000';octx.fillRect(0,0,out.width,out.height);
   octx.imageSmoothingQuality='high';
-  octx.drawImage(scr,P.ox,P.oy,F.W*P.s,F.H*P.s);
+  octx.drawImage(src,P.ox,P.oy,F.W*P.s,F.H*P.s);
   if(view==='ramar')drawFrames(octx,P);
 }
 function setView(v){
@@ -72,6 +74,8 @@ function buildTabs(){
   }
   const vs=document.getElementById('viewseg');vs.innerHTML='';
   for(const[v,l]of VIEWS){const b=document.createElement('button');b.dataset.v=v;b.textContent=L(l);b.addEventListener('click',()=>setView(v));vs.append(b);}
+  const sb=document.getElementById('stylebtn');sb.textContent=L({sv:'Stil',en:'Style'});sb.setAttribute('aria-pressed',styleOn);
+  sb.onclick=()=>{styleOn=!styleOn;sb.setAttribute('aria-pressed',styleOn);};
   setView(view);
 }
 function buildPitch(){

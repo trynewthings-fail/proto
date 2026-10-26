@@ -44,7 +44,7 @@ function skyline(){
   // lit windows in the tower
   const tx=proj(0,205);if(tx){g.fillStyle='#ffcf7a';for(let f=0;f<14;f++)for(let k=0;k<3;k++)if(hash(f*3+k)>.4)g.fillRect(tx[0]-.03+k*.022,HZY-.55+f*.035,.012,.014);}
   for(const[az,l]of[[0,'N'],[45,'NO'],[90,'O'],[135,'SO'],[180,'S'],[225,'SV'],[270,'V'],[315,'NV']]){const p=proj(0,az);if(!p)continue;const en={NO:'NE',O:'E',SO:'SE',SV:'SW',V:'W',NV:'NW'}[l]||l;
-    txt(g,LANG==='sv'?l:en,p[0],F.bot-.07,l.length>1?.06:.08,{w:900,col:C.lime,alpha:.85});}
+    txt(g,LANG==='sv'?l:en,p[0],F.bot-.07,l.length>1?.06:.085,{w:700,italic:true,col:'#e6c47c',alpha:.9});}
 }
 function drawAurora(t){
   if(!s.aurora||s.kp<2.5)return;const a=smooth(2.5,6,s.kp);
@@ -65,12 +65,13 @@ function drawMoon(){
 function info(i){const n=SKY.names[i];return n?{name:LANG==='sv'?(SVSTAR[n]||n):n,ly:LY[n]}:null;}
 function guideLayer(t,objs){
   const c=guideC.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,guideC.width,guideC.height);c.setTransform(PPM,0,0,PPM,0,0);
-  c.strokeStyle=rgba(C.lime,.55);c.lineWidth=.006;c.lineCap='round';c.beginPath();
+  c.strokeStyle='rgba(230,196,124,.8)';c.lineWidth=.005;c.lineCap='round';c.beginPath();
   for(const k in SKY.lines)for(const seg of SKY.lines[k]){let prev=null;for(const[ra,dec]of seg){const[alt,az]=ASTRO.altaz(ra,dec,LST),p=alt>-3?proj(alt,az):null;if(p&&prev&&Math.abs(p[0]-prev[0])<1.2){c.moveTo(prev[0],prev[1]);c.lineTo(p[0],p[1]);}prev=p;}}
   c.stroke();
   for(const k in SKY.cons){const[ra,dec,rank]=SKY.cons[k];if(rank>2)continue;const[alt,az]=ASTRO.altaz(ra,dec,LST);if(alt<4)continue;const p=proj(alt,az);if(!p)continue;
-    txt(c,(LANG==='sv'?SV[k]||SKY.cons[k][3]:SKY.cons[k][3]).toUpperCase(),p[0],p[1],rank===1?.05:.04,{mono:true,w:600,col:C.lime,ls:.15,alpha:.9});}
-  for(const o of objs)if(o.label){txt(c,o.label,o.x+.035,o.y-.03,o.big?.05:.04,{align:'left',w:800,col:'#fff',stroke:.01,strokeCol:'rgba(0,0,0,.7)'});
+    txt(c,(LANG==='sv'?SV[k]||SKY.cons[k][3]:SKY.cons[k][3]).toUpperCase(),p[0],p[1],rank===1?.05:.04,{italic:true,w:700,col:'#e6c47c',ls:.12,alpha:.9});}
+  for(const o of objs)if(o.label){c.strokeStyle='rgba(239,227,200,.85)';c.lineWidth=.003;c.beginPath();for(let k=0;k<8;k++){const a=k*Math.PI/4,r1=.018,r2=k%2?.03:.045;c.moveTo(o.x+Math.cos(a)*r1,o.y+Math.sin(a)*r1);c.lineTo(o.x+Math.cos(a)*r2,o.y+Math.sin(a)*r2);}c.stroke();
+    txt(c,o.label,o.x+.05,o.y-.035,o.big?.05:.04,{align:'left',italic:true,w:700,col:'#f3ead2',stroke:.01,strokeCol:'rgba(0,0,0,.7)'});
     if(o.kind==='gal'){c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=.004;c.beginPath();c.ellipse(o.x,o.y,.035,.014,-.6,0,TAU);c.stroke();}
     if(o.kind==='open'||o.kind==='glob'||o.kind==='neb'){c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=.004;c.setLineDash([.008,.008]);c.beginPath();c.arc(o.x,o.y,.03,0,TAU);c.stroke();c.setLineDash([]);}}
   // reveal only around visitors (or everywhere)
@@ -85,19 +86,19 @@ function guideLayer(t,objs){
 }
 function card(c,o,t){
   const p=F.pane(c,1),y=p.y+.08,h=.42;
-  g.fillStyle='rgba(4,8,16,.82)';rrect(g,p.x+.02,y,p.w-.04,h,.03);g.fill();g.strokeStyle=C.lime;g.lineWidth=.005;g.stroke();
-  g.strokeStyle=rgba(C.lime,.5);g.setLineDash([.015,.012]);g.beginPath();g.moveTo(p.cx,y);g.lineTo(o.x,o.y);g.stroke();g.setLineDash([]);
-  txt(g,o.name,p.cx,y+.08,o.name.length>12?.045:.06,{w:900,col:'#fff'});
+  g.fillStyle='#efe3c8';rrect(g,p.x+.02,y,p.w-.04,h,.012);g.fill();g.strokeStyle='#7a4a22';g.lineWidth=.006;g.stroke();g.lineWidth=.002;rrect(g,p.x+.035,y+.015,p.w-.07,h-.03,.008);g.stroke();
+  g.strokeStyle='rgba(230,196,124,.7)';g.lineWidth=.004;g.setLineDash([.015,.012]);g.beginPath();g.moveTo(p.cx,y);g.lineTo(o.x,o.y);g.stroke();g.setLineDash([]);
+  txt(g,o.name,p.cx,y+.08,o.name.length>12?.045:.062,{w:800,italic:true,col:'#2a1d12'});
   const ly=o.ly,dist=ly==null?'':ly<1e-6?(ly*365.25*864e2).toFixed(1).replace('.',LANG==='sv'?',':'.')+L({sv:' ljussekunder',en:' light seconds'}):ly<1e-3?(ly*365.25*24*60).toFixed(1).replace('.',LANG==='sv'?',':'.')+L({sv:' ljusminuter',en:' light minutes'}):ly>=1e6?(ly/1e6).toFixed(1).replace('.',LANG==='sv'?',':'.')+L({sv:' miljoner ljusår',en:' million light years'}):Math.round(ly).toLocaleString(LANG==='sv'?'sv-SE':'en-GB')+L({sv:' ljusår',en:' light years'});
-  txt(g,dist,p.cx,y+.17,.036,{mono:true,w:600,col:C.lime});
+  txt(g,dist,p.cx,y+.17,.034,{mono:true,w:600,col:'#7a4a22'});
   const yr=new Date().getFullYear()-ly;
   const left=ly==null?'':ly<1e-3?L({sv:'Ljuset är några minuter gammalt',en:'The light is minutes old'}):ly<2000?L({sv:'Ljuset lämnade den år',en:'Its light left in'}):L({sv:'Ljuset lämnade den för',en:'Its light left'});
   const when=ly==null?'':ly<1e-3?'':ly<2000?String(Math.round(yr)):ly>=1e6?(ly/1e6).toFixed(1).replace('.',LANG==='sv'?',':'.')+L({sv:' milj. år sedan',en:' million years ago'}):Math.round(ly).toLocaleString(LANG==='sv'?'sv-SE':'en-GB')+L({sv:' år sedan',en:' years ago'});
-  txt(g,left,p.cx,y+.26,.03,{mono:true,col:'#cfd3c4'});txt(g,when,p.cx,y+.34,.07,{w:900,col:'#fff'});
+  txt(g,left,p.cx,y+.26,.03,{mono:true,col:'#5a4632'});txt(g,when,p.cx,y+.34,.07,{w:900,col:'#2a1d12'});
 }
 
 const idea={
-  id:'stjarnhimlen',n:4,steam:'S',col:C.violet,
+  id:'stjarnhimlen',n:4,post:'atlas',steam:'S',col:C.violet,
   name:{sv:'Stjärnhimlen',en:'The night sky'},sub:{sv:'Himlen över Skellefteå just nu',en:'The sky over Skellefteå now'},
   q:{sv:'Vilka stjärnor står över Exploratoriet just nu?',en:'Which stars are above Exploratoriet right now?'},
   pitch:{tagline:{sv:'Fönstren blir ett 150° brett panoramafönster mot himlen ovanför Skellefteå, uträknad för exakt nu: 2 309 stjärnor, planeterna, månen och dess fas. Utan publik är det bara himlen. Ställer du dig framför tänds guiden runt dig med stjärnbilder och namn.',en:'The windows become a 150° panorama of the sky above Skellefteå, computed for right now: 2,309 stars, the planets, the Moon and its phase. With nobody there it is just the sky. Stand in front and the guide lights up around you with constellations and names.'},
@@ -151,6 +152,11 @@ const idea={
     for(const m of s.meteors){const k=m.t/m.life,x=m.x+m.dx*k,y=m.y+m.dy*k,tail=g.createLinearGradient(x,y,x-m.dx*.25,y-m.dy*.25);
       tail.addColorStop(0,`rgba(255,255,255,${1-k})`);tail.addColorStop(1,'rgba(255,255,255,0)');g.strokeStyle=tail;g.lineWidth=.012;g.beginPath();g.moveTo(x,y);g.lineTo(x-m.dx*.25,y-m.dy*.25);g.stroke();
       glowDot(g,x,y,.05,'#ffffff',1-k);}
+    // graticule: altitude every 15°, azimuth every 15°, engraved and faint
+    g.strokeStyle='rgba(230,196,124,.13)';g.lineWidth=.003;g.setLineDash([.01,.012]);
+    for(let alt=15;alt<=60;alt+=15){const y=HZY-K*2*Math.tan(alt*Math.PI/360);g.beginPath();g.moveTo(0,y);g.lineTo(F.W,y);g.stroke();txt(g,alt+'°',.03,y-.02,.03,{align:'left',italic:true,col:'rgba(230,196,124,.5)'});}
+    for(let a=0;a<360;a+=15){const p=proj(0,a);if(!p)continue;g.beginPath();g.moveTo(p[0],HZY);g.lineTo(p[0],0);g.stroke();}
+    g.setLineDash([]);
     skyline();
     guideLayer(t,objs);
     // cards for people standing still

@@ -4,13 +4,15 @@
 
 Five worked-out ideas for Exploratoriet's 12 panes, made for pitching. Every tab has three views: **Bild** (the image itself), **Bild + ramar** (with the frames on top) and **Fönster 3D** (the façade at night). Each tab also has a controller box. The **Djupkamera** box simulates the two Orbbec cameras: drag people around, or let your mouse over the image act as a visitor.
 
-| Tab | What it is | Data |
-|---|---|---|
-| 1 Temperatur | The same water at four scales: molecules, microscope, Skellefteå weather, a glass. Movement heats it, standing still cools it. | Today's temperature (simulated) |
-| 2 Elektricitet | Twelve chapters from snow in the mountains to the outlet. Movement exaggerates every step. | Skellefteå Kraft production and SE1 price (simulated) |
-| 3 Topografi | Skellefteå as a layered terrain toy (GEO · ISO · DAT), map filters, a soil cross-section, and the sea level after the ice age. | Simplified terrain model |
-| 4 Stjärnhimlen | The real sky above Skellefteå right now, with a guide that lights up around visitors. | Computed from the clock (stars, planets, Moon); Kp simulated |
-| 5 Snöflingefabriken | Christmas: grow a snowflake by where you stand (Nakaya diagram, Reiter's growth model) and hang it on the tree. | None |
+| Tab | What it is | Look | Data |
+|---|---|---|---|
+| 1 Temperatur | The same water at four scales: molecules, microscope, Skellefteå weather, a glass. Movement heats it, standing still cools it. | Fluorescent risograph on black stock | Today's temperature (simulated) |
+| 2 Elektricitet | Twelve chapters from snow in the mountains to the outlet. Movement exaggerates every step. | Mid-century lithograph poster series | Skellefteå Kraft production and SE1 price (simulated) |
+| 3 Topografi | Skellefteå as a layered terrain toy (GEO · ISO · DAT), map filters, a soil cross-section, and the sea level after the ice age. | TouchDesigner screens: bloom, scanlines, one tube per pane | Simplified terrain model |
+| 4 Stjärnhimlen | The real sky above Skellefteå right now, with a guide that lights up around visitors. | Real sky with an engraved, gold-ink star-atlas guide | Computed from the clock (stars, planets, Moon); Kp simulated |
+| 5 Snöflingefabriken | Christmas: steer your falling snowflake between three temperature columns (plates, needles, stars), then it goes on the tree. | Cut paper lit from behind, like an advent star | None |
+
+The look comes from `src/15-style.js`: each tab draws as before and a WebGL pass (`post:` on the idea) turns the picture into its medium. The **Stil** button above the stage switches it off for comparison.
 
 ## Build
 
@@ -25,6 +27,7 @@ The script writes `fonsterlabbet.html` (the page body, for publishing as an arti
 | File | What |
 |---|---|
 | `src/00-head.html` | Title, fonts, CSS, markup, three.js r147 from jsDelivr |
+| `src/15-style.js` | The art styles: one shader per tab (riso, poster, crt, atlas, paper) |
 | `src/10-core.js` | Façade geometry (same numbers as `config/fasad.js`), drawing helpers, and `FAKE`, the simulated live data |
 | `src/20-ui.js` | The controller kit: slider, knob, hold button, toggle, segments, draw pad, readouts |
 | `src/30-people.js` | The simulated people on the plaza and the camera box |
