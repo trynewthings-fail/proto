@@ -1,0 +1,54 @@
+{
+  "title": "Wall mount for iPad 11-inch (portrait)",
+  "summary": "A screw-on cradle the iPad stands in, with the middle left open for a USB-C charging cable, plus two turn clips that hold the top edge.",
+  "status": "preview",
+  "date": "2026-10-26",
+  "material": "PLA",
+  "notes": "Sized for a bare iPad 11-inch (A16): 248.6 × 179.5 × 7.0 mm. An iPad Air or Pro 11 fits too, a case does not. Needs 5 countersunk wood screws, 4 mm: 3 for the cradle, hidden behind the iPad, and 1 per clip. One print: cradle and both clips.",
+  "view": {
+    "rotate": [
+      90,
+      0,
+      0
+    ]
+  },
+  "parts": [
+    {
+      "name": "Cradle",
+      "file": "part1.stl",
+      "color": "#f2f2ee",
+      "explode": [
+        0,
+        0,
+        18
+      ],
+      "material": "PLA (one print with both clips)",
+      "print": {
+        "minutes": 44.9,
+        "grams": 27.64
+      }
+    },
+    {
+      "name": "Turn clips ×2",
+      "file": "part2.stl",
+      "color": "#f2f2ee",
+      "explode": [
+        0,
+        0,
+        18
+      ],
+      "material": "PLA (same print)"
+    },
+    {
+      "name": "iPad (for reference, not printed)",
+      "file": "part3.stl",
+      "color": "#3a3a40",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "not printed"
+    }
+  ]
+}
