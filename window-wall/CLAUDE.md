@@ -12,7 +12,7 @@ This is a sketchbook for an interactive rear-projection on Exploratoriet's faça
 
 **Changing an idea** touches only `ideas/<id>.js`. Keep its `id` and `by` unless the request says otherwise.
 
-**Never edit** anything under `motor/`, `config/`, `tools/`, `media/`, or `index.html`, `specs.html`, `style.css`, other ideas, other folders in `proto`, or proto's root `index.html` (it is generated). If an idea needs something the engine doesn't offer, build it inside the idea file. If that's impossible, create a task on the Order board *Window Wall* (project *Exploratoriet: WindowProjection*) describing what's needed, and say so in your reply.
+**Never edit** anything under `motor/`, `config/`, `tools/`, `media/`, `pitches/` (a separate single-page prototype with its own [README](pitches/README.md)), or `index.html`, `specs.html`, `style.css`, other ideas, other folders in `proto`, or proto's root `index.html` (it is generated). If an idea needs something the engine doesn't offer, build it inside the idea file. If that's impossible, create a task on the Order board *Window Wall* (project *Exploratoriet: WindowProjection*) describing what's needed, and say so in your reply.
 
 ## 2. Effort: quality over thrift
 

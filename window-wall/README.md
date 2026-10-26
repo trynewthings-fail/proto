@@ -15,6 +15,7 @@ An idea sketchbook for an interactive rear-projection on **Exploratoriet's** gro
 - **The lab** (Labbet): simulated passers-by, weather and aurora (live from Open-Meteo/NOAA), the clock and darkness for Skellefteå, and a weekly schedule.
 - **Specs** ([specs.html](specs.html)): the projector analysis, our measurements next to the brief's, and the questions to settle before getting a quote.
 - **Svenska / English** toggle.
+- **Fönsterlabbet** ([pitches/](pitches/)): five fully worked pitches (temperature, electricity, topography, tonight's sky, a Christmas snowflake factory), each with a web controller that stands in for the cameras. See [pitches/README.md](pitches/README.md).
 
 ## Add an idea
 
