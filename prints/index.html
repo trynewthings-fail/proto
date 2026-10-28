@@ -257,7 +257,7 @@ function renderGrid() {
       <div class="meta">
         <span class="t">${esc(p.title)}</span>
         <span class="s">${esc(p.summary)}</span>
-        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${p.timelapse ? '<span class="chip">▶ Timelapse</span>' : ''}${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
+        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${p.timelapse ? '<span class="chip">▶ Timelapse</span>' : ''}${p.plates > 1 ? `<span class="chip">${p.plates} plates</span>` : ''}${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
       </div>
     </a>`).join('');
   (async () => {
@@ -405,7 +405,7 @@ async function showToolpath(slug, m, idx) {
   const N = layers.length;
   const feats = t.features.map((f, i) => ({ ...f, i })).filter(f => tp.lines[f.i]);
   sec.innerHTML = `
-    ${m.toolpaths.length > 1 ? `<p><select id="tp-pick">${m.toolpaths.map((x, i) => `<option value="${i}"${i === idx ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select></p>` : ''}
+    ${m.toolpaths.length > 1 ? `<p><select id="tp-pick" aria-label="${m.plates ? 'Plate' : 'Part'}">${m.toolpaths.map((x, i) => `<option value="${i}"${i === idx ? ' selected' : ''}>${m.plates ? `${i + 1}. ` : ''}${esc(x.name)} · ${fmtTime(x.minutes)}</option>`).join('')}</select></p>` : ''}
     <p class="tpstats">${fmtTime(t.minutes)} · ${Math.round(t.grams)} g · ${t.filament_m} m filament · ${N} layers</p>
     <div class="layer"><input type="range" id="tp-layer" min="1" max="${N}" value="${N}" aria-label="Layer"><span id="tp-lbl"></span></div>
     <div class="tools">
@@ -498,13 +498,14 @@ async function open(slug) {
   V.needsFrame = !(stage.clientWidth && stage.clientHeight);
   frame(V.camera, V.current.radius, V.controls);
 
-  const total = m.parts.reduce((a, p) => ({ t: a.t + (p.print?.minutes || 0), g: a.g + (p.print?.grams || 0) }), { t: 0, g: 0 });
+  const total = (m.plates || m.parts.map(p => p.print || {})).reduce((a, p) => ({ t: a.t + (p.minutes || 0), g: a.g + (p.grams || 0) }), { t: 0, g: 0 });
+  const nPlates = m.plates?.length || 0;
   const canExplode = m.parts.some(p => (p.explode || []).some(v => v));
   panel.innerHTML = `
     <h2>${esc(m.title)}</h2>
     <p>${esc(m.summary)}</p>
     <p><span class="chip st-${esc(m.status)}">${esc(STATUS[m.status]?.label || m.status)}</span>
-      &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}</p>
+      &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}${nPlates > 1 ? ` · ${nPlates} plates` : ''}</p>
     ${m.notes ? `<p>${esc(m.notes)}</p>` : ''}
     ${m.toolpaths?.length ? `<div class="seg" role="group" aria-label="View"><button type="button" data-mode="model" aria-pressed="true">Model</button><button type="button" data-mode="tp" aria-pressed="false">Toolpath</button></div>` : ''}
     ${m.timelapse ? `<div class="tl"><span>Timelapse from the printer camera</span><video src="${esc(slug)}/${esc(m.timelapse)}" controls muted loop playsinline preload="metadata"></video></div>` : ''}
@@ -518,11 +519,20 @@ async function open(slug) {
     <ul class="parts">${m.parts.map((p, i) => `
       <li>
         <input type="color" value="${esc(p.color || '#dddddd')}" data-i="${i}" aria-label="Color of ${esc(p.name)}">
-        <span><span class="pn">${esc(p.name)}</span><br><span class="pd">${esc(p.material || m.material || '')}${p.print ? ` · ${fmtTime(p.print.minutes)} · ${Math.round(p.print.grams)} g` : ''}</span></span>
+        <span><span class="pn">${esc(p.name)}${p.count > 1 ? ` <span class="pd">×${p.count}</span>` : ''}</span><br><span class="pd">${esc(p.material || m.material || '')}${p.print ? ` · ${fmtTime(p.print.minutes)} · ${Math.round(p.print.grams)} g` : ''}</span></span>
         <label><input type="checkbox" checked data-v="${i}"> show</label>
       </li>`).join('')}
     </ul>
+    ${nPlates ? `<div class="sec-h">Print plates</div>
+    <ul class="parts plates">${m.plates.map((pl, i) => `
+      <li><span class="pn">${i + 1}</span>
+        <span><span class="pn">${esc(pl.name)}</span><br><span class="pd">${fmtTime(pl.minutes)} · ${Math.round(pl.grams)} g${pl.contents ? ' · ' + esc(pl.contents) : ''}</span></span>
+        <button type="button" data-plate="${pl.toolpath}">Toolpath</button></li>`).join('')}
+    </ul>` : ''}
     </div>`;
+  panel.querySelectorAll('button[data-plate]').forEach(b => b.addEventListener('click', async () => {
+    setMode('tp'); await showToolpath(slug, m, +b.dataset.plate);
+  }));
   panel.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', async () => {
     if (b.dataset.mode === 'tp' && !V.tp) { setMode('tp'); await showToolpath(slug, m, 0); }
     else setMode(b.dataset.mode);
