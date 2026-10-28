@@ -1,0 +1,121 @@
+{
+  "title": "Corgi figure, 10 cm",
+  "summary": "A sculpted corgi from Nomad Sculpt, scaled to 10 cm nose to tail and printed standing on its feet.",
+  "status": "preview",
+  "date": "2026-10-28",
+  "material": "PLA",
+  "notes": "100 × 98 × 83 mm. Prints standing up with organic tree supports under the belly, chin, side ears and tail, plus a small brim around the feet; the supports break off. Single color: say which filament color you want.",
+  "view": {
+    "rotate": [
+      0,
+      0,
+      0
+    ]
+  },
+  "parts": [
+    {
+      "name": "Corgi",
+      "file": "part1.stl",
+      "color": "#e0a35c",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "PLA, 0.2 mm layers, tree supports",
+      "print": {
+        "minutes": 164.0,
+        "grams": 72.27
+      }
+    }
+  ],
+  "toolpaths": [
+    {
+      "name": "Corgi",
+      "file": "toolpath1.bin.gz",
+      "layers": 413,
+      "points": 624920,
+      "minutes": 164.0,
+      "grams": 72.27,
+      "filament_m": 23.88,
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0018
+        },
+        {
+          "name": "Support",
+          "grams": 10.03,
+          "share": 0.1397
+        },
+        {
+          "name": "Support interface",
+          "grams": 2.22,
+          "share": 0.031
+        },
+        {
+          "name": "Outer wall",
+          "grams": 6.86,
+          "share": 0.0955
+        },
+        {
+          "name": "Inner wall",
+          "grams": 14.47,
+          "share": 0.2015
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.37,
+          "share": 0.0052
+        },
+        {
+          "name": "Gap infill",
+          "grams": 0.06,
+          "share": 0.0008
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 9.82,
+          "share": 0.1367
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 26.99,
+          "share": 0.3759
+        },
+        {
+          "name": "Bridge",
+          "grams": 0.35,
+          "share": 0.0049
+        },
+        {
+          "name": "Top surface",
+          "grams": 0.26,
+          "share": 0.0036
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 0.24,
+          "share": 0.0033
+        }
+      ],
+      "settings": {
+        "Filament": "PLA",
+        "Layer height": "0.2 mm",
+        "First layer": "0.2 mm",
+        "Walls": "3",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "15%",
+        "Infill pattern": "rectilinear",
+        "Supports": "yes",
+        "Support type": "tree(auto)",
+        "Brim": "outer",
+        "Nozzle": "210 °C",
+        "Bed": "60 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    }
+  ]
+}

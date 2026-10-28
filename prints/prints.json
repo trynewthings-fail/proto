@@ -1,6 +1,15 @@
 {
   "prints": [
     {
+      "slug": "corgi-figure",
+      "title": "Corgi figure, 10 cm",
+      "summary": "A sculpted corgi from Nomad Sculpt, scaled to 10 cm nose to tail and printed standing on its feet.",
+      "status": "preview",
+      "date": "2026-10-28",
+      "material": "PLA",
+      "timelapse": false
+    },
+    {
       "slug": "ipad-11-wall-mount",
       "title": "Wall mount for iPad 11-inch (portrait)",
       "summary": "A screw-on cradle the iPad stands in, with the middle left open for a USB-C charging cable, plus two turn clips that hold the top edge.",
