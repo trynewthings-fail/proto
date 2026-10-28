@@ -87,8 +87,8 @@
     {
       "name": "Horns",
       "contents": "both horns, spine 5–7",
-      "minutes": 625.1,
-      "grams": 190.93,
+      "minutes": 640.6,
+      "grams": 200.52,
       "toolpath": 1
     },
     {
@@ -207,41 +207,41 @@
     {
       "name": "Horns",
       "file": "toolpath2.bin.gz",
-      "layers": 521,
-      "points": 1284503,
-      "minutes": 625.1,
-      "grams": 190.93,
-      "filament_m": 63.35,
+      "layers": 502,
+      "points": 1284062,
+      "minutes": 640.6,
+      "grams": 200.52,
+      "filament_m": 66.54,
       "features": [
         {
           "name": "Custom",
           "grams": 0.13,
-          "share": 0.0007
-        },
-        {
-          "name": "Support",
-          "grams": 28.83,
-          "share": 0.1514
-        },
-        {
-          "name": "Support interface",
-          "grams": 7.3,
-          "share": 0.0383
-        },
-        {
-          "name": "Brim",
-          "grams": 0.12,
           "share": 0.0006
         },
         {
+          "name": "Support",
+          "grams": 40.43,
+          "share": 0.2021
+        },
+        {
+          "name": "Support interface",
+          "grams": 8.89,
+          "share": 0.0445
+        },
+        {
+          "name": "Brim",
+          "grams": 0.07,
+          "share": 0.0003
+        },
+        {
           "name": "Outer wall",
-          "grams": 22.47,
-          "share": 0.118
+          "grams": 21.57,
+          "share": 0.1078
         },
         {
           "name": "Inner wall",
-          "grams": 46.88,
-          "share": 0.2461
+          "grams": 45.76,
+          "share": 0.2287
         },
         {
           "name": "Bottom surface",
@@ -249,39 +249,39 @@
           "share": 0.0006
         },
         {
-          "name": "Gap infill",
-          "grams": 0.29,
-          "share": 0.0015
-        },
-        {
           "name": "Overhang wall",
-          "grams": 0.51,
-          "share": 0.0027
+          "grams": 0.56,
+          "share": 0.0028
         },
         {
           "name": "Internal solid infill",
-          "grams": 33.57,
-          "share": 0.1762
+          "grams": 33.05,
+          "share": 0.1652
         },
         {
-          "name": "Sparse infill",
-          "grams": 47.22,
-          "share": 0.2479
-        },
-        {
-          "name": "Bridge",
-          "grams": 0.24,
+          "name": "Gap infill",
+          "grams": 0.26,
           "share": 0.0013
         },
         {
+          "name": "Sparse infill",
+          "grams": 46.86,
+          "share": 0.2342
+        },
+        {
           "name": "Top surface",
-          "grams": 1.04,
-          "share": 0.0055
+          "grams": 0.84,
+          "share": 0.0042
+        },
+        {
+          "name": "Bridge",
+          "grams": 0.19,
+          "share": 0.0009
         },
         {
           "name": "Internal Bridge",
-          "grams": 1.74,
-          "share": 0.0091
+          "grams": 1.32,
+          "share": 0.0066
         }
       ],
       "settings": {
