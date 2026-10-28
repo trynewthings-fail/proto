@@ -107,6 +107,21 @@
   .settings { display: grid; grid-template-columns: auto 1fr; gap: .15rem .9rem; margin: .9rem 0 0; font-size: .82rem; }
   .settings dt { color: var(--muted); }
   .settings dd { margin: 0; }
+  .now { margin: 2.6rem 0 0; }
+  .now .est { text-transform: none; letter-spacing: 0; }
+  .now-list { display: grid; gap: .7rem; margin-top: .5rem; }
+  .now-card { display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem; align-items: center; padding: .85rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: inherit; text-decoration: none; }
+  .now-card:hover { border-color: var(--muted); }
+  .now-card .t { font-weight: 600; }
+  .now-card .s, .now-card .go { color: var(--muted); font-size: .85rem; }
+  .now-card .pbar { grid-column: 1 / -1; }
+  .pbar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; margin: .35rem 0 .1rem; }
+  .pbar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 3px; transition: width .6s; }
+  .live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s infinite; vertical-align: middle; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .live-box { margin: .6rem 0; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: 8px; font-size: .85rem; }
+  .live-box #tp-live { color: var(--muted); display: block; }
+  .live-box button { margin-top: .4rem; }
   .sec-h { margin: 1rem 0 .1rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
   @media (max-width: 640px) {
     .panel { top: auto; bottom: 12px; max-height: 45dvh; }
@@ -139,6 +154,11 @@
     </ol>
   </div>
 
+  <section class="now" id="now" hidden>
+    <div class="sec-h">Now printing <span class="est">(progress from the slicer's estimate)</span></div>
+    <div class="now-list" id="now-list"></div>
+  </section>
+
   <div class="filters" role="group" aria-label="Filter by status"></div>
   <div class="grid" id="grid"></div>
 
@@ -167,6 +187,16 @@ const STATUS = {
 };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtTime = m => m >= 60 ? `${Math.floor(m / 60)} h ${Math.round(m % 60)} min` : `${Math.round(m)} min`;
+// live.json: when each running print started and its estimated minutes; progress is worked out here
+const liveElapsed = e => Math.max(0, Math.min(e.minutes, (Date.now() - Date.parse(e.started)) / 60000));
+function liveText(e) {
+  const el = (Date.now() - Date.parse(e.started)) / 60000, left = e.minutes - el;
+  const pct = Math.max(0, Math.min(100, el / e.minutes * 100));
+  if (left <= 0) return { pct: 100, text: 'should be about done' };
+  const done = new Date(Date.parse(e.started) + e.minutes * 60000);
+  return { pct, text: `${Math.round(pct)} % · ${fmtTime(left)} left · done around ${done.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` };
+}
+let live = [];
 
 const loader = new STLLoader();
 const geoCache = new Map();
@@ -376,6 +406,19 @@ function buildToolpath(layers, names) {
   let last = 0;
   tp.tick = () => {
     const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (tp.live && outer.visible) {
+      // follow a running print: the slicer's per-layer start times, scaled to the printer's own estimate
+      const { lm, at } = tp.live, el = at();
+      let l = 0;
+      while (l < lm.length - 1 && lm[l + 1] <= el) l++;
+      if (l !== tp.layer) { tp.setLayer(l); tp.onLayer?.(); }
+      const span = (lm[l + 1] ?? lm[l] + 1) - lm[l];
+      const n = Math.floor(Math.min(1, Math.max(0, (el - lm[l]) / span)) * tp.segs);
+      head.geometry.setDrawRange(0, n * 2);
+      const k = n * 6 + 3, vv = tp.verts;
+      if (vv.length > k + 2) { nozzle.position.set(vv[k], vv[k + 1], vv[k + 2] + 2 * nozzle.scale.z); nozzle.visible = true; }
+      return;
+    }
     if (!tp.playing || !outer.visible) return;
     tp.prog += Math.max(80, tp.segs / 6) * dt;                // about 6 s per layer, faster on tiny ones
     if (tp.prog >= tp.segs) {
@@ -393,7 +436,7 @@ function buildToolpath(layers, names) {
 
 const fmtSetting = ([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`;
 
-async function showToolpath(slug, m, idx) {
+async function showToolpath(slug, m, idx, liveEntry) {
   const t = m.toolpaths[idx], sec = panel.querySelector('#sec-tp');
   sec.innerHTML = '<p>Loading toolpath…</p>';
   if (V.tp) { V.scene.remove(V.tp.outer); V.tp = null; }
@@ -407,6 +450,8 @@ async function showToolpath(slug, m, idx) {
   sec.innerHTML = `
     ${m.toolpaths.length > 1 ? `<p><select id="tp-pick" aria-label="${m.plates ? 'Plate' : 'Part'}">${m.toolpaths.map((x, i) => `<option value="${i}"${i === idx ? ' selected' : ''}>${m.plates ? `${i + 1}. ` : ''}${esc(x.name)} · ${fmtTime(x.minutes)}</option>`).join('')}</select></p>` : ''}
     <p class="tpstats">${fmtTime(t.minutes)} · ${Math.round(t.grams)} g · ${t.filament_m} m filament · ${N} layers</p>
+    ${liveEntry ? `<div class="live-box"><span class="live-dot"></span> <b>Printing on ${esc(liveEntry.printer)}</b> <span id="tp-live"></span>
+      <div class="pbar"><i id="tp-live-bar"></i></div><button type="button" id="tp-live-btn" hidden>Back to live</button></div>` : ''}
     <div class="layer"><input type="range" id="tp-layer" min="1" max="${N}" value="${N}" aria-label="Layer"><span id="tp-lbl"></span></div>
     <div class="tools">
       <button type="button" id="tp-play">▶ Play</button>
@@ -425,14 +470,27 @@ async function showToolpath(slug, m, idx) {
     <dl class="settings">${Object.entries(t.settings || {}).map(fmtSetting).join('')}</dl>`;
   const slider = sec.querySelector('#tp-layer'), lbl = sec.querySelector('#tp-lbl'), play = sec.querySelector('#tp-play');
   const label = () => { slider.value = tp.layer + 1; lbl.textContent = `Layer ${tp.layer + 1} of ${N} · Z ${layers[tp.layer].z.toFixed(2)} mm`; };
-  const go = l => { tp.setLayer(Math.max(0, Math.min(N - 1, l))); label(); };
+  let liveState = null;
+  const liveBtn = sec.querySelector('#tp-live-btn');
+  const stopLive = () => { if (tp.live) { liveState = tp.live; tp.live = null; tp.drawHead(); if (liveBtn) liveBtn.hidden = false; } };
+  const go = l => { stopLive(); tp.setLayer(Math.max(0, Math.min(N - 1, l))); label(); };
   const setPlay = on => { tp.playing = on; play.textContent = on ? '❚❚ Pause' : '▶ Play'; };
   tp.onLayer = label; tp.onStop = () => setPlay(false);
+  if (liveEntry && t.layer_minutes) {
+    const scale = liveEntry.minutes / (t.minutes || liveEntry.minutes);   // printer's estimate vs the slicer's
+    const lm = t.layer_minutes.map(v => v * scale);
+    tp.live = { lm, at: () => liveElapsed(liveEntry) };
+    const txt = sec.querySelector('#tp-live'), bar = sec.querySelector('#tp-live-bar');
+    const upd = () => { if (!sec.isConnected) return clearInterval(iv); const s = liveText(liveEntry); txt.textContent = s.text; bar.style.width = s.pct + '%'; };
+    const iv = setInterval(upd, 15000); upd();
+    liveBtn.addEventListener('click', () => { tp.live = liveState; liveBtn.hidden = true; setPlay(false); });
+  }
   label();
   slider.addEventListener('input', () => go(slider.value - 1));
   sec.querySelector('#tp-prev').addEventListener('click', () => go(tp.layer - 1));
   sec.querySelector('#tp-next').addEventListener('click', () => go(tp.layer + 1));
   play.addEventListener('click', () => {
+    stopLive();
     if (tp.playing) return setPlay(false);
     if (tp.layer >= N - 1) go(0); else tp.setLayer(tp.layer);   // restart the current layer from its first move
     setPlay(true);
@@ -544,8 +602,44 @@ async function open(slug) {
   panel.querySelectorAll('input[data-v]').forEach(el => el.addEventListener('change', () => { V.current.meshes[el.dataset.v].visible = el.checked; }));
 }
 
+async function openLive(slug, plate) {
+  if (!live.length) await renderNow();
+  const e = live.find(x => x.slug === slug && x.plate === plate);
+  await open(slug);
+  const m = await manifest(slug);
+  if (!m.toolpaths?.[plate - 1]) return;
+  setMode('tp');
+  await showToolpath(slug, m, plate - 1, e);       // without a live entry (finished) it's the normal toolpath view
+}
+
+/* ---------- now printing ---------- */
+async function renderNow() {
+  const sec = document.getElementById('now'), list = document.getElementById('now-list');
+  try { live = (await (await fetch('live.json', { cache: 'no-cache' })).json()).prints || []; } catch { live = []; }
+  live = live.filter(e => e.started && e.minutes);
+  sec.hidden = !live.length;
+  if (!live.length) return;
+  const rows = await Promise.all(live.map(async e => {
+    let m; try { m = await manifest(e.slug); } catch { return ''; }
+    const plate = m.plates?.[e.plate - 1]?.name || m.toolpaths?.[e.plate - 1]?.name || '';
+    return `<a class="now-card" href="#${esc(e.slug)}~live${e.plate}" data-k="${esc(e.slug)}:${e.plate}">
+      <span><span class="live-dot"></span> <span class="t">${esc(m.title)}</span>${plate && m.plates?.length > 1 ? ` <span class="s">· plate ${e.plate}: ${esc(plate)}</span>` : ''}</span>
+      <span class="go">${esc(e.printer || '')} · watch ›</span>
+      <span class="pbar"><i></i></span><span class="s txt"></span></a>`;
+  }));
+  list.innerHTML = rows.join('');
+  const tick = () => list.querySelectorAll('.now-card').forEach(c => {
+    const e = live.find(x => `${x.slug}:${x.plate}` === c.dataset.k); if (!e) return;
+    const s = liveText(e); c.querySelector('.pbar i').style.width = s.pct + '%'; c.querySelector('.txt').textContent = s.text;
+  });
+  tick(); clearInterval(renderNow.iv); renderNow.iv = setInterval(tick, 30000);
+}
+
 function route() {
-  const slug = decodeURIComponent(location.hash.slice(1));
+  const h = decodeURIComponent(location.hash.slice(1));
+  const lm = h.match(/^([a-z0-9-]+)~live(\d+)$/);
+  if (lm) return openLive(lm[1], +lm[2]);
+  const slug = h;
   if (slug && /^[a-z0-9-]+$/.test(slug)) open(slug);
   else if (dlg.open) dlg.close();
 }
@@ -556,7 +650,8 @@ addEventListener('hashchange', route);
 /* ---------- boot ---------- */
 fetch('prints.json', { cache: 'no-cache' }).then(r => r.json()).then(d => {
   all = (d.prints || []).sort((a, b) => (STATUS[a.status]?.order ?? 9) - (STATUS[b.status]?.order ?? 9) || String(b.date).localeCompare(String(a.date)));
-  renderFilters(); renderGrid(); route();
+  renderFilters(); renderGrid(); renderNow().then(route);
+  setInterval(renderNow, 10 * 60000);                // pick up prints that start or finish while the page is open
 }).catch(() => { grid.innerHTML = '<div class="empty">Could not load the print list.</div>'; });
 </script>
 </body>
