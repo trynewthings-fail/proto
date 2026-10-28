@@ -1,10 +1,10 @@
 {
   "title": "Ram skull headpiece and skeleton pieces",
-  "summary": "A ram skull with sweeping horns that sits on the forehead, a 21-piece spine, 8 arm pieces and 6 ribs, all in white PLA over three plates.",
+  "summary": "A ram skull with sweeping horns that sits on the head, a 21-piece spine, 8 arm pieces and 6 ribs, in white PLA over four plates.",
   "status": "preview",
   "date": "2026-10-28",
   "material": "White PLA",
-  "notes": "Scaled so the skull is 120 mm wide (20 cm long) to sit on the forehead of a 58 cm head; the horns reach about 17 cm back over the head. The horns print separately: each one has a seat shaped exactly like the skull where it attaches, plus a 2 mm hole straight through the joint. Push a short piece of 1.75 mm filament into the hole as a pin, then glue (superglue or epoxy). Skull and horns: 3 walls, 10 % gyroid infill to keep them light. Spine pieces and arm pieces print flat side down; arm pieces are 59 × 42 mm. Ribs: 3 left + 3 mirrored right, scaled to 220 mm long to fit the printer. All plates use tree supports and a small brim.",
+  "notes": "Headpiece scaled so the skull is 150 mm wide (about 24 cm long), about the width of a 58 cm head as in the reference photo; worn with the snout tipped forward over the brow and cords through the eye sockets. The horns (about 20 cm) print separately; each has a seat shaped exactly like the skull where it attaches, so it only fits one way. Glue with epoxy or thick superglue. The skull prints upright on its underside (the side against the head), so support marks stay hidden. Skull and horns: 3 walls, 10 % gyroid infill to keep the headpiece light. Spine, arm pieces (59 × 42 mm, 8×) and ribs keep the smaller body scale; spine and arm pieces print flat side down, cut flat by up to 1 mm where that side is domed. Ribs: 3 left + 3 mirrored right, 220 mm long (the full scale, ~290 mm, doesn't fit the printer). Plates: skull (~11.6 h) and horns (~10.4 h) are night plates and can run the same night on the two printers; spine + arm pieces (~8.6 h) is the next night; ribs (~6 h) need the full bed width, so they get a daytime plate. All plates use tree supports and a small brim.",
   "view": {
     "rotate": [
       0,
@@ -78,106 +78,210 @@
   ],
   "plates": [
     {
-      "name": "Skull and horns",
-      "contents": "skull, both horns, spine 10–11",
-      "minutes": 738.2,
-      "grams": 281.42,
+      "name": "Skull",
+      "contents": "skull, upright",
+      "minutes": 694.6,
+      "grams": 304.81,
       "toolpath": 0
     },
     {
-      "name": "Spine and arm pieces",
-      "contents": "spine 1–9 and 13, 8 arm pieces",
-      "minutes": 579.2,
-      "grams": 183.25,
+      "name": "Horns",
+      "contents": "both horns, spine 5–7",
+      "minutes": 625.1,
+      "grams": 190.93,
       "toolpath": 1
     },
     {
-      "name": "Ribs and tail",
-      "contents": "6 ribs, spine 12 and 14–21",
-      "minutes": 374.7,
-      "grams": 169.55,
+      "name": "Spine and arm pieces",
+      "contents": "spine 1–4 and 8–21, 8 arm pieces",
+      "minutes": 513.5,
+      "grams": 166.11,
       "toolpath": 2
+    },
+    {
+      "name": "Ribs",
+      "contents": "6 ribs",
+      "minutes": 355.8,
+      "grams": 165.12,
+      "toolpath": 3
     }
   ],
   "toolpaths": [
     {
-      "name": "Skull and horns",
+      "name": "Skull",
       "file": "toolpath1.bin.gz",
-      "layers": 978,
-      "points": 1391468,
-      "minutes": 738.2,
-      "grams": 281.42,
-      "filament_m": 93.44,
+      "layers": 487,
+      "points": 1457112,
+      "minutes": 694.6,
+      "grams": 304.81,
+      "filament_m": 101.23,
       "features": [
         {
           "name": "Custom",
           "grams": 0.13,
-          "share": 0.0005
+          "share": 0.0004
         },
         {
           "name": "Support",
-          "grams": 53.42,
-          "share": 0.1901
+          "grams": 45.12,
+          "share": 0.1483
         },
         {
           "name": "Support interface",
-          "grams": 8.75,
-          "share": 0.0311
+          "grams": 10.34,
+          "share": 0.034
         },
         {
           "name": "Brim",
-          "grams": 0.04,
-          "share": 0.0001
+          "grams": 0.05,
+          "share": 0.0002
         },
         {
           "name": "Outer wall",
-          "grams": 36.2,
-          "share": 0.1288
+          "grams": 29.94,
+          "share": 0.0984
         },
         {
           "name": "Inner wall",
-          "grams": 76.18,
-          "share": 0.2711
+          "grams": 65.4,
+          "share": 0.2149
         },
         {
           "name": "Bottom surface",
-          "grams": 0.03,
-          "share": 0.0001
-        },
-        {
-          "name": "Gap infill",
-          "grams": 0.26,
-          "share": 0.0009
-        },
-        {
-          "name": "Internal solid infill",
-          "grams": 33.84,
-          "share": 0.1205
+          "grams": 0.0,
+          "share": 0.0
         },
         {
           "name": "Overhang wall",
-          "grams": 0.57,
-          "share": 0.002
-        },
-        {
-          "name": "Sparse infill",
-          "grams": 69.62,
-          "share": 0.2478
-        },
-        {
-          "name": "Internal Bridge",
-          "grams": 1.0,
-          "share": 0.0036
+          "grams": 1.31,
+          "share": 0.0043
         },
         {
           "name": "Bridge",
-          "grams": 0.29,
+          "grams": 0.43,
+          "share": 0.0014
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 57.99,
+          "share": 0.1906
+        },
+        {
+          "name": "Gap infill",
+          "grams": 0.31,
           "share": 0.001
         },
         {
+          "name": "Sparse infill",
+          "grams": 89.66,
+          "share": 0.2946
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 1.78,
+          "share": 0.0059
+        },
+        {
           "name": "Top surface",
-          "grams": 0.62,
-          "share": 0.0022
+          "grams": 1.87,
+          "share": 0.0061
+        }
+      ],
+      "settings": {
+        "Filament": "PLA",
+        "Layer height": "0.2 mm",
+        "First layer": "0.2 mm",
+        "Walls": "3",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "10%",
+        "Infill pattern": "gyroid",
+        "Supports": "yes",
+        "Support type": "tree(auto)",
+        "Brim": "outer",
+        "Nozzle": "210 °C",
+        "Bed": "60 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    },
+    {
+      "name": "Horns",
+      "file": "toolpath2.bin.gz",
+      "layers": 521,
+      "points": 1284503,
+      "minutes": 625.1,
+      "grams": 190.93,
+      "filament_m": 63.35,
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0007
+        },
+        {
+          "name": "Support",
+          "grams": 28.83,
+          "share": 0.1514
+        },
+        {
+          "name": "Support interface",
+          "grams": 7.3,
+          "share": 0.0383
+        },
+        {
+          "name": "Brim",
+          "grams": 0.12,
+          "share": 0.0006
+        },
+        {
+          "name": "Outer wall",
+          "grams": 22.47,
+          "share": 0.118
+        },
+        {
+          "name": "Inner wall",
+          "grams": 46.88,
+          "share": 0.2461
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 0.12,
+          "share": 0.0006
+        },
+        {
+          "name": "Gap infill",
+          "grams": 0.29,
+          "share": 0.0015
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.51,
+          "share": 0.0027
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 33.57,
+          "share": 0.1762
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 47.22,
+          "share": 0.2479
+        },
+        {
+          "name": "Bridge",
+          "grams": 0.24,
+          "share": 0.0013
+        },
+        {
+          "name": "Top surface",
+          "grams": 1.04,
+          "share": 0.0055
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 1.74,
+          "share": 0.0091
         }
       ],
       "settings": {
@@ -199,82 +303,82 @@
     },
     {
       "name": "Spine and arm pieces",
-      "file": "toolpath2.bin.gz",
-      "layers": 242,
-      "points": 1325534,
-      "minutes": 579.2,
-      "grams": 183.25,
-      "filament_m": 60.79,
+      "file": "toolpath3.bin.gz",
+      "layers": 241,
+      "points": 1306004,
+      "minutes": 513.5,
+      "grams": 166.11,
+      "filament_m": 55.09,
       "features": [
         {
           "name": "Custom",
           "grams": 0.13,
-          "share": 0.0007
+          "share": 0.0008
         },
         {
           "name": "Support",
-          "grams": 35.29,
-          "share": 0.1931
-        },
-        {
-          "name": "Support interface",
-          "grams": 10.12,
-          "share": 0.0554
+          "grams": 30.67,
+          "share": 0.1852
         },
         {
           "name": "Brim",
-          "grams": 0.46,
-          "share": 0.0025
+          "grams": 0.76,
+          "share": 0.0046
         },
         {
           "name": "Outer wall",
-          "grams": 21.21,
-          "share": 0.116
+          "grams": 20.21,
+          "share": 0.122
         },
         {
           "name": "Inner wall",
-          "grams": 43.59,
-          "share": 0.2385
+          "grams": 41.19,
+          "share": 0.2487
         },
         {
           "name": "Bottom surface",
-          "grams": 0.4,
-          "share": 0.0022
+          "grams": 1.12,
+          "share": 0.0067
         },
         {
           "name": "Gap infill",
-          "grams": 0.57,
-          "share": 0.0031
-        },
-        {
-          "name": "Overhang wall",
-          "grams": 1.46,
-          "share": 0.008
+          "grams": 0.49,
+          "share": 0.0029
         },
         {
           "name": "Internal solid infill",
-          "grams": 46.35,
-          "share": 0.2536
+          "grams": 40.77,
+          "share": 0.2461
         },
         {
-          "name": "Bridge",
-          "grams": 1.0,
-          "share": 0.0055
-        },
-        {
-          "name": "Sparse infill",
-          "grams": 19.51,
-          "share": 0.1067
+          "name": "Overhang wall",
+          "grams": 0.9,
+          "share": 0.0054
         },
         {
           "name": "Top surface",
-          "grams": 1.55,
-          "share": 0.0085
+          "grams": 1.49,
+          "share": 0.009
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 17.89,
+          "share": 0.108
         },
         {
           "name": "Internal Bridge",
-          "grams": 1.16,
-          "share": 0.0063
+          "grams": 1.22,
+          "share": 0.0074
+        },
+        {
+          "name": "Support interface",
+          "grams": 8.72,
+          "share": 0.0527
+        },
+        {
+          "name": "Bridge",
+          "grams": 0.1,
+          "share": 0.0006
         }
       ],
       "settings": {
@@ -295,13 +399,13 @@
       }
     },
     {
-      "name": "Ribs and tail",
-      "file": "toolpath3.bin.gz",
+      "name": "Ribs",
+      "file": "toolpath4.bin.gz",
       "layers": 127,
-      "points": 1304283,
-      "minutes": 374.7,
-      "grams": 169.55,
-      "filament_m": 56.24,
+      "points": 1233310,
+      "minutes": 355.8,
+      "grams": 165.12,
+      "filament_m": 54.77,
       "features": [
         {
           "name": "Custom",
@@ -310,48 +414,43 @@
         },
         {
           "name": "Support interface",
-          "grams": 7.54,
-          "share": 0.0446
+          "grams": 7.26,
+          "share": 0.0441
         },
         {
           "name": "Support",
-          "grams": 17.43,
-          "share": 0.1031
+          "grams": 16.66,
+          "share": 0.1012
         },
         {
           "name": "Brim",
-          "grams": 0.41,
-          "share": 0.0024
+          "grams": 0.16,
+          "share": 0.0009
         },
         {
           "name": "Outer wall",
-          "grams": 21.32,
-          "share": 0.1261
-        },
-        {
-          "name": "Inner wall",
-          "grams": 45.95,
-          "share": 0.2717
-        },
-        {
-          "name": "Bottom surface",
-          "grams": 0.03,
-          "share": 0.0002
+          "grams": 20.54,
+          "share": 0.1248
         },
         {
           "name": "Gap infill",
-          "grams": 0.19,
-          "share": 0.0011
+          "grams": 0.16,
+          "share": 0.001
         },
         {
-          "name": "Internal solid infill",
-          "grams": 36.48,
-          "share": 0.2158
+          "name": "Inner wall",
+          "grams": 44.62,
+          "share": 0.271
         },
         {
           "name": "Overhang wall",
-          "grams": 1.29,
-          "share": 0.0076
+          "grams": 1.27,
+          "share": 0.0077
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 35.71,
+          "share": 0.2169
         },
         {
           "name": "Bridge",
@@ -360,18 +459,18 @@
         },
         {
           "name": "Sparse infill",
-          "grams": 36.79,
-          "share": 0.2176
-        },
-        {
-          "name": "Internal Bridge",
-          "grams": 0.1,
-          "share": 0.0006
+          "grams": 36.71,
+          "share": 0.2229
         },
         {
           "name": "Top surface",
-          "grams": 1.26,
+          "grams": 1.22,
           "share": 0.0074
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 0.05,
+          "share": 0.0003
         }
       ],
       "settings": {
