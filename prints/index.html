@@ -89,6 +89,25 @@
   .tl span { display: block; font-size: .8rem; color: var(--muted); margin-bottom: .3rem; }
   .hint { position: absolute; bottom: 10px; right: 14px; font-size: .78rem; color: var(--muted); }
   .collapse { display: none; }
+  .panel .seg { display: inline-flex; margin: .8rem 0 0; border: 1px solid var(--line); border-radius: 7px; padding: 2px; gap: 2px; }
+  .panel .seg button { border: 0; background: none; color: var(--muted); padding: .3rem .8rem; }
+  .panel .seg button[aria-pressed="true"] { background: var(--card); color: var(--fg); font-weight: 600; box-shadow: 0 0 0 1px var(--line); }
+  .tpstats { color: var(--fg) !important; font-weight: 560; }
+  .layer { margin: .7rem 0 .2rem; }
+  .layer input { width: 100%; accent-color: var(--accent); }
+  .layer span { display: block; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .panel select { font: inherit; font-size: .85rem; padding: .3rem .5rem; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--fg); max-width: 100%; }
+  .panel .tools label { font-size: .82rem; color: var(--muted); display: flex; gap: .3rem; align-items: center; cursor: pointer; }
+  .feats { list-style: none; margin: .4rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .feats li { display: grid; grid-template-columns: 12px 1fr auto auto; gap: .55rem; align-items: center; padding: .35rem 0; border-bottom: 1px solid var(--line); font-size: .85rem; }
+  .feats .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .feats .bar { display: block; height: 3px; border-radius: 2px; background: var(--line); margin-top: .2rem; overflow: hidden; }
+  .feats .bar i { display: block; height: 100%; }
+  .feats .g { color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+  .settings { display: grid; grid-template-columns: auto 1fr; gap: .15rem .9rem; margin: .9rem 0 0; font-size: .82rem; }
+  .settings dt { color: var(--muted); }
+  .settings dd { margin: 0; }
+  .sec-h { margin: 1rem 0 .1rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
   @media (max-width: 640px) {
     .panel { top: auto; bottom: 12px; max-height: 45dvh; }
     .hint { display: none; }
@@ -252,6 +271,187 @@ function renderGrid() {
   })();
 }
 
+/* ---------- toolpath: the sliced G-code, compacted by printdesk/toolpath.py ---------- */
+const FEAT = {
+  'Outer wall': '#ff8a3d', 'Inner wall': '#f2c230', 'Overhang wall': '#3b7bff',
+  'Sparse infill': '#c8324b', 'Internal solid infill': '#a347c9', 'Solid infill': '#a347c9',
+  'Top surface': '#ef4a3c', 'Bottom surface': '#9da34a', 'Bridge': '#3e9ab8', 'Internal Bridge': '#79c3d9',
+  'Gap infill': '#b9a27a', 'Support': '#3cae5a', 'Support interface': '#1e7d3f', 'Support transition': '#7ccf93',
+  'Brim': '#22b5ad', 'Skirt': '#22b5ad', 'Custom': '#8d8d8d', 'Prime tower': '#b08a5a', 'Ironing': '#ff9fd0',
+};
+const featColor = n => FEAT[n] || '#9a9a9a';
+const TRAVEL = new THREE.Color('#9a9aa6');
+const tpCache = new Map();
+
+function loadToolpath(url) {
+  if (!tpCache.has(url)) tpCache.set(url, (async () => {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    let buf = await r.arrayBuffer();
+    const b = new Uint8Array(buf, 0, 2);
+    if (b[0] === 0x1f && b[1] === 0x8b)        // served as a plain .gz file: unpack it here
+      buf = await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    const dv = new DataView(buf), count = dv.getUint32(4, true), layers = [];
+    let o = 8;
+    for (let i = 0; i < count; i++) {
+      const z = dv.getFloat32(o, true), runs = [], n = dv.getUint32(o + 8, true); o += 12;
+      for (let k = 0; k < n; k++) {
+        const f = dv.getUint8(o), c = dv.getUint32(o + 4, true); o += 8;
+        runs.push({ f, p: new Int16Array(buf, o, c * 2) }); o += c * 4;
+      }
+      layers.push({ z, runs });
+    }
+    return layers;
+  })());
+  return tpCache.get(url);
+}
+
+// One LineSegments per feature, vertices ordered by layer, so a layer cut is just a draw range.
+// The top visible layer is drawn separately ("head") so it can show travels and play back move by move.
+function buildToolpath(layers, names) {
+  const nf = names.length, counts = new Uint32Array(nf);
+  for (const L of layers) for (const r of L.runs) counts[r.f] += Math.max(0, r.p.length / 2 - 1);
+  const pos = Array.from(counts, c => new Float32Array(c * 6)), w = new Uint32Array(nf);
+  const ends = [], min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+  for (const L of layers) {
+    for (const r of L.runs) {
+      const p = r.p, a = pos[r.f], skip = names[r.f] === 'Custom';   // the purge line shouldn't drive the framing
+      for (let i = 0; i < p.length; i += 2) {
+        const x = p[i] / 100, y = p[i + 1] / 100;
+        if (!skip) { min[0] = Math.min(min[0], x); min[1] = Math.min(min[1], y); max[0] = Math.max(max[0], x); max[1] = Math.max(max[1], y); }
+        if (i) { const k = w[r.f]; a[k] = p[i - 2] / 100; a[k + 1] = p[i - 1] / 100; a[k + 2] = L.z; a[k + 3] = x; a[k + 4] = y; a[k + 5] = L.z; w[r.f] = k + 6; }
+      }
+    }
+    ends.push(Uint32Array.from(w, v => v / 3));
+  }
+  min[2] = 0; max[2] = layers.at(-1).z;
+  const group = new THREE.Group(), lines = [];
+  for (let f = 0; f < nf; f++) {
+    if (!counts[f]) { lines.push(null); continue; }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos[f], 3));
+    const l = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: featColor(names[f]) }));
+    l.frustumCulled = false; group.add(l); lines.push(l);
+  }
+  // the 256 mm bed, so the part's size and place on the plate read at a glance
+  const bed = new THREE.Mesh(new THREE.PlaneGeometry(256, 256), new THREE.MeshBasicMaterial({ color: 0x8a8a80, transparent: true, opacity: 0.12, depthWrite: false }));
+  bed.position.set(128, 128, -0.05); group.add(bed);
+  const grid = new THREE.GridHelper(256, 8, 0x8a8a80, 0x8a8a80);
+  grid.rotation.x = Math.PI / 2; grid.position.set(128, 128, -0.04);
+  grid.material.transparent = true; grid.material.opacity = 0.3; group.add(grid);
+  const head = new THREE.LineSegments(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ vertexColors: true }));
+  head.frustumCulled = false; group.add(head);
+  const nozzle = new THREE.Mesh(new THREE.ConeGeometry(1.6, 4, 20), new THREE.MeshStandardMaterial({ color: 0xd8d8d8, metalness: 0.6, roughness: 0.35 }));
+  nozzle.rotation.x = -Math.PI / 2; nozzle.visible = false; group.add(nozzle);
+  const c = min.map((v, i) => (v + max[i]) / 2);
+  const outer = new THREE.Group(); outer.add(group); group.position.set(-c[0], -c[1], -c[2]);
+  const radius = Math.hypot(max[0] - min[0], max[1] - min[1], max[2]) / 2;
+  nozzle.scale.setScalar(Math.max(1, radius / 25));              // stays visible on big parts
+
+  const tp = { outer, radius, layers, names, lines, hidden: new Set(), travel: false, layer: layers.length - 1, playing: false, prog: 0, segs: 0 };
+  tp.drawHead = () => {
+    const L = layers[tp.layer], v = [], col = [];
+    let prev = null;
+    for (const r of L.runs) {
+      if (tp.hidden.has(r.f)) continue;
+      const p = r.p, fc = new THREE.Color(featColor(names[r.f]));
+      if (prev && tp.travel) { v.push(prev[0], prev[1], L.z, p[0] / 100, p[1] / 100, L.z); col.push(...TRAVEL.toArray(), ...TRAVEL.toArray()); }
+      for (let i = 2; i < p.length; i += 2) {
+        v.push(p[i - 2] / 100, p[i - 1] / 100, L.z, p[i] / 100, p[i + 1] / 100, L.z);
+        col.push(fc.r, fc.g, fc.b, fc.r, fc.g, fc.b);
+      }
+      prev = [p.at(-2) / 100, p.at(-1) / 100];
+    }
+    head.geometry.dispose();
+    head.geometry = new THREE.BufferGeometry();
+    head.geometry.setAttribute('position', new THREE.Float32BufferAttribute(v, 3));
+    head.geometry.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+    tp.segs = v.length / 6; tp.verts = v;
+    if (!tp.playing) { head.geometry.setDrawRange(0, Infinity); nozzle.visible = false; }
+  };
+  tp.setLayer = l => {
+    tp.layer = l; tp.prog = 0;
+    lines.forEach((ln, f) => ln?.geometry.setDrawRange(0, l ? ends[l - 1][f] : 0));
+    tp.drawHead();
+  };
+  tp.show = (f, on) => { if (lines[f]) lines[f].visible = on; on ? tp.hidden.delete(f) : tp.hidden.add(f); tp.drawHead(); };
+  let last = 0;
+  tp.tick = () => {
+    const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (!tp.playing || !outer.visible) return;
+    tp.prog += Math.max(80, tp.segs / 6) * dt;                // about 6 s per layer, faster on tiny ones
+    if (tp.prog >= tp.segs) {
+      if (tp.layer >= layers.length - 1) { tp.playing = false; tp.drawHead(); tp.onStop?.(); return; }
+      tp.setLayer(tp.layer + 1); tp.onLayer?.(); return;
+    }
+    const n = Math.floor(tp.prog);
+    head.geometry.setDrawRange(0, n * 2);
+    const k = n * 6 + 3, vv = tp.verts;
+    if (vv.length > k + 2) { nozzle.position.set(vv[k], vv[k + 1], vv[k + 2] + 2 * nozzle.scale.z); nozzle.visible = true; }
+  };
+  tp.setLayer(tp.layer);
+  return tp;
+}
+
+const fmtSetting = ([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`;
+
+async function showToolpath(slug, m, idx) {
+  const t = m.toolpaths[idx], sec = panel.querySelector('#sec-tp');
+  sec.innerHTML = '<p>Loading toolpath…</p>';
+  if (V.tp) { V.scene.remove(V.tp.outer); V.tp = null; }
+  let layers;
+  try { layers = await loadToolpath(`${slug}/${t.file}`); } catch { sec.innerHTML = '<p>Could not load the toolpath.</p>'; return; }
+  const tp = V.tp = buildToolpath(layers, t.features.map(f => f.name));
+  V.scene.add(tp.outer); tp.outer.visible = V.mode === 'tp';
+  if (V.mode === 'tp') frame(V.camera, tp.radius, V.controls);
+  const N = layers.length;
+  const feats = t.features.map((f, i) => ({ ...f, i })).filter(f => tp.lines[f.i]);
+  sec.innerHTML = `
+    ${m.toolpaths.length > 1 ? `<p><select id="tp-pick">${m.toolpaths.map((x, i) => `<option value="${i}"${i === idx ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}</select></p>` : ''}
+    <p class="tpstats">${fmtTime(t.minutes)} · ${Math.round(t.grams)} g · ${t.filament_m} m filament · ${N} layers</p>
+    <div class="layer"><input type="range" id="tp-layer" min="1" max="${N}" value="${N}" aria-label="Layer"><span id="tp-lbl"></span></div>
+    <div class="tools">
+      <button type="button" id="tp-play">▶ Play</button>
+      <button type="button" id="tp-prev" aria-label="Previous layer">‹</button>
+      <button type="button" id="tp-next" aria-label="Next layer">›</button>
+      <label><input type="checkbox" id="tp-travel"> travel moves</label>
+    </div>
+    <div class="sec-h">Where the filament goes</div>
+    <ul class="feats">${feats.map(f => `
+      <li><span class="sw" style="background:${featColor(f.name)}"></span>
+        <span>${esc(f.name)}<span class="bar"><i style="width:${(f.share * 100).toFixed(1)}%;background:${featColor(f.name)}"></i></span></span>
+        <span class="g">${f.grams < 0.1 ? '<0.1' : f.grams.toFixed(1)} g</span>
+        <input type="checkbox" checked data-f="${f.i}" aria-label="Show ${esc(f.name)}"></li>`).join('')}
+    </ul>
+    <div class="sec-h">Slicer settings</div>
+    <dl class="settings">${Object.entries(t.settings || {}).map(fmtSetting).join('')}</dl>`;
+  const slider = sec.querySelector('#tp-layer'), lbl = sec.querySelector('#tp-lbl'), play = sec.querySelector('#tp-play');
+  const label = () => { slider.value = tp.layer + 1; lbl.textContent = `Layer ${tp.layer + 1} of ${N} · Z ${layers[tp.layer].z.toFixed(2)} mm`; };
+  const go = l => { tp.setLayer(Math.max(0, Math.min(N - 1, l))); label(); };
+  const setPlay = on => { tp.playing = on; play.textContent = on ? '❚❚ Pause' : '▶ Play'; };
+  tp.onLayer = label; tp.onStop = () => setPlay(false);
+  label();
+  slider.addEventListener('input', () => go(slider.value - 1));
+  sec.querySelector('#tp-prev').addEventListener('click', () => go(tp.layer - 1));
+  sec.querySelector('#tp-next').addEventListener('click', () => go(tp.layer + 1));
+  play.addEventListener('click', () => {
+    if (tp.playing) return setPlay(false);
+    if (tp.layer >= N - 1) go(0); else tp.setLayer(tp.layer);   // restart the current layer from its first move
+    setPlay(true);
+  });
+  sec.querySelector('#tp-travel').addEventListener('change', e => { tp.travel = e.target.checked; tp.drawHead(); });
+  sec.querySelectorAll('input[data-f]').forEach(el => el.addEventListener('change', () => tp.show(+el.dataset.f, el.checked)));
+  sec.querySelector('#tp-pick')?.addEventListener('change', e => showToolpath(slug, m, +e.target.value));
+}
+
+function setMode(mode) {
+  V.mode = mode;
+  panel.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
+  panel.querySelector('#sec-model').hidden = mode !== 'model';
+  panel.querySelector('#sec-tp').hidden = mode !== 'tp';
+  V.current.outer.visible = mode === 'model';
+  if (V.tp) { V.tp.outer.visible = mode === 'tp'; if (mode !== 'tp') V.tp.playing = false; }
+  frame(V.camera, mode === 'tp' && V.tp ? V.tp.radius : V.current.radius, V.controls);
+}
+
 /* ---------- viewer ---------- */
 const dlg = document.getElementById('viewer');
 const stage = document.getElementById('stage');
@@ -278,6 +478,7 @@ function setupViewer() {
     if (!dlg.open) return;
     V.ex += (V.exT - V.ex) * 0.12;
     if (V.current) for (const m of V.current.meshes) m.position.copy(m.userData.explode).multiplyScalar(V.ex);
+    V.tp?.tick();
     controls.update(); renderer.render(scene, camera);
   })();
 }
@@ -290,6 +491,8 @@ async function open(slug) {
   let m;
   try { m = await manifest(slug); } catch { panel.innerHTML = '<p>Could not find that print.</p>'; return; }
   if (V.current) V.scene.remove(V.current.outer);
+  if (V.tp) { V.scene.remove(V.tp.outer); V.tp = null; }
+  V.mode = 'model';
   V.current = await buildGroup(slug, m);
   V.scene.add(V.current.outer); V.ex = V.exT = 0;
   V.needsFrame = !(stage.clientWidth && stage.clientHeight);
@@ -303,7 +506,10 @@ async function open(slug) {
     <p><span class="chip st-${esc(m.status)}">${esc(STATUS[m.status]?.label || m.status)}</span>
       &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}</p>
     ${m.notes ? `<p>${esc(m.notes)}</p>` : ''}
+    ${m.toolpaths?.length ? `<div class="seg" role="group" aria-label="View"><button type="button" data-mode="model" aria-pressed="true">Model</button><button type="button" data-mode="tp" aria-pressed="false">Toolpath</button></div>` : ''}
     ${m.timelapse ? `<div class="tl"><span>Timelapse from the printer camera</span><video src="${esc(slug)}/${esc(m.timelapse)}" controls muted loop playsinline preload="metadata"></video></div>` : ''}
+    <div id="sec-tp" hidden></div>
+    <div id="sec-model">
     <div class="tools">
       ${canExplode ? '<button type="button" id="b-explode">Explode</button>' : ''}
       <button type="button" id="b-flip">Flip over</button>
@@ -315,7 +521,12 @@ async function open(slug) {
         <span><span class="pn">${esc(p.name)}</span><br><span class="pd">${esc(p.material || m.material || '')}${p.print ? ` · ${fmtTime(p.print.minutes)} · ${Math.round(p.print.grams)} g` : ''}</span></span>
         <label><input type="checkbox" checked data-v="${i}"> show</label>
       </li>`).join('')}
-    </ul>`;
+    </ul>
+    </div>`;
+  panel.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', async () => {
+    if (b.dataset.mode === 'tp' && !V.tp) { setMode('tp'); await showToolpath(slug, m, 0); }
+    else setMode(b.dataset.mode);
+  }));
   panel.querySelector('#b-explode')?.addEventListener('click', e => { V.exT = V.exT ? 0 : 1; e.target.textContent = V.exT ? 'Assemble' : 'Explode'; });
   panel.querySelector('#b-flip').addEventListener('click', () => { V.current.outer.rotation.y += Math.PI; });
   panel.querySelector('#b-reset').addEventListener('click', () => { V.current.outer.rotation.set(0, 0, 0); frame(V.camera, V.current.radius, V.controls); });

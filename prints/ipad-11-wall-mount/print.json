@@ -51,5 +51,83 @@
       "material": "not printed"
     }
   ],
+  "toolpaths": [
+    {
+      "name": "Cradle",
+      "file": "toolpath1.bin.gz",
+      "layers": 187,
+      "points": 64843,
+      "minutes": 44.9,
+      "grams": 27.64,
+      "filament_m": 9.04,
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0047
+        },
+        {
+          "name": "Inner wall",
+          "grams": 14.31,
+          "share": 0.5266
+        },
+        {
+          "name": "Outer wall",
+          "grams": 6.39,
+          "share": 0.235
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 0.17,
+          "share": 0.0062
+        },
+        {
+          "name": "Gap infill",
+          "grams": 3.25,
+          "share": 0.1196
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 1.71,
+          "share": 0.0627
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 0.68,
+          "share": 0.0251
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 0.26,
+          "share": 0.0095
+        },
+        {
+          "name": "Top surface",
+          "grams": 0.29,
+          "share": 0.0106
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.0,
+          "share": 0.0
+        }
+      ],
+      "settings": {
+        "Filament": "PLA",
+        "Layer height": "0.16 mm",
+        "First layer": "0.2 mm",
+        "Walls": "4",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "30%",
+        "Infill pattern": "rectilinear",
+        "Supports": "no",
+        "Brim": "none",
+        "Nozzle": "210 °C",
+        "Bed": "60 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    }
+  ],
   "timelapse": "timelapse.mp4"
 }
