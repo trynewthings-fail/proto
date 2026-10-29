@@ -2,13 +2,6 @@
  "prints": [
   {
    "slug": "halloween-skeleton",
-   "plate": 4,
-   "printer": "G\u00e5s",
-   "started": "2026-10-29T14:33:12+00:00",
-   "minutes": 290.3
-  },
-  {
-   "slug": "halloween-skeleton",
    "plate": 3,
    "printer": "TNT",
    "started": "2026-10-29T18:38:26+00:00",
