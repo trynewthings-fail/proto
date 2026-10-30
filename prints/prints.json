@@ -39,6 +39,16 @@
       "material": "PLA prototype (TPU for the final case)",
       "timelapse": true,
       "plates": 1
+    },
+    {
+      "slug": "sun-mask",
+      "title": "Sun mask with glued-on rays",
+      "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
+      "status": "preview",
+      "date": "2026-10-30",
+      "material": "PLA",
+      "timelapse": false,
+      "plates": 2
     }
   ]
 }
