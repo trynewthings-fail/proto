@@ -1,3 +1,11 @@
 {
- "prints": []
+ "prints": [
+  {
+   "slug": "sun-mask",
+   "plate": 2,
+   "printer": "TNT",
+   "started": "2026-10-30T11:28:24+00:00",
+   "minutes": 276.0
+  }
+ ]
 }
