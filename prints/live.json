@@ -2,13 +2,6 @@
  "prints": [
   {
    "slug": "sun-mask",
-   "plate": 2,
-   "printer": "TNT",
-   "started": "2026-10-30T11:28:24+00:00",
-   "minutes": 276.0
-  },
-  {
-   "slug": "sun-mask",
    "plate": 1,
    "printer": "G\u00e5s",
    "started": "2026-10-30T11:31:47+00:00",
