@@ -1,7 +1,7 @@
 {
   "title": "Sun mask with glued-on rays",
   "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
-  "status": "preview",
+  "status": "printing",
   "date": "2026-10-30",
   "material": "PLA",
   "notes": "Scaled so the eye holes are 64 mm apart (centre to centre): the face is 191 × 192 mm and 57 mm deep, and the whole sun is about 370 mm across, too big for the bed in one piece. Each ray's root is shaped to the face's edge where it is glued, and the backs of the face and all rays lie on one plane. To glue, lay the face and the rays face-up on a flat table, push each ray against the edge, and use epoxy or thick superglue. Plate 1: the face standing upright as worn, turned 11.25° so the 4 mm flat cut at the bottom (a 55 × 12 mm foot) falls between two rays, its back rim trimmed 3 mm flat like the rays' backs, a 10 mm brim and sturdier organic tree supports. Standing, the face prints as smooth walls instead of terraced top surfaces, and takes 6 h 35 min at 0.16 mm (12 h 16 min lying down). Most supports reach in through the open back; about 6 % touch the visible front, as small spots under the brows, the tops of the eye holes, and under the lower lip and chin. The source model's wall pinches to 0.36 mm where the sides of the nose meet the cheeks (thinner than one extrusion line, so the slicer left a slit there); those spots are thickened on the inside only, so the face looks the same. Plate 2: all 16 rays flat on their backs, no supports, 3 mm brim. The face prints on Gås, the rays on TNT (230 °C, flow capped at 12 mm³/s for its weak hot end). Face: 0.16 mm layers, 4 walls. Rays: 0.16 mm layers, 4 walls. Both use 15 % infill (decor). No strap holes or slots yet.",
