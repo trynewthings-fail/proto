@@ -1,11 +1,3 @@
 {
- "prints": [
-  {
-   "slug": "halloween-skeleton",
-   "plate": 3,
-   "printer": "TNT",
-   "started": "2026-10-29T18:38:26+00:00",
-   "minutes": 513.1
-  }
- ]
+ "prints": []
 }
