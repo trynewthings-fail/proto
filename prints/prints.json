@@ -1,6 +1,16 @@
 {
   "prints": [
     {
+      "slug": "antenna-bracket",
+      "title": "Glue-on SMA antenna bracket",
+      "summary": "A small L-bracket glued to an enclosure that holds a rubber-duck antenna upright on its SMA bulkhead connector. Three per plate.",
+      "status": "preview",
+      "date": "2026-11-02",
+      "material": "PLA (PETG if the box lives outdoors in the sun)",
+      "timelapse": false,
+      "plates": 1
+    },
+    {
       "slug": "corgi-figure",
       "title": "Corgi figure, 10 cm",
       "summary": "A sculpted corgi from Nomad Sculpt, scaled to 10 cm nose to tail and printed standing on its feet.",
