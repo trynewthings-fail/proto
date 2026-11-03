@@ -51,6 +51,16 @@
       "plates": 1
     },
     {
+      "slug": "led-controller-enclosure",
+      "title": "LED controller enclosure",
+      "summary": "A screw-together PETG case for an 8-output LED controller board: base with 16 panel-connector holes, an Ethernet slot, antenna and power holes and vents, a lid with a vent grille, and a small test strip to pick the connector hole size first.",
+      "status": "preview",
+      "date": "2026-11-03",
+      "material": "PETG",
+      "timelapse": false,
+      "plates": 3
+    },
+    {
       "slug": "sun-mask",
       "title": "Sun mask with glued-on rays",
       "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
