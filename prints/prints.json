@@ -53,7 +53,7 @@
     {
       "slug": "led-controller-enclosure",
       "title": "LED controller enclosure",
-      "summary": "A screw-together PETG case for an 8-output LED controller board: base with 16 panel-connector holes, an Ethernet slot, antenna and power holes and vents, a lid with a vent grille, and a small test strip to pick the connector hole size first.",
+      "summary": "A screw-together PETG case for an 8-output LED controller board: rounded base with 16 collared panel-connector holes on a recessed front panel, an Ethernet slot, antenna and power holes, diamond vents and gusseted mounting ears, and a lid with a honeycomb vent field.",
       "status": "preview",
       "date": "2026-11-03",
       "material": "PETG",
