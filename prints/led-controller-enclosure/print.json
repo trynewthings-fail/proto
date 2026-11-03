@@ -59,7 +59,7 @@
       "name": "Lid",
       "contents": "lid, outside face down (TNT, 255 °C, flow capped at 8 mm³/s, 2 h 53 min)",
       "minutes": 172.7,
-      "grams": 90.51,
+      "grams": 90.53,
       "toolpath": 1
     },
     {
@@ -293,9 +293,9 @@
       "name": "Lid",
       "file": "toolpath2.bin.gz",
       "layers": 37,
-      "points": 51139,
+      "points": 51215,
       "minutes": 172.7,
-      "grams": 90.51,
+      "grams": 90.53,
       "filament_m": 29.95,
       "layer_minutes": [
         0.0,
@@ -353,24 +353,24 @@
           "share": 0.0828
         },
         {
+          "name": "Bottom surface",
+          "grams": 4.96,
+          "share": 0.0551
+        },
+        {
           "name": "Gap infill",
           "grams": 0.04,
           "share": 0.0004
         },
         {
-          "name": "Bottom surface",
-          "grams": 5.0,
-          "share": 0.0555
-        },
-        {
           "name": "Internal solid infill",
-          "grams": 53.82,
-          "share": 0.5977
+          "grams": 53.85,
+          "share": 0.5979
         },
         {
           "name": "Top surface",
-          "grams": 6.59,
-          "share": 0.0732
+          "grams": 6.62,
+          "share": 0.0735
         }
       ],
       "settings": {
