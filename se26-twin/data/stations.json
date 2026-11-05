@@ -1,0 +1,103 @@
+{
+ "about": "Stationerna i Framtiden: en kub, installationerna som lyser i den och projekttexterna runt den (Lukas, planvyn 30 okt 2026).",
+ "stations": {
+  "klimat": {
+   "name": "Klimat & miljö",
+   "cube": "fix:Klimat-kuben",
+   "inst": [
+    "rutschkanan",
+    "atervinning",
+    "skykraft"
+   ],
+   "texts": [
+    "rengard",
+    "hammarangen",
+    "trainnovation"
+   ],
+   "intro": "Klimat & miljö samlar det som gör energi och material renare: spillvärme som värmer hus, skrot som blir metall igen, flygbränsle av koldioxid och nya sätt att bygga och göra el. Stationens kub är blå. När någon åker rutschkanan eller matar skrotmonstret går ljuset längs tråden till kuben, och två sekunder senare blinkar molnet och växthuset.",
+   "where": "Projekttexterna sitter på väggen vid klimatområdet.",
+   "color": "#4f86e8",
+   "colorNote": "Lukas: djupare blå"
+  },
+  "kompetens": {
+   "name": "Kompetens",
+   "cube": "fix:Kompetens-kuben",
+   "inst": [
+    "ace",
+    "sokrates",
+    "kompetenstaltet"
+   ],
+   "texts": [
+    "welcome-house",
+    "science-city",
+    "arctic-game",
+    "vux-automation-lab"
+   ],
+   "intro": "Kompetens handlar om människorna som omställningen behöver: utbildning, forskning, nya företag och de som flyttar hit. Stationens kub är gul. När någon tittar in i ACE, ger Sokrates en high five eller lyssnar på resväskan i tältet går ljuset till kuben, och två sekunder senare blinkar molnet och växthuset.",
+   "where": "Projekttexterna sitter på väggen vid kompetensområdet.",
+   "color": "#f5be2e",
+   "colorNote": "Lukas: mellan gult och bärnsten"
+  },
+  "rorlighet": {
+   "name": "Rörlighet",
+   "cube": "fix:Mobilitets-kuben",
+   "inst": [
+    "triangeln",
+    "droneport",
+    "elbil"
+   ],
+   "texts": [
+    "hamnen",
+    "flygplatsen",
+    "norrbotniabanan",
+    "resecentrum",
+    "vi-gar-igen"
+   ],
+   "intro": "Rörlighet handlar om hur människor och gods tar sig till, från och runt Skellefteå: hamnen, flygplatsen, den nya järnvägen, drönare och el på vägarna. Stationens kub är grön. När någon trampar tandemcykeln går ljuset till kuben, och två sekunder senare blinkar molnet och växthuset.",
+   "where": "Texterna om hamnen, flygplatsen, Norrbotniabanan och resecentrumen hör till Skellefteåtriangeln. Vi går igen är en väggtext vid rörlighetsområdet.",
+   "color": "#8fe06a",
+   "colorNote": "Lukas: stämmer"
+  },
+  "bostader": {
+   "name": "Bostäder",
+   "cube": "fix:Bostads-kuben",
+   "inst": [
+    "snurra-huset"
+   ],
+   "texts": [
+    "ostra-moro-backe",
+    "digital-tvilling",
+    "cc-build",
+    "away",
+    "varcities",
+    "flexibility-house"
+   ],
+   "intro": "Bostäder handlar om hur en stad som växer snabbt kan bygga hem som går att ändra, flytta och återbruka. Stationens kub är röd. När någon vrider huset går ljuset till kuben, och två sekunder senare blinkar molnet och växthuset.",
+   "where": "Projekttexterna sitter i bostadsområdet.",
+   "color": "#ec5a4c",
+   "colorNote": "Lukas: röd"
+  },
+  "social": {
+   "name": "Social hållbarhet",
+   "cube": "fix:Social-kuben",
+   "inst": [
+    "social",
+    "wasteland"
+   ],
+   "texts": [
+    "garnverkstaden",
+    "unghasten",
+    "expats-friends",
+    "fritidsguider",
+    "society-summit-youth",
+    "arctic-design-center",
+    "skapande-gardar",
+    "vanskapsbankar"
+   ],
+   "intro": "Social hållbarhet handlar om att alla ska få plats: nya och gamla Skelleftebor, unga och kvinnor. Stationens kub är rosa. När någon snurrar lådorna eller rör sig i hörnet går ljuset till kuben, och två sekunder senare blinkar molnet och växthuset.",
+   "where": "Projekttexterna sitter på snurrlådorna, tillsammans med många andra. Crystal Sauna är en egen liten modell i hörnet.",
+   "color": "#d98ae6",
+   "colorNote": "Lukas: mer lila-rosa"
+  }
+ }
+}

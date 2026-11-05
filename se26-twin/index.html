@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside – SE26 Exhibition</title>
+<meta name="description" content="Digital tvilling av SE26-utställningen: 3D-modell, rundtur och installationernas berättelser.">
+<link rel="icon" href="assets/smile.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }</script>
+</head>
+<body>
+<a class="skip" href="#card">Hoppa till kortet</a>
+<div id="live" class="sr" aria-live="polite"></div>
+<div id="boot">Laddar utställningen …</div>
+<div id="world"></div>
+<div id="labels"></div>
+<div id="slabels" hidden></div>
+<div id="fade"></div>
+
+<aside id="side">
+  <a class="brand" href="#start" title="Till början">
+    <img src="assets/smile.svg" alt="Try New Things">
+    <span><b>Inside</b><small>SE26 Exhibition · Skellefteå museum</small></span>
+  </a>
+  <div id="storyHead" hidden></div>
+  <ol id="toc"></ol>
+  <div class="side-foot">
+    <button id="explore" class="btn">Utforska fritt</button>
+    <p class="hint">← → eller scroll · klicka på saker i modellen</p>
+  </div>
+</aside>
+
+<section id="card">
+  <div class="kick" id="cKick"></div>
+  <div class="tags" id="cTags"></div>
+  <h1 id="cTitle"></h1>
+  <div id="cBody"></div>
+  <div class="flowline" id="cFlow"></div>
+  <dl id="cFacts"></dl>
+  <ol class="steps" id="cSteps"></ol>
+  <div id="cExtra"></div>
+  <p id="cSrc"></p>
+</section>
+
+<section id="scard" hidden>
+  <button class="sc-back">← tillbaka</button>
+  <div class="kick" id="scKick"></div>
+  <h1 id="scTitle"></h1>
+  <p id="scLead"></p>
+  <div id="scHere" hidden></div>
+  <ol class="steps" id="scSteps"></ol>
+  <div id="scLive"></div>
+  <p id="scNote"></p>
+  <div id="scNav"></div>
+</section>
+<section id="ctrl" hidden>
+  <div class="kick">UTFORSKA · <span id="srcState">simulerat</span></div>
+  <details id="logBox"><summary>Händelselogg <span id="logLast">väntar …</span></summary><div id="log"></div></details>
+  <div id="tw"></div>
+  <details id="srcBox">
+    <summary>Källa: simulerat, live eller uppspelning</summary>
+    <p>Allt går genom samma händelsebuss. Live lyssnar bara, den skickar aldrig något. Den kräver att datorn är på museets nät.</p>
+    <div class="row"><input id="liveUrl" value="ws://tnt.local:9001" spellcheck="false" aria-label="Adress till MQTT-brokern"><button id="liveGo">Anslut</button></div>
+    <div class="row"><label class="file">Spela upp en logg (.ndjson)<input type="file" id="repFile" accept=".ndjson,.jsonl,.json,.log,.txt"></label>
+      <select id="repSpeed" aria-label="Uppspelningens hastighet"><option value="60">60×</option><option value="600" selected>600×</option><option value="3600">3600×</option></select></div>
+  </details>
+  <label class="tog"><input type="checkbox" id="ambient" checked> Simulerade besökare</label>
+</section>
+
+<nav id="mnav" aria-label="Kapitel">
+  <button id="mPrev" aria-label="Föregående kapitel">‹</button>
+  <button id="mPos" aria-label="Visa kapitlen"></button>
+  <button id="mNext" aria-label="Nästa kapitel">›</button>
+  <button id="mExp">Utforska</button>
+</nav>
+<div id="scale">
+  <div class="sk">FÄLTBREDD</div>
+  <div class="sv"><span id="sVal">0</span><small id="sUnit">m</small></div>
+  <div class="ruler"><span id="sChap"></span><i id="sTicks"></i></div>
+</div>
+
+<div id="counter" title="Händelserna i berättelsen är simulerade. Live-data kräver en anslutning i Utforska."><span id="mqttN">0</span> <b id="cntLbl">MQTT-meddelanden · simulerade</b></div>
+<div id="note">Byggnader och vägar © OpenStreetMap-bidragsgivare (ODbL), höjder © Lantmäteriet (CC BY 4.0). Utställningen: TNT:s Unreal-modell (LV_SE26_Master), förenklad; ljusslingor, sensorer och datorer är ungefärligt placerade.</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

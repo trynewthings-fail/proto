@@ -1,0 +1,1943 @@
+{
+  "floden": {
+    "lead": "Floden är Skellefteälven, projicerad längs korridoren i Urtiden. Följ den från din hand på väggen, ut genom stan och hela vägen från fjällen till havet.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Älven och du",
+        "title": "Det du gör hörs i rummet",
+        "body": "<p>Floden på väggen är Skellefteälven. Texten i rummet berättar att älven kom till när isen drog sig tillbaka för 10 000 år sedan, och att den binder ihop hundra tusen sjöar.</p><p>Håll fram handen, så viker vattnet undan. Det du gör framför väggen hörs i musiken i Urtiden och Dåtiden, och tre av skogens träd pulserar blått.</p>",
+        "src": "Utställningstexten, Urtiden, Peders export av koden (30 okt 2026) och Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "djupkamera",
+        "nav": "Kameran som ser dig",
+        "here": "Vid Floden sitter en Azure Kinect, en djupkamera som mäter hur lång tid ljuset tar fram och tillbaka. Den läser var kroppar och händer är framför väggen, och en Windows-dator låter vattnet böja sig runt dem. Tre projektorer visar floden längs väggen. Det kameran ser blir ett tal mellan 0 och 100, som går som MQTT-meddelandet ljudkonst/note till ljudkonstverket. Ljuset i de andra rummen styrs inte av floden.",
+        "steps": {
+          "4": "Programmet hittar kroppar och händer, och Floden böjer vattnet runt dem."
+        }
+      },
+      {
+        "kind": "world",
+        "world": "river",
+        "nav": "Älven genom stan",
+        "here": "Floden på väggen är Skellefteälven. Utanför museet i Nordanå rinner den riktiga älven genom stan, på väg mot havet vid Ursviken."
+      },
+      {
+        "kind": "scene",
+        "scene": "alvdalen",
+        "nav": "Från fjällen till havet",
+        "here": "Väggen i korridoren är 15 meter lång. Den riktiga älven är 423 km enligt SMHI, från fjällen till Bottenviken. Längs vägen ger vattnet el i kraftverken."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Älven på väggen är den riktiga Skellefteälven, och dess vatten blir el i kraftverken längs älven. Det du gör framför väggen blir en del av musiken.</p><p>Nästa i rummet: Skogen, mitt emot Floden.</p>",
+        "src": "Utställningstexten, Urtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "skogen": {
+    "lead": "Skogen i Urtiden är kluvna tallstammar med ljus fräst in i träet. Följ ljuset från lysdioderna i stammen till ljuset som tallen själv fångar.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Ljuset i skogen",
+        "title": "En våg genom skogen",
+        "body": "<p>Stammarna i rummet är kluvna tallar med ljus fräst in i träet. En ljusvåg rullar genom träden, ett i taget. Efter en stunds tystnad slocknar vågen.</p><p>När Floden spelar en ton pulserar tre av träden blått. Lägger man örat mot en stam hör man skogen sjunga. På natten får skogen sova.</p>",
+        "src": "Peders export av koden (30 okt 2026) och Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "lysdiod",
+        "nav": "Ljuset i stammarna",
+        "here": "Skogen har ungefär 1 700 lysdioder: fyra stora träd med 384 var, ett litet träd med 116 och en trädbok med 67. Switchboarden på tnt tänder träden i rumsordning, 2,5 sekunder vart, och WLED kör effekten Midnoise genom stammarna. Efter 15 sekunder utan aktivitet går vågen av. Klockan åtta på kvällen släcks träden."
+      },
+      {
+        "kind": "scene",
+        "scene": "klorofyll",
+        "nav": "Barret och klorofyllet",
+        "here": "Ljuset i stammarna kommer från lysdioder. Ett levande tallbarr fångar i stället solljus med klorofyll och gör socker av det. Av sockret bygger tallen sin ved, samma sorts trä som stammarna i rummet är kluvna ur."
+      },
+      {
+        "kind": "scene",
+        "scene": "istiden",
+        "nav": "Skogen efter isen",
+        "here": "Texten vid Skogen berättar att marken var kal när isen smälte. Först kom mossor och lavar, sedan dvärgbjörk och till sist barrträd, som byggde upp jorden. Stammarna i rummet är tallar, ett av de barrträd som kom sist."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Skogen kom tillbaka efter istiden, och den lever på solens ljus. Ljuset i stammarna rullar som en våg genom rummet.</p><p>Nästa i rummet: Vattentunneln, där skogen leder in mot Dåtiden.</p>",
+        "src": "Utställningstexten, Urtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vattentunneln": {
+    "lead": "Tunneln mellan Urtiden och Dåtiden kommer från Finnfors, Skellefteås första vattenkraftverk. Den är byggd som vattenvägen i ett kraftverk.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Finnfors 1906–1908",
+        "title": "Finnfors, Skellefteås första vattenkraftverk",
+        "body": "<p>Texten i rummet säger att man går genom en vattentunnel från Finnfors, Skellefteås första vattenkraftverk. Finnforsens kraftstation byggdes 1906–1908 av Skellefteå stad och var den första större i Skellefteälven.</p><p>Tunnlarna sprängdes för hand. Ett nytt kraftverk byggdes 1956, och sedan 1985 är den gamla stationen museum.</p>",
+        "src": "Utställningstexten, Urtiden; Länsstyrelsen Västerbotten och Naturkartan (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "ultraljud",
+        "nav": "Sensorn i tunneln",
+        "here": "I tunneln sitter en ultraljudssensor på en ESP32 som heter tunnel1. När avståndet plötsligt sjunker har någon gått förbi. Då spelas tonen ljudkonst/C-1 i ljudkonstverket, och en vit våg går tre gånger genom tunnelns ljusringar. Ringarna är en WLED-slinga i tre delar, 3 × 402 lysdioder, som glöder orange i vila."
+      },
+      {
+        "kind": "scene",
+        "scene": "kraftverk",
+        "nav": "Vattnet i kraftverket",
+        "here": "Vattentunneln påminner om vägen vattnet tar ner till turbinen. Där blir det fallande vattnets kraft till el.",
+        "steps": {
+          "1": "Vattnet leds genom en tunnel ner till turbinen. Vattentunneln påminner om en sådan väg."
+        },
+        "note": "Vattentunneln kallas också Finnforstunneln, efter Finnforsens kraftstation, byggd 1906–1908, Skellefteås första vattenkraftverk."
+      },
+      {
+        "kind": "scene",
+        "scene": "alvdalen",
+        "nav": "Kraftverken längs älven",
+        "here": "Finnfors är ett av 15–16 kraftverk i Skellefteälven. Elva av dem ägs av Skellefteå Kraft."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Finnfors, byggt 1906–1908, var det första större kraftverket i Skellefteälven. Efter det byggde bönder och hobbyister egna små kraftverk runt Skellefteå.</p><p>Nästa i rummet: Maskinisterna, på andra sidan tunneln i Dåtiden.</p>",
+        "src": "Utställningstexten, Urtiden och Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "ljudkonst": {
+    "lead": "Ljudkonstverket är musik som skapas hela tiden, för korridoren i Urtiden och för Dåtiden. Besökarna spelar toner i den, och guiden styr hur mycket energi den har.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Musiken i två rum",
+        "title": "Tonerna i skalan",
+        "body": "<p>Floden, Vattentunneln och Alimak-hissen spelar toner i musiken när besökare rör sig. Tonerna ligger i en pentatonisk skala: C, D, E, G och B.</p><p>Musikens takt styr också Dokumentärväggen i Dåtiden. Guiden kan sänka volymen per rum när hen pratar.</p>",
+        "src": "Peders export av koden (30 okt 2026), Live-systemet tnt (29 okt 2026) och Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "hogtalare",
+        "nav": "Två rum, två ljud",
+        "here": "Ljudkonstverket körs i Ableton på macmini3. Ett litet program gör om MQTT-meddelanden till MIDI: tonerna blir noter på kanal 16, Alimak spelar C2 på kanal 12, och rattarna styr volymen i rum 1 och 2. Ljudet går ut i två grupper. Urtiden får kanal 1–4 och ett lugnt, svävande ljud. Dåtiden får kanal 5–8 och en subbas, med ett mer rytmiskt ljud."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "lungan": {
+    "lead": "Lungan är en bild av en lunga tryckt på glas, bredvid ett träd. Texten säger att vi andas in det som träden andas ut.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Lungan och trädet",
+        "title": "Det träden andas ut",
+        "body": "<p>Lungan är en bild av en lunga tryckt på glas, bredvid en bild av ett träd. Den är inte interaktiv. Texten handlar om att vi andas in det som träden andas ut.</p>",
+        "src": "Utställningstexten, Urtiden; Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "lungblasor",
+        "nav": "Lungblåsorna",
+        "here": "Lungan i rummet är en bild på glas. Här följer vi luften i en riktig lunga, från luftröret ända ut i lungblåsorna."
+      },
+      {
+        "kind": "scene",
+        "scene": "kloroplast",
+        "nav": "Syret från träden",
+        "here": "Syret vi andas in kommer från växternas fotosyntes. I kloroplasten delas vatten med ljusets energi, och syret blir över. Det är det texten vid Lungan menar med att vi andas in det träden andas ut."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "dokumentaren": {
+    "lead": "Dokumentärväggen visar arkivfilm om Skellefteås industriella sekel. En djupkamera gör alla i rummet till rutor av arkivbilder i filmen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Årtal i texterna",
+        "title": "Hållpunkter i utställningen",
+        "body": "<p>Filmen handlar om gruvor, kraftverk och smältverk. Rummets tema är 150 år av innovation.</p><p>Texterna i utställningen ger hållpunkter för samma tid: Hallmans stadsplan 1905, Finnfors 1906–1908, Bolidenfyndet 1924, Alimak 1948, räddningen av Boliden 2000, medborgardialogen 2013, Northvolt 2019–2024 och Sara kulturhus 2021.</p>",
+        "src": "Utställningstexterna, Urtiden till Nutiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "djupkamera",
+        "nav": "Kameran som ser rummet",
+        "here": "Vid Dokumentärväggen ser en Kinect alla i rummet. Datorn vr-pc7 kör TouchDesigner, som gör varje person till en ruta fylld med tonade arkivbilder, med linjer mellan sig, ovanpå den svartvita filmen i ett rutnät 2×2. Musikens takt kommer som OSC från ljudkonstverket, och varje slag skiftar färgen och får bilden att rycka.",
+        "steps": {
+          "4": "Programmet hittar varje person, och Dokumentärväggen gör dem till rutor av arkivbilder."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "tidslinje",
+        "nav": "Ett industriellt sekel",
+        "here": "Filmen handlar om gruvor, kraftverk och smältverk, och om människorna som byggde dem. Här ryms hela seklet på en linje.",
+        "steps": {
+          "0": "Dokumentären är arkivfilm om Skellefteås industriella sekel: gruvor, kraftverk och smältverk.",
+          "2": "Längre ut kommer 2013, när Skellefteåborna svarade på frågorna som hörs i Dialogen.",
+          "4": "Hela seklet ryms. Och du är med: djupkameran gör besökarna till rutor av arkivbilder i filmen."
+        }
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "lampteremin": {
+    "lead": "Maskinisterna i Dåtiden handlar om de små kraftverken runt Skellefteå. Besökaren stämmer två toner med händerna tills glödlampan slutar flimra.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "De små kraftverken",
+        "title": "Maskinisterna",
+        "body": "<p>Efter Finnfors byggde bönder och hobbyister 70–80 små kraftverk runt Skellefteå. De som byggde dem kallades Maskinisterna.</p><p>Här håller du händerna över två sensorer. Målet är att få lampan att sluta flimra.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "ackord",
+        "nav": "Tonerna som stämmer",
+        "here": "Maskinisterna har två ultraljudssensorer av typen HC-SR04 på en Raspberry Pi. Den ena är grov och den andra dubbelt så känslig. Programmet räknar ut hur väl de två avstånden stämmer, från 0 till 1, med 15 % tolerans. När de stämmer löser ackordet upp sig till C-dur, och glödlampan styrs av ett TRIAC-kort på datorn. Vid harmoni blixtrar också en ljusslinga, och rummets lampor andas som en ljusorgel.",
+        "steps": {
+          "0": "Två ultraljudssensorer mäter hur högt händerna är. Den ena är grov, den andra fin.",
+          "4": "Då släpper TRIAC:en igenom hela växelströmmen och glödlampan brinner stadigt."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "kraftverk",
+        "nav": "Ett kraftverk i stort",
+        "here": "De 70–80 små kraftverken byggde på samma idé som de stora: fallande vatten snurrar en turbin som driver en generator."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Efter Finnfors byggde vanliga människor sina egna kraftverk runt Skellefteå. Här är det dina händer som får lampan att lysa stadigt.</p><p>Nästa i rummet: Bolidenväggen, om rikedomen i berget.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "alimak": {
+    "lead": "Stationen heter \"Alvar, is that you?\". Hissen i Dåtiden är en Alimak, och den svarar med ljud och ljus när man kommer nära.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Alvar, is that you?",
+        "title": "Alvar och Jakobs stege",
+        "body": "<p>Alvar Lindmark grundade Alimak i Skellefteå 1948. Han drömde om en hiss till Gud och kallade det första projektet Jakobs stege.</p><p>Han ville också bygga världens högsta hus i Skellefteå och en elbilsfabrik.</p><p>När man kommer nära hissen i rummet säger en röst som härmar Gud: \"Alvar, is that you?\" Det är ett skämt om namnet Jakobs stege.</p>",
+        "src": "Utställningstexten, Dåtiden; Wikipedia och Alimak (läst 30 okt 2026); Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "ultraljud",
+        "nav": "Sensorn vid hissen",
+        "here": "Vid hissen sitter en ultraljudssensor på en ESP32 som heter alimak. Kommer man närmare än 40 cm spelas ett ljud på kanal 12 i ljudkonstverket, och Alimak-lampan tänds i 10 sekunder. Sedan dröjer det 2 sekunder innan det kan spelas igen. Gränsen och väntetiden sätts av switchboarden på tnt."
+      },
+      {
+        "kind": "scene",
+        "scene": "kuggstang",
+        "nav": "Kuggstången",
+        "here": "Så här klättrar en kuggstångshiss uppför sin egen mast."
+      },
+      {
+        "kind": "scene",
+        "scene": "tidslinje",
+        "nav": "Från 1948 till i dag",
+        "here": "Alimak grundades i Skellefteå 1948. Bolaget bygger fortfarande hissar, och de tillverkas i Skellefteå."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>En dröm om en hiss till Gud blev ett företag som fortfarande bygger hissar i Skellefteå.</p><p>Nästa i rummet: Hallmans karta, med en annan dröm om staden.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "reverse-perspective": {
+    "lead": "Tre pyramider med omvänt perspektiv i Dåtiden: projicerade väggar, tak och golv som ser ut som korridorer in i djupet, med berättelser om Skellefteås innovatörer.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Illusionen",
+        "title": "Korridorer in i djupet",
+        "body": "<p>Installationen kallas också Möjligheternas hall. Tre pyramider får väggar, tak och golv projicerade på sig, så att de ser ut som korridorer långt in i djupet. Där visas berättelser om Skellefteås innovatörer.</p><p>Fyra videor går i takt med varandra.</p>",
+        "src": "Live-systemet tnt (29 okt 2026); Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "text",
+        "nav": "Porträtten",
+        "title": "Elva Skelleftebor",
+        "body": "<p>Bland porträtten finns Sara Lidman, P O Enquist, Ulrika Eleonora Lindström, bröderna Lundberg och Karin Stenberg.</p><p>Texterna i utställningen nämner också Charlotte Sidén, som kom in i fullmäktige 1911, och Karin Stenbergs manifest från 1920.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "krangfors": {
+    "lead": "En gammal idé: nio lampor som flimrar som i ett gammalt kraftverk. Troligen blev den aldrig av.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Idén från 2025",
+        "title": "Nio flimrande lampor",
+        "body": "<p>I koden från 2025 finns nio Shelly-dimrar som flimrar var för sig, 20 gånger i sekunden. Guidens ratt sätter energin: på noll lyser de stadigt på 60 %, och över 70 % blir det disco.</p><p>2026 finns bara två Shelly-dimrar i listan. Troligen är det en gammal idé som aldrig blev av.</p>",
+        "src": "Peders kod för SE26 (2025) och Lukas"
+      },
+      {
+        "kind": "scene",
+        "scene": "shelly",
+        "nav": "Shelly-dimrarna",
+        "here": "Idén byggde på Shelly Dimmer 2, samma familj som dimmern som tänder Alimak-lampan. Ett program skulle ge varje lampa sitt eget flimmer."
+      },
+      {
+        "kind": "scene",
+        "scene": "alvdalen",
+        "nav": "Krångfors i älven",
+        "here": "Krångfors är ett av kraftverken i Skellefteälven, det tredje från mynningen. Lampidén lånade sitt namn därifrån."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "boliden": {
+    "lead": "Bolidendelen i Dåtiden har kopparplåtar, en vägg i 45 grader och tittskåp. Texterna berättar sex historier om rikedomen i berget.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Sex historier",
+        "title": "Sex historier om Boliden",
+        "body": "<p>Fritz Kautsky och bönderna som följde ett rostigt block i ett dike. Fyra års mätningar och fyndet den 10 december 1924. Markägaren Margareta Lundberg, som sålde mot löfte om jobb. Räddningen år 2000 mot 28 banker. Oscar Falkman. Och legenden om Paracelsus, som sa att rikedomar fanns mellan 63:e och 65:e breddgraden.</p><p>I väggen finns sex tittskåp med pappersdioramor byggda bakom väggen. Några av dem har små skärmar som spelar filmer.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "text",
+        "nav": "Falkman och årtalen",
+        "title": "Oscar Falkman",
+        "body": "<p>Prospekteringen började 1918, och fyndet kom 1924. Boliden Gruv AB bildades 1931, och Oscar Falkman var vd 1931–1943. Väggen säger att Falkman grundade Boliden 1924; det är året för fyndet.</p><p>Boliden ligger på 64:e breddgraden, mitt i Paracelsus band.</p>",
+        "src": "skellefteamuseum.se/oscar-falkman (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "gitter",
+        "nav": "Metallerna i malmen",
+        "here": "Malmen i Skelleftefältet innehåller guld, koppar, silver, zink och bly. Koppar, silver, guld och bly har samma kubiska gitter. Zink lägger sina atomer i sexkantiga lager."
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Till Rönnskär",
+        "here": "Malmen går till Bolidens smältverk Rönnskär vid kusten. Där blir koppar ur malm, från Bolidens gruvor och andras, ren metall."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Ett rostigt block i ett dike ledde till fyndet 1924. Malmen går fortfarande till Rönnskär vid kusten och blir ren metall.</p><p>Nästa i rummet: Alimak, hissen som Alvar Lindmark drömde skulle nå ända till Gud.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "dialogen": {
+    "lead": "Dialogen i Nutiden lyssnar. Man hör vad Skellefteåborna svarade 2013 och svarar själv på samma frågor.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Frågorna från 2013",
+        "title": "Medborgardialogen 2013",
+        "body": "<p>Med örat mot väggen hör man svar från medborgardialogen 2013. Själv svarar man på samma tio frågor, en i varje rör.</p><p>Rören har fyra färger. 1 rosa: trygghet och gemenskap. 2 grön: en extra miljard. 3 blå: vad gör dig stolt. 4 gul: att alla får göra sin röst hörd. 5 grön: om du fick bestämma. 6 blå: att resa smart och hållbart. 7 grön: ett bra hem. 8 rosa: vad oroar dig. 9 gul: vad drömmer du om. 10 blå: stad och land.</p>",
+        "src": "Utställningstexten, Nutiden; Peders export av koden (30 okt 2026) (questions.json)"
+      },
+      {
+        "kind": "scene",
+        "scene": "mikrofon",
+        "nav": "Tio mikrofoner",
+        "here": "Dialogen har tio mikrofoner, en i varje rör, och de är alltid på. Ett ljudkort med många kanaler tar emot dem. Programmet på macmini1 håller en rullande buffert, märker när man slutar prata och sparar svaret som MP3. Medan man pratar lyser panelen bakom röret. Svaren spelas upp genom två ljudkort med sammanlagt 20 kanaler, både nya svar och svaren från 2013.",
+        "steps": {
+          "4": "Datorn mäter spänningen tiotusentals gånger per sekund. Dialogen sparar talet."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "neuron",
+        "nav": "AI som granskar",
+        "here": "Talet skickas till AI-tjänsten Berget. Där skrivs det ut till text med KB-Whisper, och språkmodellen Mistral ger svaret ett betyg från 1 till 10 mot frågan. Svar med 3 eller mer sparas, och personalen godkänner dem innan de spelas upp för nästa besökare. De andra sorteras bort."
+      },
+      {
+        "kind": "text",
+        "nav": "Din inspelning",
+        "title": "Inspelningarna",
+        "body": "<p>Inspelningarna sparas och granskas av personalen innan de spelas upp.</p>",
+        "src": "Utställningstexten, Nutiden (anteckning)"
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Det Skellefteåborna sa 2013 och det du säger i dag hörs i samma rum. Ditt svar kan bli det nästa besökare hör.</p><p>Nästa i rummet: Framtidsbåset, där du spelar in en video till framtiden.</p>",
+        "src": "Utställningstexten, Nutiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "framtidsbaset": {
+    "lead": "I ett bås med röd ridå spelar man in en tanke till framtiden. Godkända klipp visas i Socialhörnet i Framtiden, alltså bokstavligen i nästa rum.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Börja, sluta, fortsätt",
+        "title": "Frågorna i båset",
+        "body": "<p>Texten vid båset frågar vad du älskar med Skellefteå, vad som stör dig och hur du vill ha det. Under en egen rubrik står börja med, sluta med och fortsätta med. Det är de tre val du gör innan du spelar in.</p><p>Kortet Society Summit Youth i Framtiden har en lapp med samma fråga.</p>",
+        "src": "Utställningstexterna, Nutiden och Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "neuron",
+        "nav": "Granskning med AI",
+        "here": "Videon från ipad-recorder laddas upp till tnt och sparas i en databas. Sedan skrivs talet ut till text och granskas, av AI-tjänsten Berget och av en människa. Bara godkända klipp visas på ipad-player i Socialhörnet."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Din video kan visas i Framtiden, i rummet intill. Börja med, sluta med, fortsätta med: tre sätt att säga vad Skellefteå ska göra.</p><p>Nästa i rummet: tunneln Oro eller drömmar, vägen in i Framtiden.</p>",
+        "src": "Utställningstexten, Nutiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "milight": {
+    "lead": "Nutiden är ett väldigt vitt rum. Färgpaneler i taket ger hela rummet färg.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Bågen och kollaget",
+        "title": "Platsvarumärket i färg",
+        "body": "<p>Panelerna färgar hela rummet, också bågen med Skellefteås platsvarumärke och kollaget som barn färglade vid invigningen.</p><p>Panelerna går i samma ljusprogram hela dagen. När ett nytt klipp kommer in från Framtidsbåset får en av dem båsets stämningsfärg.</p>",
+        "src": "Utställningstexten, Nutiden; Peders export av koden (30 okt 2026); Lukas"
+      },
+      {
+        "kind": "scene",
+        "scene": "esp32",
+        "nav": "Bryggan till panelerna",
+        "here": "Panelerna är MiLight, inte WLED. En ESP32 fungerar som brygga och sänder till panelerna med radio på 2,4 GHz. De kör alltid samma strobe-program, och panel 16 får framtidsbåsets stämningsfärg när ett nytt klipp kommer in."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "orostunneln": {
+    "lead": "Tunneln mellan Nutiden och Framtiden heter Oro eller drömmar. På ena sidan ungas illustrationer av oro, på andra sidan deras drömmar.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Två sidor",
+        "title": "Oro på ena sidan, drömmar på den andra",
+        "body": "<p>Tunneln är i två delar. Unga har illustrerat det de oroar sig för på ena sidan och det de drömmer om på den andra. Den är inte interaktiv.</p>",
+        "src": "Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "fluorescens",
+        "nav": "Färg som lyser",
+        "here": "Tunnelns tak och väggar är målade, och UV-ljuset får färgen att lysa. Det finns också glas.",
+        "steps": {
+          "3": "Resten kommer ut som synligt ljus, med längre våglängd. Därför lyser väggen i mörkret."
+        }
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vaxthuset": {
+    "lead": "Växthuset står mitt i Framtiden. Här samlas energin från rummet: varje gång någon leker med något går en ljuspuls hit.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Fem kuber",
+        "title": "Fem kuber, fem färger",
+        "body": "<p>Över varje station hänger en kub, 80 × 80 × 80 cm, i sin färg: röd för Bostäder, grön för Rörlighet, gul för Kompetens, rosa för Social hållbarhet och blå för Klimat & miljö.</p><p>När någon sätter igång en station pulserar stationens ljusslinga till kuben. Två sekunder senare blinkar molnet och växthuset, och det åskar. Kommer tre åskor inom en halv sekund svarar växthuset med ett eget ljud.</p>",
+        "src": "Planeringen i Order, bekräftad av Lukas; Peders export av koden (30 okt 2026)"
+      },
+      {
+        "kind": "text",
+        "nav": "Molnet är ett nät",
+        "title": "Skellefteå Krafts sensornät",
+        "body": "<p>På växthusets baksida berättar en text om Skellefteå Krafts nät av uppkopplade sensorer. Det mäter bland annat vattenförbrukning, lediga parkeringar, beläggning och miljö.</p><p>Molnet i taket är symbolen för det nätet.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "lysdiod",
+        "nav": "Molnet och växthuset",
+        "here": "Molnet i taket och växthuset är två WLED-slingor, Tak+Cloud och Växthus. Alla sensorhändelser i Framtiden går som MQTT-meddelanden till tnt. Switchboarden skickar en puls till Resolume, som ritar slingorna live och skickar bilden som Art-Net. Samtidigt skickar den cloud, som får rpi6 att spela åska."
+      },
+      {
+        "kind": "scene",
+        "scene": "kloroplast",
+        "nav": "Växtens egen energi",
+        "here": "Ljuset i växthuset kommer från lysdioder. I ett riktigt växthus är det växterna som tar emot ljuset och gör socker av det."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Allt som händer vid stationerna i Framtiden slutar här, som ljus i molnet och växthuset. Molnet står för ett nät av sensorer i staden.</p><p>Nästa i rummet: Fröna vid utgången, att ta med sig hem.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "sag-ja": {
+    "lead": "En stor knapp under frågan om vi kan göra samhället bättre för människor och natur. Varje JA spelar nästa ton i en psalm.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "scene",
+        "scene": "blomstertid",
+        "nav": "Ett JA, en ton",
+        "here": "Psalmen är Den blomstertid nu kommer, inspelad av Kulturskolan på Mullberget. Hela ljudverket i Framtiden heter Den blomstertid nu kommer? och är gjort av Try New Things. Två sekunder efter tonen blinkar molnet och växthuset.",
+        "steps": {
+          "3": "Tonen klingar ut med en skimrande efterklang i högtalaren i blomhörnet."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "knapp",
+        "nav": "Knappen",
+        "here": "Knappen sitter på en ESP32 som heter pushbutton1, på stiftet GPIO13. Varje tryck blir ett eget MQTT-meddelande. rpi6 lyssnar själv och spelar tonen, och switchboarden på tnt får introduktionsslingan att pulsera. Knappen har skickat cirka 79 000 sådana meddelanden, mer än något annat i utställningen.",
+        "steps": {
+          "1": "Ett motstånd drar stiftet GPIO13 upp mot 3,3 volt. Stiftet läser 1, \"hög\".",
+          "4": "Programmet väntar tills signalen är stilla och räknar bara ett tryck. Säg ja! skickar då pushbutton1 {\"pressed\": true}."
+        }
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Varje JA är en ton, och tillsammans blir de en psalm. Knappen är det mest tryckta i hela utställningen.</p><p>Nästa i rummet: Rutschkanan, vid klimatstationen.</p>",
+        "src": "Utställningstexten, Framtiden och Live-systemet tnt (29 okt 2026)"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "rutschkanan": {
+    "lead": "Rutschkanan är EcoLink. Barnet som åker är spillvärmen från Rönnskär, på väg in i fjärrvärmenätet.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "EcoLink",
+        "title": "Spillvärmen från Rönnskär",
+        "body": "<p>EcoLink är en 13 km lång ledning som ska föra spillvärme från Bolidens smältverk Rönnskär in i fjärrvärmenätet. Spillvärme har värmt hus nära fabrikerna sedan 1980-talet.</p><p>Barnet som åker är spillvärmen. Bredvid kanan står en rekvisita efter Magrittes målning med ett tåg som kommer ut ur en öppen spis.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "ultraljud",
+        "nav": "Sensorn i kanan",
+        "here": "En ultraljudssensor på en ESP32 som heter ultraljud1 ser en giltig åktur: någon kommer, stannar kort, och sedan blir kanan tom. Bara riktiga åkturer räknas. Åkturen går till tnt, där switchboarden skickar en puls till Resolume. Ljuset följer åkaren längs klimatslingan till den blå klimatkuben. Två sekunder senare blinkar molnet och växthuset, och en fågel spelar i klimathörnet.",
+        "steps": {
+          "2": "Ljudet studsar mot handen, eller mot barnet i rutschkanan."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "ecolink",
+        "nav": "Spillvärmens väg",
+        "here": "Barnet som åker är spillvärmen. Följ värmen från Rönnskär genom den 13 km långa ledningen, över i fjärrvärmenätet och ut till husen. Ledningen är ritad schematiskt, utan karta."
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Till Rönnskär",
+        "here": "Här är kartan. Rönnskär ligger vid kusten, vid Skelleftehamn. Därifrån ska EcoLink föra spillvärmen 13 km in till fjärrvärmenätet."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Värme som annars går förlorad kan värma hus. När du åker är du den värmen.</p><p>Nästa i rummet: Elektronikåtervinningen, också vid den blå klimatkuben.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "triangeln": {
+    "lead": "Trampa en tandemcykel från 1970-talet, så rör sig ett spel om Skellefteåtriangeln: hamnen, flygplatsen och resecentrum.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Tre hörn",
+        "title": "Skellefteåtriangeln",
+        "body": "<p>Skellefteåtriangeln är kommunens namn på hamnen, flygplatsen och ett nytt resecentrum som ska hänga ihop. Människor och gods ska kunna byta mellan fartyg, flyg, tåg och buss.</p><p>Medan du trampar rör sig spelet i din takt, och tråden till den gröna rörlighetskuben pulserar.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "trainer",
+        "nav": "Cykeltrainern",
+        "here": "Tandemcykeln står på en Wahoo KICKR CORE. En Raspberry Pi, rpi5, läser farten över ANT+ och skickar den som OSC till TouchDesigner på macmini6 och som MQTT till tnt. TouchDesigner jämnar ut farten och skickar den till spelet, som är byggt i Unreal. Om rpi5 är nere kan tnt köra en demotur.",
+        "steps": {
+          "4": "rpi5 tar emot och skickar bike {\"speed_kmh\": …} till tnt. Spelet på macmini6 rullar i samma takt."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Den riktiga triangeln",
+        "here": "Här ligger hörnen på kartan. Resecentrumet är planerat: byggstart tidigast omkring 2028, och tåg mellan Umeå och Skellefteå 2036.",
+        "steps": {
+          "4": "Skellefteåtriangeln: hamnen, flygplatsen och det planerade resecentrumet vid busstationen, som cykelspelet i Framtiden handlar om."
+        }
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Hamnen, flygplatsen och resecentrumet ska hänga ihop, så att människor och gods tar sig fram. Din fart på cykeln blir ljus i rörlighetskuben.</p><p>Nästa i rummet: Droneport, där du röstar om vad drönare ska användas till.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "snurra-huset": {
+    "lead": "Vrid ett 3D-printat hus, så vrider sig byggnaden på skärmen och rummet byter färg.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Bostäder",
+        "title": "Snurra huset och Bostäder",
+        "body": "<p>Snurra huset står vid bostadskuben. Runt kuben sitter kort om bostadsprojekt, bland annat Östra Morö Backe, Flexibility House och modulhusen. De handlar om hem som går att ändra, flytta och återbruka.</p><p>Skellefteå har sedan 2014 en strategi för att bygga i trä.</p>",
+        "src": "Utställningstexterna, Framtiden; kommunens träbyggnadsstrategi"
+      },
+      {
+        "kind": "scene",
+        "scene": "hall",
+        "nav": "Magneterna i huset",
+        "here": "Magnetsensorer känner av åt vilket håll och hur fort huset snurrar. Åt ena hållet blir rummet bärnstensfärgat, åt andra blått. Meddelandena heter housingcw och housingccw, och TouchDesigner på macmini-housing vrider byggnaden på skärmen 90 grader för varje. Ett spel väljer en målsida; när rätt sida kommer fram hörs ett skrapljud, och efter 8 sekunder väljs en ny. Skärmen säger SPIN THE HOUSE.",
+        "steps": {
+          "4": "ESP32:an skickar housingcw eller housingccw tio gånger i sekunden till TouchDesigner på macmini-housing."
+        },
+        "note": "Skivan är ritad schematiskt. Fyra magneter, två sensorer, åtta steg per varv och tio meddelanden i sekunden. Dra i reglaget för att vrida själv."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>Bostadskuben handlar om hem som går att ändra, flytta och återbruka, och om att bygga i trä. När du vrider huset pulserar ljuset till den röda kuben.</p><p>Nästa i rummet: Skellefteåtriangeln, tandemcykeln vid rörlighetskuben.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "ace": {
+    "lead": "ACE är en arkitektmodell på 1,5 m³ av ACE Powerhouse. Den hör till Kompetens, och varje blick skickar en gul puls till kompetenskuben.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Använd händerna",
+        "title": "Leka med energin",
+        "body": "<p>Stationen säger åt besökaren att använda händerna för att leka med energin inne i ACE Powerhouse. Spelet följer händerna och har en topplista.</p><p>Bilden i modellen följer ditt huvud, och varje blick in i modellen skickar en gul puls till kompetenskuben.</p>",
+        "src": "Utställningstexten, Framtiden; Unreal-projektet"
+      },
+      {
+        "kind": "scene",
+        "scene": "djupkamera",
+        "nav": "Kameran som ser dig",
+        "here": "En djupkamera, Orbbec Femto, ser var huvudet och händerna är. TouchDesigner skickar positionerna till Unreal på ACE-datorn. Bilden på den inbyggda skärmen flyttar perspektivet efter huvudet, och varje gång skickas ace till tnt.",
+        "steps": {
+          "4": "Programmet hittar huvudet, och ACE flyttar perspektivet på skärmen efter det."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "acehuset",
+        "nav": "Huset i full skala",
+        "here": "Huset har sju våningar i trä, solpaneler och ett vindkraftverk, regnvatten till toaletterna och kyla från fjärrvärmen. Det står ute på Campus Skellefteå, men blir helt klart först 2027.",
+        "steps": {
+          "0": "I Framtiden står arkitektmodellen, 1,5 m³, med en skärm inuti.",
+          "1": "En djupkamera ser var huvudet är, och bilden på skärmen följer blicken.",
+          "2": "Varje blick skickar en gul puls till kompetenskuben. ACE hör till Kompetens."
+        }
+      },
+      {
+        "kind": "text",
+        "nav": "Trappan från lasarettet",
+        "title": "Gammalt i det nya huset",
+        "body": "<p>Marmortrappan och smidesräcket från gamla lasarettet återanvänds i ACE Powerhouse. Huset blev Årets miljöbyggnad 2025.</p><p>ACE är ett kompetenscentrum för elektrifiering, med LTU, Skellefteå Kraft och kommunen.</p>",
+        "src": "SE26:s projektsida om ACE och arcticcenterofenergy.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>ACE Powerhouse är ett hus för kunskap om elektrifiering, byggt i trä och klart 2027. Din blick blir en gul puls i kompetenskuben.</p><p>Nästa i rummet: Sokrates frågevägg, vid samma kub.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "atervinning": {
+    "lead": "Mata skrotmonstret med en gammal pryl, så rapar det ut metallerna. Rönnskär gör samma sak på riktigt.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "scene",
+        "scene": "gitter",
+        "nav": "Metallerna i prylen",
+        "here": "Monstret rapar ut koppar, guld, silver, palladium, kobolt och litium. Rönnskär tar främst tillbaka koppar, guld och silver. Kobolt och litium sitter i batterier."
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Till Rönnskär",
+        "here": "Rönnskär är ett av världens största smältverk för elektronikskrot och kan ta emot upp till 120 000 ton om året. Plasten i skrotet smälts och ger energi till processen."
+      },
+      {
+        "kind": "text",
+        "nav": "Sanden blir skog",
+        "title": "Från gruva till skog",
+        "body": "<p>En lapp vid stationen berättar om Bolidens anläggning som gör anrikningssand till pasta. Pastan fyller igen gruvorna, så att marken kan bli skog igen.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "sokrates": {
+    "lead": "Ge väggen en high five, så ställer den en fråga om AI. Temat är hybridintelligens: AI:s snabbhet ihop med människans omdöme.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "SUA",
+        "title": "Skellefteå Universities Alliance",
+        "body": "<p>Kortet berättar att Skellefteå Universities Alliance tar fram kurser tillsammans med näringsliv, kommun och flera universitet.</p><p>SUA är en stiftelse som bildades 2025 av Nornan Invest, kommunen och Skellefteå Kraft.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "mems",
+        "nav": "Accelerometern",
+        "here": "Bakom väggen sitter en accelerometer på en ESP32. När väggen skakar tillräckligt visar iPaden en av elva frågor. Samtidigt lyser kompetensslingan, och rummet får en musikpuls.",
+        "steps": {
+          "2": "När någon ger väggen en high five rycker chipet till. Massan släpar efter och svänger.",
+          "4": "Är skakningen stark nog skickar ESP32:an sua/ {\"trigger\": true}, och iPaden visar en av elva frågor om AI."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "neuron",
+        "nav": "Neuron och AI",
+        "here": "Sokrates frågar om AI. En språkmodell är byggd av artificiella neuroner, löst inspirerade av nervcellerna i hjärnan. Hybridintelligens handlar om att låta de två arbeta ihop."
+      },
+      {
+        "kind": "text",
+        "nav": "Ta med dig",
+        "title": "Det här tar du med dig",
+        "body": "<p>AI är snabb, men människan har omdömet. Hybridintelligens handlar om att använda båda.</p><p>Nästa i rummet: Kompetenstältet, med Tidsresans talande resväska.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "skykraft": {
+    "lead": "Blås i mikrofonen, så vaknar jetmotorn på skärmen. Bakom den ligger idén om flygbränsle av koldioxid, vatten och el.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "scene",
+        "scene": "mikrofon",
+        "nav": "Mikrofonen",
+        "here": "En USB-mikrofon hör om man blåser. Då ändrar motorn på skärmen form, vindljudet tonar in och bilden skakar. Turbinen snurrar i jämn fart hela tiden. Bilden ritas i realtid av TouchDesigner på macmini4, och medan någon blåser skickas skykraft till tnt ungefär en gång i sekunden.",
+        "steps": {
+          "4": "Datorn mäter spänningen tiotusentals gånger per sekund. SkyKraft mäter hur hårt man blåser."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "jetmotor",
+        "nav": "Jetmotorn inifrån",
+        "here": "Turbinen på skärmen är ingen bestämd motor. I en riktig jetmotor brinner flygbränslet i brännkammaren, och det är där e-SAF skulle ersätta fossilt bränsle.",
+        "note": "Det är inte turbinen på SkyKraft-skärmen. I installationen snurrar turbinen i jämn fart; blåser man ändrar bilden form och skakar. SkyKraft är Skellefteå Krafts och SkyNRG:s planerade fabrik vid Skellefteå hamn. Projektet utreds fortfarande; ingen fabrik är byggd."
+      },
+      {
+        "kind": "scene",
+        "scene": "esaf",
+        "nav": "Koldioxid blir bränsle",
+        "here": "SkyKraft är Skellefteå Krafts och SkyNRG:s planerade fabrik vid Skellefteå hamn. Enligt kortet ska koldioxiden komma från skogsindustrins restprodukter, som sågspån i fjärrvärmen. Kortet säger att e-SAF kan minska flygets utsläpp med 90 %.",
+        "steps": {
+          "0": "Koldioxid fångas in. I SkyKraft ska den vara biogen, alltså komma från växtmaterial."
+        },
+        "note": "Scenen visar en möjlig väg; SkyKraft har inte sagt vilken process fabriken ska använda. Projektet utreds fortfarande; ingen fabrik är byggd."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "ljudrummet": {
+    "lead": "Framtiden har sex högtalare, en i varje hörn och en i mitten. Installationerna svarar med fåglar, psalmtoner eller musik.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Verkets namn",
+        "title": "Den blomstertid nu kommer?",
+        "body": "<p>Ljudverket heter Den blomstertid nu kommer? och är gjort av Try New Things. Psalmen spelades in av Kulturskolan på Mullberget.</p><p>I ljudverket finns 87 fåglar, 53 psalmtoner, 13 åskknallar, en vattenbädd och en kretsande drönarton. Väggtexten talar om 250 fågelljud från Västerbotten.</p>",
+        "src": "Utställningstexten, Framtiden; fallstudien the-sound-of-the-room"
+      },
+      {
+        "kind": "scene",
+        "scene": "hogtalare",
+        "nav": "Sex högtalare",
+        "here": "En samplespelare på rpi6 har sex utgångar: rörlighet och kompetens, social, blommor, mitten, boende och klimat. Fyra går genom ett ljudkort och två från datorns eget uttag. Fågeln hörs från hörnet där installationen står, och fåglarna flyger mot molnet."
+      },
+      {
+        "kind": "scene",
+        "scene": "blomstertid",
+        "nav": "Psalmen ton för ton",
+        "here": "Ja-knappen spelar inte fåglar utan nästa ton i psalmen, i högtalaren vid blommorna. Där hörs också Maskinisterna, Alimak och Dialogen från de andra rummen. Varje gång molnet blinkar åskar det i mitten, och tre åskor inom en halv sekund ger ett växthusljud."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "droneport": {
+    "lead": "Vad ska drönare användas till? Rösta med en av sex knappar.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Drönarflygplatsen",
+        "title": "Drönarflygplatsen på Hammarängen",
+        "body": "<p>Drönarflygplatsen ligger på Hammarängen och drivs av Arctic Aviation Hub och kommunen. Den har eget luftrum, vintertester och självflygande drönare. Start- och landningsytan är 15 × 15 meter.</p><p>Utställningstexten kallar den Sveriges första stadsnära drönarflygplats, SE26:s egen sida en av Europas största. Vid stationen kan man rita sin egen drönare på papper.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se och arcticaviationhub.com (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "knapp",
+        "nav": "Sex knappar",
+        "here": "Knapparna heter Medicin, Skogsbränder, Pizza, Försvunna, Vindkraft och Paket. De sitter på en Raspberry Pi, rpi3, som skickar rösten till tnt.",
+        "note": "Droneports sex knappar sitter på en Raspberry Pi."
+      },
+      {
+        "kind": "scene",
+        "scene": "droneport",
+        "nav": "Hammarängen från ovan",
+        "here": "De sex knapparna frågar vad drönare ska användas till. Här lyfter en drönare från plattan på Hammarängen och flyger ett exempel för varje knapp. Måtten på plattan, inhägnaden och hangaren är de riktiga; rutterna är påhittade.",
+        "steps": {
+          "4": "Vad ska drönare användas till? Knapparna ger sex exempel. Rutterna här är påhittade."
+        }
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "elbil": {
+    "lead": "Laddplatsen ser ut som en elbilsladdare, men det är mobilen man laddar. När strömmen går får Framtiden en musikpuls.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Laddare norr till söder",
+        "title": "Laddare från norr till söder",
+        "body": "<p>Kortet berättar att Skellefteå Kraft och OKQ8 har byggt snabbladdare för elbilar från norr till söder.</p><p>Här laddar du mobilen i stället, utan sladd. När den börjar ladda svarar Framtiden med en musikpuls.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "qi",
+        "nav": "Qi-spolen",
+        "here": "Besökaren parkerar mobilen på laddplatsen. En spole i laddaren och en spole i mobilen för över energin med ett magnetfält, utan sladd. En Shelly-plugg mellan uttaget och laddaren mäter effekten. Över 3 W betyder att en mobil laddar, och då skickas emob till tnt. Musikpulsen spelas av rpi6 i högtalaren vid Rörlighet och Kompetens.",
+        "steps": {
+          "4": "Det fungerar bara nära. När mobilen laddar drar laddaren mer än 3 W, och det ser Shelly-pluggen."
+        }
+      },
+      {
+        "kind": "scene",
+        "scene": "battericell",
+        "nav": "Batteriet laddas",
+        "here": "Mobilen och en elbil har samma sorts batteri, litiumjonceller. Elbilsladdaren gör det i liten skala: det är mobilens celler som fylls.",
+        "steps": {
+          "0": "Mobilen läggs på laddplatsen. I installationen märker en smart kontakt att det går ström, och Framtiden svarar med musik."
+        }
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "social": {
+    "lead": "I Socialhörnet sitter tre snurrlådor och rörelsesensorer. De byter färg på hörnet och tänder bastulampan.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Women Welcome",
+        "title": "Women Welcome",
+        "body": "<p>Socialhörnet hör till Social hållbarhet: att alla ska få plats. Women Welcome står under samma kub. Den första lunchen 2023 hade tio kvinnor; nu är det närmare 2 000 deltagare.</p><p>På snurrlådorna snurrar man fram figurer, ser sig själv i speglarna och läser om projekten.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "ultraljud",
+        "nav": "Snurrlådorna",
+        "here": "I var och en av de tre snurrlådorna sitter en ultraljudssensor på en ESP32. Den jämför avståndet med ett grundvärde, och när någon vinkar eller står nära ändras det. Då pulserar socialslingan. Bastulampan, en Shelly-dimmer, lyser 33 % hela tiden och tonar upp till 100 % när lådorna eller PIR-sensorerna pir1 och pir4 märker någon."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "kompetenstaltet": {
+    "lead": "Kompetenstältet är SEE Future-tältet. Inne i tältet berättar Tidsresans talande resväska.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Kunskap i tält",
+        "title": "SEE Future",
+        "body": "<p>Idén kommer från Yuval Noah Harari: kunskap ska bo i tält, inte i hus. SEE Future står för social, ekologisk och ekonomisk hållbar framtid. Bakom står kommunen, Skellefteå Kraft, Skellefteå museum och Exploratoriet.</p><p>Det började med en avsiktsförklaring med Tekniska museet våren 2024.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se/seefuture (läst 30 okt 2026)"
+      },
+      {
+        "kind": "text",
+        "nav": "Tidsresan",
+        "title": "Tidsresan och resväskan Berta",
+        "body": "<p>Tidsresan är ett läromedel för förskolan från kommunen och Exploratoriet. Den har uppdragskort, figuren Tidus och den talande resväskan Berta som tidsmaskin. En prototyp testas i förskolor 2025–2026.</p><p>Utställningstexten kallar det ett brädspel om tidsresor.</p>",
+        "src": "skelleftea.se/tidsresan (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "knapp",
+        "nav": "Blå och grön knapp",
+        "here": "Man väljer språk med knapparna: blå för svenska, grön för engelska. I programmet heter knapparna START och SLUMPA. Lådan har en ESP32 som skickar ett meddelande när man väljer språk, och sedan ungefär varannan sekund medan berättelsen spelas. Varje meddelande ger en gul puls i kompetenskuben."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "tvivlarnas-kulle": {
+    "lead": "En kulle som den där pensionärer stod och tittade på Northvolt-bygget. Kan vi ge plats åt dem som inte tror på oss?",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Tvivlarnas kulle",
+        "title": "Tvivlarnas kulle",
+        "body": "<p>Texten handlar om kullen där pensionärer stod och tittade på bygget av Northvolts fabrik. Den använder det italienska ordet umarells om dem: äldre män som gärna tittar på byggen.</p><p>Kullen är en kulle att sitta eller stå på. Den är inte interaktiv.</p>",
+        "src": "Utställningstexten, Nutiden; Lukas (30 okt 2026)"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "turbin": {
+    "lead": "En prototyp från 2025 som blev SkyKraft.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Flappy Plane",
+        "title": "Turbinen, en prototyp",
+        "body": "<p>Man blåste på en vindmätare för att tanka och styrde ett plan genom ringar med en pedal. Prototypen körde på rpi9, som 2026 har bytt roll till Elektronikåtervinningen.</p><p>Enligt Lukas var det en äldre idé av det som nu är SkyKraft.</p>",
+        "src": "Peders kod för SE26 (2025) och Lukas"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "berget": {
+    "lead": "Stenarna i Floden kommer från berggrunden i Skelleftefältet. Den är 1,89 miljarder år gammal och full av metall.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "scene",
+        "scene": "gitter",
+        "nav": "Metallerna i berget",
+        "here": "Berget i Skelleftefältet bär guld, koppar, silver, zink och bly. Koppar, silver, guld och bly har samma kubiska gitter. Zink lägger sina atomer i sexkantiga lager."
+      },
+      {
+        "kind": "scene",
+        "scene": "berget",
+        "nav": "Bergets historia",
+        "here": "Vid Floden står stenar, och texten bredvid berättar om berggrunden i Skelleftefältet, 1,89 miljarder år gammal. Här byggs berget upp genom tiden, från en havsbotten med vulkaner till skogen ovanpå i dag. Metallerna ligger kvar i malmen."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vem-ager-naturen": {
+    "lead": "Vem påverkas när berget bryts, skogen huggs och älven dämms? Tre frågor, tre delar av naturen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "scene",
+        "scene": "berget",
+        "nav": "Berget som bildades",
+        "here": "Väggen frågar vem som påverkas när berget bryts. Malmen i Skelleftefältet bildades för nästan två miljarder år sedan. I dag växer skogen och rinner älven ovanpå samma berg."
+      },
+      {
+        "kind": "scene",
+        "scene": "gitter",
+        "nav": "Berget som bryts",
+        "here": "Berget bryts för metallernas skull. Malmen i Skelleftefältet bär guld, koppar, silver, zink och bly."
+      },
+      {
+        "kind": "scene",
+        "scene": "klorofyll",
+        "nav": "Skogen som huggs",
+        "here": "Skogen i rummet är kluvna tallstammar. Innan ett träd blir virke har det i många år fångat solens energi i sina barr."
+      },
+      {
+        "kind": "scene",
+        "scene": "alvdalen",
+        "nav": "Älven som dämms",
+        "here": "Skellefteälven är en av landets mest reglerade älvar. Vid Kvistforsen, kraftverket närmast mynningen, är regleringsgraden 57 %. Längs älven ligger 15–16 kraftverk."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "hallmans-karta": {
+    "lead": "Per Olof Hallmans stadsplan från 1905. Där han ritade en monumental byggnad står i dag Sara kulturhus.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Planen och Sara",
+        "title": "En dröm som blev hus",
+        "body": "<p>År 1905 ritade Per Olof Hallman en monumental byggnad i sin plan för Skellefteå. På samma plats stod Sara kulturhus klart 2021, 20 våningar högt och byggt i trä.</p><p>Kartan frågar vad du drömmer om för Skellefteå om 100 år.</p>",
+        "src": "Utställningstexten, Dåtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "tidslinje",
+        "nav": "Från 1905 till 2021",
+        "here": "Hallmans plan 1905 och Sara 2021 är två av hållpunkterna i utställningens texter. Däremellan ligger bland annat Finnfors, Bolidenfyndet och Alimak."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "samhallsbalansen": {
+    "lead": "Utan rätt blandning av unga, gamla, kvinnor, män och nyinflyttade välter samhället.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Balansen i Framtiden",
+        "title": "Projekt för balansen",
+        "body": "<p>I Framtiden finns flera projekt som handlar om samma blandning: Welcome House och Expats & Friends för nyinflyttade, Society Summit Youth för unga och Women Welcome för kvinnor.</p>",
+        "src": "Utställningstexterna, Nutiden och Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "inkluderingsvaggen": {
+    "lead": "Fyra exempel på inkludering i Skellefteå.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Fyra exempel",
+        "title": "Fyra sätt att ge plats",
+        "body": "<p>Café Träffpunkten i Bureå. Kampanjen Ge plats!. Riv huset, från 2013. Och Ursinnig-festivalen i Jörn, som funnits sedan 2016.</p><p>Frågan om att ge plats kommer tillbaka vid Tvivlarnas kulle.</p>",
+        "src": "Utställningstexten, Nutiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "sara-telefonerna": {
+    "lead": "Tre telefoner, tre åsikter om Sara kulturhus.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Lyssna på Sara",
+        "title": "Tre röster om Sara",
+        "body": "<p>Tre telefonlurar, tre olika åsikter om Sara kulturhus. Stationen kallas också Lyssna på Sara.</p><p>Sara stod klart 2021, på platsen där Hallman 1905 ritade en monumental byggnad.</p>",
+        "src": "Utställningstexten, Nutiden; planeringen i Order"
+      },
+      {
+        "kind": "scene",
+        "scene": "hogtalare",
+        "nav": "Ljudet i luren",
+        "here": "I varje telefonlur sitter en liten högtalare. Den gör om en elektrisk signal till rösten du hör."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "northvolt-tidslinjen": {
+    "lead": "Northvolt i Skellefteå, 2019–2024: etableringen, tillväxten och kollapsen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Fem år",
+        "title": "Northvolt 2019–2024",
+        "body": "<p>Tidslinjen följer Northvolt från 2019 till 2024: etableringen, tillväxten och kollapsen. Här visas också kommunens film från arbetet med att få etableringen hit.</p>",
+        "src": "Utställningstexten, Nutiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "battericell",
+        "nav": "Det fabriken gjorde",
+        "here": "Northvolt byggde en batterifabrik i Skellefteå. En battericell fungerar likadant i en mobil och i en elbil, bara i olika storlek."
+      },
+      {
+        "kind": "scene",
+        "scene": "tidslinje",
+        "nav": "På den långa linjen",
+        "here": "Northvoltåren 2019–2024 är bland de senaste hållpunkterna i utställningens texter, nära Sara kulturhus 2021."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "motesmattan": {
+    "lead": "En matta att sätta sig på och prata.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "garnverkstaden": {
+    "lead": "Hur projekten i Framtiden hittades.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Hur rummet kartlades",
+        "title": "Garnverkstaden",
+        "body": "<p>Projekten i Framtiden kartlades i en garnverkstad: över 80 personer hittade mer än 90 initiativ på två veckor.</p><p>Projekten sorterades under fem kuber: Klimat & miljö, Kompetens, Bostäder, Rörlighet och Social hållbarhet.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "rengard": {
+    "lead": "Skellefteå Kraft bygger ett nytt vattenkraftverk vid Rengård, bredvid det gamla från 1970.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Det nya kraftverket",
+        "title": "Rengård",
+        "body": "<p>Kortet berättar att Skellefteå Kraft bygger ett nytt kraftverk vid Rengård, bredvid det från 1970.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "kraftverk",
+        "nav": "Så fungerar det",
+        "here": "Rengård fungerar som de andra kraftverken i älven: vattnet leds från dammen ner till turbinen, generatorn gör el, och vattnet rinner ut i älven igen."
+      },
+      {
+        "kind": "scene",
+        "scene": "alvdalen",
+        "nav": "Rengård i älven",
+        "here": "Rengård ligger i Skellefteälven, mellan Vargfors och Båtfors. Det är ett av elva kraftverk i älven som Skellefteå Kraft äger."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "hammarangen": {
+    "lead": "Ett bygge utan avfall, med material från platsen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Nollavfall",
+        "title": "Hammarängen",
+        "body": "<p>Hammarängen byggs utan avfall, med material från platsen. Bygget blev Årets bygge 2024 i kategorin infrastruktur. Enligt kortet ska Site East ha minskat utsläppen med 75 %.</p><p>På Hammarängen ligger också drönarflygplatsen, som Droneport i Framtiden handlar om.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se om Droneport (läst 30 okt 2026)"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "trainnovation": {
+    "lead": "Om att bygga i trä: limträ, korslimmat trä och Sara kulturhus i 20 våningar.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Trä i Skellefteå",
+        "title": "Limträ och KL-trä",
+        "body": "<p>Kortet handlar om limträ och korslimmat trä, KL-trä. Det nämner Martinsons, LTU:s träteknik på Campus Skellefteå och Sara kulturhus, 20 våningar högt.</p><p>Skellefteå har sedan 2014 en strategi för att bygga i trä.</p>",
+        "src": "Utställningstexten, Framtiden; kommunens träbyggnadsstrategi"
+      },
+      {
+        "kind": "scene",
+        "scene": "klorofyll",
+        "nav": "Där träet börjar",
+        "here": "Allt trä i ett trähus började som socker i ett barr eller blad. Så här fångar ett tallbarr solens energi."
+      },
+      {
+        "kind": "scene",
+        "scene": "acehuset",
+        "nav": "Sju våningar i trä",
+        "here": "ACE Powerhouse på Campus Skellefteå är ännu ett hus i trä, sju våningar högt. Det står ute och blir helt klart 2027."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "welcome-house": {
+    "lead": "Stöd till nyinflyttade, i stadshusets bottenvåning.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Flytta hit",
+        "title": "Welcome House",
+        "body": "<p>Welcome House ligger i stadshusets bottenvåning på Trädgårdsgatan 6. Där finns en samordnare för inflyttning, ett partnerprogram, Skellefteå After Work, en välkomstlåda och digitala möten.</p><p>Kortet står under Kompetens.</p>",
+        "src": "skelleftea.se/platsen/flytta-hit (läst 30 okt 2026)"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "science-city": {
+    "lead": "En innovationsmiljö som ska få idéer att växa snabbare.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Åtta exempel",
+        "title": "Skellefteå Science City",
+        "body": "<p>Skellefteå Science City ska få idéer att växa snabbare. På webben finns åtta exempel, bland annat drönartestplatsen, spelnätverket Arctic Game och bidraget till ACE.</p>",
+        "src": "skellefteasciencecity.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "acehuset",
+        "nav": "Bidraget till ACE",
+        "here": "Ett av exemplen är bidraget till ACE Powerhouse, vars modell står i Framtiden."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "arctic-game": {
+    "lead": "Stöd till nya spelstudior.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Spelstudior",
+        "title": "Arctic Game",
+        "body": "<p>Arctic Game stöder nya spelstudior med mentorskap, inkubation och gemenskap. Det är ett av exemplen hos Skellefteå Science City.</p>",
+        "src": "Utställningstexten, Framtiden; skellefteasciencecity.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vux-automation-lab": {
+    "lead": "Vuxenutbildningens snabbkurs för batterifabriken.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Från sex månader",
+        "title": "Kursen som krympte",
+        "body": "<p>Vuxenutbildningen tog fram en kurs för Northvolts batterifabrik. Den var planerad till sex månader men kortades till slut till tre veckor.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "battericell",
+        "nav": "Cellen de skulle tillverka",
+        "here": "Kursen utbildade vuxna för jobb i batterifabriken. Fabriken skulle tillverka litiumjonceller, samma sort som i mobiler och elbilar."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "cc-build": {
+    "lead": "Återbruk i byggandet: ledstänger, fönster och toaletter som används igen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Återbruk",
+        "title": "Cirkulärt byggande",
+        "body": "<p>CC Build North Sweden arbetar med återbruk i byggandet: ledstänger, fönster och toaletter som används igen.</p><p>Länken på kortet berättar om 348 glaspartier från stadshusets kontor som såldes via återbruket Rondellen.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "acehuset",
+        "nav": "Lasarettets trappa",
+        "here": "Kortet nämner ledstängerna från gamla lasarettet. ACE Powerhouse återanvänder marmortrappan och smidesräcket därifrån."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "away": {
+    "lead": "Modulbostäder på Solbacken och i Ursviken.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Modulhusen",
+        "title": "AWAY Group",
+        "body": "<p>AWAY Group bygger modulbostäder på Solbacken och i Ursviken. Antalet anges olika: över 2 000 i Nutiden och över tusen på kortet.</p>",
+        "src": "Utställningstexterna, Nutiden och Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "flexibility-house": {
+    "lead": "Trähus av element som kan monteras om, flyttas och byggas på.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Planelement",
+        "title": "Flexibility House",
+        "body": "<p>RISE och IVL testar trähus byggda av planelement. Elementen kan monteras om, flyttas och byggas på.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "varcities": {
+    "lead": "En park rustad genom samskapande.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Parken",
+        "title": "VARCITIES i Skellefteå",
+        "body": "<p>Parken rustades genom samskapande, med insektshotell, våtmarksäng, smart belysning och uteklassrum. Den ligger på en gammal deponi, och dagvatten från Vitberget leds genom den. Vattenmätare sitter på fyra punkter.</p><p>Kortet kallar parken Klockardalsparken, VARCITIES själva Klockarberget Park. Den invigdes i juni 2024 och fick EU-stöd genom Horizon 2020.</p>",
+        "src": "varcities.eu (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "digital-tvilling": {
+    "lead": "En skärm med en digital tvilling, samma idé som den här webbtvillingen.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Tvillingar",
+        "title": "Digitala tvillingar",
+        "body": "<p>En skärm i Framtiden visar en digital tvilling, med Singapore och Helsingfors som exempel.</p><p>Det är samma idé som den här webbtvillingen: en modell som speglar det verkliga.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "mqtt",
+        "nav": "Tvillingen lyssnar",
+        "here": "Den här webbtvillingen får sina livevärden från samma MQTT-meddelanden som installationerna skickar. Den lyssnar bara och skickar aldrig något tillbaka."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "ostra-moro-backe": {
+    "lead": "Ett bostadsområde som ska klara både tillväxt och krympning.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "240 bostäder",
+        "title": "Östra Morö Backe",
+        "body": "<p>Östra Morö Backe ska klara både tillväxt och krympning och byggs med barnperspektiv. Det blir omkring 240 bostäder: ungefär 130 rad- och kedjehus, 47 villatomter och 64 hyresrätter från Skebo, som ska vara klara hösten 2026.</p><p>Detaljplanen kom i december 2023.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "hamnen": {
+    "lead": "Skellefteå hamn byggs ut och kopplas ihop med lastbil, tåg och flyg.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Den nya hamnen",
+        "title": "Den nya hamnen",
+        "body": "<p>Den nya hamnen byggs på norra sidan av Kallholmsfjärden, för ungefär 1,4 miljarder kronor. Där står en av världens första helelektriska kranar, och stålpålarna är av SSAB Zero.</p><p>Hamnen ska kopplas ihop med lastbil, tåg och flyg.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Hamnen vid kusten",
+        "here": "Hamnen är ett av hörnen i Skellefteåtriangeln, tillsammans med flygplatsen och det planerade resecentrumet. Det är den triangeln cykelspelet i Framtiden handlar om."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "flygplatsen": {
+    "lead": "Skellefteå Airport och Arctic Aviation Hub: laddning, flygutbildning och vätgasflyg.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Framtidens flyg",
+        "title": "Skellefteå Airport",
+        "body": "<p>Skellefteå Airport och Arctic Aviation Hub satsar på laddning för elflyg, Green Flight Academy och vätgasflyg.</p><p>Terminalen är från 1961. En ny terminal är en vision, och inget är beslutat.</p>",
+        "src": "Utställningstexten, Framtiden; skelleftea.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Söder om stan",
+        "here": "Flygplatsen ligger i Falmark, 20 km från centrum. Den är ett av hörnen i Skellefteåtriangeln."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "norrbotniabanan": {
+    "lead": "Järnvägen Umeå–Luleå, med stationer i Skellefteå, Bureå och Byske.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "27 mil järnväg",
+        "title": "Norrbotniabanan",
+        "body": "<p>Norrbotniabanan blir 27 mil järnväg mellan Umeå och Luleå, med stationer i Skellefteå, Bureå och Byske. Skellefteå är Sveriges största stad utan persontåg.</p><p>Regeringen godkände bygget av delen Dåva–Degerbyn i februari 2025. Enligt Trafikverket kan tågen gå mellan Umeå och Skellefteå 2036.</p>",
+        "src": "skelleftea.se och trafikverket.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Spåret genom stan",
+        "here": "I Skellefteå ska tågen stanna vid det nya resecentrumet, mellan Sara kulturhus och spåret."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "resecentrum": {
+    "lead": "Tre nya resecentrum: i Bureå, i Byske och i centrala Skellefteå.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Hjortronlandet",
+        "title": "Tre nya resecentrum",
+        "body": "<p>Det centrala resecentrumet ska ligga nordväst om Sara kulturhus, med en gångtunnel under spåret i Trädgårdsgatans förlängning. Det vinnande förslaget heter Utblick över hjortronlandet. I Bureå hamnar resecentrumet väster om E4.</p><p>Byggstart planeras tidigast omkring 2028. Kommunen ansvarar för resecentrum och stationshus, Trafikverket för spår och perronger.</p>",
+        "src": "skelleftea.se, WSP och trafikverket.se (läst 30 okt 2026)"
+      },
+      {
+        "kind": "scene",
+        "scene": "kusten",
+        "nav": "Var det ska ligga",
+        "here": "Bussarna stannar kvar vid dagens busstation. Själva stationshuset byggs ett par hundra meter österut, där Trädgårdsgatan möter spåret."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vi-gar-igen": {
+    "lead": "Ett framsynsprojekt om att gå.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Att gå",
+        "title": "Vi går igen",
+        "body": "<p>Vi går igen är ett framsynsprojekt om att gå, med konstnärer, forskare och planerare. Bakom det står kommunen, RISE och Futurniture, som en del av ShiftSweden. Projektet hänger ihop med Wasteland.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "wasteland": {
+    "lead": "En 3D-printad miniatyr av Bigert & Bergströms Crystal Sauna. Lampan i den lyser starkare när man kommer nära.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "try"
+      },
+      {
+        "kind": "text",
+        "nav": "Industri blir park",
+        "title": "Wasteland och Crystal Sauna",
+        "body": "<p>Scharinsområdet i Ursviken, där älven når havet, sanerades 2001–2018. Där anläggs Wasteland Climate Action Park, med en bastu av konstnärerna Bigert & Bergström. En liten modell av bastun står i Framtiden.</p><p>Parken anläggs 2026 och byggs ut 2027–2028. Enligt en uppskattning kommer upp till 75 000 besökare 2026.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "scene",
+        "scene": "shelly",
+        "nav": "Lampan",
+        "here": "I koden heter den bastulampan: en Shelly-dimmer som lyser 33 % och tonar upp till 100 % när PIR-sensorerna eller snurrlådorna i Socialhörnet märker någon. 3 sekunder efter sista rörelsen tonar den tillbaka."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "vanskapsbankar": {
+    "lead": "Gula bänkar som visar att man gärna pratar.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Gula bänkar",
+        "title": "Vänskapsbänkar",
+        "body": "<p>En gul bänk visar att man gärna pratar med den som sätter sig bredvid. En bänk står i Framtiden att prova.</p><p>Skellefteå museum skänkte tre gula bänkar, och bakom projektet står kommunen, Coompanion, Urkraft och Studiefrämjandet.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "arctic-design-center": {
+    "lead": "Om livet mellan husen när norra Sverige byggs om.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Livet mellan husen",
+        "title": "Arctic Design Center",
+        "body": "<p>Kortet handlar om livet mellan husen när norra Sverige byggs om. Länken leder till ett projekt som Tengbom leder tillsammans med Arctic Design Center, med prototyper på Trädgårdsgatan och Morö Backe våren 2026.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "expats-friends": {
+    "lead": "En förening för nya och gamla Skelleftebor.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Föreningen",
+        "title": "Expats & Friends",
+        "body": "<p>Expats & Friends är en ideell förening för nya och gamla Skelleftebor. Den grundades 2014 och har över 4 500 medlemmar.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "society-summit-youth": {
+    "lead": "Ett årligt forum för unga: vad ska Skellefteå börja, sluta och fortsätta med?",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Det första forumet",
+        "title": "Society Summit Youth",
+        "body": "<p>Det första forumet hölls den 27 maj 2025 på Campus Skellefteå, med 20 unga och psykisk hälsa som tema. Idén kom från en 18-åring.</p><p>Lappen vid kortet frågar vad Skellefteå ska börja, sluta och fortsätta med, samma fråga som i Framtidsbåset.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "fritidsguider": {
+    "lead": "Personlig vägledning till fritidsaktiviteter för barn.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Vägledning",
+        "title": "Kultur- och fritidsguider",
+        "body": "<p>Guiderna hjälper barn att hitta en fritidsaktivitet, med FN:s barnkonvention artikel 31 som grund. Modellen kommer från Köpenhamn, och Skellefteå var först i Sverige.</p><p>I år har 138 barn kommit till 27 aktiviteter, med 40 skolor och 80 föreningar. Nu är verksamheten permanent.</p>",
+        "src": "skelleftea.se (läst 30 okt 2026); Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "unghasten": {
+    "lead": "Västerbottensteaterns ungdomsteater.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Ungdomsteatern",
+        "title": "Unghästen",
+        "body": "<p>Unghästen är Västerbottensteaterns ungdomsteater. Den gör svåra ämnen möjliga att prata om.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "skapande-gardar": {
+    "lead": "En stadsgård med ponnyer, grisar, getter och katten Frans.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "text",
+        "nav": "Stadsgården",
+        "title": "Skapande gårdar",
+        "body": "<p>Morö Backe 4H har en stadsgård med ponnyer, grisar, getter och katten Frans. Kortet står till vänster om växthusdörren.</p>",
+        "src": "Utställningstexten, Framtiden"
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  },
+  "frona": {
+    "lead": "Fröpåsar att ta med sig ut, så länge de räcker.",
+    "chapters": [
+      {
+        "kind": "overview"
+      },
+      {
+        "kind": "scene",
+        "scene": "kloroplast",
+        "nav": "Fröet blir en växt",
+        "here": "När fröet gror och får blad börjar växten göra socker av ljus, vatten och koldioxid."
+      },
+      {
+        "kind": "links"
+      }
+    ]
+  }
+}

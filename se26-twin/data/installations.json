@@ -1,0 +1,5312 @@
+{
+ "version": 1,
+ "updated": "2026-10-30",
+ "rooms": {
+  "0": {
+   "name": "Hela utställningen",
+   "theme": "System"
+  },
+  "1": {
+   "name": "Urtiden",
+   "theme": "Naturens energi",
+   "old": "Vatten, berg, skog"
+  },
+  "2": {
+   "name": "Dåtiden",
+   "theme": "Historiens energi",
+   "old": "Rebellernas hall"
+  },
+  "3": {
+   "name": "Nutiden",
+   "theme": "Samhällets energi",
+   "old": "Lyssna på folket"
+  },
+  "4": {
+   "name": "Framtiden",
+   "theme": "Framtidens energi",
+   "old": "Ett case för hopp"
+  }
+ },
+ "installations": [
+  {
+   "id": "floden",
+   "name": "Floden",
+   "aka": [
+    "The river",
+    "River wall"
+   ],
+   "room": 1,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "15 m projicerad flod som följer besökarnas händer. Flodens data påverkar musiken i ljudkonstverket.",
+   "summary": "En 15 meter lång projicerad flod på väggen som böjer sig efter besökarnas kroppar och händer, med surroundljud. Tre projektorer och en Azure Kinect. Det kameran ser blir ett tal 0–100 som skickas som MQTT-meddelandet `ljudkonst/note` och påverkar den procedurella musiken i ljudkonstverket i rum 1 och 2. Floden påverkar inte ljuset i andra rum.",
+   "story": "Floden är Skellefteälven, 15 meter lång på väggen i korridoren. Håll fram handen, så viker vattnet undan. Det du gör hörs i musiken i rummet och får tre av skogens träd att lysa blått.",
+   "visitor": [
+    "Går längs korridoren med floden på väggen.",
+    "Rör händerna mot väggen, och vattnet böjer sig runt dem.",
+    "Hör vattnet i surround."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Rörelse framför väggen",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Djupkamera Azure Kinect läser kroppar",
+     "conf": "delvis"
+    },
+    {
+     "kind": "dator",
+     "what": "Windows-PC `riverwallcorridor` kör visualen",
+     "where": "riverwallcorridor",
+     "conf": "delvis"
+    },
+    {
+     "kind": "logik",
+     "what": "TouchDesigner + GLSL flödesfält (portfolioutkast)",
+     "conf": "antagen"
+    },
+    {
+     "kind": "skarm",
+     "what": "3 projektorer längs väggen",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljud",
+     "what": "TouchDesigner skickar MQTT `ljudkonst/note` (heltal 0–100, 40 i vila) när värdet ändras; ljudkonstverket i Ableton tar emot det. Bilden är 5760×1200 över tre projektorer med mjuka skarvar.",
+     "topic": "ljudkonst/note",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden: varje `ljudkonst/note` ger en blå puls på träd 4, träd 2 och det lilla trädet i skogen",
+     "topic": "ljudkonst/note",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Påverkar musiken i ljudkonstverket, data via OSC (Lukas). Påverkar inte ljuset i andra rum (Lukas)",
+    "Volym via knappen ”Rum 1 & 2” (`intensity/knob-1`)"
+   ],
+   "unreal": [
+    "/Game/SE26/RiverSimulation/BP_RiverWall",
+    "BP_Projector_River (2 st i LV_SE26_Master)",
+    "Media/NDI_Test/LF_ProjectorVideo_NDICorridor"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-river-wall/",
+    "Portfolio-utkast `ClaudeCode/Portfolio/projects.js`",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Lukas, 2026-10-30",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Projektionsväggen (BP_RiverWall, 11,6 m) får animerade vågor. Projektorerna och PC:n märks ut.",
+     "actors": [],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "yta",
+     "label": "Dra handen längs väggen",
+     "does": "En hand-markör följer pekaren längs korridorväggen och vågorna böjer sig runt den.",
+     "publishes": null
+    },
+    "route": [
+     "local:djupkamera",
+     "host:riverwallcorridor",
+     "screen:projektion",
+     "svc:mosquitto",
+     "host:macmini3",
+     "local:ableton",
+     "svc:tnt-switchboard",
+     "fix:TNT tree 04",
+     "fix:TNT tree 02",
+     "fix:Tree small"
+    ],
+    "links": [
+     {
+      "to": "skogen",
+      "how": "samma korridor"
+     },
+     {
+      "to": "ljudkonst",
+      "how": "flodens data påverkar musiken (OSC)"
+     }
+    ],
+    "beats": [
+     "Floden rinner längs hela korridoren.",
+     "En djupkamera ser var du står.",
+     "Vattnet viker undan för din hand.",
+     "Det du gör spelar en ton i ljudkonstverket och får skogen att pulsera blått."
+    ],
+    "open": [
+     "Är kamerans optiska flöde inkopplat i drift? I den sparade TouchDesigner-filen är indata två testrektanglar."
+    ]
+   },
+   "hardware": [
+    "Windows-PC `riverwallcorridor`",
+    "3 projektorer",
+    "Azure Kinect"
+   ],
+   "history": [
+    "Fallstudien: musiken sätter tempot för ljuset i andra rum. Enligt Lukas påverkar floden inte ljuset i andra rum."
+   ]
+  },
+  {
+   "id": "skogen",
+   "name": "Skogen",
+   "aka": [
+    "The forest",
+    "Glödande stammar"
+   ],
+   "room": 1,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Kluvna tallstammar med fräst ljus. En våg rullar genom dem, och Floden får dem att pulsera blått. Sover på natten.",
+   "summary": "Kluvna tallstammar med ljus fräst in i träet, en trädbok och en stubbe, ungefär 1 700 lysdioder. En våg rullar genom träden i rumsordning, och högtalare i stammarna ”sjunger”. Vågen är logik i switchboarden på tnt: den går av sig själv efter 15 sekunders tystnad, och när Floden spelar en ton pulserar tre av träden blått. I koden finns ingen sensor i skogen, och vem som skickar `trad/*` är inte känt. På natten får skogen sova.",
+   "story": "Skogen är kluvna tallstammar med ljus fräst in i träet. En ljusvåg rullar genom träden, ett i taget, och lägger du örat mot en stam hör du skogen sjunga. Skogen kom tillbaka efter istiden och lever på solens ljus.",
+   "visitor": [
+    "Går genom skogen.",
+    "Ljuset rullar som en våg genom stammarna i den ordning man går.",
+    "Lägger örat mot en stam och hör ljud."
+   ],
+   "chain": [
+    {
+     "kind": "natverk",
+     "what": "Vågen startas av `trad/wave`; vem som skickar det är inte känt. Efter 15 s tystnad går vågen av sig själv",
+     "topic": "trad/wave",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "tnt-switchboard: träd 1 → 4 → 2 → 3 → trädboken, 2,5 s vart, WLED-effekten Midnoise",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `TNT tree 01–04` (två segment, 0–144 och 144–384), `Treebook` (67), `Tree small` (116)",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Floden spelar en ton: blå puls på träd 4, träd 2 och det lilla trädet",
+     "topic": "ljudkonst/note",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Högtalare i stammarna",
+     "conf": "delvis"
+    },
+    {
+     "kind": "logik",
+     "what": "Natten: träden släcks 19:00–06:30 (tnt:s klocka)",
+     "where": "tnt",
+     "conf": "belagd"
+    }
+   ],
+   "hardware": [
+    "WLED: TNT tree 01–04 (384 lysdioder var), Treebook (67), Tree small (116)",
+    "Högtalare i stammar"
+   ],
+   "unreal": [
+    "BP_TreeHug (10 st)",
+    "BP_Pulsating_Tree (4 st)",
+    "BP_GlowingStump (4 st)",
+    "BP_Hjortron (8 st)",
+    "Houdini/TreeTrunks"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-forest-and-the-turbine/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "De fyra pulserande stammarna, stubben och trädboken lyser upp. TNT tree 03 och Treebook visas som offline.",
+     "actors": [
+      "BP_Pulsating_Tree3",
+      "sop_tamar_Glowing_TreeTrunk_1_0_2731_2217_0_main_geo_80C0C7C10",
+      "stylized_large_book",
+      "SM_Maskinesterna_Lamp_v2fbx",
+      "sop_tamar_Glowing_TreeTrunk_1_0_2731_2217_0_main_geo_80C0C7C11"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "knapp",
+     "label": "Kör vågen",
+     "does": "Vågen rullar genom träden i rumsordning, som den gör av sig själv efter 15 sekunders tystnad.",
+     "publishes": {
+      "topic": "trad/wave",
+      "payload": "\"1\""
+     }
+    },
+    "route": [
+     "svc:tnt-switchboard",
+     "fix:TNT tree 01",
+     "fix:TNT tree 04",
+     "fix:TNT tree 02",
+     "fix:TNT tree 03",
+     "fix:Treebook"
+    ],
+    "links": [
+     {
+      "to": "floden",
+      "how": "samma korridor"
+     },
+     {
+      "to": "vattentunneln",
+      "how": "skogen leder in i tunneln"
+     },
+     {
+      "to": "ljudkonst",
+      "how": "sensorerna på träden påverkar musiken"
+     }
+    ],
+    "beats": [
+     "Stammarna har ljus fräst in i träet.",
+     "En våg rullar genom träden, ett i taget.",
+     "När Floden spelar en ton pulserar tre av träden blått.",
+     "På natten får skogen sova."
+    ],
+    "open": [
+     "Vem skickar `trad/1`–`trad/5` och `trad/wave` (Q26)? Koden har ingen sensor i skogen."
+    ]
+   },
+   "links": [
+    "Ljudkonstverket: sensorerna på träden påverkar musiken (Lukas)"
+   ]
+  },
+  {
+   "id": "vattentunneln",
+   "name": "Vattentunneln",
+   "aka": [
+    "Finnforstunneln",
+    "tunnel1"
+   ],
+   "room": 1,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Kraftverkstunnel mellan rum 1 och 2. När någon går förbi pulserar ljuset inåt och ett ljud spelas.",
+   "summary": "En tunnel modellerad efter vattenvägen i ett vattenkraftverk, som leder från rum 1 till rum 2. En ultraljudssensor märker när någon passerar. Då pulserar tunnelns ljus i en rörelse inåt och ett ljud spelas, en ton i ljudkonstverket. Enligt texten i rummet kommer tunneln från Finnfors, Skellefteås första vattenkraftverk, byggt 1906–1908.",
+   "story": "Tunneln mellan Urtiden och Dåtiden kommer från Finnfors, Skellefteås första vattenkraftverk. Den är byggd som vägen vattnet tar ner till turbinen i ett kraftverk. När du går igenom går en våg av ljus genom ringarna, och en ton spelas i musiken.",
+   "visitor": [
+    "Går genom tunneln från skogen mot rum 2.",
+    "Ljuset pulserar inåt genom tunneln, och ett ljud spelas."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Passerar sensorn",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "ESP32 `tunnel1`, ultraljud, triggar när avståndet sjunker",
+     "topic": "tunnel1",
+     "payload": "{\"distance\": 25.0}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden: en vit våg genom tunnelns tre segment (3 × 402 lysdioder), tre gånger. I vila glöder tunneln orange",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "ESP32:n publicerar också själv `ljudkonst/C-1` = `100`",
+     "topic": "ljudkonst/C-1",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "macmini3: bryggan gör C-1 av både `ljudkonst/C-1` och `tunnel1`, så tonen kan spelas två gånger",
+     "where": "macmini3",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Ableton spelar tonen (kanal 16)",
+     "where": "macmini3",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Ljudkonstverket (macmini3)"
+   ],
+   "unreal": [
+    "/Game/SE26/FinnforsTunnel/BP_TunnelLightRings",
+    "SM_Tunnel (3 st)"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T3",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Tunnelringarna (SM_Tunnel, SM_LightRings) pulserar inåt, och en ton syns som en puls till Mac mini 3.",
+     "actors": [
+      "SM_LightRings",
+      "SM_Tunnel",
+      "SM_Tunnel2",
+      "SM_Tunnel3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "knapp",
+     "label": "Gå genom tunneln",
+     "publishes": {
+      "topic": "tunnel1",
+      "payload": "{\"distance\": 25.0}"
+     }
+    },
+    "route": [
+     "dev:tunnel1",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "fix:Tunnel",
+     "host:macmini3",
+     "local:ableton"
+    ],
+    "links": [
+     {
+      "to": "ljudkonst",
+      "how": "spelar ljudkonst/C-1"
+     }
+    ],
+    "beats": [
+     "Tunneln är byggd som vattenvägen i ett kraftverk.",
+     "En ultraljudssensor märker när någon går förbi.",
+     "Ljuset pulserar inåt genom tunneln.",
+     "Det blir en ton i ljudkonstverket."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "ljudkonst",
+   "name": "Ljudkonstverket",
+   "aka": [
+    "MQTT → MIDI → Ableton"
+   ],
+   "room": 1,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Procedurell Ableton-musik på Mac mini 3 för rum 1 och 2. Floden, skogen, tunneln, Maskinisterna och Alimak påverkar den.",
+   "summary": "Ett procedurellt musikverk i Ableton på macmini3 som spelas i högtalarna i rum 1 och 2. Enligt Lukas påverkar Floden (data från Kinect via OSC), sensorerna på träden, Vattentunneln och Maskinisterna ljudbilden och musiken, och Alimak spelar på kanal 12. Musikens beat påverkar i sin tur Dokumentärväggen. Sensorer skickar toner över MQTT som bryggan gör om till MIDI-noter. Guidens energiratt styr intensiteten som MIDI CC. Ljudkonstverket täcker både korridoren (rum 1) och rum 2.",
+   "story": "Musiken i Urtiden och Dåtiden skapas hela tiden och låter aldrig exakt likadant. Floden, Vattentunneln och Alimak-hissen spelar toner i den när besökare rör sig. Guiden kan sänka ljudet när hen pratar.",
+   "chain": [
+    {
+     "kind": "natverk",
+     "what": "Toner: `ljudkonst/C-1` från tunneln, `ljudkonst/note` från Floden (0–100, pentatoniskt)",
+     "topic": "ljudkonst/C-1, ljudkonst/note",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Alimak: `alimak` blir C2 på kanal 12",
+     "topic": "alimak",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Rattarna: 1 = intensitet (CC70, låst på 50), 2 = volym rum 1 (kanal 13), 3 = volym rum 2 (kanal 14)",
+     "topic": "intensity/knob-1…3",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "`mac_mqtt_to_midi.py` på macmini3: MQTT → MIDI över IAC-buss 1, toner på kanal 16. Skickar `ljudkonst/midiclock` en gång per takt",
+     "where": "macmini3",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Ableton via IAC-buss; rum 1 ut 1–4 (ambient), rum 2 ut 5–8 + sub (rytmiskt)",
+     "where": "macmini3",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "OSC från ett Ableton-plugin vidare till TouchDesigner på 192.168.51.160:9001, troligen VR-PC7 och Dokumentärväggens takt",
+     "conf": "delvis"
+    }
+   ],
+   "history": [
+    "2025: ämnen `ljudkonst/C0..C9`. 2026: `ljudkonst/C-1`, `/C-2`, `/note` (pentatoniskt C D E G B)."
+   ],
+   "software": [
+    "`Peder/se26/ljudkonst/mac_mqtt_to_midi.py`",
+    "`Musikproduktion_Guide.md`"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Ljudet ritas som ringar ut från högtalarna i korridoren och rum 2.",
+     "actors": [],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Volym rum 1 (ratt 2)",
+     "range": [
+      0,
+      100
+     ],
+     "publishes": {
+      "topic": "intensity/knob-2",
+      "payload": "\"60\""
+     }
+    },
+    "route": [
+     "svc:mosquitto",
+     "host:macmini3",
+     "local:MIDI CC7 kanal 13",
+     "local:ableton"
+    ],
+    "links": [
+     {
+      "to": "vattentunneln",
+      "how": "ljudkonst/C-1"
+     },
+     {
+      "to": "alimak",
+      "how": "kanal 12"
+     },
+     {
+      "to": "floden",
+      "how": "data via OSC"
+     },
+     {
+      "to": "skogen",
+      "how": "sensorerna på träden"
+     },
+     {
+      "to": "lampteremin",
+      "how": "påverkar musiken"
+     },
+     {
+      "to": "dokumentaren",
+      "how": "beatet påverkar väggen"
+     }
+    ],
+    "beats": [
+     "Ett procedurellt musikverk i Ableton för korridoren och rum 2.",
+     "Floden, tunneln och Alimak spelar toner i det.",
+     "Musikens takt går vidare till Dokumentärväggen.",
+     "Guiden styr volymen per rum."
+    ],
+    "open": [
+     "Vilket Ableton-plugin skickar takten, och är 192.168.51.160 VR-PC7 (Q22)?"
+    ]
+   },
+   "links": [
+    "Påverkas av Floden, Skogen, Vattentunneln och Maskinisterna (Lukas) samt Alimak (kanal 12)",
+    "Beatet påverkar Dokumentärväggen (Lukas)"
+   ]
+  },
+  {
+   "id": "lungan",
+   "name": "Lungan",
+   "room": 1,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En bild av en lunga och ett träd, printad på glas. Inte interaktiv.",
+   "summary": "En bild av en lunga och ett träd, printad på glas, i rum 1. Den är inte interaktiv. Texten handlar om att vi andas in det som träden andas ut. Order planerade ett andande organ i ljustråd (EL-wire); om det finns är inte bekräftat. Order placerade Mr Bombastus och Platsvarumärket här, men enligt texterna hör Bombastus (Paracelsus) till Bolidendelen i rum 2 och platsvarumärkets båge står i rum 3.",
+   "story": "En bild av en lunga och ett träd, tryckt på glas. Den påminner om att vi andas in det som träden andas ut. Den är inte interaktiv.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar på bilden, printad på glas. Inte interaktiv",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Ljustråd (EL-wire) som andas, enligt Order-planeringen; inte bekräftat",
+     "conf": "antagen"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/TreeLung/M_TreeLung"
+   ],
+   "questions": [
+    {
+     "id": "F20b",
+     "text": "Lungan är en bild printad på glas. Finns det också ljustråd (EL-wire) i den, som Order-planeringen säger, eller blev det aldrig av?"
+    }
+   ],
+   "sources": [
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T1, T9, T13",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Glasskivan med bilden av lungan och trädet.",
+     "actors": [
+      "SM_Board",
+      "S_Nordic_Forest_Rock_Medium_tjjxbgoda_lod13",
+      "sop_Lukas_CorridorWallRoots_1_0_3_15_0_main_geo_5AB3395F_1"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–",
+     "does": "Lungan är en bild printad på glas och är inte interaktiv."
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En bild av en lunga och ett träd, printad på glas.",
+     "Vi andas in det som träden andas ut."
+    ],
+    "open": [
+     "Finns det ljustråd (EL-wire) i Lungan, eller är det bara glasbilden (F20b)?"
+    ]
+   },
+   "visitor": [
+    "Tittar på bilden av lungan och trädet."
+   ],
+   "hardware": [
+    "Bild printad på glas"
+   ]
+  },
+  {
+   "id": "dokumentaren",
+   "name": "Dokumentärväggen",
+   "aka": [
+    "The documentary wall",
+    "Interaktiv dokumentär"
+   ],
+   "room": 2,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Arkivdokumentär där en djupkamera gör alla i rummet till glödande energi. Ljudkonstverkets beat påverkar väggen.",
+   "summary": "En interaktiv dokumentär från arkivet. En djupkamera (Kinect) ser alla i rummet; varje person blir en ruta fylld med tonade arkivbilder, med linjer mellan sig, ovanpå den svartvita filmen i ett rutnät 2×2. Musiken kommer från ljudkonstverket i Ableton, och dess takt kommer som OSC: varje slag skiftar färgen och får bilden att rycka.",
+   "story": "Dokumentärväggen visar arkivfilm om Skellefteås industriella sekel: gruvor, kraftverk och smältverk. En kamera ser alla i rummet och gör dem till rutor av arkivbilder i filmen. Musikens takt får bilden att skifta färg.",
+   "visitor": [
+    "Står framför väggen och ser sig själv som energi i filmen."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Rör sig i rummet",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Kinect-punktmoln som blob-spåras (TouchDesigner BlobTrack, aug 2026)",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "Windows-PC `vr-pc7` ”Dokumentären” (VR-PC7)",
+     "where": "vr-pc7",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "TouchDesigner",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "Projektion / skärm",
+     "conf": "antagen"
+    },
+    {
+     "kind": "ljud",
+     "what": "Takten: OSC in på port 9001, not 39 ger ett slag (färgen skiftar 33°, bruset hoppar). Vilken Ableton-enhet som skickar är okänt.",
+     "conf": "delvis",
+     "where": "macmini3"
+    }
+   ],
+   "history": [
+    "2025: `pc1.local` ”Dokumentärväggen” (VNC). 2026: `vr-pc7`."
+   ],
+   "unreal": [
+    "Mapp InteraktivDokumentär (LV_SE26_Master + LV_SE26_Props)"
+   ],
+   "questions": [
+    {
+     "id": "F4b",
+     "text": "Vilken djupkamera sitter vid Dokumentärväggen, och är bilden projicerad eller visas den på skärmar?"
+    }
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-documentary-wall/",
+    "Peders repo `Peder/se26` (2025-10, före öppning) (värdlistan)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Lukas, 2026-10-30",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "TV-väggen i rum 2 får glödande figurer. vr-pc7 märks ut.",
+     "actors": [
+      "BP_TV_Screen13",
+      "BP_TV_Screen10",
+      "BP_TV_Screen12"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Antal personer i rummet",
+     "range": [
+      0,
+      6
+     ],
+     "does": "Fler figurer lyser upp i filmen.",
+     "publishes": null
+    },
+    "route": [
+     "local:djupkamera",
+     "local:beat från ljudkonsten",
+     "host:vr-pc7",
+     "screen:dokumentärväggen"
+    ],
+    "links": [
+     {
+      "to": "ljudkonst",
+      "how": "musikens beat påverkar väggen"
+     }
+    ],
+    "beats": [
+     "En arkivdokumentär om 150 år av energi.",
+     "Djupkameran gör alla i rummet till glödande energi i filmen.",
+     "Beatet i ljudkonstverkets musik påverkar väggen."
+    ],
+    "open": [
+     "Vilken kamera används, och är det projektor eller skärm (F4b)?"
+    ]
+   },
+   "links": [
+    "Ljudkonstverket: musikens beat påverkar väggen (Lukas)"
+   ]
+  },
+  {
+   "id": "lampteremin",
+   "name": "Maskinisterna",
+   "aka": [
+    "Lamptereminen",
+    "The lamp theremin"
+   ],
+   "room": 2,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Håll händerna över två ultraljudssensorer och stäm ackordet. När tonerna stämmer brinner glödlampan stadigt och rummets lampor andas.",
+   "summary": "Besökaren stämmer två lätt ostämda toner med händerna över två ultraljudssensorer, en grov och en fin. När ackordet löser upp sig brinner en TRIAC-dimmad glödlampa stadigt, och rummets lampor släcks, blinkar och andas. Installationen fungerar även om en av sensorerna slutar. Namnet kommer från de 70–80 små kraftverk som bönder och hobbyister byggde runt Skellefteå efter Finnfors; de kallades Maskinisterna. För besökaren är målet att få lampan att sluta flimra. Maskinisterna påverkar också musiken i ljudkonstverket.",
+   "story": "Maskinisterna kallades de bönder och hobbyister som byggde 70–80 små kraftverk runt Skellefteå. Här stämmer du två toner med händerna över två sensorer. När tonerna stämmer slutar glödlampan flimra och brinner stadigt.",
+   "visitor": [
+    "Håller händerna över två sensorer.",
+    "Hör ett ostämt ackord.",
+    "Flyttar händerna tills tonerna stämmer.",
+    "Lampan slutar flimra, och rummets ljus svarar."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Händer över två sensorer",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "2 × HC-SR04 (S1 trig GPIO18/echo GPIO24, S2 trig GPIO23/echo GPIO25, S2 dubbel känslighet)",
+     "where": "rpi4",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "`tuning_theremin.py`: harmoni 0–1 och ±15 % tolerans; ackord C-D#-F#-A → C-E-G-C-E; 15 % brusbädd",
+     "where": "rpi4",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Stereohögtalare (pygame-synt)",
+     "where": "rpi4",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Glödlampa via Waveshare 2-CH SCR/TRIAC HAT (I²C 0x47): stadig vid harmoni, 2–8 Hz flimmer annars",
+     "where": "rpi4",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "1 meddelande/s medan det är harmoni",
+     "topic": "maskinisterna",
+     "payload": "{\"sensor1_cm\":15.3,\"sensor2_cm\":18.7,\"harmony_value\":1.0}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden blixtrar WLED `Maskinisten 2` (segment 0) vid varje meddelande",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "rpi4 styr själv rummets Shelly-dimrar 4, 5, 6, 8 och 9 som en ljusorgel, över MQTT",
+     "topic": "shellies/shelly-dimmer-N/light/0/set",
+     "payload": "{\"brightness\":0-100}",
+     "where": "rpi4",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Ett ljud i Framtiden: rpi6 spelar i högtalaren vid blommorna",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "hardware": [
+    "Raspberry Pi `rpi4`",
+    "2 × HC-SR04",
+    "Waveshare 2-CH SCR HAT",
+    "Glödlampa",
+    "WLED Maskinisten 1 + 2"
+   ],
+   "software": [
+    "`Peder/se26/maskinisterna/tuning_theremin.py` (systemd `maskinisterna`)",
+    "Teknisk dokumentation i samma mapp"
+   ],
+   "unreal": [
+    "/Game/SE26/Art/Maskinisterna/SM_Maskinesterna_Lamp_v2fbx"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-lamp-theremin/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T3–T4",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Glödlampan på piedestalen flimrar och blir sedan stadig. Ringen och takslingan i rum 2 andas.",
+     "actors": [
+      "reinforced_neon_tube_01",
+      "Cylinder7"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "två reglage",
+     "label": "Sensor 1 och sensor 2 (cm)",
+     "range": [
+      5,
+      60
+     ],
+     "does": "En harmonimätare stiger när avstånden stämmer. Vid harmoni slutar lampan flimra och MQTT skickas en gång per sekund.",
+     "publishes": {
+      "topic": "maskinisterna",
+      "payload": "{\"sensor1_cm\":15.3,\"sensor2_cm\":18.7,\"harmony_value\":1.0}"
+     }
+    },
+    "route": [
+     "dev:maskinisterna",
+     "host:rpi4",
+     "local:triac-glödlampa",
+     "local:shelly-dimrar (ljusorgel)",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "fix:Maskinisten 2",
+     "host:rpi6",
+     "spk:blommor"
+    ],
+    "links": [
+     {
+      "to": "ljudkonst",
+      "how": "påverkar musiken"
+     }
+    ],
+    "beats": [
+     "Två toner är lite ostämda.",
+     "Du stämmer dem med händerna över två sensorer.",
+     "När de stämmer brinner lampan stadigt och rummet svarar."
+    ],
+    "open": []
+   },
+   "links": [
+    "Ljudkonstverket: påverkar musiken (Lukas)"
+   ]
+  },
+  {
+   "id": "alimak",
+   "name": "Alimak",
+   "room": 2,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Kommer man närmare än 40 cm säger en gudsröst ”Alvar, is that you?” och Alimak-lampan tänds i 10 sekunder.",
+   "summary": "En ultraljudssensor vid Alimak-hissen. Kommer man närmare än 30 cm säger en röst som imiterar Gud \"Alvar, is that you?\", ett skämt om namnet Jakobs stege. Ljudet spelas på kanal 12 i Ableton. Sedan dröjer det 2 sekunder innan det kan spelas igen. En Shelly-dimmer styr ”Alimak light”. Alvar Lindmark grundade Alimak 1948 och drömde om en hiss till Gud; det första projektet kallades Jakobs stege.",
+   "story": "Alvar Lindmark grundade Alimak i Skellefteå 1948 och drömde om en hiss till Gud. Gå nära hissen, så frågar en röst som härmar Gud: \"Alvar, is that you?\" Samtidigt tänds en lampa och ett ljud spelas i musiken.",
+   "visitor": [
+    "Går fram till hissen.",
+    "En röst som imiterar Gud säger \"Alvar, is that you?\"."
+   ],
+   "chain": [
+    {
+     "kind": "sensor",
+     "what": "ESP32 `alimak`, ultraljud. Tröskel 40 cm och 2 s spärrtid, satta av switchboarden i `alimak/config/*`",
+     "topic": "alimak",
+     "payload": "{\"event\":\"trigger\",\"distance_cm\":25}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "macmini3: bryggan spelar C2 på kanal 12 i Ableton och publicerar `alimak/trigger`",
+     "where": "macmini3",
+     "topic": "alimak/trigger",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "En röst som imiterar Gud säger \"Alvar, is that you?\" (skämt om namnet Jakobs stege)",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden tänder Alimak-lampan (Shelly-dimmer) på 100 % i 10 s",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Ett ljud även i Framtiden: rpi6, högtalaren vid blommorna",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Ljudkonstverket (macmini3)"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "GitHub `trynewthings-fail/anima` (lärdomar från SE26)",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T7",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "history": [
+    "Gällande enligt live och Lukas: < 30 cm, 2 s spärrtid. Order-planeringen (< 25 cm, > 3 avläsningar, 1/min, not 36) är historik."
+   ],
+   "web": {
+    "visual": {
+     "text": "Jakobs stege / hissen (SM_JakobsStege) och Alimak-lampan.",
+     "actors": [
+      "SM_JakobsStege2",
+      "SM_JakobsStege4",
+      "SM_JakobsStege",
+      "SM_AlvarsCloud",
+      "SM_SpeechBubble3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Avstånd till hissen (cm)",
+     "range": [
+      5,
+      80
+     ],
+     "does": "Under 30 cm säger gudsrösten \"Alvar, is that you?\"; sedan dröjer det 2 sekunder innan nästa, med en synlig nedräkning.",
+     "publishes": {
+      "topic": "alimak",
+      "payload": "{\"event\":\"trigger\",\"distance_cm\":25}"
+     }
+    },
+    "route": [
+     "dev:alimak",
+     "svc:mosquitto",
+     "host:macmini3",
+     "local:ableton kanal 12",
+     "svc:tnt-switchboard",
+     "fix:Alimak-lampa"
+    ],
+    "links": [
+     {
+      "to": "ljudkonst",
+      "how": "kanal 12 i Ableton"
+     }
+    ],
+    "beats": [
+     "Gå nära hissen.",
+     "En röst som imiterar Gud frågar: \"Alvar, is that you?\"",
+     "Det är ett skämt om Jakobs stege, Alvar Lindmarks dröm om en hiss till Gud."
+    ],
+    "open": []
+   },
+   "aka": [
+    "Alvar, is that you?"
+   ]
+  },
+  {
+   "id": "reverse-perspective",
+   "name": "Reverse Perspective",
+   "aka": [
+    "Gula rummet",
+    "Hall of Possibilities",
+    "Hall of Rebels",
+    "Möjligheternas hall",
+    "Pärs konillusion"
+   ],
+   "room": 2,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Tre pyramider på väggen blir med projektion korridorer in i djupet, med berättelser om Skellefteås innovatörer.",
+   "summary": "Samma installation som Hall of Rebels eller Hall of Possibilities (Möjligheternas hall) i rum 2. Tre optiska illusioner: besökaren ser en pyramid som går ut från väggen, och på dess sidor projiceras väggar, tak och golv. När parallaxen ändras ser det ut som att man tittar in i en korridor som går in i djupet. Innehållet i korridorerna är berättelser om Skellefteås innovatörer genom historien. I systemet kör rpi7 fyra synkade mpv-videor; hur de fördelas på de tre illusionerna är inte känt. Bland de elva porträtten finns Sara Lidman, P O Enquist, Ulrika Eleonora Lindström, bröderna Lundberg och Karin Stenberg.",
+   "story": "Tre pyramider på väggen ser ut som korridorer långt in i djupet när bilden projiceras på dem. I korridorerna berättas om Skelleftebor som bröt normer och skapade nytt. Installationen kallas också Möjligheternas hall.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Rör sig framför pyramiderna, så att parallaxen ändras",
+     "conf": "delvis"
+    },
+    {
+     "kind": "dator",
+     "what": "rpi7, mpv × 4, synkad video",
+     "where": "rpi7",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "Väggar, tak och golv projiceras på pyramidernas sidor (3 illusioner)",
+     "conf": "delvis"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/ParsConeIllusion",
+    "/Game/SE26/Levels/ParsGulaRum/LV_YellowRoom_Master",
+    "/Game/SE26/PyramidIllusion"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T4",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Pyramiderna (SM_PyramidIllusion). Kameran sveper förbi.",
+     "actors": [
+      "SM_PyramidIllusion5",
+      "SM_PyramidIllusion4",
+      "SM_PyramidIllusion6"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Gå förbi",
+     "range": [
+      0,
+      100
+     ],
+     "does": "Kameran rör sig förbi illusionen så att korridoren in i djupet syns.",
+     "publishes": null
+    },
+    "route": [
+     "host:rpi7",
+     "screen:4 synkade videor"
+    ],
+    "links": [
+     {
+      "to": "mojligheternas-hall",
+      "how": "samma installation"
+     }
+    ],
+    "beats": [
+     "Tre pyramider sticker ut från väggen.",
+     "Projektionen gör dem till korridorer in i djupet när du rör dig.",
+     "I korridorerna berättas om Skellefteås innovatörer."
+    ],
+    "open": [
+     "rpi7 kör fyra synkade videor. Hur de fördelas på de tre illusionerna är inte känt."
+    ]
+   },
+   "visitor": [
+    "Går förbi de tre pyramiderna på väggen.",
+    "När perspektivet ändras ser varje pyramid ut som en korridor in i djupet.",
+    "I korridorerna berättas om Skellefteås innovatörer."
+   ],
+   "links": [
+    "Möjligheternas hall: samma installation (Lukas)"
+   ]
+  },
+  {
+   "id": "krangfors",
+   "name": "Krångfors-lamporna",
+   "aka": [
+    "Shelly-flimmer"
+   ],
+   "room": 2,
+   "status": "utgick",
+   "confidence": "antagen",
+   "short": "Nio Shelly-dimrar flimrar som ett gammalt kraftverk; guidens energiratt styr.",
+   "summary": "2025-kod: nio Shelly Dimmer 2 som flimrar individuellt i 20 fps. Guidens ratt 1 (`intensity/knob-1`) sätter energin: vid 0 lyser de stadigt på 60 %, över 70 % blir det ”disco”. Om det här finns kvar i utställningen 2026 är okänt. 2026-listan har bara 2 Shelly-dimrar. **Lukas: troligen en gammal idé som aldrig blev av.**",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Guiden vrider energiratten",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Rattvärde",
+     "topic": "intensity/knob-1",
+     "payload": "\"0\"–\"100\"",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "`shelly_controller.py`, seedat flimmer per lampa",
+     "where": "rpi2?",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "9 × Shelly Dimmer 2",
+     "topic": "shellies/shelly-dimmer-{1..9}/light/0/set",
+     "payload": "{\"brightness\":0-100}",
+     "conf": "belagd"
+    }
+   ],
+   "software": [
+    "`Peder/se26/krangfors/dimmers/shelly_controller.py`"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)"
+   ]
+  },
+  {
+   "id": "boliden",
+   "name": "Bolidenväggen",
+   "aka": [
+    "Kopparplåtarna",
+    "Boliden holes display"
+   ],
+   "room": 2,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Kopparplåtar och sex tittskåp med små pappersscener om Bolidens historier.",
+   "summary": "Bolidendelen i rum 2 har kopparplåtar, en 45°-vägg och sex tittskåp (”Boliden holes display”). Tittskåpen visar fysiska dioraman, små pappersscener byggda bakom väggen, kopplade till historierna i texterna. Ingen dator spelar upp media i dem; några av dem har små billiga displayer som spelar filmer. Shelly-pluggen ”Boliden wall” startas om varje natt. Texterna berättar sex historier: Fritz Kautsky och bönderna som följde ett rostigt block, fyndet den 10 december 1924, markägaren Margareta Lundberg, räddningen år 2000, Oscar Falkman och Paracelsus-legenden om rikedomar mellan 63:e och 65:e breddgraden. Malmen innehåller guld, koppar, silver, zink och bly.",
+   "story": "Bolidenväggen har kopparplåtar och sex tittskåp med små pappersscener. Texterna berättar om fyndet i Boliden 1924 och om människorna runt det. Malmen bär guld, koppar, silver, zink och bly.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar in i hålen",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "Sex tittskåp med fysiska dioraman (pappersscener) bakom väggen; några har små billiga displayer som spelar filmer, utan dator",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Shelly-plugg ”Boliden wall”, omstart varje natt",
+     "conf": "delvis"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/Art/BolidenWall",
+    "BP_BolidenWall_ViewfinderBoxes (5 st)",
+    "Development/LookHoles"
+   ],
+   "questions": [],
+   "sources": [
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "museum-brain.md",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T2, T8–T9",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Bolidenväggen och tittskåpen (BP_BolidenWall_ViewfinderBoxes). I verkligheten är de sex, med pappersscener bakom väggen.",
+     "actors": [
+      "Box2",
+      "BP_BolidenWall_ViewfinderBoxes2",
+      "SM_BolidenWall_copperWires",
+      "BP_BolidenWall_ViewfinderBoxes3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val",
+     "label": "Titta in i tittskåp 1–6",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "does": "Kameran går in i tittskåpet.",
+     "publishes": null
+    },
+    "route": [
+     "screen:tittskåp",
+     "local:shelly boliden-vägg"
+    ],
+    "links": [],
+    "beats": [
+     "Kopparplåtar och berättelser i stenen.",
+     "Sex tittskåp visar små pappersscener byggda bakom väggen.",
+     "I några av dem spelas en film på en liten display."
+    ],
+    "open": []
+   },
+   "visitor": [
+    "Tittar in i tittskåpen.",
+    "Ser små pappersscener bakom väggen; i några spelas en film på en liten display."
+   ]
+  },
+  {
+   "id": "dialogen",
+   "name": "Dialogen",
+   "aka": [
+    "Demokrativäggen",
+    "Skrikväggen",
+    "The wall that listens"
+   ],
+   "room": 3,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Lyssna på svar från 2013, svara själv i ett av tio rör; AI granskar och svaret spelas upp för nästa besökare.",
+   "summary": "Med örat mot väggen hör man Skellefteåbors svar från 2013. Själv svarar man på samma tio frågor genom att tala i ett av tio färgade rör. Ljuset bakom röret tänds medan man pratar. Berget AI transkriberar (KB-Whisper) och en språkmodell ger svaret betyg 1–10. Svar med betyg 3 eller mer sparas, personalen godkänner dem, och de spelas upp för nästa besökare.",
+   "story": "Lägg örat mot väggen och hör vad Skellefteåborna svarade i medborgardialogen 2013. Välj sedan ett av tio rör och svara själv på en fråga om Skellefteå. Svaren granskas och kan spelas upp för nästa besökare.",
+   "visitor": [
+    "Lyssnar på gamla svar.",
+    "Väljer en fråga och pratar i röret.",
+    "Panelen bakom röret lyser medan man pratar.",
+    "Svaret spelas senare upp i rummet."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Pratar i ett rör",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "10 mikrofoner som alltid är på, två UMC1820 (2 + 8)",
+     "where": "macmini1",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "En gång i sekunden medan någon pratar vid mick N",
+     "topic": "speech/0–9",
+     "payload": "{\"channel\":N,\"speaking\":true}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolumes sidecar → slingan för röret: 1, 4, 5, 6 → Dialog 1234; 2, 3 → Dialog 56; 7 → Dialog 7; 8, 9 → Dialog 910; 10 → Dialog 8",
+     "conf": "belagd"
+    },
+    {
+     "kind": "lagring",
+     "what": "`recorder.py`: rullande buffert, tystnadsdetektering, MP3",
+     "where": "macmini1",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ai",
+     "what": "Berget AI: KB-Whisper skriver ut, Mistral-Small ger betyg 1–10 mot frågan. Betyg ≥ 3 sparas, lägre sorteras bort",
+     "where": "Berget AI (EU)",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "Personalen godkänner eller underkänner på panelen tnt.local/dialogen",
+     "where": "macmini1",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Två spelare: godkända svar på UMC1820 #1 (ratt 5) och arkivet från 2013 på #2 (ratt 4), 10 högtalare var",
+     "where": "macmini1",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Ett ljud även i Framtiden: rpi6, högtalaren vid blommorna",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "history": [
+    "2025: `dialog/{0-9}` nivå 1–100, OpenAI/faster-whisper. 2026: `speech/N` och Berget AI.",
+    "AI: live-UI säger Berget AI. En Order-brief säger KB-Whisper + Mistral på EU-hosting, vilket troligen är samma sak (modeller som körs hos Berget)."
+   ],
+   "software": [
+    "`Peder/se26/skrikvagg/` (recorder, process_continuous, player, questions.json)",
+    "Dashboard `macmini1:8080` (nginx `/dialogen`)"
+   ],
+   "unreal": [
+    "/Game/SE26/Rum3_GraphicDesign",
+    "Art/SpeechBubbles",
+    "Room3Blocks / Room3_Measurements"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-wall-that-listens/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T10, T13",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "De färgade rören (ColorPipes) och panelen bakom röret lyser. Pipeline-räknaren RAW → FINAL visas.",
+     "actors": [
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh12",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh13",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh2",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh3",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh4",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh8",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh9"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val + håll",
+     "label": "Välj rör 1–10 och håll inne för att prata",
+     "options": [
+      "1 rosa",
+      "2 grön",
+      "3 blå",
+      "4 gul",
+      "5 grön",
+      "6 blå",
+      "7 grön",
+      "8 rosa",
+      "9 gul",
+      "10 blå"
+     ],
+     "publishes": {
+      "topic": "speech/{n}",
+      "payload": "{\"speaking\": true}"
+     }
+    },
+    "route": [
+     "dev:speech",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Dialog 1234",
+     "host:macmini1",
+     "remote:berget",
+     "host:macmini1"
+    ],
+    "links": [
+     {
+      "to": "framtidsbaset",
+      "how": "samma rum, samma AI-tjänst (Berget)"
+     }
+    ],
+    "beats": [
+     "Lyssna på svar från 2013.",
+     "Svara på samma fråga i ett rör.",
+     "AI-tjänsten Berget granskar svaret.",
+     "Godkända svar spelas upp för nästa besökare."
+    ],
+    "open": [
+     "Vilket rör sitter var? Tvillingen lägger dem i kanalordning, och att Resolume styr slingorna via Art-Net är Peders antagande."
+    ],
+    "tubes": [
+     {
+      "channel": 0,
+      "color": "rosa",
+      "question": "Hur skapar vi trygghet och gemenskap för alla?"
+     },
+     {
+      "channel": 1,
+      "color": "grön",
+      "question": "Om Skellefteå fick en extra miljard – vad är det viktigaste att satsa på då?"
+     },
+     {
+      "channel": 2,
+      "color": "blå",
+      "question": "Vad gör dig stolt över Skellefteå idag?"
+     },
+     {
+      "channel": 3,
+      "color": "gul",
+      "question": "Hur ser vi till att alla får göra sin röst hörd?"
+     },
+     {
+      "channel": 4,
+      "color": "grön",
+      "question": "Om du fick bestämma i Skellefteå, vad är det första du skulle göra?"
+     },
+     {
+      "channel": 5,
+      "color": "blå",
+      "question": "Hur ska vi resa smart och hållbart i framtiden?"
+     },
+     {
+      "channel": 6,
+      "color": "grön",
+      "question": "Hur ser vi till att alla kan hitta ett bra hem här?"
+     },
+     {
+      "channel": 7,
+      "color": "rosa",
+      "question": "Vad oroar dig med framtiden?"
+     },
+     {
+      "channel": 8,
+      "color": "gul",
+      "question": "Vad drömmer du om för Skellefteå?"
+     },
+     {
+      "channel": 9,
+      "color": "blå",
+      "question": "Hur ser vi till att hela Skellefteå – stad och land – kan växa och må bra?"
+     }
+    ]
+   }
+  },
+  {
+   "id": "framtidsbaset",
+   "name": "Framtidsbåset",
+   "aka": [
+    "Influencer-båset (fallstudien)",
+    "Confession booth",
+    "Video-/testimonialbåset (Order)",
+    "youthrecorder"
+   ],
+   "room": 3,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Spela in en video till framtiden i ett bås med röd ridå; den visas på en iPad i Socialhörnet i rum 4.",
+   "summary": "I ett bås med röd ridå spelar besökaren in en kort video på en iPad: vad samhället ska börja med, sluta med eller fortsätta med. Videon transkriberas och modereras, och godkända klipp visas på ipad-player i Socialhörnet i rum 4, alltså bokstavligen i framtiden. 2026 visas bara videorna; inga AI-genererade frågor visas i växthuset.",
+   "story": "Gå in i båset med röd ridå och spela in en kort video till framtiden: vad ska Skellefteå börja med, sluta med eller fortsätta med? Videon granskas, med hjälp av AI och av en människa. Godkända klipp visas i Socialhörnet i Framtiden, alltså bokstavligen i nästa rum.",
+   "visitor": [
+    "Går in i båset.",
+    "Väljer BÖRJA MED, SLUTA MED eller FORTSÄTTA MED.",
+    "Spelar in cirka 30 s.",
+    "Videon dyker senare upp på en iPad i Socialhörnet i rum 4."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Spelar in video",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "ipad-recorder (PWA i guidat läge)",
+     "where": "ipad-recorder",
+     "conf": "belagd"
+    },
+    {
+     "kind": "lagring",
+     "what": "Upload till tnt, SQLite `future_thoughts.db`",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Signal om ny video",
+     "topic": "youthrecorder",
+     "payload": "true",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ai",
+     "what": "Transkribering + moderering (Berget AI + människa)",
+     "where": "Berget AI",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "ipad-player i Socialhörnet i rum 4 visar godkända klipp",
+     "where": "ipad-player",
+     "conf": "delvis"
+    }
+   ],
+   "history": [
+    "2025: OpenAI Whisper + gpt-3.5 genererade en diskussionsfråga som visades i växthuset. 2026 visas bara videorna på ipad-player (Lukas).",
+    "AI: live-UI säger Berget AI. En Order-brief säger KB-Whisper + Mistral på EU-hosting, vilket troligen är samma sak (modeller som körs hos Berget)."
+   ],
+   "software": [
+    "`Peder/se26/www/youthrecorder/`"
+   ],
+   "links": [
+    "Socialhörnet i rum 4 (ipad-player, uppspelning)",
+    "Växthuset (bara 2025: textskärm med genererade frågor)"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Båset med den röda ridån (DarkCloth). En båge går över väggen till ipad-player i Socialhörnet i rum 4.",
+     "actors": [
+      "BP_TV_Screen15",
+      "sop_tamar_DarkCloth_1_0_4207_2006_0_main_geo",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh8"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val + knapp",
+     "label": "Välj BÖRJA MED, SLUTA MED eller FORTSÄTTA MED och spela in",
+     "options": [
+      "BÖRJA MED",
+      "SLUTA MED",
+      "FORTSÄTTA MED"
+     ],
+     "publishes": {
+      "topic": "youthrecorder",
+      "payload": "true"
+     }
+    },
+    "route": [
+     "host:ipad-recorder",
+     "svc:nginx",
+     "remote:berget",
+     "svc:nginx",
+     "host:ipad-player"
+    ],
+    "links": [
+     {
+      "to": "social",
+      "how": "klippen visas på ipad-player i Socialhörnet, i framtiden"
+     }
+    ],
+    "beats": [
+     "Spela in en tanke till framtiden.",
+     "Den transkriberas och modereras.",
+     "Den visas i nästa rum."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "milight",
+   "name": "Färgpanelerna i rum 3",
+   "aka": [
+    "MiLight",
+    "Platsvarumärket",
+    "Platsvarumärkets båge"
+   ],
+   "room": 3,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "MiLight-paneler färgar hela det vita rum 3. De kör alltid ett strobe-program.",
+   "summary": "MiLight-paneler över hela rum 3. Rummet är väldigt vitt, så panelerna färgar hela rummet, inklusive kollaget med Skellefteås platsvarumärke som barn färglade vid invigningen. Panelerna kör alltid ett strobe-program. Ratt 7 och PIR-sensorn vid entrén styrde dem tidigare, men gör det inte längre. Panel 16 får framtidsbåsets stämningsfärg när ett nytt klipp kommer in.",
+   "story": "Nutiden är ett vitt rum, och färgpaneler i taket ger det färg. Färgen lyser också på bågen med Skellefteås platsvarumärke. Panelerna går i samma ljusprogram hela dagen.",
+   "chain": [
+    {
+     "kind": "logik",
+     "what": "`main.py` på tnt (tjänsten se26) håller panelerna i strobe-läget (mode 5) och släcker dem på natten",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Kommandon till bryggan",
+     "topic": "milight/commands/<enhet>/rgb_cct/<grupp>",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "ESP32-brygga, radio på 2,4 GHz (nRF24L01+)",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "MiLight-paneler; panel 16 får stämningsfärgen från framtidsbåset",
+     "conf": "belagd"
+    },
+    {
+     "kind": "sensor",
+     "what": "PIR `pir3` vid entrén finns kvar men är inte inkopplad",
+     "topic": "pir3",
+     "conf": "belagd"
+    }
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Lukas, 2026-10-29",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Hela rum 3 färgas, även kollaget. Färgen följer rattens ankarpunkter: 0 vit, 55 blå, 100 animation.",
+     "actors": [
+      "SM_SkellefteaLetter_v9",
+      "SM_SkellefteaLetter_v11",
+      "SM_SkellefteaLetter_v0",
+      "SM_SkellefteaLetter_v8",
+      "sop_tamar_ColorPipes_1_0_2215_2216_0_main_geo_Submesh4"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–",
+     "does": "Panelerna kör alltid samma program; det finns inget att prova."
+    },
+    "route": [
+     "svc:se26",
+     "local:milight-brygga",
+     "fix:MiLight"
+    ],
+    "links": [
+     {
+      "to": "dialogen",
+      "how": "färgar hela rum 3"
+     }
+    ],
+    "beats": [
+     "Rum 3 är vitt.",
+     "Panelerna i taket ger hela rummet färg.",
+     "De går i samma ljusprogram hela dagen."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "orostunneln",
+   "name": "Oro eller drömmar",
+   "aka": [
+    "Orostunneln",
+    "Oro och drömmar"
+   ],
+   "room": 3,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Tvådelad tunnel mellan rum 3 och 4: ungdomars illustrationer av oro på ena sidan, drömmar på den andra. Inte interaktiv.",
+   "summary": "Tunneln ”Oro eller drömmar” är kopplingen mellan rum 3 och 4. Den är tvådelad, och ungdomar har fått illustrera fritt om framtiden: oro-sidan visar oro som unga har, och dröm-sidan deras hopp och drömmar. Tunneln är inte interaktiv och har inga knappar. Tak och väggar är målade, med glas och UV-ljus.",
+   "story": "Tunneln mellan Nutiden och Framtiden heter Oro eller drömmar. Unga har ritat det de oroar sig för på ena sidan och det de drömmer om på den andra. UV-ljus får färgerna att lysa.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Går genom tunneln och tittar på illustrationerna; ingen interaktion",
+     "conf": "delvis"
+    }
+   ],
+   "questions": [],
+   "sources": [
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Tunneln mellan rum 3 och 4 i UV-ljus, med oro på ena sidan och drömmar på den andra.",
+     "actors": [
+      "NewBlueprint4"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–",
+     "does": "Tunneln är inte interaktiv."
+    },
+    "route": [],
+    "links": [
+     {
+      "to": "dialogen",
+      "how": "från rum 3"
+     },
+     {
+      "to": "vaxthuset",
+      "how": "till rum 4"
+     }
+    ],
+    "beats": [
+     "Oro eller drömmar, på väg från nutiden till framtiden.",
+     "Ungdomar har illustrerat sin oro på ena sidan och sina drömmar på den andra."
+    ],
+    "open": []
+   },
+   "visitor": [
+    "Går genom tunneln från Nutiden mot Framtiden.",
+    "Ser ungdomarnas illustrationer: oro på ena sidan, drömmar på den andra."
+   ],
+   "history": [
+    "Order-planeringen nämnde tre belysta knappar med hänglåsskydd (vit i rum 3, svart i tunneln, vit i rum 4). Enligt Lukas finns inga knappar i tunneln."
+   ]
+  },
+  {
+   "id": "vaxthuset",
+   "name": "Växthuset",
+   "aka": [
+    "The greenhouse"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Här syns energin i rum 4 tydligast: två sekunder efter nästan varje händelse blinkar molnet och växthuset, och det åskar.",
+   "summary": "Växthuset står mitt i rum 4. Varje gång någon leker med något i rum 4 pulserar stationens ljusslinga, och två sekunder senare blinkar molnet och växthuset och det åskar i mitthögtalaren. Kommer tre åskor inom en halv sekund svarar växthuset med ett eget ljud. Ja-knappen blinkar molnet utan åska. På baksidan berättar en text om Skellefteå Krafts IoT-nät, som mäter vattenförbrukning, lediga parkeringar, beläggning och miljö. Molnet är symbolen för det nätet.",
+   "story": "Växthuset står mitt i Framtiden, och här samlas energin från rummet. När någon sätter igång en station går en ljuspuls till stationens kub, och två sekunder senare blinkar molnet och växthuset och det åskar. Molnet i taket står för ett nät av uppkopplade sensorer i staden.",
+   "chain": [
+    {
+     "kind": "natverk",
+     "what": "Sensorhändelser i rum 4: rutschkanan, SkyKraft, Sokrates, Snurra huset, ACE, Tidsresan, PIR, Droneport, elbilsladdaren, cykeln, snurrlådorna och Ja-knappen",
+     "where": "tnt.local",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "Switchboarden: 2 s efter varje händelse en moln- och växthuspuls till Resolumes sidecar, och `cloud` på MQTT. Ja-knappen blinkar utan MQTT, och elbilsladdaren räknas en gång per laddning",
+     "where": "tnt",
+     "topic": "cloud",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Resolume renderar `Tak+Cloud` och `Växthus` live via Art-Net",
+     "where": "resolume",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar åska i mitthögtalaren vid varje `cloud`. Tre åskor inom 0,5 s: ett växthusljud i molnet",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Alla installationer i rum 4",
+    "Ljudrummet (åska)"
+   ],
+   "unreal": [
+    "/Game/GreenHouseShift",
+    "/Game/SE26/Houdini/GreenHouse"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-greenhouse/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R15",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "hardware": [
+    "Kuber 80×80×80 cm som hänger ovanför varje station, färgkodade: röd = Bostäder, grön = Rörlighet, gul = Kompetens, rosa = Social hållbarhet, blå = Klimat & miljö (Order, bekräftat av Lukas)",
+    "WLED Växthus + Tak+Cloud"
+   ],
+   "web": {
+    "visual": {
+     "text": "Växthuset (SM_GreenHouse2) och molnet. Ljuset i växthuset tar färgen från den installation som triggade.",
+     "actors": [
+      "SM_GreenHouse2",
+      "S_Black_Locust_wdvhberja_Var4_lod2",
+      "plant_leather_rope4",
+      "S_Black_Locust_wdvhberja_Var2_lod1",
+      "plant_leather_rope3"
+     ],
+     "shot": {
+      "d": 8.5,
+      "az": 2.75,
+      "el": 0.55
+     }
+    },
+    "control": {
+     "type": "knapp",
+     "label": "Tre stationer på en gång",
+     "does": "Tre stationer triggar samtidigt. Två sekunder senare kommer tre åskor inom en halv sekund, och växthuset svarar.",
+     "publishes": {
+      "topic": "cloud",
+      "payload": "\"ultraljud1\""
+     }
+    },
+    "route": [
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Tak+Cloud",
+     "fix:Växthus",
+     "svc:mosquitto",
+     "host:rpi6",
+     "spk:mitten"
+    ],
+    "links": [
+     {
+      "to": "*rum4",
+      "how": "slutpunkt för alla installationer i rum 4"
+     }
+    ],
+    "beats": [
+     "Kedjorna i rum 4 slutar här.",
+     "Två sekunder efter nästan varje händelse blinkar molnet och växthuset, och det åskar.",
+     "Tre åskor på en gång, och växthuset svarar."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "sag-ja",
+   "name": "Säg ja! till framtiden",
+   "aka": [
+    "Ja-knappen",
+    "pushbutton1"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Stor röd knapp. Varje tryck spelar nästa ton av ”Den blomstertid nu kommer”.",
+   "summary": "En stor röd knapp under frågan om vi kan göra samhället bättre för människor och natur. Varje tryck spelar nästa av 53 toner ur ”Den blomstertid nu kommer” i blomhörnet. Det är den mest tryckta saken i utställningen, med cirka 79 000 meddelanden. Podiet har både \"Ja!\" och \"Nej\"; om Nej också är en knapp framgår inte.",
+   "story": "Under frågan om vi kan göra samhället bättre för människor och natur sitter en stor knapp. Varje JA spelar nästa ton i psalmen Den blomstertid nu kommer. Knappen är det mest tryckta i hela utställningen.",
+   "visitor": [
+    "Läser frågan.",
+    "Trycker på knappen.",
+    "Hör nästa ton i psalmen.",
+    "Växthuset blixtrar."
+   ],
+   "chain": [
+    {
+     "kind": "sensor",
+     "what": "ESP32 `pushbutton1`, GPIO13 pull-up",
+     "topic": "pushbutton1",
+     "payload": "{\"pressed\": true}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 lyssnar direkt: nästa ton i psalmen med shimmer-efterklang, högtalaren vid blommorna",
+     "where": "rpi6",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: slingan `Introduction` pulserar",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, men utan åska (beslut juni 2026)",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Växthuset",
+    "Ljudrummet"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/yes/",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R5",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Den röda knappen och blomhörnets högtalare.",
+     "actors": [
+      "Cylinder24",
+      "Cylinder23",
+      "plug_connector7"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "knapp",
+     "label": "Tryck JA",
+     "does": "Räknaren visar ton n av 53 i ”Den blomstertid nu kommer”.",
+     "publishes": {
+      "topic": "pushbutton1",
+      "payload": "{\"pressed\": true}"
+     }
+    },
+    "route": [
+     "dev:pushbutton1",
+     "svc:mosquitto",
+     "host:rpi6",
+     "spk:blommor",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Introduction"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "växthuset blixtrar"
+     },
+     {
+      "to": "ljudrummet",
+      "how": "blomhörnets högtalare"
+     }
+    ],
+    "beats": [
+     "Kan vi göra samhället bättre?",
+     "Varje JA spelar nästa ton.",
+     "Den mest tryckta saken i utställningen: cirka 79 000 meddelanden från knappen."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "rutschkanan",
+   "name": "Rutschkanan",
+   "aka": [
+    "Bli spillvärme!",
+    "EcoLink",
+    "The slide",
+    "ultraljud1"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Barnet är spillvärmen från Rönnskär. Åk ner, så följer ljuset dig till klimatkuben och växthuset svarar.",
+   "summary": "Rutschkanan berättar om EcoLink, en 13 km lång ledning som ska föra spillvärme från Bolidens Rönnskär in i fjärrvärmenätet. Barnet som åker är spillvärmen. En ESP32 ser en giltig åktur, där någon kommer, stannar kort och kanan sedan blir tom. Ljuset följer åkaren ner längs tråden till klimatkuben och en fågel sjunger i klimathörnet. Två sekunder senare blinkar molnet och växthuset, och det åskar. Bredvid står en rekvisita efter Magrittes målning med ett tåg ur en öppen spis.",
+   "story": "Rutschkanan är EcoLink, en ledning som ska föra spillvärme från Bolidens smältverk Rönnskär in i fjärrvärmenätet. Barnet som åker är spillvärmen. När du har åkt följer ljuset dig till den blå klimatkuben, och växthuset svarar.",
+   "visitor": [
+    "Klättrar upp.",
+    "Åker ner.",
+    "Ser ljuset springa till klimatkuben."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Åker ner",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "ESP32 `ultraljud1` med logik för giltig åktur",
+     "topic": "ultraljud1",
+     "payload": "{\"event\":\"slide\",\"duration_ms\":N}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "Switchboarden → Resolumes sidecar",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Resolume: slingan `Climate` pulserar till klimatkuben",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar en fågel i klimathörnet",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "history": [
+    "2025-prototyp: Pi + HC-SR04 (GPIO23/24) → `topic/krangfors`, strängpayload. 2026: ESP32 + JSON."
+   ],
+   "unreal": [
+    "/Game/SE26/RutchKana",
+    "Mapp rutchkanaväxthus (LV_OldRoom4)"
+   ],
+   "links": [
+    "Växthuset",
+    "Ljudrummet"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "Fallstudien trynewthings.fail/se26/the-slide/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R25",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Rutschkanan (SM_Rutchkana_3m). En figur glider ner och ljuset följer den till klimatkuben.",
+     "actors": [
+      "SM_Rutchkana_3m"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "knapp + val",
+     "label": "Åk ner",
+     "options": [
+      "giltig åktur",
+      "ogiltig (stannar inte)"
+     ],
+     "range": [
+      1500,
+      3500
+     ],
+     "publishes": {
+      "topic": "ultraljud1",
+      "payload": "{\"event\":\"slide\",\"duration_ms\":2300}"
+     }
+    },
+    "route": [
+     "dev:ultraljud1",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Climate",
+     "host:rpi6",
+     "spk:klimat"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "växthuset i klimatfärg (blått)"
+     },
+     {
+      "to": "ljudrummet",
+      "how": "fågel i klimathörnet"
+     }
+    ],
+    "beats": [
+     "Bli spillvärme!",
+     "Sensorn räknar bara riktiga åkturer.",
+     "Ljuset springer till klimatkuben, molnet och växthuset.",
+     "En fågel sjunger i klimathörnet."
+    ],
+    "open": []
+   },
+   "station": "klimat"
+  },
+  {
+   "id": "triangeln",
+   "name": "Skellefteåtriangeln",
+   "aka": [
+    "Cykeln",
+    "Mobilitetscykeln"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Trampa en tandemcykel från 70-talet för att spela ett spel om hamnen, flygplatsen och resecentrum.",
+   "summary": "En tandemcykel från 1970-talet på en smart trainer. Trampandet styr ett spel om Skellefteåtriangeln: hamnen, flygplatsen och resecentrum. Om cykeln tappar kontakten tar en demotur över, och tråden till rörlighetskuben pulserar grönt.",
+   "story": "Trampa en tandemcykel från 1970-talet, så rör sig ett spel om Skellefteåtriangeln i din takt. Triangeln är hamnen, flygplatsen och ett nytt resecentrum som ska hänga ihop. Medan du trampar pulserar tråden till den gröna rörlighetskuben.",
+   "visitor": [
+    "Sätter sig på tandemcykeln.",
+    "Trampar.",
+    "Spelet rör sig i takt.",
+    "Mobilitetskuben pulserar."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Trampar",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Wahoo KICKR CORE över ANT+ (FE-C): fart, effekt och moment",
+     "where": "rpi5",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "rpi5 skickar OSC direkt till macmini6 (192.168.51.113:9000): `/bike/core_speed`, `torque`, `angular_velocity`, `power`",
+     "where": "rpi5",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "TouchDesigner jämnar ut farten (under 6 och fallande blir 0, ×1,8) och skickar `normalized` till Unreal på `127.0.0.1:3000`. Startas om varje dag kl 9",
+     "where": "macmini6",
+     "conf": "belagd"
+    },
+    {
+     "kind": "skarm",
+     "what": "Unreal-spelet MobilityTriangle rör sig i takt",
+     "where": "macmini6",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Samtidigt MQTT `bike` två gånger i sekunden medan svänghjulet snurrar",
+     "topic": "bike",
+     "payload": "{\"speed_ms\",\"power\",\"torque\",\"angular_velocity\"}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Mobility` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "När rpi5 är nere och demon är på skickar `bike_fallback` på tnt påhittade värden",
+     "where": "tnt",
+     "conf": "belagd"
+    }
+   ],
+   "history": [
+    "2025: `bike/speed/{0-100}` + WebSocket `rpi5.local:8765` till Three.js-sidor. 2026: `bike` + macmini6. Portfoliot säger TouchDesigner.",
+    "Portfoliot säger TouchDesigner, men spelet är ett Unreal-projekt (Goose812/MobilityTriangle). Projektionsmappning nämns i Order."
+   ],
+   "software": [
+    "`Peder/se26/bike/ant_scanner.py`",
+    "`Peder/se26/www/bike/visual/`"
+   ],
+   "unreal": [
+    "/Game/SE26/Art/BikeWheel/SM_TandemBike1",
+    "Art/ReseCenter (BP_ReseCenterStation × 3)",
+    "Mapp Mobility"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-skelleftea-triangle/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "GitHub `Goose812/MobilityTriangle`",
+    "Lukas, 2026-10-29",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Tandemcykeln. Hjulet snurrar i takt, och spelets skärm visar Hamnen, Flygplatsen och Resecentrum.",
+     "actors": [
+      "SM_HexaBikeStand2",
+      "Disc2",
+      "SM_TandemBike_Nowheels3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Trampa (km/h)",
+     "range": [
+      0,
+      31
+     ],
+     "publishes": {
+      "topic": "bike",
+      "payload": "{\"speed_ms\":5.0,\"power\":120,\"torque\":9.5,\"angular_velocity\":12.6}"
+     }
+    },
+    "route": [
+     "dev:bike",
+     "host:rpi5",
+     "host:macmini6",
+     "local:TD → OSC NormalizedSpeed",
+     "screen:Unreal-spelet",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Mobility"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via mobilitetskuben (grönt)"
+     }
+    ],
+    "beats": [
+     "Trampa en tandemcykel från 70-talet.",
+     "Cykelns fart skickas vidare till spelet.",
+     "Spelet om Skellefteåtriangeln rör sig i din takt."
+    ],
+    "open": []
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "snurra-huset",
+   "name": "Snurra huset",
+   "aka": [
+    "Spin the house",
+    "housing"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Vrid ett 3D-printat hus, så vrider sig byggnaden på skärmen och rummet blir bärnsten eller blått.",
+   "summary": "Besökaren vrider ett 3D-printat hus. Varje steg (`housingcw`/`housingccw`) vrider byggnaden på skärmen 90 grader. Ett spel väljer en målsida; när rätt sida kommer fram hörs ett skrapljud, och efter 8 sekunder väljs en ny. Skärmen säger \"SPIN THE HOUSE\". Rummet blir bärnstensfärgat eller blått beroende på riktning.",
+   "story": "Vrid det lilla 3D-printade huset, så vrider sig byggnaden på skärmen. Rummet blir bärnstensfärgat eller blått beroende på åt vilket håll du vrider. Huset står vid bostadskuben, som handlar om hem som går att ändra, flytta och återbruka.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Vrider huset",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "ESP32 `housing`: 4 magneter + 2 hallsensorer (8 steg/varv), 10 Hz",
+     "topic": "housingcw / housingccw",
+     "payload": "{\"level\":1-5,\"ema\",\"net\",\"pos\"}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "macmini-housing, TouchDesigner",
+     "where": "macmini-housing",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "TouchDesigner (Buildswiper): byggnaden vrids 90° per meddelande, målsida, skrapljud, 8 s paus",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `Housing` (1 152)",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Housing` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren vid boendehörnet",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/Bostad (BostadTimeline, MP_Bostad)",
+    "Mapp Bostad"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/spin-the-house/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "history": [
+    "Order (planering) använde `gyro1/#`. Live och gällande: `housingcw` / `housingccw` (Lukas)."
+   ],
+   "web": {
+    "visual": {
+     "text": "Det 3D-printade huset snurrar på piedestalen, och fasaden växer på skärmen.",
+     "actors": [
+      "plug_connector6",
+      "Cylinder22",
+      "SM_GreenHouse"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "vred",
+     "label": "Vrid huset",
+     "does": "Medurs blir rummet bärnstensfärgat, moturs blått.",
+     "publishes": {
+      "topic": "housingcw / housingccw",
+      "payload": "{\"level\":3,\"ema\":0.4,\"net\":2,\"pos\":3}"
+     }
+    },
+    "route": [
+     "dev:housing",
+     "svc:mosquitto",
+     "host:macmini-housing",
+     "screen:generativ fasad",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Housing",
+     "host:rpi6",
+     "spk:boende"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via bostadskuben (rött)"
+     }
+    ],
+    "beats": [
+     "Vrid huset.",
+     "Magnetsensorer känner av åt vilket håll och hur fort huset snurrar.",
+     "Byggnaden på skärmen vrider sig, och när rätt sida kommer fram hörs ett skrapljud."
+    ],
+    "open": []
+   },
+   "station": "bostader"
+  },
+  {
+   "id": "ace",
+   "name": "ACE Powerhouse",
+   "aka": [
+    "ACE"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Titta in i en arkitektmodell på 1,5 m³; interiören följer huvudet och varje blick skickar en puls till kompetenskuben.",
+   "summary": "En arkitektmodell på 1,5 m³ med inbyggd skärm. Interiören följer besökarens huvud med en djupkamera, ett huvudspårat perspektiv. Varje blick skickar en gul puls till kompetenskuben (ACE hör till Kompetens). Stationen säger \"använd händerna\" för att leka med energin inne i huset, så handen är det besökaren får höra om. Huset har sju våningar i trä, solpaneler och ett vindkraftverk, regnvatten till toaletterna och kyla från fjärrvärmen. Marmortrappan och smidesräcket från gamla lasarettet återanvänds.",
+   "story": "Det här är en arkitektmodell av ACE Powerhouse, ett hus i trä för kunskap om elektrifiering på Campus Skellefteå. Titta in, så följer bilden ditt huvud, och använd händerna för att leka med energin i huset. Varje blick skickar en gul puls till kompetenskuben.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar in i modellen",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Orbbec Femto Bolt (SDK-loggen på ACE-datorn); närmaste huvud räknas som aktivt mellan 0,4 och 2,5 m",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "TouchDesigner (MediaPipe-handspårning finns i UE-projektet)",
+     "where": "ace",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "OSC till Unreal på `127.0.0.1:3000` varje bildruta: `head_x`, `head_y`, `head_z`, `handDist`, `active`, `hand_x`, `hand_y`, `hand_z`",
+     "where": "ace",
+     "conf": "belagd"
+    },
+    {
+     "kind": "skarm",
+     "what": "Unreal: ACE-spelet / huvudspårat perspektiv på inbyggd skärm",
+     "where": "ace",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Puls: när Unreal skickar OSC till TouchDesigner på port 3001 publicerar TD MQTT `ace` med `pulse`. Switchboarden lyssnar på `ace/#`",
+     "topic": "ace",
+     "payload": "\"pulse\"",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `Competence` (960)",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Competence` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren för rörlighet och kompetens",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/CadData/LV_ACE_Master (spelets karta)",
+    "BP_ACE_Minature (2 st i LV_SE26_Master)",
+    "BP_OSCReceiver"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/ace/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "ACE-PC temp-filer (`ClaudeCode/TheftInfo`)",
+    "GitHub `Goose812/TouchDesignerProjects`",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R38–R40, R63",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "software": [
+    "TouchDesigner `AcePower.toe` (GitHub `Goose812/TouchDesignerProjects`)",
+    "Unreal `LV_ACE_Master` + `BP_OSCReceiver`, leaderboard"
+   ],
+   "hardware": [
+    "Windows-PC `ace`",
+    "LG 55\" skärm",
+    "Djupkamera (Orbbec Femto enligt fallstudien, Azure Kinect SDK installerat)"
+   ],
+   "web": {
+    "visual": {
+     "text": "Arkitektmodellen med skärmen (ACE_SimplifiedMesh_55inchScreen).",
+     "actors": [
+      "ACE_SimplifiedMesh_55inchScreen",
+      "plug_connector11",
+      "S_Lingonberry_wjhjahlqx_Var4_lod4"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "yta",
+     "label": "Flytta huvudet framför modellen",
+     "does": "Interiören på skärmen följer huvudet. Att titta in skickar en puls till kompetenskuben.",
+     "publishes": {
+      "topic": "ace",
+      "payload": "\"pulse\""
+     }
+    },
+    "route": [
+     "local:djupkamera",
+     "host:ace",
+     "local:TD → OSC hand/head",
+     "screen:Unreal ACE",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Competence",
+     "host:rpi6",
+     "spk:mobilitet"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via kompetenskuben (gult)"
+     }
+    ],
+    "beats": [
+     "Titta in i en modell på 1,5 m³.",
+     "Perspektivet följer ditt huvud.",
+     "Varje blick skickar en puls till kompetenskuben."
+    ],
+    "open": []
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "atervinning",
+   "name": "Elektronikåtervinningen",
+   "aka": [
+    "Skrotmonstret",
+    "Recycling"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Mata skrotmonstret med en gammal telefon; det tuggar och rapar ut Cu, Au, Ag…",
+   "summary": "Besökaren matar skrotmonstret på iPaden med en gammal telefon, handkontroll, hörlurar eller kamera. Monstret tuggar och rapar ut metallerna (Cu, Au, Ag, Pd, Co, Li), med ljud som genereras live. Rönnskär tar ut koppar, guld och silver ur elektronikskrotet, och plasten i skrotet ger energi till processen. En lapp berättar om anrikningssand som blir pasta och fyller igen gruvor, så att marken kan bli skog igen.",
+   "story": "Mata skrotmonstret med en gammal pryl, så tuggar det och rapar ut metallerna. Bolidens smältverk Rönnskär gör samma sak på riktigt. Det är ett av världens största för elektronikskrot och tar tillbaka koppar, guld och silver.",
+   "chain": [
+    {
+     "kind": "skarm",
+     "what": "ipad-recycling, val av pryl",
+     "where": "ipad-recycling",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Tuggar: 5 pulser à 1 s",
+     "topic": "recycling/doing",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Klart",
+     "topic": "recycling/done",
+     "payload": "\"phone\"",
+     "conf": "delvis"
+    },
+    {
+     "kind": "dator",
+     "what": "rpi9 kiosk",
+     "where": "rpi9",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `Climate Recycle` (768)",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Climate Recycle` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/SpinningMiljo/ElectricRecycel",
+    "BP_SpinningTVTable"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/recycling/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R27–R29",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Återvinningsmaskinen och iPaden. Metallerna (Cu, Au, Ag, Pd, Co, Li) poppar ut.",
+     "actors": [
+      "SM_RecyclingMachine_WIP1",
+      "cable_junction_box_01",
+      "flat_keyboard",
+      "laptop_computer",
+      "computer_case_fan"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val",
+     "label": "Mata skrotmonstret",
+     "options": [
+      "telefon",
+      "handkontroll",
+      "hörlurar",
+      "kamera"
+     ],
+     "publishes": {
+      "topic": "recycling/done",
+      "payload": "\"phone\""
+     }
+    },
+    "route": [
+     "host:ipad-recycling",
+     "svc:mosquitto",
+     "host:rpi9",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Climate Recycle"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via klimatkuben"
+     }
+    ],
+    "beats": [
+     "Mata monstret med en gammal pryl.",
+     "Det tuggar i fem sekunder och rapar ut metallerna."
+    ],
+    "open": []
+   },
+   "station": "klimat"
+  },
+  {
+   "id": "sokrates",
+   "name": "Sokrates frågevägg",
+   "aka": [
+    "High five wall",
+    "SUA"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Ge väggen en high five, så ställer den en av 11 frågor om AI.",
+   "summary": "Besökaren ger väggen en high five, och den ställer en av 11 frågor om AI på en iPad. Kortet står under Kompetens i rum 4. Temat är hybridintelligens: AI:s snabbhet ihop med mänskligt omdöme. Skellefteå Universities Alliance (SUA) tar fram kurser med näringsliv, kommun och flera universitet.",
+   "story": "Ge väggen en high five, så ställer den en av elva frågor om AI. Temat är hybridintelligens: AI:s snabbhet ihop med människans omdöme.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "High five",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "ESP32 + accelerometer bakom väggen",
+     "topic": "sua/",
+     "payload": "{\"trigger\": true}",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "ipad-sua visar frågan",
+     "where": "ipad-sua",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `Competence SUA` (480)",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Competence SUA` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren för rörlighet och kompetens",
+     "where": "rpi6",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "`sensor_watchdog` på tnt startar om ESP:n via `sua/cmd` om den tystnar i 150 s",
+     "where": "tnt",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/Sokrates/SokratesPrint"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/high-five-wall/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R46",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Sokrates-väggen och iPaden, som visar en av de 11 frågorna.",
+     "actors": [
+      "SokratesPrint",
+      "BP_TV_Screen4"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "knapp",
+     "label": "High five",
+     "publishes": {
+      "topic": "sua/",
+      "payload": "{\"trigger\": true}"
+     }
+    },
+    "route": [
+     "dev:sua",
+     "svc:mosquitto",
+     "host:ipad-sua",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Competence SUA",
+     "host:rpi6",
+     "spk:mobilitet"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via kompetenskuben"
+     }
+    ],
+    "beats": [
+     "Ge väggen en high five.",
+     "Den ställer en fråga om AI."
+    ],
+    "open": [
+     "Är det samma installation som Highfive i rum 3 (F18)?"
+    ]
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "skykraft",
+   "name": "SkyKraft e-SAF",
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Blås, så ändrar jetmotorn på skärmen form och bilden skakar.",
+   "summary": "Besökaren blåser i en mikrofon. Då ändrar jetmotorn på skärmen form, vindljudet tonar in och bilden skakar; turbinen snurrar i jämn fart hela tiden. Allt ritas i realtid i TouchDesigner. Enligt kortet ska koldioxiden komma från skogsindustrins restprodukter, som sågspån i fjärrvärmen (k: SkyNRG namnger ingen källa), och e-SAF kan minska flygets utsläpp med 90 %.",
+   "story": "Blås i mikrofonen, så vaknar jetmotorn på skärmen. Bakom den ligger SkyKraft, en planerad fabrik vid Skellefteå hamn för flygbränsle av koldioxid, vatten och el. Projektet utreds fortfarande, och ingen fabrik är byggd.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Blåser",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "USB-mikrofon",
+     "where": "macmini4",
+     "conf": "delvis"
+    },
+    {
+     "kind": "dator",
+     "what": "TouchDesigner",
+     "where": "macmini4",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "Turbinen på skärm",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Medan någon blåser publicerar TouchDesigner `skykraft` med `pulse` ungefär en gång i sekunden",
+     "topic": "skykraft",
+     "payload": "\"pulse\"",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Climate` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren i klimathörnet",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "/Game/SE26/SpinningMiljo/SkykraftTurbine"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/skykraft/",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Lukas, 2026-10-29",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R23",
+    "TouchDesigner-projekten (Documents/TouchDesignerProjects), läst 30 okt 2026: docs/kallor/touchdesigner.md",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "history": [
+    "Föregångare: Turbinen (Flappy Plane, 2025-prototyp på rpi9) var en äldre idé av SkyKraft."
+   ],
+   "web": {
+    "visual": {
+     "text": "Turbinen (SkykraftTurbine) snurrar.",
+     "actors": [
+      "industrial_turbine_fan_01",
+      "Cylinder10",
+      "industrial_turbine_fan_2",
+      "BP_TV_Screen"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "reglage",
+     "label": "Blås (mikrofonnivå)",
+     "range": [
+      0,
+      100
+     ],
+     "does": "Turbinen snurrar fortare. Över tröskeln skickas en händelse över MQTT.",
+     "publishes": {
+      "topic": "skykraft",
+      "payload": "\"pulse\""
+     }
+    },
+    "route": [
+     "local:usb-mikrofon",
+     "host:macmini4",
+     "screen:turbin",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Climate",
+     "host:rpi6",
+     "spk:klimat"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via klimatkuben"
+     }
+    ],
+    "beats": [
+     "Blås, så ändrar motorn form, vinden hörs och bilden skakar.",
+     "Hållbart flygbränsle från Skellefteå."
+    ],
+    "open": []
+   },
+   "station": "klimat"
+  },
+  {
+   "id": "ljudrummet",
+   "name": "Ljudinstallationen i rum 4",
+   "aka": [
+    "Den blomstertid nu kommer?",
+    "The sound of the room",
+    "ljudrum4-player"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Sex högtalare, en i varje hörn och en i mitten. Installationerna svarar med fåglar, psalmtoner eller musik, och tre blixtar blir åska.",
+   "summary": "Sex högtalare, en i varje hörn och en i mitten. Enligt fallstudien svarar installationerna med en fågel i sitt hörn, och fåglarna flyger mot molnet. Ja-knappen spelar i stället psalmtoner och elbilsladdaren en musikpuls. Varje gång molnet blinkar åskar det i mitten, och tre åskor inom en halv sekund får växthuset att svara. Det finns 87 fåglar, 53 psalmtoner, 13 åskknallar, en vattenbädd och en kretsande drönarton, och samma fågel spelas aldrig två gånger inom några sekunder. Verket heter \"Den blomstertid nu kommer?\" och är gjort av Try New Things; psalmen spelades in av Kulturskolan på Mullberget. Väggtexten (ett utkast) säger 250 fågelljud och att varje interaktion i hela utställningen hörs här; fallstudien säger 87 fåglar och att det gäller rum 4. Vilket som stämmer 2026 är inte kontrollerat.",
+   "story": "Framtiden har sex högtalare, en i varje hörn och en i mitten. Installationerna i rummet svarar med fågelsång, psalmtoner eller musik, och när molnet blinkar åskar det. Ljudverket heter Den blomstertid nu kommer?",
+   "chain": [
+    {
+     "kind": "natverk",
+     "what": "rpi6 lyssnar själv på sensorernas ämnen i rum 4, och på Maskinisterna, Alimak och Dialogen",
+     "conf": "belagd"
+    },
+    {
+     "kind": "dator",
+     "what": "`ljudrum4/player.py`, samplespelare med sex utgångar: fyra på en Behringer STUDIO XL och två på rpi6:ans 3,5 mm",
+     "where": "rpi6",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Kanal 0 rörlighet och kompetens, 1 social, 2 blommor (psalmen, och rum 2 och 3), 3 mitten (åska), 4 boende, 5 klimat",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "Åska vid varje `cloud`; tre åskor inom 0,5 s ger ett växthusljud",
+     "topic": "cloud",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "Ratt 6 styr volymen i rum 4",
+     "topic": "intensity/knob-6",
+     "conf": "belagd"
+    }
+   ],
+   "links": [
+    "Alla installationer i rum 4"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Fallstudien trynewthings.fail/se26/the-sound-of-the-room/",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R3–R4",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Sex högtalare. Fåglarna flyger mot molnet.",
+     "actors": [
+      "decorative_pillow_set_round_pillow_mesh2",
+      "decorative_pillow_set_round_pillow_mesh8",
+      "NewBlueprint",
+      "plant_white_rope",
+      "plug_connector10"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "Lyssna",
+     "does": "Visar sex högtalare, en i varje hörn och en i mitten. Fåglarna hörs från installationens hörn."
+    },
+    "route": [
+     "svc:mosquitto",
+     "host:rpi6",
+     "spk:klimat",
+     "spk:boende",
+     "spk:blommor",
+     "spk:mobilitet",
+     "spk:social",
+     "spk:mitten"
+    ],
+    "links": [
+     {
+      "to": "*rum4",
+      "how": "alla installationer i rum 4"
+     }
+    ],
+    "beats": [
+     "87 fåglar, 53 psalmtoner och 13 åskknallar.",
+     "Samma fågel spelas aldrig två gånger inom några sekunder."
+    ],
+    "open": []
+   }
+  },
+  {
+   "id": "droneport",
+   "name": "Droneport",
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Rösta med en av sex knappar om vad drönare ska användas till.",
+   "summary": "En röststation med sex knappar: Medicin, Skogsbränder, Pizza, Försvunna, Vindkraft och Paket. Drönarflygplatsen ligger på Hammarängen och har eget luftrum, vintertester och självflygande drönare. Vid stationen kan besökaren rita sin egen drönare på papper.",
+   "story": "Vad ska drönare användas till? Rösta med en av sex knappar, från medicin och skogsbränder till pizza och paket. På Hammarängen i Skellefteå finns en drönarflygplats på riktigt.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Trycker på en knapp",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "6 GPIO-knappar",
+     "where": "rpi3",
+     "conf": "delvis"
+    },
+    {
+     "kind": "natverk",
+     "what": "Röst",
+     "topic": "droneport/0–5",
+     "payload": "{\"option_index\",\"label\":\"Medicin\"}",
+     "conf": "delvis"
+    },
+    {
+     "kind": "skarm",
+     "what": "Kiosk visar resultatet",
+     "conf": "antagen"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Mobility` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren för rörlighet och kompetens",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "SM_DroneStand (Art/BikeWheel)"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R83",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Drönarstället och de sex knapparna, med en stapel per svar.",
+     "actors": [
+      "SM_HexaBikeStand3",
+      "SM_HexaBikeStand4",
+      "drone_2",
+      "Disc3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val",
+     "label": "Rösta",
+     "options": [
+      "Medicin",
+      "Skogsbränder",
+      "Pizza",
+      "Försvunna",
+      "Vindkraft",
+      "Paket"
+     ],
+     "publishes": {
+      "topic": "droneport/{n}",
+      "payload": "{\"station\":\"rpi3\",\"option_index\":1,\"label\":\"Skogsbränder\"}"
+     }
+    },
+    "route": [
+     "dev:droneport",
+     "host:rpi3",
+     "svc:mosquitto",
+     "screen:resultat",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Mobility",
+     "host:rpi6",
+     "spk:mobilitet"
+    ],
+    "links": [],
+    "beats": [
+     "Vad ska drönare användas till?",
+     "Rösta med en knapp."
+    ],
+    "open": []
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "elbil",
+   "name": "Elbilsladdaren",
+   "aka": [
+    "E-mobility",
+    "emob",
+    "Ladda mobilen"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Parkera mobilen på laddplatsen, så ger laddningen en musikpuls i rum 4.",
+   "summary": "Besökaren \"parkerar\" sin mobil på en laddplats som ser ut som en elbilsladdare och laddar den trådlöst (Qi). En Shelly-plugg märker strömmen (> 3 W), och rum 4 får en musikpuls. Kortet berättar att Skellefteå Kraft och OKQ8 har byggt snabbladdare från norr till söder.",
+   "story": "Laddplatsen ser ut som en elbilsladdare, men här är det mobilen du laddar, utan sladd. När laddningen börjar svarar Framtiden med en musikpuls. I verkligheten har snabbladdare för elbilar byggts från norr till söder.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Lägger mobilen på laddplatsen",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Shelly-pluggen mäter effekten. `emobility-bridge` på tnt frågar den varannan sekund; över 3 W = laddar. ESP:n `emobility` är ersatt",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Effekten var 2 s under laddning (Droneport-kiosken frågar samma plugg och kan skicka den också)",
+     "topic": "emob",
+     "payload": "{\"power\": W}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Mobility` pulserar. Molnet blinkar en gång per laddning (10 s tystnad = ny laddning)",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren för rörlighet och kompetens",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "Mapp Laddstation (LV_SE26_Master, 13 actors)"
+   ],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R89",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "web": {
+    "visual": {
+     "text": "Laddstationen. Effekten i watt visas.",
+     "actors": [
+      "Cylinder15",
+      "Cylinder16"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "växel",
+     "label": "Koppla in laddaren",
+     "publishes": {
+      "topic": "emob",
+      "payload": "{\"power\": 6.4}"
+     }
+    },
+    "route": [
+     "dev:emob",
+     "svc:emobility-bridge",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Mobility",
+     "host:rpi6",
+     "spk:mobilitet"
+    ],
+    "links": [
+     {
+      "to": "ljudrummet",
+      "how": "musikpuls i rum 4"
+     }
+    ],
+    "beats": [
+     "Koppla in.",
+     "En smart kontakt märker att det går ström.",
+     "Rummet svarar med musik."
+    ],
+    "open": []
+   },
+   "visitor": [
+    "Lägger mobilen på laddplatsen.",
+    "Mobilen börjar laddas.",
+    "Rum 4 svarar med en musikpuls."
+   ],
+   "station": "rorlighet"
+  },
+  {
+   "id": "social",
+   "name": "Socialhörnet",
+   "aka": [
+    "Snurrlådorna",
+    "Women Welcome",
+    "Bastu-lampan"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "belagd",
+   "short": "Tre snurrlådor med text, speglar och illustrationer att bygga figurer av. Sensorer färgar Social och tänder bastulampan.",
+   "summary": "Tre snurrlådor i sociala zonen. Lådornas sidor har text, speglar och illustrationer: besökaren bygger figurer genom att snurra på dem, ser sig själv som en del av dem i speglarna och kan läsa projekttexter. Ultraljud i lådorna och PIR-sensorer byter färg på WLED `Social` och tonar Shelly-dimmern ”Bastu-lampa”. Women Welcome är en del av Socialhörnet: första lunchen 2023 hade tio kvinnor, nu närmare 2 000 deltagare. 2025 fanns en webbapp med samma namn som spelade video när den såg ett ansikte. I hörnet sitter också ipad-player, som visar godkända videor från Framtidsbåset. Tre kort är märkta \"BOX\" (Vänskapsbänkar, Kultur- och fritidsguider, Unghästen); kanske är det deras projekttexter som står på lådorna (antagande).",
+   "story": "Socialhörnet har tre snurrlådor med text, speglar och illustrationer. Snurra fram en figur och se dig själv i speglarna som en del av den. När någon är nära byter hörnet färg och bastulampan lyser upp.",
+   "chain": [
+    {
+     "kind": "sensor",
+     "what": "ESP32 spinningboxes1–3 (ultraljud, delta mot baslinje)",
+     "topic": "spinningboxes",
+     "payload": "{\"sensor\",\"distance_cm\",\"baseline_cm\",\"delta_cm\"}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "Switchboarden filtrerar bort eko och skickar `clean/spinningboxes` till ljudet",
+     "where": "tnt",
+     "topic": "clean/spinningboxes",
+     "conf": "belagd"
+    },
+    {
+     "kind": "sensor",
+     "what": "PIR `pir1` och `pir4` (Women Welcome)",
+     "topic": "pir1 / pir4",
+     "payload": "{\"motion\": true}",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Social` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Bastulampan (Shelly Dimmer 2) lyser 33 % och tonar upp till 100 % på 0,8 s; tillbaka 3 s efter sista träffen",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i socialhörnets högtalare",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "software": [
+    "`Peder/se26/www/womenwelcome/` (BlazeFace, 2025)"
+   ],
+   "unreal": [
+    "BP_SpinningBlocks (11 st)",
+    "Mapp NewSocial",
+    "RotatingCubes/SM_WomenWelcomeCube"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Peders repo `Peder/se26` (2025-10, före öppning)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R99–R111",
+    "Lukas, 2026-10-30",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "history": [
+    "Gällande enligt live och Lukas: Women Welcome = `pir1` + `pir4`."
+   ],
+   "web": {
+    "visual": {
+     "text": "Snurrlådorna (BP_SpinningBlocks) och bastulampan.",
+     "actors": [
+      "SM_TandemBike1_Submesh_A7770328",
+      "SM_HexaBikeStand5",
+      "SM_gardenChair2"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val + växel",
+     "label": "Vinka vid låda 1–3 och rörelse i zonen",
+     "options": [
+      "låda 1",
+      "låda 2",
+      "låda 3"
+     ],
+     "publishes": {
+      "topic": "spinningboxes",
+      "payload": "{\"sensor\":2,\"distance_cm\":40,\"delta_cm\":22}"
+     }
+    },
+    "route": [
+     "dev:spinningboxes",
+     "dev:pir1",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Social",
+     "fix:Bastu-lampa",
+     "host:rpi6",
+     "spk:social"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via socialkuben (rosa)"
+     },
+     {
+      "to": "framtidsbaset",
+      "how": "ipad-player visar videorna från båset"
+     }
+    ],
+    "beats": [
+     "Snurra lådorna och bygg en figur.",
+     "Se dig själv i speglarna, som en del av figuren.",
+     "Socialhörnet byter färg och bastulampan tonar upp."
+    ],
+    "open": []
+   },
+   "visitor": [
+    "Snurrar på lådorna och bygger figurer av illustrationerna.",
+    "Ser sig själv som en del av figuren i speglarna.",
+    "Läser projekttexterna på lådorna.",
+    "Hörnet byter färg och bastulampan tonar upp."
+   ],
+   "hardware": [
+    "3 snurrlådor med text, speglar och illustrationer",
+    "ESP32 spinningboxes1–3 (ultraljud)",
+    "PIR `pir1`, `pir4`",
+    "WLED Social",
+    "Shelly-dimmer Bastu-lampa",
+    "ipad-player (videor från Framtidsbåset)"
+   ],
+   "links": [
+    "Framtidsbåset: ipad-player i hörnet visar godkända videor (Lukas)"
+   ],
+   "station": "social"
+  },
+  {
+   "id": "kompetenstaltet",
+   "name": "Kompetenstältet",
+   "aka": [
+    "SEE Future-tältet",
+    "Skills tent",
+    "Tidsresan"
+   ],
+   "room": 4,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "SEE Future-tältet med Tidsresans talande resväska. Blå knapp för svenska, grön för engelska.",
+   "summary": "SEE Future-tältet. Idén kommer från Yuval Noah Harari: kunskap ska bo i tält, inte i hus. Inne i tältet finns Tidsresan, kommunens och Exploratoriets spel för förskolan, med en talande resväska som reser i tiden. Man väljer språk med knapparna: blå för svenska och grön för engelska. Under uppspelningen pulserar kompetenskuben ungefär varannan sekund. PIR `pir2` sitter vid tältet.",
+   "story": "Kompetenstältet är SEE Future-tältet, efter idén att kunskap ska bo i tält, inte i hus. Inne i tältet väljer du språk med en blå eller grön knapp. Sedan berättar Tidsresans talande resväska.",
+   "chain": [
+    {
+     "kind": "sensor",
+     "what": "PIR `pir2`",
+     "topic": "pir2",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "Tidsresan-burken: ESP32-firmware `src/se26.cpp` publicerar vid språkval och var ~2 s under uppspelning",
+     "where": "tnt.local:1883",
+     "topic": "skill/svenska, skill/engelska",
+     "payload": "\"<ms>\"",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "WLED `Competence`",
+     "conf": "delvis"
+    },
+    {
+     "kind": "ljus",
+     "what": "Switchboarden → Resolume: `Competence` pulserar",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Två sekunder senare blinkar molnet och växthuset, och det åskar i mitthögtalaren",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljud",
+     "what": "rpi6 spelar i högtalaren för rörlighet och kompetens",
+     "where": "rpi6",
+     "conf": "belagd"
+    }
+   ],
+   "unreal": [
+    "Art/Tent",
+    "Mapp Kompetens (23 actors)"
+   ],
+   "questions": [],
+   "sources": [
+    "museum-brain.md (tnt.local + fallstudien, 2026-10-29)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "GitHub `trynewthings-fail/tidsresan`",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R42–R44",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "software": [
+    "GitHub `trynewthings-fail/tidsresan` (`src/se26.cpp`)"
+   ],
+   "history": [
+    "Order sa tältet = `pir1`. Gällande enligt live och Lukas: tältet = `pir2`."
+   ],
+   "web": {
+    "visual": {
+     "text": "Tältet (camping_tent). Kompetenskuben pulserar varannan sekund under uppspelningen.",
+     "actors": [
+      "camping_tent_05"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "val",
+     "label": "Välj språk",
+     "options": [
+      "svenska",
+      "engelska"
+     ],
+     "publishes": {
+      "topic": "skill/svenska",
+      "payload": "\"2000\""
+     }
+    },
+    "route": [
+     "dev:skill",
+     "dev:pir2",
+     "svc:mosquitto",
+     "svc:tnt-switchboard",
+     "host:resolume",
+     "fix:Competence",
+     "host:rpi6",
+     "spk:mobilitet"
+    ],
+    "links": [
+     {
+      "to": "vaxthuset",
+      "how": "via kompetenskuben"
+     }
+    ],
+    "beats": [
+     "Tidsresan.",
+     "Välj språk, och kuben pulserar medan berättelsen spelas."
+    ],
+    "open": [
+     "Vad är Tidsresan för besökaren (F16)?"
+    ]
+   },
+   "visitor": [
+    "Går in i tältet.",
+    "Trycker på den blå (svenska) eller gröna (engelska) knappen.",
+    "Lyssnar på resväskan."
+   ],
+   "station": "kompetens"
+  },
+  {
+   "id": "tvivlarnas-kulle",
+   "name": "Tvivlarnas kulle",
+   "room": 3,
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En kulle som den där pensionärer stod och tittade på Northvolt-bygget. Kan vi ge plats åt dem som inte tror på oss?",
+   "summary": "\"Skeptic's Hill\": platsen där pensionärer stod och tittade på Northvolt-bygget. Texten använder det italienska ordet umarells och frågar om vi kan ge plats åt dem som inte tror på oss. Kullen har kikare (Unreal-mappen TvivlarnasKulle). Den är inte interaktiv, bara en fysisk kulle att sitta eller stå på.",
+   "story": "En kulle att sitta eller stå på, efter kullen där pensionärer stod och tittade på bygget av Northvolts fabrik. Texten frågar om vi kan ge plats åt dem som inte tror på oss.",
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Sitter eller står på kullen; ingen interaktion",
+     "conf": "delvis"
+    }
+   ],
+   "unreal": [
+    "Mapp TvivlarnasKulle (LV_SE26_Master)"
+   ],
+   "questions": [],
+   "sources": [
+    "Order, SE26-boarden ”Exhibition” (planeringsuppgifter)",
+    "Unreal `SE26`, LV_SE26_Master",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T15",
+    "Lukas, 2026-10-30"
+   ],
+   "web": {
+    "visual": {
+     "text": "Kullen med kikare (SM_Kulle, SM_Binoculars).",
+     "actors": [
+      "Sphere",
+      "Cylinder3",
+      "SM_Binoculars",
+      "Cylinder5",
+      "SM_Binoculars3"
+     ],
+     "shot": {
+      "d": 9,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Kullen där folk stod och tittade på Northvolt-bygget.",
+     "Kikarna pekar ut mot fabriken."
+    ],
+    "open": []
+   },
+   "aka": [
+    "Skeptic's Hill"
+   ],
+   "visitor": [
+    "Sitter eller står på kullen."
+   ]
+  },
+  {
+   "id": "turbin",
+   "name": "Turbinen (Flappy Plane)",
+   "room": 0,
+   "status": "utgick",
+   "confidence": "belagd",
+   "short": "2025-prototyp: blås på en vindmätare och styr ett plan med en pedal. Troligen ersatt.",
+   "summary": "En 2025-prototyp där man blåser på en anemometer för att ”tanka” och styr ett plan genom ringar med en Logitech-pedal. Den körde på rpi9, som 2026 har bytt roll till Återvinning. **Lukas: en äldre idé av det som nu är SkyKraft.**",
+   "chain": [
+    {
+     "kind": "sensor",
+     "what": "Anemometer via ADS1263 + G29-pedal",
+     "where": "rpi9",
+     "conf": "belagd"
+    },
+    {
+     "kind": "natverk",
+     "what": "Händelser",
+     "topic": "turbin/acceleration, turbin/ring_passed",
+     "conf": "belagd"
+    }
+   ],
+   "software": [
+    "`Peder/se26/turbin/`"
+   ],
+   "questions": [],
+   "sources": [
+    "Peders repo `Peder/se26` (2025-10, före öppning)"
+   ]
+  },
+  {
+   "id": "berget",
+   "name": "Berget och stenarna",
+   "room": 1,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Stenar i flodens projektion och geologin bakom Skelleftefältet.",
+   "summary": "Berggrunden i Skelleftefältet är 1,89 miljarder år gammal och bär guld, koppar, silver, zink och bly. Fysiska stenar står i floden, och projektionen ska flyta runt dem.",
+   "story": "Stenarna i Floden kommer från berggrunden i Skelleftefältet. Berget är 1,89 miljarder år gammalt och bär guld, koppar, silver, zink och bly.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T1–T2"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Berggrunden i Skelleftefältet är 1,89 miljarder år gammal och bär guld, koppar, silver, zink och bly. Fysiska stenar står i floden, och projektionen ska flyta runt dem."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "vem-ager-naturen",
+   "name": "Vem äger naturen?",
+   "room": 1,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Frågevägg: vem påverkas när berget bryts, skogen huggs och älven dämms?",
+   "summary": "En vägg med frågan om vem som påverkas när berget bryts, skogen huggs och älven dämms.",
+   "story": "En vägg med frågor om naturen. Vem påverkas när berget bryts, skogen huggs och älven dämms?",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T2"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En vägg med frågan om vem som påverkas när berget bryts, skogen huggs och älven dämms."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "hallmans-karta",
+   "name": "Hallmans karta",
+   "room": 2,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Stadsplanen från 1905 där en monumental byggnad ritades där Sara står i dag. Vad drömmer du om för Skellefteå om 100 år?",
+   "summary": "Per Olof Hallmans stadsplan. Där han 1905 ritade en \"monumental byggnad\" stod Sara kulturhus klart 2021. Kartan frågar vad besökaren drömmer om för Skellefteå om 100 år.",
+   "story": "Per Olof Hallmans stadsplan från 1905. Där han ritade en monumental byggnad står i dag Sara kulturhus, klart 2021. Kartan frågar vad du drömmer om för Skellefteå om 100 år.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T4"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Per Olof Hallmans stadsplan. Där han 1905 ritade en \"monumental byggnad\" stod Sara kulturhus klart 2021. Kartan frågar vad besökaren drömmer om för Skellefteå om 100 år."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "samhallsbalansen",
+   "name": "Samhällsbalansen",
+   "room": 3,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Utan rätt blandning av unga, gamla, kvinnor, män och nyinflyttade välter samhället.",
+   "summary": "En station om balans: samhället \"välter\" utan rätt blandning av unga, gamla, kvinnor, män och nyinflyttade.",
+   "story": "En station om balans. Utan rätt blandning av unga, gamla, kvinnor, män och nyinflyttade välter samhället.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T10"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En station om balans: samhället \"välter\" utan rätt blandning av unga, gamla, kvinnor, män och nyinflyttade."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "inkluderingsvaggen",
+   "name": "Inkluderingsväggen",
+   "room": 3,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Fyra exempel på inkludering: Träffpunkten i Bureå, Ge plats!, Riv huset och Ursinnig i Jörn.",
+   "summary": "Fyra exempel: Café Träffpunkten i Bureå, kampanjen Ge plats!, Riv huset (2013) och Ursinnig-festivalen i Jörn (sedan 2016).",
+   "story": "Fyra exempel på hur Skellefteå ger plats åt fler: Café Träffpunkten i Bureå, kampanjen Ge plats!, Riv huset och Ursinnig-festivalen i Jörn.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T11"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Fyra exempel: Café Träffpunkten i Bureå, kampanjen Ge plats!, Riv huset (2013) och Ursinnig-festivalen i Jörn (sedan 2016)."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "sara-telefonerna",
+   "name": "SARA-telefonerna",
+   "room": 3,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Tre telefoner med olika åsikter om Sara kulturhus.",
+   "summary": "Tre telefonlurar där man hör olika åsikter om Sara kulturhus. Order kallar det \"Lyssna på Sara\".",
+   "story": "Tre telefonlurar med tre olika åsikter om Sara kulturhus. Lyssna och fundera på vad du själv tycker.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T12"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Tre telefonlurar där man hör olika åsikter om Sara kulturhus. Stationen kallas också Lyssna på Sara."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "northvolt-tidslinjen",
+   "name": "Northvolt-tidslinjen",
+   "room": 3,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Tidslinjen 2019–2024 om Northvolt, och kommunens pitchvideo.",
+   "summary": "En tidslinje 2019–2024 om Northvolt: etableringen, tillväxten och kollapsen, med kommunens pitchvideo för etableringen. Order placerade en \"Northvolt wall\" i rum 4.",
+   "story": "En tidslinje om Northvolt i Skellefteå 2019–2024: etableringen, tillväxten och kollapsen. Här visas också kommunens film från arbetet med att få fabriken hit.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, T14–T15"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En tidslinje 2019–2024 om Northvolt: etableringen, tillväxten och kollapsen, med kommunens film från arbetet med att få etableringen hit."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "motesmattan",
+   "name": "Mötesmattan",
+   "room": 4,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En matta med SE26-text där man kan sätta sig och prata.",
+   "summary": "En matta med SE26-text där man kan sätta sig och prata.",
+   "story": "En matta med SE26-text där man kan sätta sig och prata. Den är inte interaktiv.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R9"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En matta med SE26-text där man kan sätta sig och prata."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  },
+  {
+   "id": "garnverkstaden",
+   "name": "Garnverkstaden",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Video om hur rummets projekt kartlades: över 80 personer och mer än 90 initiativ på två veckor.",
+   "summary": "En video om hur projekten i rummet kartlades i en garnverkstad (yarn jam): över 80 personer och mer än 90 initiativ på två veckor.",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R13"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En video om hur projekten i rummet kartlades i en garnverkstad (yarn jam): över 80 personer och mer än 90 initiativ på två veckor."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social",
+   "category": "Social hållbarhet"
+  },
+  {
+   "id": "rengard",
+   "name": "Rengård",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Skellefteå Krafts nya vattenkraftverk vid Rengård, bredvid det från 1970.",
+   "summary": "Skellefteå Kraft bygger ett nytt vattenkraftverk vid Rengård, bredvid det gamla från 1970. Order har en skärm och en surfplatta med film här.",
+   "category": "Klimat & miljö",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R21"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Klimat & miljö.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Skellefteå Kraft bygger ett nytt vattenkraftverk vid Rengård, bredvid det gamla från 1970. Order har en skärm och en surfplatta med film här."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "klimat",
+   "story": "Skellefteå Kraft bygger ett nytt vattenkraftverk vid Rengård, bredvid det gamla från 1970."
+  },
+  {
+   "id": "hammarangen",
+   "name": "Hammarängen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Nollavfallsbygge med material på plats; Årets bygge 2024.",
+   "summary": "Ett bygge utan avfall, med material från platsen. Årets bygge 2024 i kategorin infrastruktur.",
+   "category": "Klimat & miljö",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R30"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Klimat & miljö.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Ett bygge utan avfall, med material från platsen. Årets bygge 2024 i kategorin infrastruktur."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "klimat"
+  },
+  {
+   "id": "trainnovation",
+   "name": "Träinnovation",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Limträ och KL-trä, Martinsons, LTU:s träteknik och Sara kulturhus 20 våningar.",
+   "summary": "Om limträ och korslimmat trä, Martinsons, LTU:s träteknik på Campus Skellefteå och Sara kulturhus i 20 våningar.",
+   "category": "Klimat & miljö",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R32"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Klimat & miljö.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Om limträ och korslimmat trä, Martinsons, LTU:s träteknik på Campus Skellefteå och Sara kulturhus i 20 våningar."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "klimat"
+  },
+  {
+   "id": "welcome-house",
+   "name": "Welcome House",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Stöd till nyinflyttade i stadshuset.",
+   "summary": "Stöd till nyinflyttade i stadshusets bottenvåning: relocation coordinator, partnerprogram och Skellefteå After Work.",
+   "category": "Kompetens",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R48–R51",
+    "https://skelleftea.se/platsen/flytta-hit"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Kompetens.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Stöd till nyinflyttade i stadshusets bottenvåning: relocation coordinator, partnerprogram och Skellefteå After Work."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "science-city",
+   "name": "Skellefteå Science City",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Innovationsmiljö som ska få idéer att växa snabbare.",
+   "summary": "En innovationsmiljö som ska få idéer att växa snabbare, bland annat drönartestplatsen, spelnätverket och bidraget till ACE.",
+   "category": "Kompetens",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R52",
+    "https://skellefteasciencecity.se"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Kompetens.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En innovationsmiljö som ska få idéer att växa snabbare, bland annat drönartestplatsen, spelnätverket och bidraget till ACE."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "arctic-game",
+   "name": "Arctic Game",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Stöd till nya spelstudior.",
+   "summary": "Stöd till nya spelstudior: mentorskap, inkubation och gemenskap.",
+   "category": "Kompetens",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R54"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Kompetens.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Stöd till nya spelstudior: mentorskap, inkubation och gemenskap."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "vux-automation-lab",
+   "name": "VUX Automation Lab",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Vuxenutbildningens snabbkurs för batterifabriken.",
+   "summary": "Vuxenutbildningens snabbkurs för Northvolt: planerad till sex månader, till slut kortad till tre veckor.",
+   "category": "Kompetens",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R56–R58"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Kompetens.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Vuxenutbildningens snabbkurs för Northvolt: planerad till sex månader, till slut kortad till tre veckor."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "kompetens"
+  },
+  {
+   "id": "cc-build",
+   "name": "Cirkulärt byggande",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Återbruk i byggandet med CC Build North Sweden.",
+   "summary": "Återbruk i byggandet med CC Build North Sweden: ledstänger, fönster och toaletter som används igen.",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R63"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Återbruk i byggandet med CC Build North Sweden: ledstänger, fönster och toaletter som används igen."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader"
+  },
+  {
+   "id": "away",
+   "name": "Modulhusen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Modulbostäder på Solbacken och i Ursviken med AWAY Group.",
+   "summary": "Modulbostäder på Solbacken och i Ursviken med AWAY Group. Antalet anges olika i rum 3 (över 2 000) och på kortet (över tusen).",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R65"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Modulbostäder på Solbacken och i Ursviken med AWAY Group. Antalet anges olika i rum 3 (över 2 000) och på kortet (över tusen)."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader",
+   "story": "Modulbostäder på Solbacken och i Ursviken med AWAY Group."
+  },
+  {
+   "id": "flexibility-house",
+   "name": "Flexibility House",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Trähus av element som kan monteras om, flyttas och byggas på.",
+   "summary": "RISE och IVL testar trähus av planelement som kan monteras om, flyttas och byggas på.",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R67"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "RISE och IVL testar trähus av planelement som kan monteras om, flyttas och byggas på."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader"
+  },
+  {
+   "id": "varcities",
+   "name": "VARCITIES",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En park rustad genom samskapande, med insektshotell, våtmark och uteklassrum.",
+   "summary": "En park rustad genom samskapande, med insektshotell, våtmarksäng, smart belysning och uteklassrum. Kortet säger Klockardalsparken, VARCITIES själva Klockarberget Park.",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R69",
+    "https://varcities.eu/pilot-cities/skelleftea-sweden"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En park rustad genom samskapande, med insektshotell, våtmarksäng, smart belysning och uteklassrum. Kortet säger Klockardalsparken, VARCITIES själva Klockarberget Park."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader",
+   "story": "En park rustad genom samskapande, med insektshotell, våtmarksäng, smart belysning och uteklassrum."
+  },
+  {
+   "id": "digital-tvilling",
+   "name": "Digital tvilling",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En skärm med en digital tvilling, med Singapore och Helsingfors som exempel.",
+   "summary": "En skärm som visar en digital tvilling, med Singapore och Helsingfors som exempel. Samma idé som den här webbtvillingen.",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R71"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En skärm som visar en digital tvilling, med Singapore och Helsingfors som exempel. Samma idé som den här webbtvillingen."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader"
+  },
+  {
+   "id": "ostra-moro-backe",
+   "name": "Östra Morö Backe",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Bostadsområde byggt för både tillväxt och krympning, med barnperspektiv.",
+   "summary": "Ett bostadsområde som ska klara både tillväxt och krympning, byggt med barnperspektiv. Omkring 240 bostäder.",
+   "category": "Bostäder",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R73"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Bostäder.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Ett bostadsområde som ska klara både tillväxt och krympning, byggt med barnperspektiv. Omkring 240 bostäder."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "bostader"
+  },
+  {
+   "id": "hamnen",
+   "name": "Hamnen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Djupare hamn, elkranar och kopplingar mellan fartyg, lastbil, tåg och flyg.",
+   "summary": "Skellefteå hamn byggs ut: djupare hamn, en av världens första helelektriska kranar och kopplingar mellan fartyg, lastbil, tåg och flyg.",
+   "category": "Rörlighet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R79"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Rörlighet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Skellefteå hamn byggs ut: djupare hamn, en av världens första helelektriska kranar och kopplingar mellan fartyg, lastbil, tåg och flyg."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "flygplatsen",
+   "name": "Flygplatsen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Skellefteå Airport och Arctic Aviation Hub: laddning, flygutbildning och vätgasflyg.",
+   "summary": "Skellefteå Airport och Arctic Aviation Hub: laddning för elflyg, Green Flight Academy och vätgasflyg. En ny terminal är en vision.",
+   "category": "Rörlighet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R81"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Rörlighet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Skellefteå Airport och Arctic Aviation Hub: laddning för elflyg, Green Flight Academy och vätgasflyg. En ny terminal är en vision."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "norrbotniabanan",
+   "name": "Norrbotniabanan",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Järnvägen Umeå–Luleå, med stationer i Skellefteå, Bureå och Byske.",
+   "summary": "Järnvägen Umeå–Luleå, 27 mil, med stationer i Skellefteå, Bureå och Byske. Skellefteå är Sveriges största stad utan persontåg.",
+   "category": "Rörlighet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R85"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Rörlighet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Järnvägen Umeå–Luleå, 27 mil, med stationer i Skellefteå, Bureå och Byske. Skellefteå är Sveriges största stad utan persontåg."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "resecentrum",
+   "name": "Tre nya resecentrum",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Nya resecentrum i Bureå, Byske och centrala Skellefteå.",
+   "summary": "Nya resecentrum i Bureå, Byske och centrala Skellefteå. Det centrala ska ligga nordväst om Sara kulturhus; vinnande förslag \"Utblick över hjortronlandet\".",
+   "category": "Rörlighet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R87"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Rörlighet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Nya resecentrum i Bureå, Byske och centrala Skellefteå. Det centrala ska ligga nordväst om Sara kulturhus; vinnande förslag \"Utblick över hjortronlandet\"."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "vi-gar-igen",
+   "name": "Vi går igen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Framsynsprojekt om gång, med konstnärer, forskare och planerare.",
+   "summary": "Ett framsynsprojekt om att gå, med konstnärer, forskare och planerare.",
+   "category": "Rörlighet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R91"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Rörlighet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Ett framsynsprojekt om att gå, med konstnärer, forskare och planerare."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "rorlighet"
+  },
+  {
+   "id": "wasteland",
+   "name": "Crystal Sauna",
+   "room": 4,
+   "type": "installation",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "En 3D-printad miniatyr av Bigert & Bergströms Crystal Sauna. En lampa i den lyser starkare när man kommer nära.",
+   "summary": "En 3D-printad miniatyr av Crystal Sauna, Bigert & Bergströms bastu i Wasteland Climate Action Park på Scharinsområdet i Ursviken, som sanerades 2001–2018. Den är inte särskilt interaktiv, men lampan lyser starkare när någon är nära. I koden är det bastulampan: en Shelly-dimmer som lyser 33 % och tonar upp till 100 % när PIR-sensorerna pir1 och pir4 eller snurrlådorna känner av någon. Att bastulampan är lampan i miniatyren är vår tolkning.",
+   "story": "En liten 3D-printad modell av Crystal Sauna, bastun som konstnärerna Bigert & Bergström gör i Wasteland-parken i Ursviken. Lampan i den lyser starkare när någon är nära.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Går fram till den lilla bastun.",
+    "Lampan i den lyser starkare ju närmare man kommer."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Kommer nära",
+     "conf": "delvis"
+    },
+    {
+     "kind": "sensor",
+     "what": "PIR `pir1`/`pir4` eller snurrlådorna; bastuns egen sensor används inte",
+     "topic": "pir1 / pir4 / spinningboxes",
+     "conf": "belagd"
+    },
+    {
+     "kind": "logik",
+     "what": "tnt-switchboard",
+     "where": "tnt",
+     "conf": "belagd"
+    },
+    {
+     "kind": "ljus",
+     "what": "Bastulampan (Shelly Dimmer 2): 33 % → 100 %, tillbaka 3 s efter sista träffen. Att det är lampan i miniatyren är antaget",
+     "conf": "antagen"
+    }
+   ],
+   "sources": [
+    "Lukas (30 okt 2026)",
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R97",
+    "Peders export av koden (30 okt 2026), docs/kallor/peder-export.md"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [
+     "dev:pir1",
+     "svc:tnt-switchboard",
+     "fix:Bastu-lampa"
+    ],
+    "links": [],
+    "beats": [
+     "En liten modell av Crystal Sauna, bastun i Wasteland-parken i Ursviken.",
+     "Lampan i den tonar upp när någon är nära."
+    ],
+    "open": [
+     "Är bastulampan lampan i miniatyren (Q24)?"
+    ]
+   },
+   "station": "social",
+   "aka": [
+    "Wasteland",
+    "Wasteland och Crystal Sauna"
+   ]
+  },
+  {
+   "id": "vanskapsbankar",
+   "name": "Vänskapsbänkar",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Gula bänkar som visar att man vill prata. En står i rummet.",
+   "summary": "Gula bänkar som visar att man gärna pratar. En bänk står i rummet att prova.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R99"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Gula bänkar som visar att man gärna pratar. En bänk står i rummet att prova."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "arctic-design-center",
+   "name": "Arctic Design Center",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Om livet mellan husen när norra Sverige byggs om.",
+   "summary": "Om \"livet mellan husen\" när norra Sverige byggs om.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R103"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Om \"livet mellan husen\" när norra Sverige byggs om."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "expats-friends",
+   "name": "Expats & Friends",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Förening för nya och gamla Skelleftebor, över 4 500 medlemmar.",
+   "summary": "En ideell förening för nya och gamla Skelleftebor, grundad 2014, med över 4 500 medlemmar.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R105"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "En ideell förening för nya och gamla Skelleftebor, grundad 2014, med över 4 500 medlemmar."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "society-summit-youth",
+   "name": "Society Summit Youth",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Årligt ungdomsforum: vad ska Skellefteå börja, sluta och fortsätta med?",
+   "summary": "Ett årligt ungdomsforum. Lappen frågar vad Skellefteå ska börja, sluta och fortsätta med, samma fråga som i Framtidsbåset.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R107"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Ett årligt ungdomsforum. Lappen frågar vad Skellefteå ska börja, sluta och fortsätta med, samma fråga som i Framtidsbåset."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "fritidsguider",
+   "name": "Kultur- och fritidsguider",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Personlig vägledning till fritidsaktiviteter för barn.",
+   "summary": "Personlig vägledning till fritidsaktiviteter, med FN:s barnkonvention artikel 31 som grund.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R109"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Personlig vägledning till fritidsaktiviteter, med FN:s barnkonvention artikel 31 som grund."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "unghasten",
+   "name": "Unghästen",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Västerbottensteaterns ungdomsteater, som gör svåra ämnen pratbara.",
+   "summary": "Västerbottensteaterns ungdomsteater, som gör svåra ämnen möjliga att prata om.",
+   "category": "Social hållbarhet",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R111"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Ett projektkort vid kuben Social hållbarhet.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Västerbottensteaterns ungdomsteater, som gör svåra ämnen möjliga att prata om."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social"
+  },
+  {
+   "id": "skapande-gardar",
+   "name": "Skapande gårdar",
+   "room": 4,
+   "type": "text",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Morö Backe 4H:s stadsgård med ponnyer, grisar, getter och katten Frans.",
+   "summary": "Morö Backe 4H:s stadsgård med ponnyer, grisar, getter och katten Frans. Kortet står till vänster om växthusdörren.",
+   "visitor": [
+    "Läser texten."
+   ],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Läser kortet",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R115"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Morö Backe 4H:s stadsgård med ponnyer, grisar, getter och katten Frans. Kortet står till vänster om växthusdörren."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   },
+   "station": "social",
+   "category": "Social hållbarhet"
+  },
+  {
+   "id": "frona",
+   "name": "Fröna vid utgången",
+   "room": 4,
+   "type": "station",
+   "status": "i drift",
+   "confidence": "delvis",
+   "short": "Fröpåsar att ta med sig, så länge de räcker.",
+   "summary": "Fröpåsar vid utgången som besökaren får ta med sig, så länge de räcker.",
+   "story": "Fröpåsar vid utgången att ta med sig, så länge de räcker. När fröet gror börjar växten göra sin egen energi av ljus.",
+   "visitor": [],
+   "chain": [
+    {
+     "kind": "besokare",
+     "what": "Tittar och läser",
+     "conf": "delvis"
+    }
+   ],
+   "sources": [
+    "Utställningstexterna (tryckta), se docs/kallor/utstallningstexter.md, R119"
+   ],
+   "questions": [],
+   "web": {
+    "visual": {
+     "text": "Utställningsdelen, på ungefärlig plats.",
+     "actors": [],
+     "shot": {
+      "d": 7,
+      "az": 0.4,
+      "el": 0.95
+     }
+    },
+    "control": {
+     "type": "ingen",
+     "label": "–"
+    },
+    "route": [],
+    "links": [],
+    "beats": [
+     "Fröpåsar vid utgången som besökaren får ta med sig, så länge de räcker."
+    ],
+    "open": [
+     "Platsen är ungefärlig; granska den i planvyn."
+    ]
+   }
+  }
+ ]
+}

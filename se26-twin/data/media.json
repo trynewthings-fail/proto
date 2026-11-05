@@ -1,0 +1,38 @@
+{
+ "about": "Bilder och klipp ur LTU-presentationen och SE26_BTS (Lukas: får användas lokalt). Se docs/kallor/ltu-presentation.md. Inga igenkännbara ansikten.",
+ "items": {
+  "floden": [
+   { "src": "assets/media/floden-flod-loop.mp4", "poster": "assets/media/floden-flod-loop.jpg", "caption": "Floden: den färdiga filmen på väggen." },
+   { "src": "assets/media/floden-wip-silhuett.mp4", "poster": "assets/media/floden-wip-silhuett.jpg", "caption": "Arbetsversion: flödet viker undan för en kropp." }
+  ],
+  "reverse-perspective": [
+   { "src": "assets/media/reverse-perspective-insitu.mp4", "poster": "assets/media/reverse-perspective-insitu.jpg", "caption": "De tre pyramiderna med arkivfilm, mars 2026." },
+   { "poster": "assets/media/reverse-perspective-previs-hall-of-rebels.jpg", "caption": "Förhandsvisningen i Unreal, november 2025: Skellefteå Hall of Rebels." }
+  ],
+  "mojligheternas-hall": [
+   { "src": "assets/media/reverse-perspective-insitu.mp4", "poster": "assets/media/reverse-perspective-insitu.jpg", "caption": "Hallen: tre pyramider med omvänt perspektiv, mars 2026." }
+  ],
+  "ace": [
+   { "src": "assets/media/ace-huvudsparning-prototyp.mp4", "poster": "assets/media/ace-huvudsparning-prototyp.jpg", "caption": "Prototypen, februari 2026: interiören följer huvudet, med djupkameran ovanpå skärmen." }
+  ],
+  "snurra-huset": [
+   { "src": "assets/media/snurra-huset-prototyp.mp4", "poster": "assets/media/snurra-huset-prototyp.jpg", "caption": "Tidig prototyp: man vrider ett föremål och fasaden vrider sig med." }
+  ],
+  "vaxthuset": [
+   { "src": "assets/media/molnet-ljustest.mp4", "poster": "assets/media/molnet-ljustest.jpg", "caption": "Ljustest i molnet: fiberfyllning på hönsnät med ljusslingor inuti." },
+   { "poster": "assets/media/rum4-bygge-vaxthuset.jpg", "caption": "Framtiden under bygget, med växthuset i bakgrunden." }
+  ],
+  "skykraft": [
+   { "src": "assets/media/skykraft-turbin-skarm.mp4", "poster": "assets/media/skykraft-turbin-skarm.jpg", "caption": "Jetmotorns fläkt, troligen innehållet på skärmen (antaget)." }
+  ],
+  "dokumentaren": [
+   { "src": "assets/media/dokumentarvaggen-bygge.mp4", "poster": "assets/media/dokumentarvaggen-bygge.jpg", "caption": "Dokumentärväggen under bygget: rundade paneler i ett rutnät." }
+  ],
+  "lampteremin": [
+   { "src": "assets/media/rum2-takslinga.mp4", "poster": "assets/media/rum2-takslinga.jpg", "caption": "Ljusslingorna i taket i Dåtiden." }
+  ],
+  "triangeln": [
+   { "poster": "assets/media/triangeln-ritning-mobility-station.jpg", "caption": "Snickeriritningen för rörlighetsstationen, 10 mars 2026." }
+  ]
+ }
+}

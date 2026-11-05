@@ -1,0 +1,223 @@
+{
+ "about": "Gå utställningen: en guidad tur i besöksordning, rum 1 → 4. Varje stopp är kort (2–3 meningar) eller helt (då kan man öppna installationens hela berättelse och komma tillbaka hit). Ordningen inom rummen är läst ur planvyns platser; entrén och dörren mellan rum 2 och 3 är antagna (fråga Q28).",
+ "stops": [
+  {
+   "kind": "entre",
+   "title": "Välkommen till SE26",
+   "text": "SE26 berättar om Skellefteå genom energi i fyra rum: naturens, historiens, samhällets och framtidens. Det du gör i rummen blir till ljus och ljud. I det sista rummet samlas energin i ett växthus.",
+   "bridge": "Vi börjar i Urtiden, vid berget och älven."
+  },
+  {
+   "kind": "room",
+   "room": 1,
+   "title": "Rum 1 · Urtiden",
+   "text": "Naturens energi. Här finns berget som bär metallerna, älven som blev el och skogen som kom tillbaka efter isen. Korridoren är full av ljud, och det du gör spelar med i musiken."
+  },
+  {
+   "kind": "inst",
+   "target": "berget",
+   "mode": "kort",
+   "title": "Berget och stenarna",
+   "text": "Vid Floden står stenar. Texten bredvid berättar om berggrunden i Skelleftefältet: den är 1,89 miljarder år gammal och bär guld, koppar, silver, zink och bly.",
+   "bridge": "Vattnet runt stenarna är Skellefteälven."
+  },
+  {
+   "kind": "inst",
+   "target": "floden",
+   "mode": "helt",
+   "title": "Floden",
+   "text": "En 15 meter lång älv rinner längs väggen. En kamera ser var du står, och vattnet viker undan för din hand. Det du gör blir en ton i musiken och får skogen att lysa blått.",
+   "bridge": "Mitt emot står skogen."
+  },
+  {
+   "kind": "inst",
+   "target": "skogen",
+   "mode": "kort",
+   "title": "Skogen",
+   "text": "Kluvna tallstammar med ljus fräst in i träet. En ljusvåg rullar genom träden, och lägger du örat mot en stam hör du skogen sjunga. På kvällen får skogen sova.",
+   "bridge": "Berget, älven och skogen: vem bestämmer över dem?"
+  },
+  {
+   "kind": "inst",
+   "target": "vem-ager-naturen",
+   "mode": "kort",
+   "title": "Vem äger naturen?",
+   "text": "En vägg ställer frågan vem som påverkas när berget bryts, skogen huggs och älven dämms. Den leder över från naturen till människorna som använde den.",
+   "bridge": "Genom vattentunneln går vi in i historien."
+  },
+  {
+   "kind": "inst",
+   "target": "vattentunneln",
+   "mode": "helt",
+   "title": "Vattentunneln",
+   "text": "Tunneln är byggd som vattenvägen i ett kraftverk, efter Finnfors, Skellefteås första vattenkraftverk. När du går förbi rullar en vit våg genom ljuset och en ton spelas.",
+   "bridge": "På andra sidan väntar Dåtiden."
+  },
+  {
+   "kind": "room",
+   "room": 2,
+   "title": "Rum 2 · Dåtiden",
+   "text": "Historiens energi. Bönder, uppfinnare och gruvarbetare byggde Skellefteå med kraftverk, gruvor och hissar. Här möter du några av dem."
+  },
+  {
+   "kind": "inst",
+   "target": "lampteremin",
+   "mode": "helt",
+   "title": "Maskinisterna",
+   "text": "Bönder och hobbyister byggde 70–80 små kraftverk runt Skellefteå. Här stämmer du två toner med händerna. När de stämmer slutar glödlampan flimra och rummet svarar.",
+   "bridge": "Musiken från Urtiden styr också en film."
+  },
+  {
+   "kind": "inst",
+   "target": "dokumentaren",
+   "mode": "helt",
+   "title": "Dokumentärväggen",
+   "text": "Arkivfilm om Skellefteås industriella sekel: gruvor, kraftverk och smältverk. En kamera ser alla i rummet och gör dem till rutor av arkivbilder i filmen, i takt med musiken.",
+   "bridge": "Från filmens gruvor till den riktiga."
+  },
+  {
+   "kind": "inst",
+   "target": "boliden",
+   "mode": "helt",
+   "title": "Bolidenväggen",
+   "text": "Kopparplåtar och sex tittskåp med små pappersscener ur Bolidens historia. Metallerna från berget i Urtiden blir här till en industri.",
+   "bridge": "En annan Skelleftebo drömde om en hiss till himlen."
+  },
+  {
+   "kind": "inst",
+   "target": "alimak",
+   "mode": "kort",
+   "title": "Alimak",
+   "text": "Alvar Lindmark grundade Alimak i Skellefteå 1948 och drömde om en hiss till Gud. Gå nära hissen, så frågar en röst: ”Alvar, is that you?”",
+   "bridge": "Hur ser staden ut om hundra år?"
+  },
+  {
+   "kind": "inst",
+   "target": "hallmans-karta",
+   "mode": "kort",
+   "title": "Hallmans karta",
+   "text": "Per Olof Hallmans stadsplan från 1905. Där han ritade en monumental byggnad står i dag Sara kulturhus. Kartan frågar vad du drömmer om för Skellefteå om hundra år.",
+   "bridge": "Från drömmarna om staden till det folk säger i dag."
+  },
+  {
+   "kind": "room",
+   "room": 3,
+   "title": "Rum 3 · Nutiden",
+   "text": "Samhällets energi. Det vitaste rummet, fyllt av röster: vad Skellefteborna tyckte 2013, vad de tycker i dag och vad de oroar sig för."
+  },
+  {
+   "kind": "inst",
+   "target": "dialogen",
+   "mode": "helt",
+   "title": "Dialogen",
+   "text": "Med örat mot väggen hör du svar från 2013. Sedan svarar du själv på samma fråga i ett av tio färgade rör. Godkända svar spelas upp för nästa besökare.",
+   "bridge": "En stor del av det som hände sedan dess hette Northvolt."
+  },
+  {
+   "kind": "inst",
+   "target": "northvolt-tidslinjen",
+   "mode": "kort",
+   "title": "Northvolt",
+   "text": "En tidslinje 2019–2024: batterifabriken kom, växte och föll. Den visar hur snabbt en stad kan förändras, åt båda hållen.",
+   "bridge": "Alla trodde inte på det."
+  },
+  {
+   "kind": "inst",
+   "target": "tvivlarnas-kulle",
+   "mode": "kort",
+   "title": "Tvivlarnas kulle",
+   "text": "En kulle som den där pensionärer stod och tittade på bygget. Den frågar om vi kan ge plats åt dem som inte tror på oss.",
+   "bridge": "Vad vill du säga till framtiden?"
+  },
+  {
+   "kind": "inst",
+   "target": "framtidsbaset",
+   "mode": "kort",
+   "title": "Framtidsbåset",
+   "text": "Bakom en röd ridå spelar du in vad samhället ska börja med, sluta med eller fortsätta med. Klippet visas i nästa rum, alltså bokstavligen i framtiden.",
+   "bridge": "Vägen dit går genom oron och drömmarna."
+  },
+  {
+   "kind": "inst",
+   "target": "orostunneln",
+   "mode": "kort",
+   "title": "Oro eller drömmar",
+   "text": "Ungdomar har illustrerat tunneln: på ena sidan deras oro, på den andra deras drömmar. Den är tröskeln till Framtiden.",
+   "bridge": "Välkommen till Framtiden."
+  },
+  {
+   "kind": "room",
+   "room": 4,
+   "title": "Rum 4 · Framtiden",
+   "text": "Framtidens energi. Fem stationer, var och en med en kub i sin färg. Nästan allt du sätter igång skickar en ljuspuls till stationens kub, vidare till molnet i taket och till växthuset i mitten."
+  },
+  {
+   "kind": "inst",
+   "target": "sag-ja",
+   "mode": "kort",
+   "title": "Säg ja!",
+   "text": "Kan vi göra samhället bättre? Varje JA spelar nästa ton i psalmen Den blomstertid nu kommer. Det är den mest tryckta saken i utställningen.",
+   "bridge": "Nästa station handlar om klimat och miljö."
+  },
+  {
+   "kind": "inst",
+   "target": "rutschkanan",
+   "mode": "helt",
+   "title": "Rutschkanan",
+   "text": "Barnet som åker är spillvärmen från Bolidens Rönnskär, på väg in i fjärrvärmen genom ledningen EcoLink. Åk ner, så följer ljuset dig till klimatkuben och molnet.",
+   "bridge": "Rutschkanan hör till klimatstationen."
+  },
+  {
+   "kind": "station",
+   "target": "klimat",
+   "title": "Klimat & miljö",
+   "text": "Blå kub. Energi och material som blir renare: spillvärme som värmer hus, skrot som blir metall igen i Återvinningen, och flygbränsle av koldioxid i SkyKraft, där man blåser på en jetmotor.",
+   "bridge": "Fyra stationer till."
+  },
+  {
+   "kind": "station",
+   "target": "kompetens",
+   "title": "Kompetens",
+   "text": "Gul kub. Människorna omställningen behöver: utbildning, forskning och de som flyttar hit. Här står ACE, Sokrates frågevägg och Kompetenstältet."
+  },
+  {
+   "kind": "station",
+   "target": "bostader",
+   "title": "Bostäder",
+   "text": "Röd kub. Hur en stad som växer snabbt kan bygga hem som går att ändra, flytta och återbruka. Vrid huset, så vrider sig byggnaden på skärmen."
+  },
+  {
+   "kind": "station",
+   "target": "rorlighet",
+   "title": "Rörlighet",
+   "text": "Grön kub. Hamnen, flygplatsen och den nya järnvägen. Trampa tandemcykeln, så rör sig spelet om Skellefteåtriangeln i din takt."
+  },
+  {
+   "kind": "station",
+   "target": "social",
+   "title": "Social hållbarhet",
+   "text": "Rosa kub. Att alla ska få plats: nya och gamla Skelleftebor, unga och kvinnor. Snurra lådorna, så byter hörnet färg och en lampa tonar upp.",
+   "bridge": "Alla stationer leder hit."
+  },
+  {
+   "kind": "inst",
+   "target": "vaxthuset",
+   "mode": "helt",
+   "title": "Växthuset",
+   "text": "Här samlas energin. Två sekunder efter en händelse blinkar molnet och växthuset, och det åskar. Ja-knappen blinkar molnet utan åska. Kommer tre åskor på en gång svarar växthuset med ett eget ljud.",
+   "bridge": "Vid utgången får du något att ta med dig."
+  },
+  {
+   "kind": "inst",
+   "target": "frona",
+   "mode": "kort",
+   "title": "Fröna",
+   "text": "Fröpåsar vid utgången, så länge de räcker. Energin följer med dig hem."
+  },
+  {
+   "kind": "end",
+   "title": "Utforska vidare",
+   "text": "Nu har du gått hela utställningen. I Utforska kan du gå tillbaka till vad du vill, prova installationerna och följa signalen från sensor till ljus. Här är några du inte har stannat vid på turen."
+  }
+ ]
+}

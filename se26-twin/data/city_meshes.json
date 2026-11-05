@@ -1,0 +1,36 @@
+{
+ "about": "Place the real building meshes (data/meshes/) in the city view: writes data/city_meshes.json.",
+ "items": [
+  {
+   "mesh": "sara",
+   "x": 617.71,
+   "z": -395.09,
+   "ry": -1.5747,
+   "hide": [
+    443
+   ],
+   "label": "Sara kulturhus",
+   "sub": "tornet enligt laserskanningen 2025",
+   "h": 80.59
+  },
+  {
+   "mesh": "ace_hus",
+   "x": 758.48,
+   "z": 306.96,
+   "ry": 0.0784,
+   "label": "ACE Powerhouse",
+   "sub": "Arctic Center of Energy",
+   "h": 44.35
+  },
+  {
+   "mesh": "resecentrum",
+   "x": 588.6,
+   "z": -477.1,
+   "ry": -0.122,
+   "ghost": true,
+   "label": "Resecentrum",
+   "sub": "planerat · tåg 2036",
+   "h": 14.7
+  }
+ ]
+}
