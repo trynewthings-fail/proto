@@ -25,7 +25,7 @@ jobs:
       - name: Bygg appen
         env:
           BUILD_NUMBER: ${{ github.run_number }}
-        run: ./build-app.sh
+        run: bash build-app.sh
 
       - name: Ladda upp appen
         uses: actions/upload-artifact@v4
