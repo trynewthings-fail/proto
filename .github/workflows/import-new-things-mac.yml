@@ -1,0 +1,36 @@
+name: Import New Things – bygg Mac-appen
+
+on:
+  push:
+    paths:
+      - 'import-new-things/**'
+      - '.github/workflows/import-new-things-mac.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: import-new-things
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Visa Swift-version
+        run: swift --version
+
+      - name: Bygg appen
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: ./build-app.sh
+
+      - name: Ladda upp appen
+        uses: actions/upload-artifact@v4
+        with:
+          name: Import-New-Things-mac
+          path: import-new-things/dist/Import-New-Things.zip
+          retention-days: 30
+          if-no-files-found: error
