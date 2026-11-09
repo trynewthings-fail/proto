@@ -1,7 +1,7 @@
 {
   "title": "LED controller enclosure",
   "summary": "A screw-together PETG case for an 8-output LED controller board: rounded base with 16 collared panel-connector holes on a recessed front panel, an Ethernet slot, antenna and power holes, diamond vents and gusseted mounting ears, and a lid with a honeycomb vent field.",
-  "status": "printing",
+  "status": "done",
   "date": "2026-11-03",
   "material": "PETG",
   "notes": "Modelled in the LED controller project (dig_octa_case.py); this desk only slices and prints. Both parts print as designed, flat side on the bed, no supports. PETG (the case sits next to a 300 W power supply), 0.2 mm layers, 4 walls (M3 screws self-tap into 2.6 mm holes), 20 % gyroid infill. A test strip settled the connector holes at 15.0 mm; each has a 5.5 mm collar inside the front wall, so the connector bodies are held over 7.9 mm and don't wobble. Base: rounded corners, a 1.2 mm chamfer on the bed edge, diamond vents (45° edges), accent grooves, a 16 mm power-cable hole, and 5 mm mounting ears with two 45° gussets each, solid into the wall; 11 h 26 min and 303 g on Gås, 5 mm brim, 226.8 mm wide (10 mm from both bed edges). Lid: honeycomb vents, countersunk corner screws opening on the bed face, rounded and chamfered to match; printed on TNT at 255 °C with flow capped at 8 mm³/s for its weak hot end, 4 h 0 min and 80 g.",
