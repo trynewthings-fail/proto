@@ -1,0 +1,329 @@
+{
+  "title": "Projector air filter lid (v0 estimate)",
+  "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector, with slot vents over the stepped two-panel filter, a rib that presses the filter frame onto its seat, and a test ring to check the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
+  "status": "preview",
+  "date": "2026-11-09",
+  "material": "PETG",
+  "notes": "NOT READY TO PRINT. The outline, depths, hinge and catch positions are estimated from a listing photo scaled by the projector's published size (about +- 5 %). Filter: ELPAF40 / V13H134A40, a stepped two-panel frame listed by one retailer as 101 x 175 x 18 mm. The photo suggests the bay is nearer 190 mm wide, so that figure needs checking too. The lid hinges along its straight edge and is held at the free edge by a sliding latch on the original; here a flexing beam replaces the latch, and the two hinge hooks are placeholders until the body's hinge prongs have been seen close up. The vents open 7,296 mm2, 78 % of the filter media face. Bars are 1.4 mm. The lid need not be airtight: the filter frame seals against the bay, so the rib's job is to keep the frame seated. The focus lever is inside this bay, so the lid has to be easy to open. PETG, 0.2 mm layers, 4 walls, 20 % gyroid, outer face on the textured plate, no supports. The intake side sees room air, so PLA would survive the airflow; PETG is for heat soak after shutdown and for the latch beam, which PLA would slowly creep under load. Test ring: 53 min, 20 g. Lid: 1 h 52 min, 51 g. Both are 226.8 mm wide, 13 mm from each bed edge.",
+  "view": {
+    "rotate": [
+      0,
+      0,
+      0
+    ]
+  },
+  "parts": [
+    {
+      "name": "Lid",
+      "file": "part1.stl",
+      "color": "#d8d6cf",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "PETG"
+    },
+    {
+      "name": "Test ring",
+      "file": "part2.stl",
+      "color": "#e0a030",
+      "explode": [
+        0,
+        0,
+        40
+      ],
+      "material": "PETG"
+    }
+  ],
+  "plates": [
+    {
+      "name": "Test ring",
+      "contents": "edge ring with hinge hooks and catch beam, to check the outline first (53 min, 20 g)",
+      "minutes": 52.5,
+      "grams": 20.34,
+      "toolpath": 0
+    },
+    {
+      "name": "Lid",
+      "contents": "full lid, outer face down (1 h 52 min, 51 g)",
+      "minutes": 111.9,
+      "grams": 50.81,
+      "toolpath": 1
+    }
+  ],
+  "toolpaths": [
+    {
+      "name": "Test ring",
+      "file": "toolpath1.bin.gz",
+      "layers": 63,
+      "points": 38877,
+      "minutes": 52.5,
+      "grams": 20.34,
+      "filament_m": 6.61,
+      "layer_minutes": [
+        0.0,
+        7.0,
+        10.0,
+        13.0,
+        16.0,
+        20.0,
+        23.0,
+        26.0,
+        29.0,
+        32.0,
+        35.0,
+        39.0,
+        43.0,
+        43.0,
+        43.0,
+        44.0,
+        44.0,
+        44.0,
+        44.0,
+        45.0,
+        45.0,
+        45.0,
+        45.0,
+        45.0,
+        46.0,
+        46.0,
+        46.0,
+        46.0,
+        47.0,
+        47.0,
+        47.0,
+        47.0,
+        47.0,
+        48.0,
+        48.0,
+        48.0,
+        48.0,
+        49.0,
+        49.0,
+        49.0,
+        49.0,
+        49.0,
+        49.0,
+        49.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        51.0,
+        51.0,
+        51.0,
+        51.0,
+        51.0,
+        52.0,
+        52.0,
+        52.0,
+        52.0,
+        52.0
+      ],
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0064
+        },
+        {
+          "name": "Inner wall",
+          "grams": 5.31,
+          "share": 0.2672
+        },
+        {
+          "name": "Outer wall",
+          "grams": 1.87,
+          "share": 0.0939
+        },
+        {
+          "name": "Gap infill",
+          "grams": 0.06,
+          "share": 0.0031
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 0.88,
+          "share": 0.0441
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 10.19,
+          "share": 0.5126
+        },
+        {
+          "name": "Top surface",
+          "grams": 1.44,
+          "share": 0.0725
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.0,
+          "share": 0.0001
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 0.0,
+          "share": 0.0001
+        }
+      ],
+      "settings": {
+        "Filament": "PETG",
+        "Layer height": "0.2 mm",
+        "First layer": "0.2 mm",
+        "Walls": "4",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "20%",
+        "Infill pattern": "gyroid",
+        "Supports": "no",
+        "Brim": "none",
+        "Nozzle": "240 °C",
+        "Bed": "70 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    },
+    {
+      "name": "Lid",
+      "file": "toolpath2.bin.gz",
+      "layers": 63,
+      "points": 54686,
+      "minutes": 111.9,
+      "grams": 50.81,
+      "filament_m": 16.74,
+      "layer_minutes": [
+        0.0,
+        12.0,
+        19.0,
+        26.0,
+        34.0,
+        41.0,
+        48.0,
+        55.0,
+        63.0,
+        70.0,
+        77.0,
+        84.0,
+        97.0,
+        97.0,
+        97.0,
+        98.0,
+        98.0,
+        99.0,
+        99.0,
+        100.0,
+        100.0,
+        101.0,
+        101.0,
+        101.0,
+        102.0,
+        102.0,
+        103.0,
+        103.0,
+        104.0,
+        104.0,
+        105.0,
+        105.0,
+        106.0,
+        107.0,
+        107.0,
+        107.0,
+        107.0,
+        108.0,
+        108.0,
+        108.0,
+        108.0,
+        108.0,
+        108.0,
+        108.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        109.0,
+        110.0,
+        110.0,
+        110.0,
+        110.0,
+        110.0,
+        111.0,
+        111.0,
+        111.0,
+        111.0,
+        111.0
+      ],
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0025
+        },
+        {
+          "name": "Inner wall",
+          "grams": 6.64,
+          "share": 0.132
+        },
+        {
+          "name": "Outer wall",
+          "grams": 6.75,
+          "share": 0.134
+        },
+        {
+          "name": "Gap infill",
+          "grams": 2.4,
+          "share": 0.0476
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 2.7,
+          "share": 0.0537
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 28.31,
+          "share": 0.5624
+        },
+        {
+          "name": "Top surface",
+          "grams": 3.41,
+          "share": 0.0676
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.0,
+          "share": 0.0
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 0.0,
+          "share": 0.0
+        }
+      ],
+      "settings": {
+        "Filament": "PETG",
+        "Layer height": "0.2 mm",
+        "First layer": "0.2 mm",
+        "Walls": "4",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "20%",
+        "Infill pattern": "gyroid",
+        "Supports": "no",
+        "Brim": "none",
+        "Nozzle": "240 °C",
+        "Bed": "70 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    }
+  ]
+}

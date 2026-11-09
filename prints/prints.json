@@ -61,6 +61,16 @@
       "plates": 2
     },
     {
+      "slug": "projector-filter-lid",
+      "title": "Projector air filter lid (v0 estimate)",
+      "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector, with slot vents over the stepped two-panel filter, a rib that presses the filter frame onto its seat, and a test ring to check the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
+      "status": "preview",
+      "date": "2026-11-09",
+      "material": "PETG",
+      "timelapse": false,
+      "plates": 2
+    },
+    {
       "slug": "sun-mask",
       "title": "Sun mask with glued-on rays",
       "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
