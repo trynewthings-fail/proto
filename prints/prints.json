@@ -51,6 +51,16 @@
       "plates": 1
     },
     {
+      "slug": "kinect-handheld-rig",
+      "title": "Hand-held rig for two depth cameras",
+      "summary": "A two-handed rig with a passive two-axis gimbal on 608 bearings for two stacked Azure Kinect DK depth cameras, one fanned up and one down, for recording and streaming RGB and depth on the move.",
+      "status": "preview",
+      "date": "2026-11-24",
+      "material": "PLA-CF (black structure) and PLA (orange moving parts, knobs, phone mount)",
+      "timelapse": false,
+      "plates": 5
+    },
+    {
       "slug": "led-controller-enclosure",
       "title": "LED controller enclosure",
       "summary": "A screw-together PETG case for an 8-output LED controller board: rounded base with 16 collared panel-connector holes on a recessed front panel, an Ethernet slot, antenna and power holes, diamond vents and gusseted mounting ears, and a lid with a honeycomb vent field.",
