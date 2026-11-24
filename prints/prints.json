@@ -57,7 +57,7 @@
       "status": "printing",
       "date": "2026-11-24",
       "material": "PLA-CF (black structure) and PLA (orange moving parts, knobs, phone mount)",
-      "timelapse": false,
+      "timelapse": true,
       "plates": 5
     },
     {

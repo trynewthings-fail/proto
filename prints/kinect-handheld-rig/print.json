@@ -4,7 +4,7 @@
   "status": "printing",
   "date": "2026-11-24",
   "material": "PLA-CF (black structure) and PLA (orange moving parts, knobs, phone mount)",
-  "notes": "Own project. Print the fit-test plate first: it decides the 608 bearing pockets, the heat-set insert holes (M3-M8 and 1/4\"-20), the Kinect screw positions, the cold shoe and the GoPro fingers before anything else. Plates on Gås: Fit test: 2.8 h, 67 g (PLA-CF, day, ~3 h); Black 1: cheeks + small parts: 4.8 h, 118 g (PLA-CF, day); Black 2: handle arms: 5.3 h, 134 g (PLA-CF, day); Black 3: hub, wedge, grips: 13.8 h, 342 g (PLA-CF, night); Orange: gimbal, skid, phone mount, knobs: 9.6 h, 240 g (PLA, night). Total 36.3 h, 901 g. All functional parts 30 % gyroid, 5 walls, 0.16 mm layers; supports build-plate only (none get generated) with designed bridges left unsupported. Poke out the 0.3 mm membranes in the counterbores and cut the one in the hub's rear bearing seat before assembly. Black 3 runs 13.7 h: reboot Gås before it. Checked against 20 automatic targets (18 pass, weight 27 g over 2.0 kg accepted, and the 120-degree wide depth view clips a grip only when aimed 45 degrees down with the handles rolled): field of view, cooling, plug room, gimbal sweep, bed fit, supports, balance, weight, grip ergonomics, stresses.",
+  "notes": "Own project. Print the fit-test plate first: it decides the 608 bearing pockets, the heat-set insert holes (M3-M8 and 1/4\"-20), the Kinect screw positions, the cold shoe and the GoPro fingers before anything else. Plates on Gås: Fit test: 2.8 h, 67 g (PLA-CF, day, ~3 h); Black 1: cheeks + small parts: 4.8 h, 118 g (PLA-CF, day); Black 2: handle arms: 5.3 h, 134 g (PLA-CF, day); Black 3: hub, wedge, grips: 13.8 h, 342 g (PLA-CF, night); Orange: gimbal, skid, phone mount, knobs: 9.6 h, 240 g (PLA, night). Total 36.3 h, 901 g. All functional parts 30 % gyroid, 5 walls, 0.16 mm layers; supports build-plate only (none get generated) with designed bridges left unsupported. Poke out the 0.3 mm membranes in the counterbores and cut the one in the hub's rear bearing seat before assembly. Black 3 runs 13.7 h: reboot Gås before it. Checked against 20 automatic targets (18 pass, weight 27 g over 2.0 kg accepted, and the 120-degree wide depth view clips a grip only when aimed 45 degrees down with the handles rolled): field of view, cooling, plug room, gimbal sweep, bed fit, supports, balance, weight, grip ergonomics, stresses. Fit test 2026-11-24 on Gås: stopped by Lukas at layer 58/197 to save time (9.3 of the 10 mm base printed; GoPro prongs and the top 0.7 mm missing, cold-shoe lips partial). Not finished and not yet test-fitted, so its fits are untested; the bearing pockets, insert holes and Kinect holes are formed, 0.7 mm shallower.",
   "view": {
     "rotate": [
       -90,
@@ -2500,5 +2500,6 @@
         "Outer wall speed": "160 mm/s"
       }
     }
-  ]
+  ],
+  "timelapse": "timelapse.mp4"
 }
