@@ -1,3 +1,11 @@
 {
- "prints": []
+ "prints": [
+  {
+   "slug": "kinect-handheld-rig",
+   "plate": 1,
+   "printer": "G\u00e5s",
+   "started": "2026-11-24T13:34:52+00:00",
+   "minutes": 213.3
+  }
+ ]
 }
