@@ -61,6 +61,16 @@
       "plates": 5
     },
     {
+      "slug": "kinect-wide-rig",
+      "title": "Wide-baseline rig for two depth cameras",
+      "summary": "Two Azure Kinect DK depth cameras on their sides at the ends of a 1 m aluminium tube, toed in on one person for a fuller point cloud, worn on backpack straps with a chest rest and two grips.",
+      "status": "preview",
+      "date": "2026-11-24",
+      "material": "PLA-CF (black structure) and PLA (orange pad, clips, phone mount, knobs); 25x25x1.5 aluminium tube",
+      "timelapse": false,
+      "plates": 5
+    },
+    {
       "slug": "led-controller-enclosure",
       "title": "LED controller enclosure",
       "summary": "A screw-together PETG case for an 8-output LED controller board: rounded base with 16 collared panel-connector holes on a recessed front panel, an Ethernet slot, antenna and power holes, diamond vents and gusseted mounting ears, and a lid with a honeycomb vent field.",
