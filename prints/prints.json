@@ -64,7 +64,7 @@
       "slug": "kinect-handheld-rig-printed",
       "title": "Hand-held depth-camera rig, printed-fastener version",
       "summary": "The two-Kinect gimbal rig rebuilt from what is on the shelf: every bolt, nut, axle, dowel and thumbscrew is printed; only the 608 bearings and brass heat-set inserts are bought-in parts already owned.",
-      "status": "preview",
+      "status": "printing",
       "date": "2026-11-24",
       "material": "PLA-CF (black frame), orange PLA (gimbal, knobs), grey PLA (printed hardware), TPU (straps, feet)",
       "timelapse": false,
