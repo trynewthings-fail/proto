@@ -61,6 +61,16 @@
       "plates": 5
     },
     {
+      "slug": "kinect-handheld-rig-printed",
+      "title": "Hand-held depth-camera rig, printed-fastener version",
+      "summary": "The two-Kinect gimbal rig rebuilt from what is on the shelf: every bolt, nut, axle, dowel and thumbscrew is printed; only the 608 bearings and brass heat-set inserts are bought-in parts already owned.",
+      "status": "preview",
+      "date": "2026-11-24",
+      "material": "PLA-CF (black frame), orange PLA (gimbal, knobs), grey PLA (printed hardware), TPU (straps, feet)",
+      "timelapse": false,
+      "plates": 9
+    },
+    {
       "slug": "kinect-wide-rig",
       "title": "Wide-baseline rig for two depth cameras",
       "summary": "Two Azure Kinect DK depth cameras on their sides at the ends of a 1 m aluminium tube, toed in on one person for a fuller point cloud, worn on backpack straps with a chest rest and two grips.",
