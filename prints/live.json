@@ -2,13 +2,6 @@
  "prints": [
   {
    "slug": "kinect-handheld-rig-printed",
-   "plate": 4,
-   "printer": "TNT",
-   "started": "2026-11-25T13:35:15+00:00",
-   "minutes": 344.4
-  },
-  {
-   "slug": "kinect-handheld-rig-printed",
    "plate": 5,
    "printer": "G\u00e5s",
    "started": "2026-11-25T14:25:50+00:00",
