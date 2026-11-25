@@ -93,7 +93,7 @@
     {
       "slug": "projector-filter-lid",
       "title": "Projector air filter lid (v0 estimate)",
-      "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector, with slot vents over the stepped two-panel filter, a rib that presses the filter frame onto its seat, and a test ring to check the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
+      "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector. It takes a cut sheet of G3/G4 ventilation filter mat instead of the original filter: slot vents over the media, and a clamp ring that presses the sheet's edge onto the filter seat. A test ring checks the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
       "status": "preview",
       "date": "2026-11-09",
       "material": "PETG",
