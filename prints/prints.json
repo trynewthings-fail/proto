@@ -22,11 +22,11 @@
     },
     {
       "slug": "go-ultra-cold-shoe",
-      "title": "Insta360 GO Ultra latch mount with TPU cage",
-      "summary": "An all-purpose mount for the GO Ultra in its Action Pod: two printed hooks click into the pod's own latch slots (like Insta360's mount), a TPU cage glued to the base is a second hold in every direction and a bumper, and GoPro-standard prongs underneath take helmet, chest and bike mounts or the cold-shoe adapter.",
+      "title": "Insta360 GO Ultra mount: latch base, hinged cage, GoPro prongs and cold shoe",
+      "summary": "An all-purpose mount for the GO Ultra in its Action Pod: two printed hooks click into the pod's own latch slots, a rigid cage with a hinged top bar holds it in every direction and keeps the flip screen and every control free, GoPro-standard prongs underneath take helmet, chest and bike mounts, and a cold-shoe adapter puts it on a camera or a rig.",
       "status": "preview",
       "date": "2026-11-26",
-      "material": "PLA now (PETG later for cold/impact action use): base, prongs, mount hardware on TNT. TPU 95A: cage and sponge on Gås. Bought: one M5 x 25-30 hex bolt + M5 nut.",
+      "material": "PLA test print on TNT (PETG later for action use); TPU 95A fin pads on Gås. Bought: M5 x 25-30 hex bolt + M5 nut; 1.75 mm filament for pins.",
       "timelapse": false,
       "plates": 3
     },
