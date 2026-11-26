@@ -21,6 +21,16 @@
       "plates": 1
     },
     {
+      "slug": "go-ultra-cold-shoe",
+      "title": "Cold-shoe mount with GoPro prongs for the Insta360 GO Ultra",
+      "summary": "Slides into any cold or hot shoe (camera, rig, light stand) and takes the GO Ultra's Quick Release Mount on three GoPro-style prongs. A knurled wheel clamps it in the shoe; the head faces forward, sideways or back.",
+      "status": "preview",
+      "date": "2026-11-26",
+      "material": "PLA (printed hardware settings: 0.12 mm layers, 6 walls, 60 % gyroid)",
+      "timelapse": false,
+      "plates": 1
+    },
+    {
       "slug": "halloween-skeleton",
       "title": "Ram skull headpiece and skeleton pieces",
       "summary": "A ram skull with sweeping horns that sits on the head, a 21-piece spine, 8 arm pieces and 6 ribs, in white PLA over four plates.",
