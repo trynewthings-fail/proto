@@ -22,13 +22,13 @@
     },
     {
       "slug": "go-ultra-cold-shoe",
-      "title": "Cold-shoe mount with GoPro prongs (for the Insta360 GO Ultra in a printed frame)",
-      "summary": "Slides into any cold or hot shoe (camera, rig, light stand) and ends in three GoPro-style prongs. The GO Ultra in its Action Pod goes in a printed protective frame with two prongs, so the flip screen stays usable. A knurled wheel clamps the foot in the shoe.",
+      "title": "Insta360 GO Ultra frame with a cold-shoe mount",
+      "summary": "A TPU band that stretches over the GO Ultra in its Action Pod, a PLA sled with GoPro-style prongs inside it, and a cold-shoe foot with a lock wheel and a 3-prong head. Fits the Nikon, the rig's cold shoes or any shoe; the flip screen, buttons and USB-C stay free.",
       "status": "preview",
       "date": "2026-11-26",
-      "material": "PLA (printed hardware settings: 0.12 mm layers, 6 walls, 60 % gyroid)",
+      "material": "TPU (band, Gås) + PLA (sled and hardware, TNT, 0.12 mm, 6 walls, 60 % gyroid)",
       "timelapse": false,
-      "plates": 1
+      "plates": 2
     },
     {
       "slug": "halloween-skeleton",
