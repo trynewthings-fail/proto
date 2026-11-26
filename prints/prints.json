@@ -22,13 +22,13 @@
     },
     {
       "slug": "go-ultra-cold-shoe",
-      "title": "Insta360 GO Ultra latch mount on a cold shoe",
-      "summary": "A printed version of the official Quick Release Mount's principle: two hooks click into the latch slots under the GO Ultra's Action Pod, release buttons at both ends, GoPro prongs underneath, on a cold-shoe foot with a lock wheel. Nothing touches the screen, buttons, ports or lens.",
+      "title": "Insta360 GO Ultra latch mount with TPU cage",
+      "summary": "An all-purpose mount for the GO Ultra in its Action Pod: two printed hooks click into the pod's own latch slots (like Insta360's mount), a TPU cage glued to the base is a second hold in every direction and a bumper, and GoPro-standard prongs underneath take helmet, chest and bike mounts or the cold-shoe adapter.",
       "status": "preview",
       "date": "2026-11-26",
-      "material": "PLA (base, prongs, mount hardware: TNT, 0.12 mm, 6 walls, 60 % gyroid) + TPU 95A (sponge pad: Gås)",
+      "material": "PLA now (PETG later for cold/impact action use): base, prongs, mount hardware on TNT. TPU 95A: cage and sponge on Gås. Bought: one M5 x 25-30 hex bolt + M5 nut.",
       "timelapse": false,
-      "plates": 2
+      "plates": 3
     },
     {
       "slug": "halloween-skeleton",
