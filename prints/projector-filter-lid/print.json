@@ -1,10 +1,10 @@
 {
   "title": "Projector air filter lid (v0 estimate)",
-  "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector. It takes a cut sheet of G3/G4 ventilation filter mat instead of the original filter: slot vents over the media, and a clamp ring that presses the sheet's edge onto the filter seat. A test ring checks the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
+  "summary": "A printable replacement for a missing air-filter lid on an ultra-short-throw projector. It holds two pieces cut from a 142 mm foam pad for fresh-air vents instead of the original filter: slot vents over the foam, and a clamp ring plus a seam rib that press the foam's edges onto the filter seat. A test ring checks the fit first. Shape study: dimensions are estimated from a photo and must be measured before printing.",
   "status": "preview",
-  "date": "2026-11-09",
+  "date": "2026-11-26",
   "material": "PETG",
-  "notes": "NOT READY TO PRINT. The outline, depths, hinge and catch positions are estimated from a listing photo scaled by the projector's published size (Epson's drawings confirm the scale to about 6 %, which is still too loose to print from). Filter: a sheet of G4 (or G3) ventilation filter mat, cut with the 1:1 template (media_template.svg in the job folder, about 177 x 103 mm), laid in the stepped pocket where the original ELPAF40 frame sits. A 2.4 mm wide, 18.6 mm tall clamp ring on the lid presses the sheet's edge down to about 3 mm onto the seat ledge all round, so no air gets past the media. The fan pulls the rest of the sheet onto the bay grid. Don't use anything denser than G4: HEPA, vacuum-bag fabric or coffee filters restrict airflow and make the lamp run hot. G3 lets more fine dust through than Epson's pleated filter, so G4 is better for the LCD panels. The lid hinges along its straight edge and is held at the free edge by a sliding latch on the original. Here a flexing beam replaces the latch, and the two hinge hooks are placeholders until the body's hinge prongs have been seen close up. The vents open 7,296 mm2, 78 % of the media face, with 1.4 mm bars. The focus lever is inside this bay, so the lid has to be easy to open. PETG, 0.2 mm layers, 4 walls, 20 % gyroid, outer face on the textured plate, no supports. The intake side sees room air, so PLA would survive the airflow; PETG is for heat soak after shutdown and for the latch beam, which PLA would slowly creep under load. Test ring: 53 min, 20 g. Lid: 2 h 30 min, 75 g. Both are 226.8 mm wide, 13 mm from each bed edge.",
+  "notes": "NOT READY TO PRINT. The outline, depths, hinge and catch positions are estimated from a listing photo scaled by the projector's published size (Epson's drawings confirm the scale to about 6 %, which is still too loose to print from). Filter: a Flexit 100FF pad (142 x 142 x 10 mm polyurethane foam, ePM coarse, sold in 4-packs). The stepped pocket is about 177 x 103 mm, wider than one pad, so it takes two pieces cut from one pad (92.5 x 78.5 and 86.9 x 62.4 mm, 1 mm oversize per side; media_template_flexit.svg in the job folder, print at 100 % and check the 100 mm bar). A 2.4 mm clamp ring (16.6 mm tall) presses the foam's edge down to 5 mm onto the seat all round, and a 2.4 mm seam rib holds the joint between the two pieces, so no air gets past the media. The model also has a one-piece fleece option (a 160 mm wide, 6 mm fleece roll or G3/G4 mat, squeezed to 3 mm, template media_template_fleece.svg): one setting in make_lid.py. Coarse foam filters about like G3 mat, less fine dust than Epson's pleated filter, with no airflow penalty. Don't use vacuum-bag fabric, paper, HEPA or coffee filters: they restrict a projector fan's airflow and make it run hot. The lid hinges along its straight edge and is held at the free edge by a sliding latch on the original. Here a flexing beam replaces the latch, and the two hinge hooks are placeholders until the body's hinge prongs have been seen close up. The vents open 7,296 mm2, 78 % of the media face, with 1.4 mm bars. The focus lever is inside this bay, so the lid has to be easy to open. PETG, 0.2 mm layers, 4 walls, 20 % gyroid, outer face on the textured plate, no supports. The intake side sees room air, so PLA would survive the airflow; PETG is for heat soak after shutdown and for the latch beam, which PLA would slowly creep under load. Test ring: 53 min, 20 g. Lid: 2 h 29 min, 73 g. Both are 226.8 mm wide, 13 mm from each bed edge.",
   "view": {
     "rotate": [
       0,
@@ -46,9 +46,9 @@
     },
     {
       "name": "Lid",
-      "contents": "full lid with clamp ring, outer face down (2 h 30 min, 75 g)",
-      "minutes": 150.3,
-      "grams": 74.96,
+      "contents": "full lid with clamp ring and seam rib, outer face down (2 h 29 min, 73 g)",
+      "minutes": 148.7,
+      "grams": 73.3,
       "toolpath": 1
     }
   ],
@@ -192,26 +192,26 @@
     {
       "name": "Lid",
       "file": "toolpath2.bin.gz",
-      "layers": 105,
-      "points": 59639,
-      "minutes": 150.3,
-      "grams": 74.96,
-      "filament_m": 24.78,
+      "layers": 95,
+      "points": 60882,
+      "minutes": 148.7,
+      "grams": 73.3,
+      "filament_m": 24.22,
       "layer_minutes": [
         0.0,
-        13.0,
-        20.0,
+        12.0,
+        19.0,
         27.0,
         34.0,
-        42.0,
-        49.0,
+        41.0,
+        48.0,
         56.0,
         63.0,
         70.0,
-        78.0,
+        77.0,
         85.0,
         97.0,
-        98.0,
+        97.0,
         98.0,
         99.0,
         99.0,
@@ -222,12 +222,11 @@
         103.0,
         103.0,
         104.0,
-        104.0,
+        105.0,
         105.0,
         106.0,
-        106.0,
         107.0,
-        108.0,
+        107.0,
         108.0,
         109.0,
         109.0,
@@ -241,7 +240,6 @@
         115.0,
         115.0,
         116.0,
-        116.0,
         117.0,
         117.0,
         118.0,
@@ -254,24 +252,22 @@
         122.0,
         122.0,
         123.0,
-        123.0,
         124.0,
         124.0,
         125.0,
-        126.0,
+        125.0,
         126.0,
         127.0,
         127.0,
         128.0,
         128.0,
-        129.0,
         129.0,
         130.0,
         130.0,
         131.0,
         131.0,
         132.0,
-        133.0,
+        132.0,
         133.0,
         134.0,
         134.0,
@@ -280,65 +276,59 @@
         136.0,
         136.0,
         137.0,
-        137.0,
         138.0,
         138.0,
         139.0,
         139.0,
         140.0,
         140.0,
-        141.0,
         141.0,
         142.0,
         142.0,
         143.0,
+        143.0,
         144.0,
         144.0,
         145.0,
-        145.0,
         146.0,
         146.0,
-        147.0,
-        147.0,
-        148.0,
-        148.0,
-        149.0
+        147.0
       ],
       "features": [
         {
           "name": "Custom",
           "grams": 0.13,
-          "share": 0.0017
+          "share": 0.0018
         },
         {
           "name": "Inner wall",
-          "grams": 23.81,
-          "share": 0.3197
+          "grams": 22.7,
+          "share": 0.3117
         },
         {
           "name": "Outer wall",
-          "grams": 13.73,
-          "share": 0.1843
+          "grams": 13.18,
+          "share": 0.181
         },
         {
           "name": "Gap infill",
           "grams": 2.4,
-          "share": 0.0322
+          "share": 0.0329
         },
         {
           "name": "Bottom surface",
           "grams": 2.7,
-          "share": 0.0363
+          "share": 0.0371
         },
         {
           "name": "Internal solid infill",
           "grams": 28.31,
-          "share": 0.38
+          "share": 0.3887
         },
         {
           "name": "Top surface",
           "grams": 3.41,
-          "share": 0.0457
+          "share": 0.0468
         },
         {
           "name": "Overhang wall",
