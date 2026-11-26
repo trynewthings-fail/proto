@@ -22,11 +22,11 @@
     },
     {
       "slug": "go-ultra-cold-shoe",
-      "title": "Insta360 GO Ultra frame with a cold-shoe mount",
-      "summary": "A TPU band that stretches over the GO Ultra in its Action Pod, a PLA sled with GoPro-style prongs inside it, and a cold-shoe foot with a lock wheel and a 3-prong head. Fits the Nikon, the rig's cold shoes or any shoe; the flip screen, buttons and USB-C stay free.",
+      "title": "Insta360 GO Ultra latch mount on a cold shoe",
+      "summary": "A printed version of the official Quick Release Mount's principle: two hooks click into the latch slots under the GO Ultra's Action Pod, release buttons at both ends, GoPro prongs underneath, on a cold-shoe foot with a lock wheel. Nothing touches the screen, buttons, ports or lens.",
       "status": "preview",
       "date": "2026-11-26",
-      "material": "TPU (band, Gås) + PLA (sled and hardware, TNT, 0.12 mm, 6 walls, 60 % gyroid)",
+      "material": "PLA (base, prongs, mount hardware: TNT, 0.12 mm, 6 walls, 60 % gyroid) + TPU 95A (sponge pad: Gås)",
       "timelapse": false,
       "plates": 2
     },
