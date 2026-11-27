@@ -133,6 +133,17 @@
       "plates": 8
     },
     {
+      "slug": "smile-scale-lampshade",
+      "title": "Smile-scale pendant shade (test tile first)",
+      "summary": "A pendant shade for an E27 lampholder whose whole surface is the studio's logo continued as a pattern. Unlit it is a white body of overlapping scales; lit, every scale turns into a small tilted face, because the eyes and the smile are thicker wall on the inside only.",
+      "status": "preview",
+      "date": "2026-11-27",
+      "material": "PLA, white",
+      "timelapse": false,
+      "engineering": false,
+      "plates": 2
+    },
+    {
       "slug": "sun-mask",
       "title": "Sun mask with glued-on rays",
       "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
