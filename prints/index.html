@@ -123,9 +123,113 @@
   .live-box #tp-live { color: var(--muted); display: block; }
   .live-box button { margin-top: .4rem; }
   .sec-h { margin: 1rem 0 .1rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+  /* engineering view: the design review's self-checks, reviewer findings, weights and tests */
+  :root { --ok: #0ca30c; --near: #fab219; --bad: #d03b3b; --serious: #ec835a; --bought: #2f6fe8; }
+  @media (prefers-color-scheme: dark) { :root { --bought: #7aa5ff; } }
+  .panel.wide { width: auto; right: 12px; max-width: 72rem; margin-inline: auto; max-height: none; bottom: 12px; padding: 1.1rem 1.4rem 2rem; }
+  .panel.wide > h2 { padding-right: 6rem; }
+  .panel.wide .jnotes { display: none; }
+  .panel.wide ~ .hint { display: none; }
+  #sec-eng { margin-top: 1rem; }
+  #sec-eng h3 { margin: 2.2rem 0 .3rem; font-size: 1.05rem; letter-spacing: -.01em; }
+  #sec-eng h3 + p { margin-top: 0; }
+  #sec-eng p { max-width: 46rem; }
+  .eng-note { margin: .8rem 0 0; padding: .7rem .9rem; border: 1px solid var(--line); border-left: 3px solid var(--near); border-radius: 6px; font-size: .86rem; color: var(--fg); max-width: 46rem; }
+  .eng-note p { margin: 0; color: var(--fg) !important; }
+  .heads { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: .6rem; margin: 1rem 0 0; }
+  .heads div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .8rem; background: var(--card); }
+  .heads b { display: block; font-size: 1.5rem; font-weight: 640; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .heads span { font-size: .8rem; color: var(--muted); line-height: 1.3; display: block; }
+  .st { display: inline-grid; place-items: center; width: 1.15rem; height: 1.15rem; border-radius: 4px; font-size: .72rem; font-weight: 700; line-height: 1; color: #fff; vertical-align: middle; }
+  .st.PASS { background: var(--ok); } .st.NEAR { background: var(--near); color: #0b0b0b; } .st.FAIL { background: var(--bad); }
+  .st.none { background: none; color: var(--muted); font-weight: 400; }
+  .st.nd { background: repeating-linear-gradient(45deg, var(--line) 0 2px, transparent 2px 5px); }
+  .legend { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .8rem; color: var(--muted); margin: .4rem 0; align-items: center; }
+  .legend span { display: inline-flex; gap: .35rem; align-items: center; }
+  .eng-scroll { overflow-x: auto; }
+  table.eng { border-collapse: collapse; width: 100%; font-size: .84rem; }
+  table.eng th, table.eng td { padding: .3rem .45rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.eng th { font-weight: 600; font-size: .78rem; color: var(--muted); white-space: nowrap; }
+  table.eng td.c, table.eng th.c { text-align: center; width: 3.2rem; }
+  table.eng tr.grp td { padding-top: .9rem; font-weight: 600; color: var(--fg); border-bottom-color: var(--muted); cursor: pointer; }
+  table.eng tr.grp td .gs { font-weight: 400; color: var(--muted); font-size: .78rem; margin-left: .4rem; }
+  table.eng tr.ck { cursor: pointer; }
+  table.eng tr.ck:hover td { background: color-mix(in srgb, var(--fg) 4%, transparent); }
+  table.eng tr.det td { color: var(--muted); font-size: .8rem; background: color-mix(in srgb, var(--fg) 3%, transparent); }
+  table.eng tr.det p { margin: .15rem 0; max-width: none; }
+  .verdict { display: inline-flex; gap: .3rem; align-items: center; font-size: .78rem; font-weight: 600; white-space: nowrap; }
+  .vn { display: block; font-size: .74rem; color: var(--muted); font-weight: 400; }
+  .rounds-bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.4rem; margin-top: .6rem; }
+  .rb h4 { margin: 0 0 .4rem; font-size: .85rem; font-weight: 600; }
+  .rb .cols { display: flex; gap: .7rem; align-items: flex-end; height: 8.5rem; border-bottom: 1px solid var(--muted); }
+  .rb .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; height: 100%; position: relative; }
+  .rb .col i { display: block; border-radius: 3px 3px 0 0; margin-top: 2px; min-height: 0; }
+  .rb .col i + i { border-radius: 0; }
+  .rb .col .n { font-size: .78rem; text-align: center; font-variant-numeric: tabular-nums; }
+  .rb .lbls { display: flex; gap: .7rem; font-size: .76rem; color: var(--muted); }
+  .rb .lbls span { flex: 1; text-align: center; }
+  .marg { list-style: none; margin: .6rem 0 0; padding: 0; display: grid; gap: .1rem; }
+  .marg li { padding: .45rem 0; border-bottom: 1px solid var(--line); }
+  .marg .top { display: flex; justify-content: space-between; gap: .8rem; font-size: .85rem; flex-wrap: wrap; }
+  .marg .top b { font-weight: 560; }
+  .marg .top span { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .marg .top .nr { color: var(--fg); font-weight: 600; }
+  .marg .track { position: relative; height: 10px; margin: .3rem 0 .2rem; background: color-mix(in srgb, var(--fg) 6%, transparent); border-radius: 2px; }
+  .marg .track .bad { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--bad) 35%, transparent) 0 2px, transparent 2px 5px); }
+  .marg .track .v { position: absolute; top: 2px; bottom: 2px; left: 0; background: var(--muted); border-radius: 0 3px 3px 0; }
+  .marg li.near .track .v { background: var(--near); }
+  .marg .track .lim { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); }
+  .marg .track .gh { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--fg); opacity: .3; }
+  .marg .msg { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+  .sev { display: inline-block; font-size: .7rem; padding: 0 .45rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .sev.blocker { background: var(--bad); border-color: var(--bad); color: #fff; }
+  .sev.major { border-color: var(--serious); color: var(--fg); box-shadow: inset 3px 0 0 var(--serious); }
+  .finds { list-style: none; margin: .3rem 0 0; padding: 0; }
+  .finds li { padding: .5rem 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 5.6rem 1fr; gap: .2rem .8rem; font-size: .86rem; }
+  .finds .who { font-size: .76rem; color: var(--muted); }
+  .ftr { display: flex; margin-top: .3rem; }
+  .ftr i { position: relative; width: 14px; height: 10px; }
+  .ftr i::after { content: ''; position: absolute; left: 3px; top: 1px; width: 8px; height: 8px; border-radius: 50%; }
+  .ftr i.in::before { content: ''; position: absolute; left: -7px; right: 7px; top: 4px; height: 2px; background: var(--muted); }
+  .ftr i.fd::after { background: var(--serious); }
+  .ftr i.cl::after { background: var(--ok); }
+  .ftr i.op::after { border: 1px solid var(--muted); box-sizing: border-box; }
+  .ftr i:not(.fd):not(.cl):not(.op)::after { background: var(--line); width: 4px; height: 4px; left: 5px; top: 3px; }
+  .finds .fx { grid-column: 2; color: var(--muted); font-size: .8rem; line-height: 1.45; }
+  .finds .fx b { color: var(--fg); font-weight: 560; }
+  details.rnd { margin: .5rem 0; border: 1px solid var(--line); border-radius: 8px; padding: .4rem .8rem; }
+  details.rnd summary { cursor: pointer; font-weight: 600; font-size: .9rem; padding: .2rem 0; }
+  details.rnd summary span { font-weight: 400; color: var(--muted); font-size: .82rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0; }
+  .chips button { font-size: .8rem !important; padding: .2rem .65rem !important; border-radius: 99px !important; color: var(--muted) !important; }
+  .chips button[aria-pressed="true"] { color: var(--fg) !important; border-color: var(--fg) !important; }
+  .wbar { display: flex; height: 16px; border-radius: 3px; overflow: hidden; gap: 2px; margin: .5rem 0 .3rem; }
+  .wbar i { display: block; height: 100%; }
+  .k-printed { background: var(--accent); } .k-bought { background: var(--bought); } .k-payload { background: var(--muted); }
+  .sw2 { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+  .wlist { list-style: none; margin: .4rem 0 0; padding: 0; }
+  .wlist li { display: grid; grid-template-columns: minmax(8rem, 15rem) 1fr 3.6rem; gap: .7rem; align-items: center; padding: .25rem 0; font-size: .82rem; border-bottom: 1px solid var(--line); }
+  .wlist .b { height: 8px; border-radius: 0 3px 3px 0; }
+  .wlist .g { text-align: right; font-variant-numeric: tabular-nums; }
+  .wlist .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bal { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: .6rem; }
+  .bal figure { margin: 0; border: 1px solid var(--line); border-radius: 8px; padding: .5rem; background: var(--card); }
+  .bal figcaption { font-size: .8rem; color: var(--muted); margin-bottom: .2rem; }
+  .bal svg { width: 100%; height: auto; display: block; }
+  .bal svg text { fill: var(--fg); font-family: inherit; }
+  .bal svg .mut { fill: var(--muted); }
+  table.eng .pv { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .nt { color: var(--muted); font-style: italic; white-space: nowrap; }
+  #sec-eng ul.models { margin: .4rem 0 0; padding-left: 1.1rem; font-size: .84rem; color: var(--muted); max-width: 52rem; }
+  #sec-eng ul.models li { margin: .2rem 0; }
   @media (max-width: 640px) {
     .panel { top: auto; bottom: 12px; max-height: 45dvh; }
+    .panel.wide { top: 12px; max-height: none; padding: .9rem .9rem 2rem; }
     .hint { display: none; }
+    .finds li { grid-template-columns: 1fr; }
+    .finds .fx { grid-column: 1; }
+    .wlist li { grid-template-columns: 1fr 4rem 3rem; }
   }
 </style>
 <script type="importmap">
@@ -290,7 +394,7 @@ function renderGrid() {
       <div class="meta">
         <span class="t">${esc(p.title)}</span>
         <span class="s">${esc(p.summary)}</span>
-        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${p.timelapse ? '<span class="chip">▶ Timelapse</span>' : ''}${p.plates > 1 ? `<span class="chip">${p.plates} plates</span>` : ''}${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
+        <span class="row"><span class="chip st-${esc(p.status)}">${esc(STATUS[p.status]?.label || p.status)}</span>${p.timelapse ? '<span class="chip">▶ Timelapse</span>' : ''}${p.engineering ? `<span class="chip" title="Self-checks and four independent reviewers: see the Engineering tab">Design-reviewed</span>` : ''}${p.plates > 1 ? `<span class="chip">${p.plates} plates</span>` : ''}${esc(p.material || '')}${p.date ? ' · ' + esc(p.date) : ''}</span>
       </div>
     </a>`).join('');
   (async () => {
@@ -503,11 +607,242 @@ async function showToolpath(slug, m, idx, liveEntry) {
   sec.querySelector('#tp-pick')?.addEventListener('change', e => showToolpath(slug, m, +e.target.value));
 }
 
+/* ---------- engineering: the design review (printdesk/checks.py writes engineering.json) ---------- */
+const GLYPH = { PASS: '✓', NEAR: '!', FAIL: '✕' };
+const VERD = v => /FAIL/.test(v) ? 'FAIL' : /CHANGES/.test(v) ? 'NEAR' : /PASS/.test(v) ? 'PASS' : 'none';
+const VLABEL = { FAIL: 'Fail', NEAR: 'Pass with changes', PASS: 'Pass', none: '–' };
+const SEV = ['blocker', 'major', 'minor', 'unrated'];
+const SEVC = { blocker: 'var(--bad)', major: 'var(--serious)', minor: 'var(--muted)', unrated: 'color-mix(in srgb, var(--muted) 45%, transparent)' };
+const cap = s => s ? s[0].toUpperCase() + s.slice(1) : '';
+const fnum = v => Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 10 ? (+v.toFixed(1)).toString() : (+v.toFixed(2)).toString();
+const engCache = new Map();
+function marginOf(c) {
+  if (c.kind === 'range') { const [lo, hi] = c.limit; return Math.min(c.value - lo, hi - c.value) / ((hi - lo) || 1); }
+  if (c.kind === 'min') return (c.value - c.limit) / (Math.abs(c.limit) || 1);
+  return (c.limit - c.value) / (Math.abs(c.limit) || 1);
+}
+const limText = c => c.kind === 'range' ? `target ${fnum(c.limit[0])}–${fnum(c.limit[1])} ${c.unit}` : `${c.kind === 'min' ? 'at least' : 'limit'} ${fnum(c.limit)} ${c.unit}`;
+const stCell = (s, title) => `<span class="st ${s || 'none'}" title="${esc(title || '')}">${s ? GLYPH[s] || '' : '–'}</span>`;
+
+async function showEngineering(slug, m) {
+  const sec = panel.querySelector('#sec-eng');
+  if (sec.dataset.done) return;
+  sec.innerHTML = '<p>Loading the design review…</p>';
+  let E;
+  try {
+    if (!engCache.has(slug)) engCache.set(slug, fetch(`${slug}/${m.engineering}`, { cache: 'no-cache' }).then(r => { if (!r.ok) throw 0; return r.json(); }));
+    E = await engCache.get(slug);
+  } catch { engCache.delete(slug); sec.innerHTML = '<p>Could not load the design review.</p>'; return; }
+  sec.dataset.done = 1;
+  const R = E.rounds, last = [...R].reverse().find(r => r.checks) || R.at(-1), F = E.findings || [];
+  const nFixed = F.filter(f => f.status === 'fixed').length;
+  const allPass = E.reviewers.every(d => VERD(R.at(-1).verdicts?.[d]) === 'PASS');
+  const ls = last.summary || {};
+
+  /* --- 1. headline */
+  let h = `<div class="eng-note"><p><b>How this design was tested before printing.</b> ${esc(E.note)}</p></div>
+    <div class="heads">
+      <div><b>${R.length}</b><span>review rounds by four independent reviewers</span></div>
+      <div><b>${F.length}</b><span>reviewer findings, ${nFixed} fixed${F.length - nFixed ? `, ${F.length - nFixed} accepted as they are` : ''}</span></div>
+      <div><b>${ls.checks ?? '–'}</b><span>self-checks in the last round: ${ls.pass} pass, ${ls.near} near, ${ls.fail} fail</span></div>
+      <div><b>${allPass ? 'All pass' : 'Open'}</b><span>reviewer verdicts in ${esc(R.at(-1).label)}</span></div>
+    </div>`;
+
+  /* --- 2. reviewer verdicts per round + how it improved */
+  h += `<h3>Reviewers, round by round</h3>
+    <p>Each round the four reviewers got the files (not the designer's conclusions), ran their own checks and gave a verdict with findings. Every finding was answered in the next iteration and re-checked.</p>
+    <div class="eng-scroll"><table class="eng"><thead><tr><th>Reviewer</th>${R.map(r => `<th>${esc(r.label)}</th>`).join('')}</tr></thead><tbody>
+    ${E.reviewers.map(d => `<tr><td><b>${cap(d)}</b></td>${R.map(r => {
+      const v = r.verdicts?.[d] || '', s = VERD(v), n = F.filter(f => f.round === r.round && f.reviewer === d).length;
+      return `<td><span class="verdict">${stCell(s === 'none' ? null : s, v)} ${esc(VLABEL[s])}</span>${r.verdict_notes?.[d] ? `<span class="vn">${esc(r.verdict_notes[d])}</span>` : ''}<span class="vn">${n ? `${n} finding${n > 1 ? 's' : ''}` : 'no findings'}</span></td>`;
+    }).join('')}</tr>`).join('')}
+    </tbody></table></div>`;
+  const maxF = Math.max(1, ...R.map(r => F.filter(f => f.round === r.round).length));
+  const maxC = Math.max(1, ...R.map(r => r.summary?.checks || 0));
+  h += `<div class="rounds-bars">
+    <div class="rb"><h4>Reviewer findings per round</h4>
+      <div class="cols">${R.map(r => {
+        const fr = F.filter(f => f.round === r.round);
+        return `<div class="col"><span class="n">${fr.length}</span>${SEV.map(s => { const n = fr.filter(f => f.severity === s).length;
+          return n ? `<i style="height:${n / maxF * 80}%;background:${SEVC[s]}" title="${n} ${s}"></i>` : ''; }).join('')}</div>`; }).join('')}</div>
+      <div class="lbls">${R.map(r => `<span>${esc(r.label)}</span>`).join('')}</div>
+      <div class="legend">${SEV.map(s => `<span><i class="sw2" style="background:${SEVC[s]}"></i>${s === 'unrated' ? 'no severity given' : s}</span>`).join('')}</div></div>
+    <div class="rb"><h4>Self-checks per round</h4>
+      <div class="cols">${R.map(r => { const s = r.summary || { checks: 0, pass: 0, near: 0, fail: 0 };
+        return `<div class="col"><span class="n">${s.checks}</span>${[['fail', 'var(--bad)'], ['near', 'var(--near)'], ['pass', 'var(--ok)']].map(([k, c]) => s[k] ? `<i style="height:${Math.max(2, s[k] / maxC * 80)}%;background:${c}" title="${s[k]} ${k}"></i>` : '').join('')}</div>`; }).join('')}</div>
+      <div class="lbls">${R.map(r => `<span>${esc(r.label)}</span>`).join('')}</div>
+      <div class="legend"><span><i class="sw2" style="background:var(--ok)"></i>pass</span><span><i class="sw2" style="background:var(--near)"></i>near</span><span><i class="sw2" style="background:var(--bad)"></i>fail</span></div></div>
+  </div>`;
+
+  /* --- 3. check status across rounds */
+  const ids = [], info = new Map();
+  for (const r of [...R].reverse()) for (const c of r.checks || []) if (!info.has(c.id)) { info.set(c.id, c.group); ids.push(c.id); }
+  const groups = [];
+  for (const id of ids) { const g = info.get(id); if (!groups.includes(g)) groups.push(g); }
+  const byRound = R.map(r => r.checks ? new Map(r.checks.map(c => [c.id, c])) : null);
+  const rowOf = id => byRound.map(mp => mp ? (mp.get(id) || null) : undefined);
+  const changed = id => { const s = rowOf(id).filter(x => x !== undefined).map(x => x?.status || '-'); return new Set(s).size > 1; };
+  const flagged = id => rowOf(id).some(x => x && x.status !== 'PASS');
+  h += `<h3>Self-checks across rounds</h3>
+    <p>The designer's verify script, re-run on the real geometry after every change. A row is one check; a dash means the check didn't exist yet (or was dropped with the feature it tested). Click a row for what it measured each round.</p>
+    <div class="legend"><span>${stCell('PASS')} pass</span><span>${stCell('NEAR')} near miss</span><span>${stCell('FAIL')} fail</span><span>${stCell(null)} not in that round</span><span><span class="st nd"></span> output not kept</span></div>
+    <div class="chips" id="ck-filter"><button type="button" data-f="all" aria-pressed="true">All ${ids.length}</button><button type="button" data-f="changed" aria-pressed="false">Changed between rounds · ${ids.filter(changed).length}</button><button type="button" data-f="flag" aria-pressed="false">Ever near or failing · ${ids.filter(flagged).length}</button></div>
+    <div class="eng-scroll"><table class="eng" id="ck-table"><thead><tr><th>Check</th>${R.map(r => `<th class="c" title="${esc(r.note || '')}">${esc(r.label.replace('Round ', 'R'))}</th>`).join('')}</tr></thead><tbody>
+    ${groups.map((g, gi) => {
+      const gids = ids.filter(id => info.get(id) === g);
+      const ls2 = gids.map(id => byRound.at(R.indexOf(last))?.get(id)).filter(Boolean);
+      return `<tr class="grp" data-g="${gi}"><td colspan="${R.length + 1}">${esc(g)}<span class="gs">${gids.length} checks${ls2.some(c => c.status !== 'PASS') ? ' · ' + ls2.filter(c => c.status !== 'PASS').length + ' near/fail now' : ''}</span></td></tr>` +
+        gids.map(id => `<tr class="ck" data-g="${gi}" data-id="${esc(id)}" data-ch="${changed(id) ? 1 : 0}" data-fl="${flagged(id) ? 1 : 0}"><td>${esc(id)}</td>${rowOf(id).map((c, i) =>
+          `<td class="c">${c === undefined ? `<span class="st nd" title="${esc(R[i].label)}: only the summary was kept (${R[i].summary?.checks} checks, ${R[i].summary?.near} near, ${R[i].summary?.fail} fail)"></span>` : stCell(c?.status, c ? `${R[i].label}: ${c.message}` : `${R[i].label}: not checked`)}</td>`).join('')}</tr>`).join('');
+    }).join('')}
+    </tbody></table></div>`;
+
+  /* --- 4. margins */
+  const mg = (last.checks || []).filter(c => c.limit != null && c.value != null).map(c => ({ c, m: marginOf(c) })).sort((a, b) => a.m - b.m);
+  if (mg.length) {
+    h += `<h3>How close to the limit</h3>
+      <p>The checks that compare a number with a limit, tightest first (${esc(last.label)}). Bar = the calculated value, solid line = the limit, hatched = outside it; faint ticks are the same check in earlier rounds. Amber = within 10 % of its limit, or marked a near miss by the script. Under each bar: the model as the verify script states it.</p>
+      <ul class="marg">${mg.map(({ c, m: mm }) => {
+        const lim = c.kind === 'range' ? c.limit : [c.limit];
+        const prev = R.filter(r => r !== last && r.checks).map(r => r.checks.find(x => x.id === c.id)).filter(x => x && x.value != null && x.unit === c.unit);
+        const S = Math.max(c.value, ...lim, ...prev.map(p => p.value)) * 1.15 || 1, pct = v => Math.max(0, Math.min(100, v / S * 100));
+        const near = c.status !== 'PASS' || mm < 0.1;
+        const bad = c.kind === 'max' ? `<i class="bad" style="left:${pct(c.limit)}%;right:0"></i>` : c.kind === 'min' ? `<i class="bad" style="left:0;width:${pct(c.limit)}%"></i>`
+          : `<i class="bad" style="left:0;width:${pct(lim[0])}%"></i><i class="bad" style="left:${pct(lim[1])}%;right:0"></i>`;
+        return `<li class="${near ? 'near' : ''}"><div class="top"><b>${esc(c.id)}</b><span class="${near ? 'nr' : ''}">${near ? `${stCell(c.status === 'FAIL' ? 'FAIL' : 'NEAR', 'near miss')} ` : ''}${fnum(c.value)} ${esc(c.unit)} · ${esc(limText(c))} · ${mm < 0 ? 'outside by' : 'margin'} ${Math.abs(mm * 100).toFixed(0)} %</span></div>
+          <div class="track"><i class="v" style="width:${pct(c.value)}%"></i>${bad}${lim.map(l => `<i class="lim" style="left:calc(${pct(l)}% - 1px)"></i>`).join('')}${prev.map(p => `<i class="gh" style="left:calc(${pct(p.value)}% - 1px)" title="earlier round: ${fnum(p.value)} ${esc(p.unit)}"></i>`).join('')}</div>
+          <div class="msg">${esc(c.model || c.message)}</div></li>`;
+      }).join('')}</ul>`;
+  }
+
+  /* --- 5. findings */
+  const ftrack = f => `<span class="ftr" title="found in round ${f.round}${f.closed_round ? `, closed in round ${f.closed_round}` : ', kept as it is'}">${R.map(r => {
+    const c = f.closed_round, k = r.round === f.round ? 'fd' : c && r.round === c ? 'cl in' : c && r.round > f.round && r.round < c ? 'in' : !c && r.round > f.round ? 'op' : '';
+    return `<i class="${k}"></i>`; }).join('')}</span>`;
+  h += `<h3>What the reviewers found, and what changed</h3>
+    <p>Every finding, in the words of the change list that answered it. "Fixed" means changed in the next iteration and re-checked by the same reviewer in the next round. The dots under each reviewer run across the rounds: <span class="ftr" style="display:inline-flex;vertical-align:middle"><i class="fd"></i><i class="cl in"></i></span> found, then closed.</p>
+    <div class="chips" id="f-filter"><button type="button" data-r="all" aria-pressed="true">All ${F.length}</button>${E.reviewers.map(d => `<button type="button" data-r="${d}" aria-pressed="false">${cap(d)} · ${F.filter(f => f.reviewer === d).length}</button>`).join('')}</div>
+    ${R.filter(r => F.some(f => f.round === r.round)).map((r, i) => { const fr = F.filter(f => f.round === r.round);
+      return `<details class="rnd"${i === 0 ? ' open' : ''}><summary>Found in ${esc(r.label)} <span>· ${fr.length} findings${fr.filter(f => f.severity === 'blocker').length ? ` · ${fr.filter(f => f.severity === 'blocker').length} blockers` : ''}${r.note ? ' · ' + esc(r.note) : ''}</span></summary>
+        <ul class="finds">${fr.map(f => `<li data-r="${esc(f.reviewer)}"><span>${f.severity === 'unrated' ? '' : `<span class="sev ${esc(f.severity)}">${esc(f.severity)}</span><br>`}<span class="who">${esc(cap(f.reviewer))}</span>${ftrack(f)}</span>
+          <span><b>${esc(f.summary)}</b></span>
+          <span class="fx"><b>${f.status === 'fixed' ? `Fixed in ${esc(f.fixed_in || '')}${f.closed_round ? `, re-checked in round ${f.closed_round}` : ''}:` : 'Kept as it is:'}</b> ${esc(f.fix)}</span></li>`).join('')}</ul></details>`; }).join('')}`;
+
+  /* --- 6. weight and balance */
+  const M = E.mass;
+  if (M) {
+    const kinds = [['printed', 'Printed parts'], ['bought', 'Bought hardware'], ['payload', 'What it carries']];
+    const kg = Object.fromEntries(kinds.map(([k]) => [k, M.parts.filter(p => p.kind === k).reduce((a, p) => a + p.grams, 0)]));
+    const pr = M.parts.filter(p => p.kind !== 'payload').sort((a, b) => b.grams - a.grams), pmax = Math.max(...pr.map(p => p.grams));
+    const cal = Object.entries(M.calibration || {}).map(([k, c]) => `${k}: the slicer's ${fnum(c.slicer_grams)} g for the plate, split by part volume`).join('; ');
+    h += `<h3>Weight and balance</h3>
+      <p>${fnum(M.total_g)} g in all; the printed parts are ${fnum(M.printed_g)} g${cal ? ` (${esc(cal)})` : ''}.</p>
+      <div class="wbar">${kinds.filter(([k]) => kg[k]).map(([k, l]) => `<i class="k-${k}" style="width:${kg[k] / M.total_g * 100}%" title="${l}: ${fnum(kg[k])} g"></i>`).join('')}</div>
+      <div class="legend">${kinds.filter(([k]) => kg[k]).map(([k, l]) => `<span><i class="sw2 k-${k}"></i>${l} ${fnum(kg[k])} g</span>`).join('')}</div>
+      <ul class="wlist">${pr.map(p => `<li title="${esc(p.source)}"><span class="nm">${esc(p.name)}</span><span><i class="b k-${p.kind}" style="display:block;width:${p.grams / pmax * 100}%"></i></span><span class="g">${fnum(p.grams)} g</span></li>`).join('')}</ul>`;
+    const AX = { x: 0, y: 1, z: 2 };
+    const view = ([a, b, label]) => {
+      const ia = AX[a], ib = AX[b];
+      const xs = M.parts.flatMap(p => [p.bounds[0][ia], p.bounds[1][ia]]), ys = M.parts.flatMap(p => [p.bounds[0][ib], p.bounds[1][ib]]);
+      const fs = 5.5, sw = 0.5, tw = (t, size) => size * 1.4 + t.length * size * .56;
+      const ends = [M.com[ia] + tw('centre of mass', fs), ...M.mounts.map(mp => mp.point[ia] + tw(mp.name, fs * .8))];
+      const pad = 10, x0 = Math.min(...xs) - pad, x1 = Math.max(...xs, ...ends) + 3, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+      const W = x1 - x0, H = y1 - y0;
+      const lbl = (x, y, t, size, cls = '', weight = '') => `<text x="${x + size * 1.4}" y="${y}" font-size="${size}" ${cls ? `class="${cls}"` : ''} ${weight ? `font-weight="${weight}"` : ''}>${t}</text>`;
+      const X = v => v - x0, Y = v => y1 - v;
+      let s = `<svg viewBox="0 0 ${W.toFixed(1)} ${H.toFixed(1)}" style="max-width:${(W * 3.2).toFixed(0)}px;margin:0 auto" role="img" aria-label="${esc(label)} view: parts, centres of mass and mount points">`;
+      for (const p of M.parts) {
+        const [lo, hi] = p.bounds;
+        s += `<rect x="${X(lo[ia]).toFixed(1)}" y="${Y(hi[ib]).toFixed(1)}" width="${(hi[ia] - lo[ia]).toFixed(1)}" height="${(hi[ib] - lo[ib]).toFixed(1)}" rx="${sw * 3}" fill="${p.kind === 'payload' ? 'color-mix(in srgb, var(--muted) 14%, transparent)' : 'none'}" stroke="var(--muted)" stroke-opacity=".45" stroke-width="${sw}"><title>${esc(p.name)}: ${fnum(p.grams)} g</title></rect>`;
+      }
+      for (const p of M.parts) s += `<circle cx="${X(p.com[ia]).toFixed(1)}" cy="${Y(p.com[ib]).toFixed(1)}" r="${Math.max(fs * .18, Math.sqrt(p.grams) * fs * .09).toFixed(2)}" class="k-${p.kind}" style="fill:${p.kind === 'printed' ? 'var(--accent)' : p.kind === 'bought' ? 'var(--bought)' : 'var(--muted)'}" fill-opacity=".75" stroke="var(--card)" stroke-width="${sw}"><title>${esc(p.name)}: ${fnum(p.grams)} g, centre of mass at ${p.com.map(fnum).join(', ')}</title></circle>`;
+      const cx = X(M.com[ia]), cy = Y(M.com[ib]), r = fs * .55;
+      for (const mp of M.mounts) {
+        const px = X(mp.point[ia]), py = Y(mp.point[ib]);
+        s += `<line x1="${px}" y1="${py}" x2="${px}" y2="${Math.min(py, cy) - fs}" stroke="var(--fg)" stroke-width="${sw}" stroke-dasharray="${sw * 4} ${sw * 3}"/>
+          <path d="M${px} ${py} l${-fs * .45} ${fs * .7} h${fs * .9} z" fill="var(--fg)"><title>${esc(mp.name)}</title></path>
+          ${lbl(px, py + fs * .6, esc(mp.name), fs * .8, 'mut')}`;
+      }
+      s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--card)" stroke="var(--fg)" stroke-width="${sw * 1.5}"/>
+        <path d="M${cx} ${cy} v${-r} a${r} ${r} 0 0 1 ${r} ${r} z M${cx} ${cy} v${r} a${r} ${r} 0 0 1 ${-r} ${-r} z" fill="var(--fg)"/>
+        ${lbl(cx, cy - r * .3, 'centre of mass', fs, '', '600')}
+        ${lbl(cx, cy + fs * .9, `whole rig, ${fnum(M.total_g)} g`, fs * .8, 'mut')}</svg>`;
+      return `<figure><figcaption>${esc(label)} view (${a} → right, ${b} → up)</figcaption>${s}</figure>`;
+    };
+    const g = 9.81, kgT = M.total_g / 1000, fmom = nmm => nmm < 1000 ? `${fnum(nmm)} N·mm` : `${fnum(nmm / 1000)} N·m`;
+    h += `<div class="bal">${(M.views || [['x', 'z', 'Front'], ['y', 'z', 'Side']]).map(view).join('')}</div>
+      <div class="eng-scroll"><table class="eng" style="margin-top:.6rem"><thead><tr><th>Mount point</th><th>Carries</th><th>Its centre of mass</th><th>Moment at rest</th><th>10 g sideways knock</th></tr></thead><tbody>
+      ${M.mounts.map(mp => `<tr><td><b>${esc(mp.name)}</b>${mp.note ? `<span class="vn">${esc(mp.note)}</span>` : ''}</td><td class="pv">${fnum(mp.carried_g ?? M.total_g)} g</td><td><span class="pv">${fnum(mp.offset[2])} mm above</span><span class="vn">${fnum(mp.lever_mm)} mm off-centre</span></td><td class="pv">${fmom(mp.moment_Nmm)}</td><td class="pv">${fmom(mp.moment_10g_side_Nmm ?? kgT * g * 10 * Math.abs(mp.offset[2]))}</td></tr>`).join('')}
+      </tbody></table></div>
+      <p class="legend" style="display:block">Weights: printed parts from their volume and density, bought parts from steel density, the camera from its spec. Centre of mass of each part from its mesh at even density. ${esc(M.axes || '')}.</p>`;
+  }
+
+  /* --- 7. predicted vs measured */
+  const T = E.tests || [];
+  if (T.length) {
+    const done = T.filter(t => t.measured != null).length;
+    h += `<h3>Predicted vs measured</h3>
+      <p>${done ? `${done} of ${T.length} physical tests done.` : 'Nothing printed and measured yet: these are the predictions the first prints will be compared against.'}</p>
+      <div class="eng-scroll"><table class="eng"><thead><tr><th>Test</th><th>Predicted</th><th>Target</th><th>Measured</th></tr></thead><tbody>
+      ${T.map(t => {
+        const lim = t.limit == null ? '–' : t.kind === 'range' ? `${t.limit[0]}–${t.limit[1]} ${t.unit || ''}` : `${t.kind === 'min' ? '≥' : '≤'} ${t.limit} ${t.unit || ''}`;
+        const pred = t.predicted != null ? `<span class="pv">${t.predicted} ${esc(t.unit || '')}</span>${t.predicted_note ? `<span class="vn">${esc(t.predicted_note)}</span>` : ''}` : t.expect ? `<span class="vn" style="color:var(--fg)">${esc(t.expect)}</span>` : '<span class="nt">not predicted</span>';
+        let meas = '<span class="nt">not tested yet</span>';
+        if (t.measured != null) {
+          const ok = t.result ? t.result === 'pass' : t.limit == null ? null : marginOf({ value: +t.measured, limit: t.limit, kind: t.kind || 'max' }) >= 0;
+          meas = `${ok == null ? '' : stCell(ok ? 'PASS' : 'FAIL')} <span class="pv">${esc(t.measured)} ${esc(typeof t.measured === 'number' ? t.unit || '' : '')}</span>${t.date ? `<span class="vn">${esc(t.date)}</span>` : ''}${t.measured_note ? `<span class="vn">${esc(t.measured_note)}</span>` : ''}`;
+        }
+        return `<tr><td><b>${esc(t.what)}</b><span class="vn">${esc(t.method || '')}${t.check ? ` · check: ${esc(t.check)}` : ''}</span></td><td>${pred}</td><td class="pv">${esc(lim)}</td><td>${meas}</td></tr>`;
+      }).join('')}</tbody></table></div>`;
+  }
+  if (E.assumptions?.length) h += `<h3>The models behind the numbers</h3><p>As stated at the top of the verify script, so each one can be challenged.</p><ul class="models">${E.assumptions.map(a => `<li>${esc(a)}</li>`).join('')}</ul>`;
+  sec.innerHTML = h;
+
+  /* interactions */
+  const tbl = sec.querySelector('#ck-table');
+  let ckf = 'all';
+  const applyCk = () => {
+    tbl.querySelectorAll('tr.det').forEach(d => d.remove());
+    const shown = new Set();
+    tbl.querySelectorAll('tr.ck').forEach(tr => {
+      const vis = ckf === 'all' || (ckf === 'changed' ? tr.dataset.ch === '1' : tr.dataset.fl === '1');
+      const col = tbl.querySelector(`tr.grp[data-g="${tr.dataset.g}"]`).dataset.closed === '1';
+      tr.hidden = !vis || col; if (vis) shown.add(tr.dataset.g);
+    });
+    tbl.querySelectorAll('tr.grp').forEach(tr => { tr.hidden = !shown.has(tr.dataset.g); });
+  };
+  sec.querySelector('#ck-filter').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    ckf = b.dataset.f; sec.querySelectorAll('#ck-filter button').forEach(x => x.setAttribute('aria-pressed', x === b)); applyCk();
+  });
+  tbl.addEventListener('click', e => {
+    const g = e.target.closest('tr.grp');
+    if (g) { g.dataset.closed = g.dataset.closed === '1' ? '0' : '1'; return applyCk(); }
+    const tr = e.target.closest('tr.ck'); if (!tr) return;
+    if (tr.nextElementSibling?.classList.contains('det')) return tr.nextElementSibling.remove();
+    const rows = rowOf(tr.dataset.id);
+    const d = document.createElement('tr'); d.className = 'det';
+    d.innerHTML = `<td colspan="${R.length + 1}">${rows.map((c, i) => c ? `<p><b>${esc(R[i].label)}</b> ${GLYPH[c.status]} ${esc(c.message)}</p>` : '').join('') || '<p>No details kept.</p>'}</td>`;
+    tr.after(d);
+  });
+  sec.querySelector('#f-filter').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    sec.querySelectorAll('#f-filter button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    sec.querySelectorAll('.finds li').forEach(li => { li.hidden = b.dataset.r !== 'all' && li.dataset.r !== b.dataset.r; });
+    if (b.dataset.r !== 'all') sec.querySelectorAll('details.rnd').forEach(d => d.open = true);
+  });
+}
+
 function setMode(mode) {
   V.mode = mode;
   panel.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
   panel.querySelector('#sec-model').hidden = mode !== 'model';
   panel.querySelector('#sec-tp').hidden = mode !== 'tp';
+  const eng = panel.querySelector('#sec-eng');
+  if (eng) eng.hidden = mode !== 'eng';
+  panel.classList.toggle('wide', mode === 'eng');
+  panel.scrollTop = 0;
+  if (mode === 'eng') { V.current.outer.visible = false; if (V.tp) { V.tp.outer.visible = false; V.tp.playing = false; } return; }
   V.current.outer.visible = mode === 'model';
   if (V.tp) { V.tp.outer.visible = mode === 'tp'; if (mode !== 'tp') V.tp.playing = false; }
   frame(V.camera, mode === 'tp' && V.tp ? V.tp.radius : V.current.radius, V.controls);
@@ -544,8 +879,9 @@ function setupViewer() {
   })();
 }
 
-async function open(slug) {
+async function open(slug, view) {
   if (!V) setupViewer();
+  panel.classList.remove('wide');
   if (!dlg.open) dlg.showModal();
   V.size();
   panel.innerHTML = '<p>Loading…</p>';
@@ -567,10 +903,11 @@ async function open(slug) {
     <p>${esc(m.summary)}</p>
     <p><span class="chip st-${esc(m.status)}">${esc(STATUS[m.status]?.label || m.status)}</span>
       &nbsp;${esc(m.material || '')}${total.t ? ` · ${fmtTime(total.t)} · ${Math.round(total.g)} g` : ''}${nPlates > 1 ? ` · ${nPlates} plates` : ''}</p>
-    ${m.notes ? `<p>${esc(m.notes)}</p>` : ''}
-    ${m.toolpaths?.length ? `<div class="seg" role="group" aria-label="View"><button type="button" data-mode="model" aria-pressed="true">Model</button><button type="button" data-mode="tp" aria-pressed="false">Toolpath</button></div>` : ''}
+    ${m.notes ? `<p class="jnotes">${esc(m.notes)}</p>` : ''}
+    ${m.toolpaths?.length || m.engineering ? `<div class="seg" role="group" aria-label="View"><button type="button" data-mode="model" aria-pressed="true">Model</button>${m.toolpaths?.length ? '<button type="button" data-mode="tp" aria-pressed="false">Toolpath</button>' : ''}${m.engineering ? '<button type="button" data-mode="eng" aria-pressed="false">Engineering</button>' : ''}</div>` : ''}
     ${m.timelapse ? `<div class="tl"><span>Timelapse from the printer camera</span><video src="${esc(slug)}/${esc(m.timelapse)}" controls muted loop playsinline preload="metadata"></video></div>` : ''}
     <div id="sec-tp" hidden></div>
+    <div id="sec-eng" hidden></div>
     <div id="sec-model">
     <div class="tools">
       ${canExplode ? '<button type="button" id="b-explode">Explode</button>' : ''}
@@ -595,14 +932,16 @@ async function open(slug) {
     setMode('tp'); await showToolpath(slug, m, +b.dataset.plate);
   }));
   panel.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', async () => {
+    history.replaceState(null, '', `#${slug}${b.dataset.mode === 'eng' ? '~engineering' : ''}`);   // shareable link to the view
     if (b.dataset.mode === 'tp' && !V.tp) { setMode('tp'); await showToolpath(slug, m, 0); }
-    else setMode(b.dataset.mode);
+    else { setMode(b.dataset.mode); if (b.dataset.mode === 'eng') await showEngineering(slug, m); }
   }));
   panel.querySelector('#b-explode')?.addEventListener('click', e => { V.exT = V.exT ? 0 : 1; e.target.textContent = V.exT ? 'Assemble' : 'Explode'; });
   panel.querySelector('#b-flip').addEventListener('click', () => { V.current.outer.rotation.y += Math.PI; });
   panel.querySelector('#b-reset').addEventListener('click', () => { V.current.outer.rotation.set(0, 0, 0); frame(V.camera, V.current.radius, V.controls); });
   panel.querySelectorAll('input[type=color]').forEach(el => el.addEventListener('input', () => V.current.meshes[el.dataset.i].material.color.set(el.value)));
   panel.querySelectorAll('input[data-v]').forEach(el => el.addEventListener('change', () => { V.current.meshes[el.dataset.v].visible = el.checked; }));
+  if (view === 'engineering' && m.engineering) { setMode('eng'); await showEngineering(slug, m); }
 }
 
 async function openLive(slug, plate) {
@@ -642,6 +981,8 @@ function route() {
   const h = decodeURIComponent(location.hash.slice(1));
   const lm = h.match(/^([a-z0-9-]+)~live(\d+)$/);
   if (lm) return openLive(lm[1], +lm[2]);
+  const em = h.match(/^([a-z0-9-]+)~engineering$/);
+  if (em) return open(em[1], 'engineering');
   const slug = h;
   if (slug && /^[a-z0-9-]+$/.test(slug)) open(slug);
   else if (dlg.open) dlg.close();
