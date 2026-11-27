@@ -1,0 +1,385 @@
+{
+  "title": "Logo pattern phone cases: black TPU with lime plugs",
+  "summary": "Four everyday phone cases in black TPU with the Try New Things logo in lime PLA: Halftone (one giant logo in dots) for a Xiaomi 12T Pro and an iPhone 13 mini, Echo (the smile rippling out) for an iPhone 13 mini and an iPhone 14 Pro Max.",
+  "status": "approved",
+  "date": "2026-11-27",
+  "material": "Black TPU 95A cases (Gås), lime PLA plug plates (TNT)",
+  "notes": "How it works: the outer 1.8 mm of the TPU back is a lattice with the pattern cut through it; a lime PLA plate lies in a pocket inside the back and its plugs fill the openings, 0.1 mm below the face. The phone holds the plate in; to take it out, lift it at the fingernail notch at the bottom end. Case shell (fit, lip, button covers, ports, corner bumpers, camera hole) from the rig-kit cases. Plates: Gås 11 h 21 min, 101 g black TPU 95A (3 walls, Arachne, reduce crossing walls), all 4 cases, overnight, reboot first; TNT 3 h 17 min, 77 g lime PLA at 230 C / 12 mm3/s, 0.16 mm, 15 % infill, concentric top surface. No supports. Round 1 review by four independent reviewers: all PASS WITH CHANGES, no blockers; their quick fixes are in (removal notch, round ripple ends, filled halftone webs, straight halftone edges, smaller plug gaps, lead-ins). Fit coupons skipped by choice. Known: no reliable wireless charging or MagSafe through the 3-4.7 mm back; PLA plates soften in a hot car; 12T Pro data from photos (+-2.5 mm).",
+  "view": {
+    "rotate": [
+      180,
+      0,
+      0
+    ]
+  },
+  "parts": [
+    {
+      "name": "Xiaomi 12T Pro, Halftone: case (black TPU)",
+      "file": "part1.stl",
+      "color": "#2c2e33",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "TPU 95A"
+    },
+    {
+      "name": "Xiaomi 12T Pro, Halftone: plug plate (lime PLA)",
+      "file": "part2.stl",
+      "color": "#a6dc12",
+      "explode": [
+        0,
+        0,
+        14
+      ],
+      "material": "PLA"
+    },
+    {
+      "name": "iPhone 13 mini, Echo: case (black TPU)",
+      "file": "part3.stl",
+      "color": "#2c2e33",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "TPU 95A"
+    },
+    {
+      "name": "iPhone 13 mini, Echo: plug plate (lime PLA)",
+      "file": "part4.stl",
+      "color": "#a6dc12",
+      "explode": [
+        0,
+        0,
+        14
+      ],
+      "material": "PLA"
+    },
+    {
+      "name": "iPhone 13 mini, Halftone: case (black TPU)",
+      "file": "part5.stl",
+      "color": "#2c2e33",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "TPU 95A"
+    },
+    {
+      "name": "iPhone 13 mini, Halftone: plug plate (lime PLA)",
+      "file": "part6.stl",
+      "color": "#a6dc12",
+      "explode": [
+        0,
+        0,
+        14
+      ],
+      "material": "PLA"
+    },
+    {
+      "name": "iPhone 14 Pro Max, Echo: case (black TPU)",
+      "file": "part7.stl",
+      "color": "#2c2e33",
+      "explode": [
+        0,
+        0,
+        0
+      ],
+      "material": "TPU 95A"
+    },
+    {
+      "name": "iPhone 14 Pro Max, Echo: plug plate (lime PLA)",
+      "file": "part8.stl",
+      "color": "#a6dc12",
+      "explode": [
+        0,
+        0,
+        14
+      ],
+      "material": "PLA"
+    }
+  ],
+  "plates": [
+    {
+      "name": "Gås: the 4 cases (black TPU 95A)",
+      "contents": "12T Pro Halftone, 13 mini Echo, 13 mini Halftone, 14 Pro Max Echo",
+      "minutes": 681.5,
+      "grams": 101.18,
+      "toolpath": 0
+    },
+    {
+      "name": "TNT: the 4 plug plates (lime PLA)",
+      "contents": "one plate per case",
+      "minutes": 196.9,
+      "grams": 77.18,
+      "toolpath": 1
+    }
+  ],
+  "toolpaths": [
+    {
+      "name": "Gås: the 4 cases (black TPU 95A)",
+      "file": "toolpath1.bin.gz",
+      "layers": 83,
+      "points": 897993,
+      "minutes": 681.5,
+      "grams": 101.18,
+      "filament_m": 34.61,
+      "layer_minutes": [
+        0.0,
+        54.0,
+        94.0,
+        133.0,
+        173.0,
+        214.0,
+        255.0,
+        295.0,
+        335.0,
+        375.0,
+        407.0,
+        451.0,
+        456.0,
+        462.0,
+        468.0,
+        474.0,
+        481.0,
+        487.0,
+        494.0,
+        501.0,
+        507.0,
+        512.0,
+        518.0,
+        522.0,
+        526.0,
+        531.0,
+        535.0,
+        539.0,
+        543.0,
+        548.0,
+        551.0,
+        554.0,
+        557.0,
+        560.0,
+        563.0,
+        565.0,
+        568.0,
+        570.0,
+        573.0,
+        576.0,
+        578.0,
+        581.0,
+        583.0,
+        586.0,
+        588.0,
+        591.0,
+        593.0,
+        596.0,
+        598.0,
+        601.0,
+        603.0,
+        606.0,
+        608.0,
+        611.0,
+        613.0,
+        616.0,
+        618.0,
+        621.0,
+        623.0,
+        626.0,
+        629.0,
+        631.0,
+        634.0,
+        636.0,
+        639.0,
+        642.0,
+        645.0,
+        648.0,
+        651.0,
+        655.0,
+        658.0,
+        662.0,
+        663.0,
+        665.0,
+        666.0,
+        668.0,
+        669.0,
+        671.0,
+        673.0,
+        675.0,
+        678.0,
+        679.0,
+        680.0
+      ],
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.12,
+          "share": 0.0012
+        },
+        {
+          "name": "Inner wall",
+          "grams": 39.23,
+          "share": 0.3895
+        },
+        {
+          "name": "Outer wall",
+          "grams": 28.75,
+          "share": 0.2854
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 2.31,
+          "share": 0.0229
+        },
+        {
+          "name": "Gap infill",
+          "grams": 0.06,
+          "share": 0.0006
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 24.32,
+          "share": 0.2414
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 1.68,
+          "share": 0.0167
+        },
+        {
+          "name": "Top surface",
+          "grams": 3.53,
+          "share": 0.0351
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 0.47,
+          "share": 0.0046
+        },
+        {
+          "name": "Overhang wall",
+          "grams": 0.25,
+          "share": 0.0025
+        }
+      ],
+      "settings": {
+        "Filament": "TPU",
+        "Layer height": "0.16 mm",
+        "First layer": "0.2 mm",
+        "Walls": "3",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "15%",
+        "Infill pattern": "rectilinear",
+        "Supports": "no",
+        "Brim": "none",
+        "Nozzle": "225 °C",
+        "Bed": "35 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    },
+    {
+      "name": "TNT: the 4 plug plates (lime PLA)",
+      "file": "toolpath2.bin.gz",
+      "layers": 28,
+      "points": 445954,
+      "minutes": 196.9,
+      "grams": 77.18,
+      "filament_m": 25.52,
+      "layer_minutes": [
+        0.0,
+        16.0,
+        23.0,
+        31.0,
+        38.0,
+        46.0,
+        53.0,
+        73.0,
+        79.0,
+        84.0,
+        105.0,
+        112.0,
+        122.0,
+        131.0,
+        139.0,
+        147.0,
+        155.0,
+        163.0,
+        175.0,
+        179.0,
+        183.0,
+        189.0,
+        190.0,
+        191.0,
+        192.0,
+        193.0,
+        194.0,
+        195.0
+      ],
+      "features": [
+        {
+          "name": "Custom",
+          "grams": 0.13,
+          "share": 0.0017
+        },
+        {
+          "name": "Inner wall",
+          "grams": 10.21,
+          "share": 0.1331
+        },
+        {
+          "name": "Outer wall",
+          "grams": 9.01,
+          "share": 0.1174
+        },
+        {
+          "name": "Bottom surface",
+          "grams": 6.52,
+          "share": 0.085
+        },
+        {
+          "name": "Gap infill",
+          "grams": 1.3,
+          "share": 0.017
+        },
+        {
+          "name": "Internal solid infill",
+          "grams": 39.91,
+          "share": 0.5202
+        },
+        {
+          "name": "Top surface",
+          "grams": 5.61,
+          "share": 0.0731
+        },
+        {
+          "name": "Sparse infill",
+          "grams": 1.3,
+          "share": 0.0169
+        },
+        {
+          "name": "Internal Bridge",
+          "grams": 2.72,
+          "share": 0.0355
+        }
+      ],
+      "settings": {
+        "Filament": "PLA",
+        "Layer height": "0.16 mm",
+        "First layer": "0.2 mm",
+        "Walls": "4",
+        "Top layers": "6",
+        "Bottom layers": "6",
+        "Infill": "15%",
+        "Infill pattern": "rectilinear",
+        "Supports": "no",
+        "Brim": "none",
+        "Nozzle": "230 °C",
+        "Bed": "60 °C",
+        "Outer wall speed": "160 mm/s"
+      }
+    }
+  ]
+}
