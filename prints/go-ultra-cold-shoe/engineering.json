@@ -1926,11 +1926,17 @@
      "id": "E2 height",
      "group": "Mounting, joints, height, weight",
      "status": "PASS",
-     "message": "shoe foot bottom to pod bottom 50.4 mm (revised target 52: 45 is not reachable once a 25 mm GoPro thumbscrew must clear the base)",
+     "message": "shoe foot bottom to pod bottom 50.4 mm (target 52, approved by Lukas 2026-11-26: 45 is not reachable once a 25 mm GoPro thumbscrew must clear the base)",
      "value": 50.4,
      "limit": 52.0,
      "unit": "mm",
      "kind": "max"
+    },
+    {
+     "id": "wheel passes over the key",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "wheel thread crests r 4.76 (measured on the mesh) vs key corners r 4.45: 0.31 mm (>= 0.3); wheel slid over the key: 0.000 mm3 overlap. Key 8.0 AF with the corners cut; head socket = key + 0.15"
     },
     {
      "id": "E3 weight",
@@ -1940,8 +1946,8 @@
     }
    ],
    "summary": {
-    "checks": 103,
-    "pass": 100,
+    "checks": 104,
+    "pass": 101,
     "near": 3,
     "fail": 0
    },
@@ -2806,7 +2812,7 @@
     "name": "Latch base (hooks on flexures, release buttons)",
     "kind": "printed",
     "material": "PLA",
-    "grams": 13.09,
+    "grams": 13.08,
     "com": [
      -3.0,
      4.0,
@@ -2974,7 +2980,7 @@
     "name": "3-prong head (M5 nut pocket)",
     "kind": "printed",
     "material": "PLA",
-    "grams": 6.04,
+    "grams": 6.06,
     "com": [
      1.6,
      0.0,
@@ -2992,7 +2998,7 @@
       39.9
      ]
     ],
-    "source": "5.20 cm3 x 1.24 g/cm3 x fill 0.94"
+    "source": "5.23 cm3 x 1.24 g/cm3 x fill 0.94"
    },
    {
     "name": "Knob for the M5 bolt",
@@ -3046,11 +3052,11 @@
     "name": "Cold-shoe foot (18.2 mm; 18.45 mm spare)",
     "kind": "printed",
     "material": "PLA",
-    "grams": 2.19,
+    "grams": 2.13,
     "com": [
      0.0,
      0.0,
-     7.6
+     7.4
     ],
     "bounds": [
      [
@@ -3064,7 +3070,7 @@
       20.4
      ]
     ],
-    "source": "1.88 cm3 x 1.24 g/cm3 x fill 0.94"
+    "source": "1.84 cm3 x 1.24 g/cm3 x fill 0.94"
    },
    {
     "name": "M5 bolt (bought, reference)",
@@ -3139,7 +3145,7 @@
     "source": "Insta360 spec: pod 108.5 g + camera 52.9 g; centre of mass as verify_mount.py models it (mid-height, 2 mm toward the camera end)"
    }
   ],
-  "total_g": 209.0,
+  "total_g": 208.9,
   "printed_g": 40.7,
   "com": [
    -1.3,
@@ -3168,7 +3174,7 @@
     ],
     "lever_mm": 2.5,
     "moment_Nmm": 5.0,
-    "moment_10g_side_Nmm": 1394.1
+    "moment_10g_side_Nmm": 1394.0
    },
    {
     "name": "GoPro pivot (M5 bolt axis)",
@@ -3198,8 +3204,8 @@
   "calibration": {
    "PLA": {
     "plate": "plate_tnt.gcode",
-    "slicer_grams": 42.82,
-    "solid_cm3": 36.89,
+    "slicer_grams": 42.71,
+    "solid_cm3": 36.81,
     "fill": 0.936
    }
   },
