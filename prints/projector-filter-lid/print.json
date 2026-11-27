@@ -4,7 +4,7 @@
   "status": "preview",
   "date": "2026-11-27",
   "material": "PETG",
-  "notes": "STEP 1 IS THE OUTLINE GAUGE. The opening was measured from a video scan with printed markers (scale checked to under 1 %, outline about 200 x 107 mm inside the lip, see scan/scan_outline.jpg in the job folder). The rim curves down over the shoulder by about 20 mm, which the scan couldn't measure precisely, so the gauge is a thin flexible band (6 mm wide, 1.12 mm thick PLA) whose outer edge follows the scanned lip edge. It bends to sit on the curved part. Notches every 10 mm round the edge, a deep one every 50 mm, counted from the arrow, which points to the fan end. The top corner on the shoulder side is the least certain part. Outline gauge: PLA, 0.16 mm, 14 min, 5 g, no supports. The lid and test ring below are still the older photo estimate (227.5 mm long, about 20 mm too long) and will be redrawn from the gauge result. The outline, depths, hinge and catch positions are estimated from a listing photo scaled by the projector's published size (Epson's drawings confirm the scale to about 6 %, which is still too loose to print from). Filter: a Flexit 100FF pad (142 x 142 x 10 mm polyurethane foam, ePM coarse, sold in 4-packs). The stepped pocket is about 177 x 103 mm, wider than one pad, so it takes two pieces cut from one pad (92.5 x 78.5 and 86.9 x 62.4 mm, 1 mm oversize per side; media_template_flexit.svg in the job folder, print at 100 % and check the 100 mm bar). A 2.4 mm clamp ring (16.6 mm tall) presses the foam's edge down to 5 mm onto the seat all round, and a 2.4 mm seam rib holds the joint between the two pieces, so no air gets past the media. The model also has a one-piece fleece option (a 160 mm wide, 6 mm fleece roll or G3/G4 mat, squeezed to 3 mm, template media_template_fleece.svg): one setting in make_lid.py. Coarse foam filters about like G3 mat, less fine dust than Epson's pleated filter, with no airflow penalty. Don't use vacuum-bag fabric, paper, HEPA or coffee filters: they restrict a projector fan's airflow and make it run hot. The lid hinges along its straight edge and is held at the free edge by a sliding latch on the original. Here a flexing beam replaces the latch, and the two hinge hooks are placeholders until the body's hinge prongs have been seen close up. The vents open 7,296 mm2, 78 % of the media face, with 1.4 mm bars. The focus lever is inside this bay, so the lid has to be easy to open. PETG, 0.2 mm layers, 4 walls, 20 % gyroid, outer face on the textured plate, no supports. The intake side sees room air, so PLA would survive the airflow; PETG is for heat soak after shutdown and for the latch beam, which PLA would slowly creep under load. Test ring: 53 min, 20 g. Lid: 2 h 29 min, 73 g. Both are 226.8 mm wide, 13 mm from each bed edge.",
+  "notes": "STEP 1 IS THE OUTLINE GAUGE (v2). v1 (200 x 107 mm, from the scan alone) was test-fitted: it had to be laid flipped, stopped about 9 mm short of the shell rim on the shoulder side and overhung the curved corner at the far end of the hinge side. v2 is 201 x 116 mm with those corrected (close to the 207 x 119 caliper reading); the straight hinge side and fan end are unchanged. The opening was measured from a video scan with printed markers (scale checked to under 1 %, outline about 200 x 107 mm inside the lip, see scan/scan_outline.jpg in the job folder). The rim curves down over the shoulder by about 20 mm, which the scan couldn't measure precisely, so the gauge is a thin flexible band (6 mm wide, 1.12 mm thick PLA) whose outer edge follows the scanned lip edge. It bends to sit on the curved part. Notches every 10 mm round the edge, a deep one every 50 mm, counted from the arrow, which points to the fan end. The top corner on the shoulder side is the least certain part. Outline gauge: PLA, 0.16 mm, 14 min, 5 g, no supports. The lid and test ring below are still the older photo estimate (227.5 mm long, about 20 mm too long) and will be redrawn from the gauge result. The outline, depths, hinge and catch positions are estimated from a listing photo scaled by the projector's published size (Epson's drawings confirm the scale to about 6 %, which is still too loose to print from). Filter: a Flexit 100FF pad (142 x 142 x 10 mm polyurethane foam, ePM coarse, sold in 4-packs). The stepped pocket is about 177 x 103 mm, wider than one pad, so it takes two pieces cut from one pad (92.5 x 78.5 and 86.9 x 62.4 mm, 1 mm oversize per side; media_template_flexit.svg in the job folder, print at 100 % and check the 100 mm bar). A 2.4 mm clamp ring (16.6 mm tall) presses the foam's edge down to 5 mm onto the seat all round, and a 2.4 mm seam rib holds the joint between the two pieces, so no air gets past the media. The model also has a one-piece fleece option (a 160 mm wide, 6 mm fleece roll or G3/G4 mat, squeezed to 3 mm, template media_template_fleece.svg): one setting in make_lid.py. Coarse foam filters about like G3 mat, less fine dust than Epson's pleated filter, with no airflow penalty. Don't use vacuum-bag fabric, paper, HEPA or coffee filters: they restrict a projector fan's airflow and make it run hot. The lid hinges along its straight edge and is held at the free edge by a sliding latch on the original. Here a flexing beam replaces the latch, and the two hinge hooks are placeholders until the body's hinge prongs have been seen close up. The vents open 7,296 mm2, 78 % of the media face, with 1.4 mm bars. The focus lever is inside this bay, so the lid has to be easy to open. PETG, 0.2 mm layers, 4 walls, 20 % gyroid, outer face on the textured plate, no supports. The intake side sees room air, so PLA would survive the airflow; PETG is for heat soak after shutdown and for the latch beam, which PLA would slowly creep under load. Test ring: 53 min, 20 g. Lid: 2 h 29 min, 73 g. Both are 226.8 mm wide, 13 mm from each bed edge.",
   "view": {
     "rotate": [
       0,
@@ -14,7 +14,7 @@
   },
   "parts": [
     {
-      "name": "Outline gauge",
+      "name": "Outline gauge v2",
       "file": "part1.stl",
       "color": "#4a90d9",
       "explode": [
@@ -49,10 +49,10 @@
   ],
   "plates": [
     {
-      "name": "Outline gauge",
-      "contents": "thin flexible band following the scanned opening, notched every 10 mm (14 min, 5 g PLA)",
-      "minutes": 13.9,
-      "grams": 5.02,
+      "name": "Outline gauge v2",
+      "contents": "thin flexible band, corrected from the v1 fit photo, notched every 10 mm (14 min, 5 g PLA, sliced for TNT)",
+      "minutes": 14.3,
+      "grams": 5.08,
       "toolpath": 0
     },
     {
@@ -72,52 +72,52 @@
   ],
   "toolpaths": [
     {
-      "name": "Outline gauge",
+      "name": "Outline gauge v2",
       "file": "toolpath1.bin.gz",
       "layers": 7,
-      "points": 19646,
-      "minutes": 13.9,
-      "grams": 5.02,
-      "filament_m": 1.51,
+      "points": 18657,
+      "minutes": 14.3,
+      "grams": 5.08,
+      "filament_m": 1.53,
       "layer_minutes": [
         0.0,
-        4.0,
+        5.0,
         6.0,
-        7.0,
         8.0,
         9.0,
-        11.0
+        10.0,
+        12.0
       ],
       "features": [
         {
           "name": "Custom",
           "grams": 0.13,
-          "share": 0.028
+          "share": 0.0277
         },
         {
           "name": "Outer wall",
-          "grams": 0.64,
-          "share": 0.1406
+          "grams": 0.65,
+          "share": 0.1404
         },
         {
           "name": "Inner wall",
-          "grams": 1.74,
-          "share": 0.3826
+          "grams": 1.76,
+          "share": 0.3819
         },
         {
           "name": "Bottom surface",
-          "grams": 0.24,
-          "share": 0.0534
+          "grams": 0.25,
+          "share": 0.0535
         },
         {
           "name": "Gap infill",
           "grams": 0.0,
-          "share": 0.0005
+          "share": 0.0006
         },
         {
           "name": "Internal solid infill",
-          "grams": 1.27,
-          "share": 0.279
+          "grams": 1.29,
+          "share": 0.28
         },
         {
           "name": "Top surface",
@@ -136,7 +136,7 @@
         "Infill pattern": "rectilinear",
         "Supports": "no",
         "Brim": "none",
-        "Nozzle": "210 °C",
+        "Nozzle": "230 °C",
         "Bed": "60 °C",
         "Outer wall speed": "160 mm/s"
       }
@@ -445,5 +445,6 @@
         "Outer wall speed": "160 mm/s"
       }
     }
-  ]
+  ],
+  "timelapse": "timelapse.mp4"
 }
