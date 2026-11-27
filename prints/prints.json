@@ -122,6 +122,17 @@
       "plates": 3
     },
     {
+      "slug": "rig-kit",
+      "title": "Rig kit: TPU phone cases with swappable mounts, shoe foot and GoPro heads",
+      "summary": "TPU cases for a Xiaomi 12 Pro and an iPhone 13 mini with a swappable plate (cold-shoe receiver or GoPro prongs), a cold-shoe foot with lock wheel, GoPro 3- and 2-prong heads and an accessory shoe. Everything uses GoPro and cold-shoe standards.",
+      "status": "preview",
+      "date": "2026-11-27",
+      "material": "TPU 95A cases (Gås); PETG plates, feet, heads and wheel for use, PLA fit test (TNT). Hardware from the kit: M5 x 20 and M3 x 16 countersunk screws with nuts, M4 x 16 countersunk as a steel core in the stud.",
+      "timelapse": false,
+      "engineering": false,
+      "plates": 5
+    },
+    {
       "slug": "sun-mask",
       "title": "Sun mask with glued-on rays",
       "summary": "A sun face mask, 19 cm across, with 16 rays (8 wavy, 8 straight) printed separately and glued around it: 37 cm in all.",
