@@ -3155,13 +3155,20 @@
      0
     ],
     "note": "tipping moment the shoe's rails must hold, at 1 g",
+    "carried_g": 209.0,
+    "carried_com": [
+     -1.3,
+     2.1,
+     68.0
+    ],
     "offset": [
      -1.3,
      2.1,
      68.0
     ],
     "lever_mm": 2.5,
-    "moment_Nmm": 5.0
+    "moment_Nmm": 5.0,
+    "moment_10g_side_Nmm": 1394.1
    },
    {
     "name": "GoPro pivot (M5 bolt axis)",
@@ -3172,13 +3179,20 @@
     ],
     "axis": "x",
     "note": "moment the clamped prong joint must hold, at 1 g",
+    "carried_g": 189.0,
+    "carried_com": [
+     -1.3,
+     2.3,
+     72.7
+    ],
     "offset": [
      -1.3,
-     2.1,
-     35.6
+     2.3,
+     40.3
     ],
-    "lever_mm": 2.1,
-    "moment_Nmm": 4.3
+    "lever_mm": 2.3,
+    "moment_Nmm": 4.3,
+    "moment_10g_side_Nmm": 747.0
    }
   ],
   "calibration": {
