@@ -1,0 +1,3205 @@
+{
+ "version": 1,
+ "slug": "go-ultra-cold-shoe",
+ "note": "Hand calculations with stated assumptions (beams, cantilevers, friction and contact models, mesh overlap tests on the real geometry), written by the designer and challenged by four independent reviewers. Not FEA and not lab tests: the physical tests below are what settles them.",
+ "assumptions": [
+  "Load cases: 3 g handling, 10 g action, 15 g sideways, 30 g crash, on the 161 g camera + pod. Limits: 1/3 of strength at 10 g, below ultimate at 30 g.",
+  "Friction is modelled, not fudged: lead-in force = flex force x cot(ramp - friction angle) at friction 0.4; fins checked for jamming up to friction 1.0.",
+  "Constant stress in PLA (preload) kept at or below 5 MPa against creep.",
+  "Unknown camera dimensions each have one parameter (hole depth, rim thickness, slot position, shutter position, lens position, camera height); the base-only fit print answers them.",
+  "pod: rigid block from make_cage.make_pod(), 161 g, centre of mass at mid-height (24 mm) and x = +2 (camera side).",
+  "PLA E 3500 MPa (PETG 2000), 50 MPa along layers / 20 MPa across layers, design limit 1/3 of that at 10 g.",
+  "TPU 95A E 26 MPa (printed TPU varies; fin forces are also given for 0.5x and 2x).",
+  "bar: beam from the hinge pin to the snap, section properties from slices of the real bar mesh.",
+  "end frames: two posts as cantilevers from the base top (rail, block and plate ignored: conservative)."
+ ],
+ "reviewers": [
+  "functionality",
+  "durability",
+  "ergonomics",
+  "aesthetics"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "label": "Round 1",
+   "date": "2026-11-26",
+   "note": "Iteration 1: rigid cage, sponge preload, fixed lips over the top.",
+   "verdicts": {
+    "functionality": "FAIL",
+    "durability": "FAIL",
+    "ergonomics": "FAIL",
+    "aesthetics": "FAIL"
+   },
+   "checks": [
+    {
+     "id": "F2/F3",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "material above the pod bottom outside the latch holes: 0.000 mm3 (the back ridge, behind the pod and under the screen panel, excepted)"
+    },
+    {
+     "id": "F2 sponge",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "sponge x -15.0..15.0, y 7.0..21.0, top 0.5: under the flat bottom, in front of the screen strip (y > 5.8), clear of the latch holes"
+    },
+    {
+     "id": "fit base (hooks at rest)",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "mount x pod overlap at nominal = 0.000 mm3 (rigid parts; hooks in their latched place)"
+    },
+    {
+     "id": "F1/F4 x nominal",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 0.95 mm; flex to latch 0.95 mm (stop 1.8); seated preload flex 0.00 mm"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further out",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 0.35 mm; flex to latch 0.35 mm (stop 1.8); seated preload flex 0.00 mm"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further in",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 1.55 mm; flex to latch 1.55 mm (stop 1.8); seated preload flex 0.25 mm"
+    },
+    {
+     "id": "F4 y",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook width 3.6 in a 5.7 hole: +-1.05 mm free in y (need +-0.6)",
+     "value": 1.05,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "F4 release room",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook pulled fully inward still 1.05 mm clear of the hole's inner side"
+    },
+    {
+     "id": "F4 rim thickness",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "latches and stays preloaded for a rim thickness 0.9 .. 2.4 mm (target 0.9 .. 2.4)"
+    },
+    {
+     "id": "F4 hole depth",
+     "group": "Latch hooks and release buttons",
+     "status": "NEAR",
+     "message": "hook tip reaches 3.3 mm above the pod bottom at nominal, 4.3 mm when the pod is pressed down: the latch holes must be at least that deep. UNKNOWN until measured (official hooks look ~3 mm)"
+    },
+    {
+     "id": "F1 catch 3 g",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch at 3 g: 2.4 N per hook, bending 11.0 MPa along the layers (limit 16.7), shear 1.1 MPa",
+     "value": 11.0,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "D1 strain PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "flexure 18.0 x 1.6 x 4.4 mm, strain at the stop (1.8 mm) 1.33 % (limit 1.5 %)",
+     "value": 1.33,
+     "limit": 1.5,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button force PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "button 8.0 mm long, travel 1.8 mm, force at the stop 4.9 N (target 5-15)",
+     "value": 4.9,
+     "limit": [
+      5.0,
+      15.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "F1 latching force",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook flex force while latching 2.6 N per hook (pod press-on force ~20 N incl. sponge)"
+    },
+    {
+     "id": "F5 cord",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "material in the cord path under the lanyard hole: 0.00 mm3"
+    },
+    {
+     "id": "D2 prongs",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "3 g sideways: 192 Nmm over two prongs, 4.6 MPa across layers (limit 6.7)",
+     "value": 4.6,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "D2 glue",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "prong block glue face 336 mm2 (CA ~5 MPa -> 1.7 kN) plus a 1 mm seat"
+    },
+    {
+     "id": "E2 height",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "shoe foot bottom to pod bottom 48.9 mm (target 50; the 19 mm bolt knob sets the prong drop)",
+     "value": 48.9,
+     "limit": 50.0,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "E3 weight",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "printed weight about 22 g (parts infill-adjusted)"
+    },
+    {
+     "id": "fit frame grip",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame camera",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit top bar",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame grip x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip inside the base (posts sit in sockets with 0.15 mm clearance): 0.000 mm3"
+    },
+    {
+     "id": "fit frame camera x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera inside the base (posts sit in sockets with 0.15 mm clearance): 0.000 mm3"
+    },
+    {
+     "id": "fit top bar x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar inside the base (posts sit in sockets with 0.15 mm clearance): 0.000 mm3"
+    },
+    {
+     "id": "fit bar x frames",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "closed bar x frames overlap 0.000 mm3 (knuckles interleave, bar end rests on the stepped rail)"
+    },
+    {
+     "id": "fit pads in pockets",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "TPU pads squeezed by the pod: 35.5 mm3 in total (light preload, intended)"
+    },
+    {
+     "id": "swing",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "bar opening 10-100 deg: collisions none"
+    },
+    {
+     "id": "snap open force PLA",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap 12.0 x 1.2 x 5.0 mm: strain 1.38 % while clicking, 4.8 N to open with a thumb, catch 0.9 mm"
+    },
+    {
+     "id": "snap engages",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "frame material right above the snap lip: 2.8 mm3 (none = the snap catches air)"
+    },
+    {
+     "id": "E1 buttons free",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "cage in the way of the hooks/arms/buttons over their 1.8 mm travel: 0.000 mm3"
+    },
+    {
+     "id": "A3 screen + flip path",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount inside the screen panel / flip keep-out (panel from 1.5 mm up, conservative): 0.000 mm3"
+    },
+    {
+     "id": "A3 shutter: r 12.5 finger room, 6 mm up (both estimates)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 power + Q (grip end face)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard slot (back strip, grip end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard port (grip end face)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB-C / release switch / speaker (camera end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB plug body (12 x 8, 25 mm out)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera speaker (camera side, front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in its zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lens view",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "closest mount point is 81.7 deg off the lens axis (view half-angle ~78)",
+     "value": 81.7,
+     "limit": 78.0,
+     "unit": "deg",
+     "kind": "min"
+    },
+    {
+     "id": "A2 back",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "pod moved 1 mm: 54.7 mm3 of rigid cage in the way"
+    },
+    {
+     "id": "A2 up",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "pod moved 1 mm: 165.3 mm3 of rigid cage in the way"
+    },
+    {
+     "id": "A2 forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "pod moved 1 mm: 21.5 mm3 of rigid cage in the way"
+    },
+    {
+     "id": "A2 to grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "pod moved 1 mm: 124.4 mm3 of rigid cage in the way"
+    },
+    {
+     "id": "A2 to camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "pod moved 1 mm: 101.7 mm3 of rigid cage in the way"
+    },
+    {
+     "id": "A2 up 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "pod lifts 0.98 mm at 10 g (bar 0.68 + play 0.3); the back ridge (1.3 mm) still catches it"
+    },
+    {
+     "id": "bar 10 g up (hooks gone)",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "bar bending at 10 g 10.4 MPa along the layers (PLA ~50)"
+    },
+    {
+     "id": "A2 back ridge 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "ridge 2.0 mm thick, 2.3 mm tall over the base top: 0.77 MPa at 10 g backwards"
+    },
+    {
+     "id": "hinge pin 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm filament pin in double shear at 10 g: 1.6 MPa (PLA ~30)"
+    },
+    {
+     "id": "snap catch 10 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap catch at 10 g: 2.0 MPa shear"
+    },
+    {
+     "id": "A2 30 g forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "camera-end front lip at 10 g forward: 0.59 MPa"
+    },
+    {
+     "id": "protect screen centre",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "back posts and ridge stand 2.2 mm behind the screen face"
+    },
+    {
+     "id": "protect lens glass",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "camera-end front post reaches y = 38.0, lens glass at ~37.0"
+    },
+    {
+     "id": "knob clearance",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "knob radius 9.5 under a prong drop of 10.5: 1.0 mm to the base"
+    },
+    {
+     "id": "P1 one body each",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "printed parts that are not a single watertight body: none"
+    },
+    {
+     "id": "P1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "base prints flat, flexures/arms/buttons in place on the bed (0.6-1.8 mm gaps); prong block upside down; sponge flat in TPU: no supports (slicer + toolpath_review confirm)"
+    }
+   ],
+   "summary": {
+    "checks": 56,
+    "pass": 55,
+    "near": 1,
+    "fail": 0
+   },
+   "source": "review_pack/round1/verify_output.txt"
+  },
+  {
+   "round": 2,
+   "label": "Round 2",
+   "date": "2026-11-26",
+   "note": "Iteration 2: nothing fixed over the pod, hinged top bar, TPU fin pads. Only the summary line of this round's verify output was kept.",
+   "verdicts": {
+    "functionality": "PASS WITH CHANGES",
+    "durability": "PASS WITH CHANGES",
+    "ergonomics": "PASS WITH CHANGES",
+    "aesthetics": "PASS WITH CHANGES"
+   },
+   "summary": {
+    "checks": 88,
+    "pass": 86,
+    "near": 2,
+    "fail": 0
+   },
+   "checks": null
+  },
+  {
+   "round": 3,
+   "label": "Round 3",
+   "date": "2026-11-26",
+   "note": "Iteration 3: pull tab, pinned frames, 62 deg fins, 30 deg lead-in.",
+   "verdicts": {
+    "functionality": "PASS WITH CHANGES",
+    "durability": "PASS WITH CHANGES",
+    "ergonomics": "PASS",
+    "aesthetics": "PASS"
+   },
+   "verdict_notes": {
+    "durability": "PASS for PLA, WITH CHANGES for PETG"
+   },
+   "checks": [
+    {
+     "id": "P1 frame outline intact",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "both frame outlines are one shape with full-height front posts (the R3 rounding once erased a 5.9 mm post)"
+    },
+    {
+     "id": "P1 one body each",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "printed parts that are not one watertight body on z = 0: none"
+    },
+    {
+     "id": "fit base (hooks at rest)",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "base (hooks at rest) x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit prong block",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "prong block x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame grip",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip x pod overlap 0.002 mm3"
+    },
+    {
+     "id": "fit frame camera",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera x pod overlap 0.002 mm3"
+    },
+    {
+     "id": "fit top bar",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame grip x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip x base -0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit frame camera x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera x base -0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit top bar x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar x base 0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit bar x frames",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "closed bar x frames 0.000 mm3 (knuckles interleave with 0.2 mm gaps)"
+    },
+    {
+     "id": "fit prongs x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "prong block x base 0.000 mm3 (sits in the bottom pocket)"
+    },
+    {
+     "id": "fit pads in pockets",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "pads x bar 1.54 mm3 = the intended 0.1 mm press fit at the strip ends (1.54 mm3), nothing else"
+    },
+    {
+     "id": "swing",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "bar + pads swing free 0..180 deg (first contact: none to 180)"
+    },
+    {
+     "id": "insert/remove path",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "pod lifted straight up 0..60 mm (bar open 150 deg, buttons pressed): max overlap 0.004 mm3 at 0 mm (same path down to insert; the hooks then click in on their lead-ins)"
+    },
+    {
+     "id": "F1 lock (bar open)",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "buttons not pressed, pod lifted 1 mm: 4.95 mm3 of hook catch in the way (> 0 = held)"
+    },
+    {
+     "id": "F1/F4 x nominal",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 1.00 mm; inward flex to latch/release 1.00 mm (stop 1.75); hook held in 0.00 mm while seated (0.0 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further out",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 0.40 mm; inward flex to latch/release 0.40 mm (stop 1.75); hook held in 0.00 mm while seated (0.0 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further in",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 1.60 mm; inward flex to latch/release 1.60 mm (stop 1.75); hook held in 0.10 mm while seated (2.8 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F4 y",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook 3.6 wide in a 5.7 hole: +-1.05 mm free in y (need +-0.6)",
+     "value": 1.05,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "F4 release room",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook pulled fully in still 0.95 mm from the hole's inner side"
+    },
+    {
+     "id": "F4 rim thickness",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "latches for a bottom-shell (rim) thickness up to 1.7 mm (catch 1.8 above the seat); free play with the bar open 0.1..0.9 mm for rims 1.7..0.9. Original target 0.9..2.4: for a rim over 1.7 raise CATCH_Z (one parameter) after measuring"
+    },
+    {
+     "id": "F4 hole depth",
+     "group": "Latch hooks and release buttons",
+     "status": "NEAR",
+     "message": "hook tip reaches 3.7 mm into the latch hole with the pod seated (30 deg lead-in). Hole depth UNKNOWN (official hooks look ~3 mm): base-only fit print first; LIP_H / LEAD / CATCH_Z set it"
+    },
+    {
+     "id": "hooks unloaded (D3)",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "bar closed: the fins hold the pod on the base top, the catches sit 0.1..0.9 mm above the rim: 0 constant load on the PLA hooks (they work only if the pod lifts)"
+    },
+    {
+     "id": "F1 catch 3 g",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch at 3 g pull-off (bar gone): 2.4 N per hook, bending 4.3 MPa along the layers (limit 16.7)",
+     "value": 4.3,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "F1 catch 10 g",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch at 10 g pull-off (bar gone): 7.9 N per hook, bending 14.5 MPa along the layers (limit 16.7)",
+     "value": 14.5,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button force PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "6.2 N at the stop (target 6-10; PLA flexure 17.5 x 1.7 x 4.4 mm)",
+     "value": 6.2,
+     "limit": [
+      6.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "D1 strain PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "flexure strain at the stop 1.46 % (limit 1.5); hard stop at 1.75 mm",
+     "value": 1.46,
+     "limit": 1.5,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button force PETG",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "6.2 N at the stop (target 6-10; PETG flexure 17.5 x 2.05 x 4.4 mm)",
+     "value": 6.2,
+     "limit": [
+      6.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "D1 strain PETG",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "flexure strain at the stop 1.76 % (limit 2.0); hard stop at 1.75 mm",
+     "value": 1.76,
+     "limit": 2.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F1 latching force",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "pressing the pod in: each hook flexes 1.00 mm on a 30 deg lead-in, ~16 N in total incl. friction (firm press; the bar is open)"
+    },
+    {
+     "id": "E1 button size",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "button face 12 x 6 mm, travel 1.75 mm (target >= 12 x 6, ergonomics; height is the base thickness)"
+    },
+    {
+     "id": "E1 button proud at the stop",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "button face at the stop x = 39.60, highest neighbour within 3 mm x = 37.80"
+    },
+    {
+     "id": "E1 buttons free",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "frames/prongs in the way of hooks, arms, buttons over the travel: 0.000 mm3"
+    },
+    {
+     "id": "pads force",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "4 fins leaning 62 deg, 3.0 N/mm: 2.4 N nominal (tip friction 0.3); pod 0.45 lower/higher 0.8 / 4.0 N; worst (2x stiff TPU or friction 1.0, pod +0.45) 7.9 N; x friction 0.6 / 1.0: 1.47 / 2.14"
+    },
+    {
+     "id": "pads never jam",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "a fin tip can only stick if friction exceeds tan(62) = 1.88 (TPU on plastic ~0.5-1.2); at 45 deg it was 1.0, which is why round 2 flagged up to 37 N"
+    },
+    {
+     "id": "pads tolerance window",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "pod top: up to 0.5 mm taller before the bar touches, 0.5 shorter before the fins lose contact; camera top: +0.5 / -0.8 mm (its height is the less certain one)"
+    },
+    {
+     "id": "pads geometry",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "fin tips reach below the pod faces by pad_grip 0.50, pad_cam 0.80 mm"
+    },
+    {
+     "id": "bar sections",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "bar 8 x 4 mm, weakest section at x = -24.5: I = 17.8 mm4 (pad pockets, shutter chamfer and snap notch included); full section 168.2 mm4"
+    },
+    {
+     "id": "bar constant clamp",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "fin clamp at worst (7.9 N): bar 4.3 MPa constant (creep limit 5)",
+     "value": 4.3,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 10 g up (hooks gone)",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "16 N up: bar 8.5 MPa at x = -24 along the layers (limit 16.7), lift 0.39 mm + fin fold 0.5 + plays 0.3",
+     "value": 8.5,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 30 g up (hooks gone)",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "47 N up: bar 25.6 MPa (breaks ~50), lift 1.18 mm at most",
+     "value": 25.6,
+     "limit": 50.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 30 g PETG",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "PETG bar lifts 2.06 mm at 30 g (escape needs the pod over a frame: not possible while it holds)"
+    },
+    {
+     "id": "hinge pin 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm filament pin, double shear: 7.5 N -> 1.6 MPa (PLA ~30; limit 10)",
+     "value": 1.6,
+     "limit": 10.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin 30 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm filament pin, double shear: 22.4 N -> 4.7 MPa (PLA ~30; limit 30)",
+     "value": 4.7,
+     "limit": 30.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin bending 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm pin, knuckle centres 5.4 apart, bar knuckle 2.4 long: 15 MPa (PLA filament ~60; limit 20). Action use: a 2.0 mm steel pin (PIN_D = 2.0) gives 10 MPa in steel",
+     "value": 15.0,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin bending 30 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm pin, knuckle centres 5.4 apart, bar knuckle 2.4 long: 45 MPa (PLA filament ~60; limit 60). Action use: a 2.0 mm steel pin (PIN_D = 2.0) gives 30 MPa in steel",
+     "value": 45.0,
+     "limit": 60.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap catch 10 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap lip 5.9 wide, 1.7 at the root, 8.3 N: 1.9 MPa across the layers (limit 6.7)",
+     "value": 1.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap catch 30 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap lip 5.9 wide, 1.7 at the root, 25.0 N: 5.7 MPa across the layers (limit 20.0)",
+     "value": 5.7,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap open force PLA",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "thumb on the tab (5 mm above the frame top, 6 mm wide): 5.1 N outward moves the catch 1.4 mm (arm 1.45 thick, root ramp 1.5; target 5-10)",
+     "value": 5.1,
+     "limit": [
+      5.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "snap strain PLA",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap strain while opening 1.33 % along the layers (limit 1.5)",
+     "value": 1.33,
+     "limit": 1.5,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "snap open force PETG",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "thumb on the tab (5 mm above the frame top, 6 mm wide): 5.2 N outward moves the catch 1.4 mm (arm 1.75 thick, root ramp 1.5; target 5-10)",
+     "value": 5.2,
+     "limit": [
+      5.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "snap strain PETG",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap strain while opening 1.61 % along the layers (limit 2.0)",
+     "value": 1.61,
+     "limit": 2.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "snap pry-out 10 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "catch load 8 N 1.32 mm off the arm: pulls the lip out 0.21 mm, the 8 deg catch face pushes it back 0.21: net 0.00 mm"
+    },
+    {
+     "id": "snap pry-out 30 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "catch load 25 N 1.32 mm off the arm: pulls the lip out 0.63 mm, the 8 deg catch face pushes it back 0.63: net 0.00 mm"
+    },
+    {
+     "id": "snap engages",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "lip material 1.3 mm3 sits right over notch-floor material 2.7 mm3 (a real catch, not air)"
+    },
+    {
+     "id": "D 15 g toward camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "24 N: pod slides 0.4 mm (hook-wall gap 0.50: hooks untouched), rolls 0.48 deg, frame top pushed out 0.39 mm (2.8 N, post root 3.8 MPa along the layers); snap engagement 0.76 mm left (need >= 0.6)",
+     "value": 0.76,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "D 15 g toward camera end PETG",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "PETG: frame top 0.42 mm, snap engagement 0.73 mm left"
+    },
+    {
+     "id": "D 15 g toward grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "24 N: pod slides 0.4 mm (hook-wall gap 0.50: hooks untouched), rolls 0.48 deg, frame top pushed out 0.41 mm (2.5 N, post root 3.6 MPa along the layers); snap engagement 0.91 mm left (need >= 0.6)",
+     "value": 0.91,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "D 15 g toward grip end PETG",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "PETG: frame top 0.44 mm, snap engagement 0.88 mm left"
+    },
+    {
+     "id": "A2 up",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed up: first contact after 0.75 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 back",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed back: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed forward: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 to grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed to grip end: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 to camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed to camera end: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 30 g sideways to camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks gone, 30 g: rolls 0.55 deg, frame top 0.45 mm, post root 4.4 MPa; with the diagonal case's pry-out (0.00) the snap is still engaged 0.70 mm"
+    },
+    {
+     "id": "A2 30 g sideways to grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks gone, 30 g: rolls 0.56 deg, frame top 0.48 mm, post root 4.2 MPa; with the diagonal case's pry-out (0.00) the snap is still engaged 0.85 mm"
+    },
+    {
+     "id": "A2 30 g forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "camera-end front lip (3 mm deep over the camera edge) takes 47 N: 5.3 MPa (limit 20 across layers)",
+     "value": 5.3,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "A2 30 g back",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "grip-end back lip (28 mm tall) alone takes 47 N: 5.6 MPa across the layers; the camera end is held back by the bottom-corner lip and the ridge, its top pitching back is held down by the bar"
+    },
+    {
+     "id": "A3 screen + flip path",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the screen panel / flip keep-out: 0.000 mm3"
+    },
+    {
+     "id": "screen finger notch",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "no ridge across the middle 46 mm of the back: a nail reaches under the panel edge (panel from 1.5 mm up, base top at 0)"
+    },
+    {
+     "id": "A3 shutter: r 12.5 finger room, 6 mm up (both estimates)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 power button + finger r 8 (grip end, manual: z 27-38)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 Q button + finger r 8 (grip end, z 11-22)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard slot (back strip, grip end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard port (grip end face)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB-C / release switch / speaker (camera end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB plug body (12 x 8, 25 mm out)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera speaker (camera side, front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera mic + light sensor (front, r 3.5, 10 mm out)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 standalone camera button + finger (front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera indicator, top front edge (seen from the front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera indicator, lower front",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 pod indicator on the screen bezel (seen from behind)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 shutter position margin",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "shutter (r 6) keeps 1.5 mm from the bar for a centre up to y = 16.5, and full r 12.5 finger room up to y = 11.5. Photo estimate y 10; the manual's views suggest y 11-18: if the real button sits further forward, BAR_Y0 moves (fit-test item)"
+    },
+    {
+     "id": "A3 lens view",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "closest mount point 80.9 deg off the lens axis (lens at x 19.7, z 33.9 from the manual; view half-angle ~78)",
+     "value": 80.9,
+     "limit": 78.0,
+     "unit": "deg",
+     "kind": "min"
+    },
+    {
+     "id": "protect lens glass",
+     "group": "Keep-outs and protection",
+     "status": "NEAR",
+     "message": "lens glass lies 1.2 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 1.2,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "protect screen centre",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "screen centre lies 5.4 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 5.4,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "protect screen corner (camera end, top)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "screen corner (camera end, top) lies 2.4 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 2.4,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "F5 cord eyelet",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "cord eyelet behind the grip back post (163 mm3): 3.2 mm hole, thinnest ligament 1.7 x 4 mm -> 14 mm2 holding the cord (need >= 12), 14 mm from the nearest button gap",
+     "value": 14.0,
+     "limit": 12.0,
+     "unit": "mm2",
+     "kind": "min"
+    },
+    {
+     "id": "frames locked in x",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "feet slide in to a hard stop at FOOT_IN, then a 1.75 filament pin from below through the base floor into each foot: 45 N outward per frame at 30 g on two pins = 9.4 MPa shear; the glue is no longer the only lock"
+    },
+    {
+     "id": "prong block locked",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "two 1.75 filament pins along y through the base and the prong plate (double shear): 62 N pull-off at 30 g = 6.4 MPa; glue no longer the only hold"
+    },
+    {
+     "id": "lift notches",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "two finger notches in the base top (3 mm deep): middle of the back (reaches 2.5 mm under the pod) and under the camera front (2.5 mm under it): pinch and lift"
+    },
+    {
+     "id": "A1 prongs",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "GoPro 2-prong: 2.9 thick, 3.3 gap, 5.4 hole (fits standard 3-prong mounts; the M5 bolt is bought)"
+    },
+    {
+     "id": "thumbscrew room",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "prong hole 13.0 mm under the base: a 25 mm thumbscrew head clears by 0.5 mm"
+    },
+    {
+     "id": "D2 prongs 10 g",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "10 g sideways on the pivot (42 mm lever): 16.0 MPa in the blades as free cantilevers (2 mm root fillets ignored); the block prints standing on its end, so the blades bend along their layers"
+    },
+    {
+     "id": "D2 prong block",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "prong block 24 x 14.8 mm in a 3 mm deep pocket: shear on the walls, pinned against pull-off"
+    },
+    {
+     "id": "E2 height",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "shoe foot bottom to pod bottom 50.4 mm (revised target 52: 45 is not reachable once a 25 mm GoPro thumbscrew must clear the base)",
+     "value": 50.4,
+     "limit": 52.0,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "E3 weight",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "all printed parts about 35 g (PLA 35.0 cm3 at ~80 % fill; slicer gives the real number)"
+    }
+   ],
+   "summary": {
+    "checks": 99,
+    "pass": 97,
+    "near": 2,
+    "fail": 0
+   },
+   "source": "review_pack/round2/verify_output_iter3.txt"
+  },
+  {
+   "round": 4,
+   "label": "Round 4",
+   "date": "2026-11-26",
+   "note": "Iteration 4 (published): 45 deg lead-in back, lens parameter drives the front posts, pull tab locks under a blow from above.",
+   "verdicts": {
+    "functionality": "PASS",
+    "durability": "PASS",
+    "ergonomics": "PASS",
+    "aesthetics": "PASS"
+   },
+   "verdict_notes": {
+    "durability": "PETG version pending its physical tests"
+   },
+   "checks": [
+    {
+     "id": "P1 variants build clean",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "parts that are not one watertight body in the PETG build and with the lens at 33.3 / 39: {'GO_ULTRA_MAT=PETG': 0, 'GO_ULTRA_LENS=33.3': 0, 'GO_ULTRA_LENS=39': 0}"
+    },
+    {
+     "id": "P1 frame outline intact",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "both frame outlines are one shape with full-height front posts (the R3 rounding once erased a 5.9 mm post)"
+    },
+    {
+     "id": "P1 one body each",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "printed parts that are not one watertight body on z = 0: none"
+    },
+    {
+     "id": "fit base (hooks at rest)",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "base (hooks at rest) x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit prong block",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "prong block x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame grip",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip x pod overlap 0.002 mm3"
+    },
+    {
+     "id": "fit frame camera",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera x pod overlap 0.002 mm3"
+    },
+    {
+     "id": "fit top bar",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar x pod overlap 0.000 mm3"
+    },
+    {
+     "id": "fit frame grip x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame grip x base -0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit frame camera x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "frame camera x base -0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit top bar x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "top bar x base 0.000 mm3 (dovetail feet run in slots with 0.15 mm clearance)"
+    },
+    {
+     "id": "fit bar x frames",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "closed bar x frames 0.000 mm3 (knuckles interleave with 0.2 mm gaps)"
+    },
+    {
+     "id": "fit prongs x base",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "prong block x base 0.000 mm3 (sits in the bottom pocket)"
+    },
+    {
+     "id": "fit pads in pockets",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "pads x bar 1.54 mm3 = the intended 0.1 mm press fit at the strip ends (1.54 mm3), nothing else"
+    },
+    {
+     "id": "swing",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "bar + pads swing free 0..180 deg (first contact: none to 180)"
+    },
+    {
+     "id": "insert/remove path",
+     "group": "Fit and motion",
+     "status": "PASS",
+     "message": "pod lifted straight up 0..60 mm (bar open 150 deg, buttons pressed): max overlap 0.004 mm3 at 0 mm (same path down to insert; the hooks then click in on their lead-ins)"
+    },
+    {
+     "id": "F1 lock (bar open)",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "buttons not pressed, pod lifted 1 mm: 4.95 mm3 of hook catch in the way (> 0 = held)"
+    },
+    {
+     "id": "F1/F4 x nominal",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 1.00 mm; inward flex to latch/release 1.00 mm (stop 1.75); hook held in 0.00 mm while seated (0.0 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further out",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 0.40 mm; inward flex to latch/release 0.40 mm (stop 1.75); hook held in 0.00 mm while seated (0.0 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F1/F4 x slot 0.6 further in",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch under the rim 1.60 mm; inward flex to latch/release 1.60 mm (stop 1.75); hook held in 0.10 mm while seated (2.8 MPa constant in the flexure; HOOK_X is the parameter if the fit test shows this)"
+    },
+    {
+     "id": "F4 y",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook 3.6 wide in a 5.7 hole: +-1.05 mm free in y (need +-0.6)",
+     "value": 1.05,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "F4 release room",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "hook pulled fully in still 0.95 mm from the hole's inner side"
+    },
+    {
+     "id": "F4 rim thickness",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "latches for a bottom-shell (rim) thickness up to 1.7 mm (catch 1.8 above the seat); free play with the bar open 0.1..0.9 mm for rims 1.7..0.9. Original target 0.9..2.4: for a rim over 1.7 raise CATCH_Z (one parameter) after measuring"
+    },
+    {
+     "id": "F4 hole depth",
+     "group": "Latch hooks and release buttons",
+     "status": "NEAR",
+     "message": "hook tip reaches 4.3 mm into the latch hole with the pod seated (45 deg lead-in). Hole depth UNKNOWN (official hooks look ~3 mm): base-only fit print first; LIP_H / LEAD / CATCH_Z set it"
+    },
+    {
+     "id": "hooks unloaded (D3)",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "bar closed: the fins hold the pod on the base top, the catches sit 0.1..0.9 mm above the rim: 0 constant load on the PLA hooks (they work only if the pod lifts)"
+    },
+    {
+     "id": "F1 catch 3 g",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch at 3 g pull-off (bar gone): 2.4 N per hook, bending 4.3 MPa along the layers (limit 16.7)",
+     "value": 4.3,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "F1 catch 10 g",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "catch at 10 g pull-off (bar gone): 7.9 N per hook, bending 14.5 MPa along the layers (limit 16.7)",
+     "value": 14.5,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button force PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "6.2 N at the stop (target 6-10; PLA flexure 17.5 x 1.7 x 4.4 mm)",
+     "value": 6.2,
+     "limit": [
+      6.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "D1 strain PLA",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "flexure strain at the stop 1.46 % (limit 1.5); hard stop at 1.75 mm",
+     "value": 1.46,
+     "limit": 1.5,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button force PETG",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "6.2 N at the stop (target 6-10; PETG flexure 17.5 x 2.05 x 4.4 mm)",
+     "value": 6.2,
+     "limit": [
+      6.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "D1 strain PETG",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "flexure strain at the stop 1.76 % (limit 2.0); hard stop at 1.75 mm",
+     "value": 1.76,
+     "limit": 2.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F1 latching force",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "pressing the pod in (45 deg lead-in, friction 0.4: x cot(lead - friction angle) = 2.33): 16 N for both hooks as modelled, 26 N if the slot is 0.6 further in (target <= 30)",
+     "value": 26.0,
+     "limit": 30.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "E1 button size",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "button face 12 x 6 mm, travel 1.75 mm (target >= 12 x 6, ergonomics; height is the base thickness)"
+    },
+    {
+     "id": "E1 button proud at the stop",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "button face at the stop x = 39.60, highest neighbour within 3 mm x = 37.80"
+    },
+    {
+     "id": "E1 buttons free",
+     "group": "Latch hooks and release buttons",
+     "status": "PASS",
+     "message": "frames/prongs in the way of hooks, arms, buttons over the travel: 0.000 mm3"
+    },
+    {
+     "id": "pads force",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "4 fins leaning 62 deg, 3.0 N/mm: 2.0 N nominal (tip friction 0.3); pod 0.45 lower/higher 0.4 / 3.6 N; worst (2x stiff TPU or friction 1.0, pod +0.45) 7.2 N; x friction 0.6 / 1.0: 1.47 / 2.14"
+    },
+    {
+     "id": "pads never jam",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "a fin tip can only stick if friction exceeds tan(62) = 1.88 (TPU on plastic ~0.5-1.2); at 45 deg it was 1.0, which is why round 2 flagged up to 37 N"
+    },
+    {
+     "id": "pads tolerance window",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "pod top: up to 0.5 mm taller before the bar touches, 0.5 shorter before the fins lose contact; camera top: +0.5 / -0.6 mm (its height is the less certain one)"
+    },
+    {
+     "id": "pads geometry",
+     "group": "Clamp: TPU fin pads",
+     "status": "PASS",
+     "message": "fin tips reach below the pod faces by pad_grip 0.50, pad_cam 0.60 mm"
+    },
+    {
+     "id": "bar sections",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "bar 8 x 4 mm, weakest section at x = -24.5: I = 17.8 mm4 (pad pockets, shutter chamfer and snap notch included); full section 168.2 mm4"
+    },
+    {
+     "id": "bar constant clamp",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "fin clamp at worst (7.2 N): bar 3.9 MPa constant (creep limit 5)",
+     "value": 3.9,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 10 g up (hooks gone)",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "16 N up: bar 8.5 MPa at x = -24 along the layers (limit 16.7), lift 0.39 mm + fin fold 0.5 + plays 0.3",
+     "value": 8.5,
+     "limit": 16.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 30 g up (hooks gone)",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "47 N up: bar 25.6 MPa (breaks ~50), lift 1.18 mm at most",
+     "value": 25.6,
+     "limit": 50.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "bar 30 g PETG",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "PETG bar lifts 2.07 mm at 30 g (escape needs the pod over a frame: not possible while it holds)"
+    },
+    {
+     "id": "A2 double failure (hooks gone, PETG, 30 g up)",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "NEAR",
+     "message": "pod rises ~2.9 mm (bar 2.07 + fin fold 0.5 + plays 0.3): over the 1.3 mm back ridges and the camera-end corner lip, so backward escape is then held only by friction. Acceptable because the hooks are an independent hold; not a case the cage alone covers"
+    },
+    {
+     "id": "hinge pin 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm filament pin, double shear: 7.5 N -> 1.6 MPa (PLA ~30; limit 10)",
+     "value": 1.6,
+     "limit": 10.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin 30 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm filament pin, double shear: 22.4 N -> 4.7 MPa (PLA ~30; limit 30)",
+     "value": 4.7,
+     "limit": 30.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin bending 10 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm pin, knuckle centres 5.4 apart, bar knuckle 2.4 long: 15 MPa (1.75 mm PLA filament ~60; limit 20). Action use: a 2.0 mm steel pin (PIN_D = 2.0) gives 10 MPa in steel",
+     "value": 15.0,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "hinge pin bending 30 g",
+     "group": "Top bar and hinge",
+     "status": "PASS",
+     "message": "1.75 mm pin, knuckle centres 5.4 apart, bar knuckle 2.4 long: 45 MPa (PLA filament ~60; limit 60). Action use: a 2.0 mm steel pin (PIN_D = 2.0) gives 30 MPa in steel",
+     "value": 45.0,
+     "limit": 60.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap catch 10 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap lip 5.9 wide, 1.7 at the root, 8.3 N: 1.9 MPa across the layers (limit 6.7)",
+     "value": 1.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap catch 30 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap lip 5.9 wide, 1.7 at the root, 25.0 N: 5.7 MPa across the layers (limit 20.0)",
+     "value": 5.7,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "snap open force PLA",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "thumb on the tab (4 mm above the frame top, 6 mm wide): 5.3 N outward moves the catch 1.4 mm (arm 1.45 thick, root ramp 1.5; target 5-10)",
+     "value": 5.3,
+     "limit": [
+      5.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "snap strain PLA",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap strain while opening 1.34 % along the layers (limit 1.5)",
+     "value": 1.34,
+     "limit": 1.5,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "snap open force PETG",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "thumb on the tab (4 mm above the frame top, 6 mm wide): 5.4 N outward moves the catch 1.4 mm (arm 1.75 thick, root ramp 1.5; target 5-10)",
+     "value": 5.4,
+     "limit": [
+      5.0,
+      10.0
+     ],
+     "unit": "N",
+     "kind": "range"
+    },
+    {
+     "id": "snap strain PETG",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "snap strain while opening 1.62 % along the layers (limit 2.0)",
+     "value": 1.62,
+     "limit": 2.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "snap pry-out 10 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "catch load 8 N 1.32 mm off the arm: pulls the lip out 0.21 mm, the 8 deg catch face pushes it back 0.21: net 0.00 mm"
+    },
+    {
+     "id": "snap pry-out 30 g",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "catch load 25 N 1.32 mm off the arm: pulls the lip out 0.63 mm, the 8 deg catch face pushes it back 0.63: net 0.00 mm"
+    },
+    {
+     "id": "snap engages",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "lip material 1.3 mm3 sits right over notch-floor material 2.7 mm3 (a real catch, not air)"
+    },
+    {
+     "id": "D 15 g toward camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "24 N: pod slides 0.4 mm (hook-wall gap 0.50: hooks untouched), rolls 0.48 deg, frame top pushed out 0.39 mm (2.8 N, post root 3.8 MPa along the layers); snap engagement 0.76 mm left (need >= 0.6)",
+     "value": 0.76,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "D 15 g toward camera end PETG",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "PETG: frame top 0.42 mm, snap engagement 0.73 mm left"
+    },
+    {
+     "id": "D 15 g toward grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "24 N: pod slides 0.4 mm (hook-wall gap 0.50: hooks untouched), rolls 0.48 deg, frame top pushed out 0.41 mm (2.5 N, post root 3.6 MPa along the layers); snap engagement 0.91 mm left (need >= 0.6)",
+     "value": 0.91,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "D 15 g toward grip end PETG",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "PETG: frame top 0.45 mm, snap engagement 0.88 mm left"
+    },
+    {
+     "id": "A2 up",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed up: first contact after 0.75 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 back",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed back: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed forward: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 to grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed to grip end: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 to camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks removed, pod pushed to camera end: first contact after 0.5 mm of travel, still blocked at 6+ mm"
+    },
+    {
+     "id": "A2 30 g sideways to camera end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks gone, 30 g: rolls 0.55 deg, frame top 0.45 mm, post root 4.4 MPa; with the diagonal case's pry-out (0.00) the snap is still engaged 0.70 mm"
+    },
+    {
+     "id": "A2 30 g sideways to grip end",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "hooks gone, 30 g: rolls 0.56 deg, frame top 0.48 mm, post root 4.2 MPa; with the diagonal case's pry-out (0.00) the snap is still engaged 0.85 mm"
+    },
+    {
+     "id": "A2 30 g forward",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "camera-end front lip (3 mm deep over the camera edge) takes 47 N: 5.3 MPa (limit 20 across layers)",
+     "value": 5.3,
+     "limit": 20.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "A2 30 g back",
+     "group": "Second hold (hooks removed) and side loads",
+     "status": "PASS",
+     "message": "grip-end back lip (28 mm tall) alone takes 47 N: 5.6 MPa across the layers; the camera end is held back by the bottom-corner lip and the ridge, its top pitching back is held down by the bar"
+    },
+    {
+     "id": "A3 screen + flip path",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the screen panel / flip keep-out: 0.000 mm3"
+    },
+    {
+     "id": "screen finger notch",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "no ridge across the middle 46 mm of the back: a nail reaches under the panel edge (panel from 1.5 mm up, base top at 0)"
+    },
+    {
+     "id": "A3 shutter: r 12.5 finger room, 6 mm up (both estimates)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 power button + finger r 8 (grip end, manual: z 27-38)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 Q button + finger r 8 (grip end, z 11-22)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard slot (back strip, grip end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 lanyard port (grip end face)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB-C / release switch / speaker (camera end)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 USB plug body (12 x 8, 25 mm out)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera speaker (camera side, front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera mic + light sensor (front, r 3.5, 10 mm out)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 standalone camera button + finger (front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera indicator, top front edge (seen from the front)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 camera indicator, lower front",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "A3 pod indicator on the screen bezel (seen from behind)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "mount in the zone: 0.000 mm3"
+    },
+    {
+     "id": "snap tab hit from above",
+     "group": "Snap and pull tab",
+     "status": "PASS",
+     "message": "free arm + tab 21 mm long would buckle outward at ~31 N (Euler, fixed-free) if loaded straight down. The tab top slopes 40 deg down toward the outside and stands only 4 mm proud: a blow from above pushes it inward onto the lip in its notch (0.2 mm), which locks it. Physical test: 30 N pushed down on the tab, snap must stay shut"
+    },
+    {
+     "id": "A3 shutter position margin",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "shutter (r 6) keeps 1.5 mm from the bar for a centre up to y = 16.5, and full r 12.5 finger room up to y = 11.5. Photo estimate y 10; the manual's views suggest y 11-18: if the real button sits further forward, BAR_Y0 moves (fit-test item)"
+    },
+    {
+     "id": "A3 lens view if the glass is at 33.3",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "rebuilt with LENS_FRONT = 33.3 (camera face, lips and posts follow): closest point 80.9 deg off the axis"
+    },
+    {
+     "id": "A3 lens view",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "closest mount point 80.9 deg off the lens axis (lens at x 19.7, z 33.9 from the manual; view half-angle ~78)",
+     "value": 80.9,
+     "limit": 78.0,
+     "unit": "deg",
+     "kind": "min"
+    },
+    {
+     "id": "protect lens glass",
+     "group": "Keep-outs and protection",
+     "status": "NEAR",
+     "message": "lens glass lies 1.2 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 1.2,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "protect screen centre",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "screen centre lies 5.4 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 5.4,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "protect screen corner (camera end, top)",
+     "group": "Keep-outs and protection",
+     "status": "PASS",
+     "message": "screen corner (camera end, top) lies 2.4 mm inside the convex hull of base + frames + bar (a flat surface hits the cage first; need >= 1.5)",
+     "value": 2.4,
+     "limit": 1.5,
+     "unit": "mm",
+     "kind": "min"
+    },
+    {
+     "id": "F5 cord eyelet",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "cord eyelet behind the grip back post (163 mm3): 3.2 mm hole, thinnest ligament 1.7 x 4 mm -> 14 mm2 holding the cord (need >= 12), 14 mm from the nearest button gap",
+     "value": 14.0,
+     "limit": 12.0,
+     "unit": "mm2",
+     "kind": "min"
+    },
+    {
+     "id": "frames locked in x",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "feet slide in to a hard stop at FOOT_IN, then a 1.75 filament pin from below through the base floor into each foot: 45 N outward per frame at 30 g on two pins = 9.4 MPa shear; the glue is no longer the only lock"
+    },
+    {
+     "id": "prong block locked",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "two 1.75 filament pins along y through the base and the prong plate (double shear): 62 N pull-off at 30 g = 6.4 MPa; glue no longer the only hold"
+    },
+    {
+     "id": "lift notches",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "two finger notches in the base top (3 mm deep): middle of the back (reaches 2.5 mm under the pod) and under the camera front (2.5 mm under it): pinch and lift"
+    },
+    {
+     "id": "A1 prongs",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "GoPro 2-prong: 2.9 thick, 3.3 gap, 5.4 hole (fits standard 3-prong mounts; the M5 bolt is bought)"
+    },
+    {
+     "id": "thumbscrew room",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "prong hole 13.0 mm under the base: a 25 mm thumbscrew head clears by 0.5 mm"
+    },
+    {
+     "id": "D2 prongs 10 g",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "10 g sideways on the pivot (42 mm lever): 16.0 MPa in the blades as free cantilevers (2 mm root fillets ignored); the block prints standing on its end, so the blades bend along their layers"
+    },
+    {
+     "id": "D2 prong block",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "prong block 24 x 14.8 mm in a 3 mm deep pocket: shear on the walls, pinned against pull-off"
+    },
+    {
+     "id": "E2 height",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "shoe foot bottom to pod bottom 50.4 mm (revised target 52: 45 is not reachable once a 25 mm GoPro thumbscrew must clear the base)",
+     "value": 50.4,
+     "limit": 52.0,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "E3 weight",
+     "group": "Mounting, joints, height, weight",
+     "status": "PASS",
+     "message": "all printed parts about 35 g (PLA 35.0 cm3 at ~80 % fill; slicer gives the real number)"
+    }
+   ],
+   "summary": {
+    "checks": 103,
+    "pass": 100,
+    "near": 3,
+    "fail": 0
+   },
+   "source": "review_pack/verify_output.txt"
+  }
+ ],
+ "findings": [
+  {
+   "reviewer": "functionality",
+   "severity": "blocker",
+   "summary": "Pod can't go in/out",
+   "fix": "every fixed over-top lip removed; the bar does all the upward holding, opens to 180 deg without touching anything and folds outward; hinge axis outside the pod (x -37.4, frame line 35.4). verify: pod lifted 0-60 mm with the bar at 150 deg and buttons pressed, 0.00 mm3 overlap; bar swing 0-180 deg free.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F1"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Cord jams the button",
+   "fix": "cord eyelet now behind the grip-end back post (3.2 mm hole, 1.7 x 4 mm ligaments = 14 mm2), 14 mm from the nearest button gap. The base has no cord slot.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F2"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Shutter under/near the bar",
+   "fix": "bar starts at y 22.5, 12.8 mm from both shutter estimates; rail behind the bar block is no higher than the pod top; 1.5 x 45 deg chamfer on the bar's back edge. verify: nothing within r 12.5 of either estimate up to 6 mm above the top.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F3"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Screen hard to flip",
+   "fix": "ridges only within 12 mm of the posts: the middle 46 mm of the back is open for a nail.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F4"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "25 mm thumbscrews",
+   "fix": "PR_DROP 13 (was 10.5).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F5"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Unchecked features",
+   "fix": "mic, light sensor, camera button, both camera indicators, pod indicator, power and Q (with a finger radius 8), speaker, USB-C plug, lanyard port: all have keep-out zones from the manual drawing (+-3 mm), all clear.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F6"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Two-handed removal",
+   "fix": "stated above (unchanged by design: two buttons are what makes the latch positive).",
+   "status": "accepted",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-F7"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Hinge",
+   "fix": "1.7 mm hole in the frame knuckles (press fit, glue only there), 2.1 in the bar knuckle (free); the bar folds against the grip frame at 180 deg.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F8"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Snap tab",
+   "fix": "replaced by a flush finger scoop at the camera end; the snap arm is part of the frame's outer face.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F9"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Glue joints",
+   "fix": "frames on 3.4 mm tall dovetail feet that slide into the base (mechanical in pull-out, glue holds the slide); prong block recessed 3 mm (shear on the pocket walls).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F10"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Targets moved",
+   "fix": "E1 now checks 6-10 N (PLA 6.4, PETG version 6.3); E2 is revised to 52 mm with the reason (25 mm thumbscrew clearance; actual 50.4); E3 counts every printed part.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F11"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "blocker",
+   "summary": "Sponge preload",
+   "fix": "sponge and springs removed. The pod sits on the rigid base; the fins clamp from above at 0.2-4.7 N (x0.5 / x2 for TPU stiffness: 1.2-9.5 N). verify computes force against compression. Constant stress: hooks 0 MPa, bar at most 4.4 MPa (worst pod height and 2x stiff TPU).",
+   "status": "fixed",
+   "code": "B1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D12"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "blocker",
+   "summary": "A side knock releases a hook",
+   "fix": "the hook-to-slot-wall gap (0.35) is larger than the frame clearance (0.2), so a sideways slide can't push a hook. Buttons sit 1.8 mm behind the frame line at the stop and ~0 mm proud at rest of their neighbours (frame foot at 37.6, button face 39.4 at the stop). Lateral 15 g with frame compliance (roll model: far hook, fins, bar, frame top as springs): frame top pushed out 0.41-0.43 mm, snap engagement left 0.72 / 0.92 mm (>= 0.6), PETG 0.65 / 0.88.",
+   "status": "fixed",
+   "code": "B2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D13"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Snap printed across layers",
+   "fix": "the snap is now in the camera frame, printed flat: it bends along its layers (1.48 % in PLA, 1.5 % limit; PETG version 1.78 % with a 2 % limit). Its catch lip is loaded across layers: 2.3 MPa at 10 g.",
+   "status": "fixed",
+   "code": "M1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D14"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "A2 rigid-only test",
+   "fix": "A2 now (a) pushes the pod 6+ mm in each direction with the hooks removed (blocked every way, first contact after 0.25-0.75 mm), (b) runs the roll model at 30 g with the hooks gone (snap still engaged 0.52 / 0.84 mm), (c) checks the bar as a beam from real sections at 10 g and 30 g (7.3 / 22 MPa, lift 0.3 / 0.9 mm), the pin, the snap catch, and the front and back lips at 30 g. Frames 4 mm thick, posts on dovetail feet.",
+   "status": "fixed",
+   "code": "M2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D15"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Lens",
+   "fix": "lens glass 1.6 mm inside the convex hull of base + frames + bar; the front posts end 1 mm in front of the glass and stay outside an 80 deg half-angle view cone (lens position now from the manual: x 19, z 32).",
+   "status": "fixed",
+   "code": "M3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D16"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Hard pad interference",
+   "fix": "replaced by folding fins (above).",
+   "status": "fixed",
+   "code": "M4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D17"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Hooks at 10 g",
+   "fix": "catch now 1.0 mm thick: 13.2 MPa at 10 g along layers (limit 16.7). In normal use the bar takes upward loads too. 5 deg back-angled catch, root fillet on the flexure.",
+   "status": "fixed",
+   "code": "M5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D18"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Prongs",
+   "fix": "1 mm root fillets; the prong block prints upside down, so the prong blades stand with the hole vertical (blades bend along their layers).",
+   "status": "fixed",
+   "code": "m1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D19"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Pin holes",
+   "fix": "see Hinge above.",
+   "status": "fixed",
+   "code": "m2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D20"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Frame edges",
+   "fix": "frames are one rounded outline with rounded faces.",
+   "status": "fixed",
+   "code": "m3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D21"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Stale notes, PETG",
+   "fix": "job.json rewritten for iteration 2; PETG section variant built into the script.",
+   "status": "fixed",
+   "code": "m4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D22"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Insertion path, cord, shutter, screen notch, sharp edges",
+   "fix": "see above.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E23"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Buttons",
+   "fix": "12 x 6 mm faces with grip ridges, 6.4 N, ~0 mm proud of every neighbour at the stop (verify).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E24"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Snap tab",
+   "fix": "flush scoop, ~6 N to open; the finger never goes between moving parts.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E25"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Height/weight",
+   "fix": "shoe to pod bottom 50.4 mm (25 mm thumbscrew clearance sets it); printed parts ~35 g (the slicer's number is in the plate notes).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E26"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Pinch points",
+   "fix": "the snap arm is flush with the frame face; the bar closes onto the pod's top, not onto the frame edge.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E27"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Frames",
+   "fix": "one 2D outline (R3 outer, R2.5 inner corners), rounded faces; the same post positions and silhouette at both ends (a raised block at the front under the bar on both ends; the rail behind it at pod-top height).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A28"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Bar top flush with the blocks",
+   "fix": "Bar top flush with the blocks; hinge knuckles as tall as the bar and coaxial with its rounded end; snap arm flush.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A29"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Base",
+   "fix": "one continuous rounded outline (no ears), prong plate fully recessed; buttons inside the outline line at the stop.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A30"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Head",
+   "fix": "R1.5 top edge, 0.8 mm prong root fillets, nut boss as one arch-shaped side lobe standing on the bed.",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A31"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "TPU is black and sits inside pockets under the bar",
+   "fix": "TPU is black and sits inside pockets under the bar (only the fin tips show from below).",
+   "status": "fixed",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A32"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Snap opens the wrong way / fingernail only",
+   "fix": "scoop removed; the arm continues 5 mm above the frame top as a pull tab (6 x 5 mm face). 5.1 N to open (PLA), 1.33 % strain; PETG section 5.2 N, 1.61 %. A thicker tab was considered and rejected: it needs the bar end shortened, which makes the catch lip 2.4 mm long and lets it pry out ~1.2 mm at 30 g.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F33"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Frames too close / position set by glue",
+   "fix": "FR_CL 0.4; the dovetail slots end at FOOT_IN (hard stop); filament cross-pin through each foot. Hook-to-slot-wall gap raised to 0.5 (> 0.4) with LIP 1.5 so a sideways slide still can't touch a hook.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F34"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "33.3 mm may include the lens",
+   "fix": "the spec lists \"Action Pod (touchscreen closed)\" 33.3 separately from the camera (18.3 / 22.4 with guard), and the side photo puts the glass ~3.7 mm in front of the camera face. `LENS_FRONT` is one parameter: the front posts end LENS_FRONT + 0.7 and the view check uses it.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F35"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Nothing to lift the pod by",
+   "fix": "two 3 mm finger notches in the base top, each reaching 2.5 mm under the pod edge (middle of the back, under the camera front).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F36"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Hook tip 4.1 mm deep",
+   "fix": "30 deg lead-in: tip now 3.7 mm. A base-only fit print is the first step (below).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F37"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Shutter not from the manual",
+   "fix": "the manual's views disagree (y ~11 and ~18, not drawn to scale); the bar moved 1.5 mm forward (BAR_Y0 24) and verify states the limit (button clear up to y 16.5, full finger room up to y 11.5). Fit-test item.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F38"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "No hold-open detent / camera + microSD can't come out while mounted / USB plug over the camera-end button",
+   "fix": "noted in the assembly notes; not changed.",
+   "status": "accepted",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "id": "R2-F39"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Fin force depends on friction",
+   "fix": "fins lean 62 deg (jam needs friction > tan 62 = 1.88); verify includes the friction factor 1 / (1 - mu cot a): x1.47 at mu 0.6, x2.14 at mu 1.0. Worst case 7.9 N -> 4.3 MPa constant in the bar.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D40"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Hinge pin bending",
+   "fix": "added to verify: 15 MPa at 10 g, 45 MPa at 30 g in a 1.75 PLA filament pin; `PIN_D = 2.0` for a steel pin in the PETG / action version (30 MPa in steel at 30 g).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D41"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Glue-only joints",
+   "fix": "frames pinned (above); prong block pinned by two filament pins in double shear.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D42"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Prong print orientation",
+   "fix": "the block now prints standing on its 24 x 3 end (blades vertical, bending along the layers), lower tip quadrant filled at 45 deg, teardrop hole, 2 mm root fillets.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D43"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Snap root step",
+   "fix": "1.5 mm 45 deg ramp at the root (strain is computed from the ramp's midpoint).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D44"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Snap pry-out",
+   "fix": "8 deg back-angled catch. verify: pry-out 0.63 mm vs back-angle 0.63 mm at 30 g, net 0; 15 g sideways leaves 0.76 / 0.91 mm of engagement; 30 g sideways with the hooks gone (+ diagonal pry) 0.70 / 0.85 mm.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D45"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Flexure root fillet",
+   "fix": "in-plane fillets (R1 inboard, R0.45 outboard) where the flexure meets the base; effective length shortened 0.5 mm in the checks, flexure 1.7 mm, stop 1.75 mm: strain 1.46 %.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D46"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Loose parts",
+   "fix": "fin pads press fit at the strip ends (+ a dot of CA); melt the hinge pin ends after assembly.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D47"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Safety cord",
+   "fix": "README / guide: tie it to the helmet or accessory for action use.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D48"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Physical tests (for the PETG version)",
+   "fix": "listed below.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D49"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Snap release",
+   "fix": "pull tab (above).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E50"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Remaining sharp edges",
+   "fix": "lips and flanges now rounded boxes (R0.6 plan, C0.5 ends); knuckle webs rounded; bar free-end corners R0.8; cord-hole chamfers 0.5 both sides; button bays R0.5.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E51"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "E2 45 -> 52 mm",
+   "fix": "needs the owner's OK (stated in the report to him); actual 50.4.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E52"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "E3",
+   "fix": "slicer weight is in the plate notes.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E53"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "major",
+   "summary": "Cord eyelet",
+   "fix": "both ends now carry the same lug behind the back post, R2 blend into the post, chamfered/rounded faces like the frame, so the silhouettes match.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A54"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Bed-side rounding",
+   "fix": "frames' outer (bed) face C0.6, inner face R1.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A55"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Sharp lips/flanges, snap block, nut lobe, button bays",
+   "fix": "rounded (above); head lobe edges R1.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A56"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Bar chamfer",
+   "fix": "one continuous 2 x 45 chamfer along the whole back top edge.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A57"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "30 deg lead-in too hard to press",
+   "fix": "back to 45 deg; verify now uses cot(lead - friction angle) at friction 0.4: 16 N for both hooks, 26 N with the slot 0.6 further in (<= 30). Hook tip 4.3 mm (base-only fit print settles it; LIP_H is the parameter if the hole is shallower).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-F58"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "CAM_D not tied to LENS_FRONT",
+   "fix": "`CAM_D = LENS_FRONT - 3.7`; `GO_ULTRA_LENS` sets it; the front posts' start and end, the camera lip, the base outline and the pod model follow. verify rebuilds with the glass at 33.3: 81 deg, and checks the PETG and lens 33.3 / 39 builds are clean single bodies (they weren't at first: fixed).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-F59"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "unrated",
+   "summary": "Front lift notch pushes the camera module / next to its button",
+   "fix": "moved to x 6-18 (clear of the button at x -1.6).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-F60"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Exposed pull tab",
+   "fix": "4 mm proud (was 5), top slopes 40 deg down toward the outside so a blow from above pushes the tab inward onto the lip in its notch (it can't move in more than 0.2 mm): it locks instead of buckling outward (straight-down Euler load 31 N). Guard ribs beside it were rejected: they leave a 7 mm gap a thumb can't use. The 30 N push from above is in the physical test list.",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D61"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "PIN_D tied to the material",
+   "fix": "PLA 1.75 filament, PETG 2.0 (steel rod or cut nail, to buy).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D62"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Foot pins work out",
+   "fix": "1.7 mm press-fit holes in the base floor (1.8 in the foot, CA).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D63"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Camera pad near flat",
+   "fix": "PAD_C0 cam 0.8 -> 0.6 (set after measuring the camera top).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D64"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "unrated",
+   "summary": "Double failure",
+   "fix": "verify now states it: hooks gone + PETG bar at 30 g -> the pod rises ~2.9 mm, over the 1.3 mm ridges; relies on the hooks being an independent hold.",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D65"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Tab top edge",
+   "fix": "the 40 deg slope plus R0.7 on the inner face replaces the 0.4 mm edge. Front notch moved (above).",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-E66"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "unrated",
+   "summary": "Sideways rattle",
+   "fix": "Sideways rattle (0.4 mm, friction-held to ~0.8 g): \"listen for rattle\" added to the fit test; PETG version can add TPU fin strips on the frames' inner faces if it ticks.",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-E67"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "unrated",
+   "summary": "Tab head lines up with the bar",
+   "fix": "Tab head lines up with the bar (bar-wide above the frame top), R2.5 corners, thumb grooves on the inner face. No dummy tab at the grip end.",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-A68"
+  }
+ ],
+ "tests": [
+  {
+   "id": "T1",
+   "what": "Pod press-in force, both hooks clicking in",
+   "check": "F1 latching force",
+   "predicted": 16,
+   "predicted_note": "26 N if the slot is 0.6 mm further in",
+   "limit": 30,
+   "kind": "max",
+   "unit": "N",
+   "method": "kitchen scale under the base, base-only fit print",
+   "measured": null
+  },
+  {
+   "id": "T2",
+   "what": "Release button force at the stop",
+   "check": "E1 button force PLA",
+   "predicted": 6.2,
+   "limit": [
+    6,
+    10
+   ],
+   "kind": "range",
+   "unit": "N",
+   "method": "kitchen scale, one button",
+   "measured": null
+  },
+  {
+   "id": "T3",
+   "what": "Pull-tab opening force",
+   "check": "snap open force PLA",
+   "predicted": 5.3,
+   "limit": [
+    5,
+    10
+   ],
+   "kind": "range",
+   "unit": "N",
+   "method": "kitchen scale against the tab",
+   "measured": null
+  },
+  {
+   "id": "T4",
+   "what": "Closing force at the snap",
+   "predicted": null,
+   "limit": 10,
+   "kind": "max",
+   "unit": "N",
+   "method": "kitchen scale on the bar end",
+   "measured": null
+  },
+  {
+   "id": "T5",
+   "what": "Latch hole depth the hook tip needs",
+   "check": "F4 hole depth",
+   "predicted": 4.3,
+   "kind": "min",
+   "unit": "mm",
+   "method": "does the seated pod sit flat on the base (fit print)",
+   "measured": null
+  },
+  {
+   "id": "T6",
+   "what": "Rim thickness the catch must pass",
+   "check": "F4 rim thickness",
+   "predicted": 1.7,
+   "kind": "max",
+   "unit": "mm",
+   "method": "caliper on the pod's latch slot",
+   "measured": null
+  },
+  {
+   "id": "T7",
+   "what": "Snap tab pushed down with the bar shut (PETG)",
+   "check": "snap tab hit from above",
+   "predicted": null,
+   "expect": "locks: the sloped tab is pushed onto its catch (a straight tab would buckle at ~31 N)",
+   "unit": "N",
+   "method": "30 N on the tab, snap stays shut",
+   "measured": null
+  },
+  {
+   "id": "T8",
+   "what": "Hang 5 kg from the pod, hooks held open, 1 min (PETG)",
+   "check": "bar 30 g up (hooks gone)",
+   "predicted": null,
+   "expect": "holds: 49 N is about the 30 g case (47 N), bar ~27 MPa where PLA breaks at ~50",
+   "method": "5 kg hung under the pod",
+   "measured": null
+  }
+ ],
+ "built": "2026-11-27",
+ "mass": {
+  "axes": "x along the pod (grip end left, camera end right), y back to front, z up; mm, assembled on the cold-shoe foot",
+  "parts": [
+   {
+    "name": "Latch base (hooks on flexures, release buttons)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 13.09,
+    "com": [
+     -3.0,
+     4.0,
+     50.1
+    ],
+    "bounds": [
+     [
+      -44.8,
+      -17.2,
+      45.4
+     ],
+     [
+      38.8,
+      25.3,
+      54.7
+     ]
+    ],
+    "source": "11.28 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "GoPro 2-prong block",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.96,
+    "com": [
+     0.0,
+     -0.0,
+     40.6
+    ],
+    "bounds": [
+     [
+      -12.0,
+      -7.4,
+      25.0
+     ],
+     [
+      12.0,
+      7.4,
+      48.3
+     ]
+    ],
+    "source": "2.55 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "End frame, grip end (hinge)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 5.06,
+    "com": [
+     -40.2,
+     3.5,
+     78.1
+    ],
+    "bounds": [
+     [
+      -42.6,
+      -22.4,
+      47.0
+     ],
+     [
+      -34.7,
+      24.1,
+      103.7
+     ]
+    ],
+    "source": "4.36 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "End frame, camera end (snap + pull tab)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 4.43,
+    "com": [
+     34.5,
+     3.5,
+     77.2
+    ],
+    "bounds": [
+     [
+      29.2,
+      -22.4,
+      47.0
+     ],
+     [
+      36.6,
+      24.1,
+      107.7
+     ]
+    ],
+    "source": "3.82 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "Hinged top bar",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.29,
+    "com": [
+     0.2,
+     13.9,
+     101.5
+    ],
+    "bounds": [
+     [
+      -42.6,
+      10.2,
+      96.9
+     ],
+     [
+      35.1,
+      17.4,
+      103.7
+     ]
+    ],
+    "source": "1.98 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "TPU fin pad (grip)",
+    "kind": "printed",
+    "material": "TPU 95A",
+    "grams": 0.06,
+    "com": [
+     -32.0,
+     13.0,
+     100.2
+    ],
+    "bounds": [
+     [
+      -37.0,
+      10.8,
+      98.7
+     ],
+     [
+      -27.0,
+      15.2,
+      100.9
+     ]
+    ],
+    "source": "0.05 cm3 x 1.21 g/cm3 x fill 1.00"
+   },
+   {
+    "name": "TPU fin pad (camera)",
+    "kind": "printed",
+    "material": "TPU 95A",
+    "grams": 0.07,
+    "com": [
+     25.5,
+     13.8,
+     97.2
+    ],
+    "bounds": [
+     [
+      21.4,
+      11.2,
+      95.8
+     ],
+     [
+      29.6,
+      16.4,
+      98.0
+     ]
+    ],
+    "source": "0.06 cm3 x 1.21 g/cm3 x fill 1.00"
+   },
+   {
+    "name": "3-prong head (M5 nut pocket)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 6.04,
+    "com": [
+     1.6,
+     0.0,
+     23.4
+    ],
+    "bounds": [
+     [
+      -9.0,
+      -8.5,
+      12.4
+     ],
+     [
+      11.7,
+      8.5,
+      39.9
+     ]
+    ],
+    "source": "5.20 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "Knob for the M5 bolt",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.01,
+    "com": [
+     -11.9,
+     0.0,
+     32.4
+    ],
+    "bounds": [
+     [
+      -15.7,
+      -9.5,
+      23.1
+     ],
+     [
+      -7.7,
+      9.5,
+      41.7
+     ]
+    ],
+    "source": "1.73 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "Lock wheel (M11 x 1.5)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.55,
+    "com": [
+     0.0,
+     0.0,
+     6.3
+    ],
+    "bounds": [
+     [
+      -12.9,
+      -12.8,
+      3.6
+     ],
+     [
+      12.9,
+      12.8,
+      9.1
+     ]
+    ],
+    "source": "2.20 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "Cold-shoe foot (18.2 mm; 18.45 mm spare)",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.19,
+    "com": [
+     0.0,
+     0.0,
+     7.6
+    ],
+    "bounds": [
+     [
+      -9.1,
+      -9.0,
+      0.0
+     ],
+     [
+      9.1,
+      9.0,
+      20.4
+     ]
+    ],
+    "source": "1.88 cm3 x 1.24 g/cm3 x fill 0.94"
+   },
+   {
+    "name": "M5 bolt (bought, reference)",
+    "kind": "bought",
+    "material": "",
+    "grams": 6.12,
+    "com": [
+     -1.3,
+     0.0,
+     32.4
+    ],
+    "bounds": [
+     [
+      -15.6,
+      -4.0,
+      27.8
+     ],
+     [
+      17.9,
+      4.0,
+      37.0
+     ]
+    ],
+    "source": "steel, volume of the reference model"
+   },
+   {
+    "name": "M5 nut (bought, reference)",
+    "kind": "bought",
+    "material": "",
+    "grams": 1.13,
+    "com": [
+     9.9,
+     0.0,
+     32.4
+    ],
+    "bounds": [
+     [
+      7.9,
+      -4.0,
+      27.8
+     ],
+     [
+      11.9,
+      4.0,
+      37.0
+     ]
+    ],
+    "source": "steel, volume of the reference model"
+   },
+   {
+    "name": "GO Ultra in its Action Pod (reference, from specs and photos)",
+    "kind": "payload",
+    "material": "",
+    "grams": 161,
+    "com": [
+     -1.0,
+     2.0,
+     74.4
+    ],
+    "bounds": [
+     [
+      -38.2,
+      -14.0,
+      50.4
+     ],
+     [
+      32.2,
+      19.3,
+      99.2
+     ]
+    ],
+    "source": "Insta360 spec: pod 108.5 g + camera 52.9 g; centre of mass as verify_mount.py models it (mid-height, 2 mm toward the camera end)"
+   }
+  ],
+  "total_g": 209.0,
+  "printed_g": 40.7,
+  "com": [
+   -1.3,
+   2.1,
+   68.0
+  ],
+  "mounts": [
+   {
+    "name": "Cold-shoe foot",
+    "point": [
+     0,
+     0,
+     0
+    ],
+    "note": "tipping moment the shoe's rails must hold, at 1 g",
+    "offset": [
+     -1.3,
+     2.1,
+     68.0
+    ],
+    "lever_mm": 2.5,
+    "moment_Nmm": 5.0
+   },
+   {
+    "name": "GoPro pivot (M5 bolt axis)",
+    "point": [
+     0,
+     0,
+     32.4
+    ],
+    "axis": "x",
+    "note": "moment the clamped prong joint must hold, at 1 g",
+    "offset": [
+     -1.3,
+     2.1,
+     35.6
+    ],
+    "lever_mm": 2.1,
+    "moment_Nmm": 4.3
+   }
+  ],
+  "calibration": {
+   "PLA": {
+    "plate": "plate_tnt.gcode",
+    "slicer_grams": 42.82,
+    "solid_cm3": 36.89,
+    "fill": 0.936
+   }
+  },
+  "views": [
+   [
+    "x",
+    "z",
+    "Front"
+   ],
+   [
+    "y",
+    "z",
+    "Side"
+   ]
+  ]
+ }
+}
