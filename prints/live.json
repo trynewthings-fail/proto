@@ -1,3 +1,11 @@
 {
- "prints": []
+ "prints": [
+  {
+   "slug": "logo-pattern-cases",
+   "plate": 2,
+   "printer": "TNT",
+   "started": "2026-11-27T15:27:37+00:00",
+   "minutes": 196.9
+  }
+ ]
 }
