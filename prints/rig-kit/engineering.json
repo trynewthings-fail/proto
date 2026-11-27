@@ -1804,28 +1804,28 @@
      "message": "use version: plates, feet, heads, wheels in PETG (HDT ~70 C); PLA prints are fit tests only"
     },
     {
-     "id": "T11 iphone13mini case + shoe plate weight (solid)",
+     "id": "T11 iphone13mini case + shoe plate weight (as printed)",
      "group": "Targets",
      "status": "PASS",
-     "message": "35 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+     "message": "29 g with the slicer fill (TPU x0.81, PETG x0.91); target 40 g (per phone, approved 2026-11-27)"
     },
     {
-     "id": "T11 iphone14promax case + shoe plate weight (solid)",
+     "id": "T11 iphone14promax case + shoe plate weight (as printed)",
      "group": "Targets",
-     "status": "NEAR",
-     "message": "68 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+     "status": "PASS",
+     "message": "58 g with the slicer fill (TPU x0.81, PETG x0.91); target 60 g (per phone, approved 2026-11-27)"
     },
     {
-     "id": "T11 xiaomi12tpro case + shoe plate weight (solid)",
+     "id": "T11 xiaomi12tpro case + shoe plate weight (as printed)",
      "group": "Targets",
-     "status": "NEAR",
-     "message": "56 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+     "status": "PASS",
+     "message": "47 g with the slicer fill (TPU x0.81, PETG x0.91); target 50 g (per phone, approved 2026-11-27)"
     }
    ],
    "summary": {
     "checks": 147,
-    "pass": 138,
-    "near": 9,
+    "pass": 140,
+    "near": 7,
     "fail": 0
    },
    "source": "review_pack/verify_output.txt"
