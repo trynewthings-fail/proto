@@ -1,0 +1,3535 @@
+{
+ "version": 1,
+ "slug": "rig-kit",
+ "note": "Hand calculations with stated assumptions (beams, cantilevers, friction and contact models, mesh overlap tests on the real geometry), written by the designer and challenged by four independent reviewers. Not FEA and not lab tests: the physical tests below are what settles them.",
+ "assumptions": [
+  "Phones: iPhones from Apple's dimensional drawings (exact); the Xiaomi from photos (12T Pro +-2.5 mm), every value a parameter in phones.py with a fit-test band.",
+  "Load case: phone + case + plate at 10 g in any direction, with the true 3D lever from each section to the phone's centre of mass. Limit 1/3 of strength at 10 g; PLA/PETG ~50 MPa along layers, ~20 across.",
+  "Printed parts in PETG for use; constant preload kept <= 5 MPa (creep).",
+  "Ultra-wide frame: 4:3 frame from the 35 mm-equivalent focal length + ~2 deg; every head turn that can be fitted, both candidate Xiaomi lenses.",
+  "Phones as rounded slabs from phones.py (Apple drawing exact; Xiaomi from a photo, +-1.5 mm); camera = plateau + lens rings. Cases TPU 95A. Plates/feet/heads/wheels PETG in the use version (PLA for fit tests): strength ~45-50 MPa along layers, ~20 across (limits below use the PLA figures, PETG is tougher across layers).",
+  "Load cases: phone + case + plate at 10 g in any direction (knocks, handheld action); limit 1/3 of strength at 10 g.",
+  "Wheel clamp: 0.5 Nm on the Ø30 scalloped wheel (spec in the README, checked in the test plan); T = F (0.16 P + mu r_thread / cos 30 + mu r_face), mu 0.3 (plastic on plastic), r_face 8.5 (the wheel bears on the lips at r ~6.4-12).",
+  "GoPro joint: M5 x 20 countersunk, knob torque 0.5 Nm, K 0.2-0.3 -> clamp 330-500 N.",
+  "Ignored here, covered by physical tests in the README: TPU lip peel strength, printed-thread fit, CA strength, creep."
+ ],
+ "reviewers": [
+  "functionality",
+  "durability",
+  "ergonomics",
+  "aesthetics"
+ ],
+ "rounds": [
+  {
+   "round": 1,
+   "label": "Round 1",
+   "date": "2026-11-27",
+   "note": "First design: TPU cases for the Xiaomi 12 Pro and iPhone 13 mini, swappable shoe / prong plates, foot + wheel + 3-prong head + glued knob.",
+   "verdicts": {
+    "functionality": "PASS WITH CHANGES",
+    "durability": "FAIL",
+    "ergonomics": "PASS WITH CHANGES",
+    "aesthetics": "FAIL"
+   },
+   "verdict_notes": {
+    "functionality": "one blocker: the head was not held on the foot's key"
+   },
+   "summary": {
+    "checks": 55,
+    "pass": 54,
+    "near": 1,
+    "fail": 0
+   },
+   "checks": null
+  },
+  {
+   "round": 2,
+   "label": "Round 2",
+   "date": "2026-11-27",
+   "note": "Head locked by an M3 pin, M12 stud, head2, prongs_x, mount moved out of the ultra-wide frame, button covers, corner bumpers, one rounded window.",
+   "verdicts": {
+    "functionality": "PASS WITH CHANGES",
+    "durability": "PASS WITH CHANGES",
+    "ergonomics": "PASS WITH CHANGES",
+    "aesthetics": "PASS"
+   },
+   "summary": {
+    "checks": 91,
+    "pass": 81,
+    "near": 10,
+    "fail": 0
+   },
+   "checks": null
+  },
+  {
+   "round": 3,
+   "label": "Round 3",
+   "date": "2026-11-27",
+   "note": "3D load levers + M4 steel core in the stud, wheel clearance measured on the mesh, soft button covers + fit bands, head3 keyed out of the one turn that showed in the ultra-wide.",
+   "verdicts": {
+    "functionality": "PASS",
+    "durability": "PASS",
+    "ergonomics": "PASS",
+    "aesthetics": "PASS"
+   },
+   "checks": [
+    {
+     "id": "G1 iphone13mini_case",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 4 sealed voids (want 4), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_band",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want None), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_shoe",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_prongs",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_prongs_x",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12pro_case",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 4 sealed voids (want 4), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12pro_band",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want None), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12pro_plate_shoe",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12pro_plate_prongs",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12pro_plate_prongs_x",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 foot_a",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 foot_b",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 wheel",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 head3",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 head2",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 shoe2",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 knob",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 key_coupon",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G2 variant {'KIT_CLR': '0.0'}",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "ok"
+    },
+    {
+     "id": "G2 variant {'KIT_CLR': '0.25'}",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "ok"
+    },
+    {
+     "id": "G3 iphone13mini case layer 1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "6710 mm2 on the bed = 75 % of the back outline (back chamfer 1.0; holes: camera, window)"
+    },
+    {
+     "id": "G4 iphone13mini camera hole outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 933 mm2 at z 0.02 vs 849 at z 1.2: 0.79 mm wider per side at the outer face"
+    },
+    {
+     "id": "G4 iphone13mini window outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1118 mm2 at z 0.02 vs 1018 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "G3 xiaomi12pro case layer 1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "9491 mm2 on the bed = 74 % of the back outline (back chamfer 2.0; holes: camera, window)"
+    },
+    {
+     "id": "G4 xiaomi12pro camera hole outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1525 mm2 at z 0.02 vs 1408 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "G4 xiaomi12pro window outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1118 mm2 at z 0.02 vs 1018 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "F1 iphone13mini phone vs case at rest",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 overlap (CLR 0.1; button nubs stop 0.05 short of the buttons)"
+    },
+    {
+     "id": "F2 iphone13mini plate shoe in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.001 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone13mini plate prongs in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone13mini plate prongs_x in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F3 iphone13mini plate flange around the window",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "narrowest flange 16.0 mm (>= 6)"
+    },
+    {
+     "id": "F3b iphone13mini TPU strip pocket -> camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "3.08 mm (>= 3)"
+    },
+    {
+     "id": "F4 iphone13mini plate coverage",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "62 % of the back (target 60 %)",
+     "value": 62.0,
+     "limit": 60.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F5 iphone13mini camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.80 mm around the bump (target 0.8)",
+     "value": 0.8,
+     "limit": 0.8,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "F6 iphone13mini lens protection",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "lens rings 0.49 mm inside the case back; with the shoe plate the receiver holds the back 2.0 mm off a table"
+    },
+    {
+     "id": "F7 iphone13mini lens view cones vs case (diagonal FOV + 4 deg)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "worst overlap 0.00 mm3"
+    },
+    {
+     "id": "F7c iphone13mini flash 112 deg cone vs case",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F1 xiaomi12pro phone vs case at rest",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 overlap (CLR 0.1; button nubs stop 0.05 short of the buttons)"
+    },
+    {
+     "id": "F2 xiaomi12pro plate shoe in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.001 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 xiaomi12pro plate prongs in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 xiaomi12pro plate prongs_x in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F3 xiaomi12pro plate flange around the window",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "narrowest flange 15.7 mm (>= 6)"
+    },
+    {
+     "id": "F3b xiaomi12pro TPU strip pocket -> camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "3.05 mm (>= 3)"
+    },
+    {
+     "id": "F4 xiaomi12pro plate coverage",
+     "group": "Fit, ports and buttons",
+     "status": "NEAR",
+     "message": "45 % of the back (target 60 %): the curved back glass limits the plate to the flat middle (hw 28.0); TPU strip to the wall 9.3 mm",
+     "value": 45.0,
+     "limit": 60.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F5 xiaomi12pro camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "1.20 mm around the bump (target 1.2)",
+     "value": 1.2,
+     "limit": 1.2,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "F6 xiaomi12pro lens protection",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "lens rings 0.50 mm inside the case back; with the shoe plate the receiver holds the back 2.0 mm off a table"
+    },
+    {
+     "id": "F7 xiaomi12pro lens view cones vs case (diagonal FOV + 4 deg)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "worst overlap 0.00 mm3"
+    },
+    {
+     "id": "F7c xiaomi12pro flash 112 deg cone vs case",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F7b iphone13mini ultra-wide frame vs the mount stack",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "foot at y -14.0: nothing in frame (head3 in its 3 allowed turns, head2 all 4; every lens that may be the ultra-wide)"
+    },
+    {
+     "id": "F7d iphone13mini a mated GoPro part pointing straight back (16 x 20, 30 mm past the hinge)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "NEAR",
+     "message": "reaches the ultra-wide corner when it points straight out of the back: aim the joint down/sideways (README)"
+    },
+    {
+     "id": "F7b xiaomi12pro ultra-wide frame vs the mount stack",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "foot at y -26.0: nothing in frame (head3 in its 3 allowed turns, head2 all 4; every lens that may be the ultra-wide)"
+    },
+    {
+     "id": "F7d xiaomi12pro a mated GoPro part pointing straight back (16 x 20, 30 mm past the hinge)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "NEAR",
+     "message": "reaches the ultra-wide corner when it points straight out of the back: aim the joint down/sideways (README)"
+    },
+    {
+     "id": "F8 iphone13mini openings vs spec parts",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "hole -14.4: 4.37; hole -10.6: 8.15; hole +11.3: 7.38; hole +13.6: 5.13; hole +15.9: 2.88; hole +18.1: 0.61; cover v43.68: recess 19.1 long, nub 16.1; switch slot v23.37: 1.75 past each end; cover v43.68: recess 26.6 long, nub 23.6"
+    },
+    {
+     "id": "F9 iphone13mini Lightning plug keep-out (13.65 x 6.85, 14 mm out)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F9c iphone13mini earpiece / front mic keep-out (11.7 wide, 2.16 above the glass)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 (lip 1.3, relieved to 0.6 over x +-7.0)"
+    },
+    {
+     "id": "F8 xiaomi12pro openings vs spec parts",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "cover v49.9: recess 24.4 long, nub 21.4; cover v71.35: recess 13.9 long, nub 10.9"
+    },
+    {
+     "id": "F9 xiaomi12pro USB-C plug keep-out (12.35 x 6.5, 14 mm out)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F9c xiaomi12pro earpiece / front mic keep-out (11.7 wide, 2.16 above the glass)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 (lip 1.2, relieved to 0.6 over x +-7.0)"
+    },
+    {
+     "id": "F10 iphone13mini foot locked in the receiver",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.000 mm3 (membrane snapped out)"
+    },
+    {
+     "id": "F11 iphone13mini foot insertion path (slide 20.0 mm, lift 12)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "worst overlap 0.000 mm3"
+    },
+    {
+     "id": "F12 iphone13mini lock wheel clears the case back",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "wheel face 2.0 mm off the case back (�30.0)"
+    },
+    {
+     "id": "F10 xiaomi12pro foot locked in the receiver",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.000 mm3 (membrane snapped out)"
+    },
+    {
+     "id": "F11 xiaomi12pro foot insertion path (slide 20.0 mm, lift 12)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "worst overlap 0.000 mm3"
+    },
+    {
+     "id": "F12 xiaomi12pro lock wheel clears the case back",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "wheel face 2.0 mm off the case back (�30.0)"
+    },
+    {
+     "id": "F13 finger room between wheel and head",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "3.6 mm; the wheel stands 2.9 mm beyond the head on the nut-boss side"
+    },
+    {
+     "id": "F14 M5 x 20 countersunk reach into the nut",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "4.20 mm in a 4.0 mm nut (head top in the counterbore at x -8.20)"
+    },
+    {
+     "id": "F14b M3 x 16 cross pin reach into its nut",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "2.55 mm in a 2.4 mm nut"
+    },
+    {
+     "id": "F15 GoPro spacing",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "3-prong gaps [3.2, 3.2]; 2-prong at (-4.7, 1.7) (gap 3.4)"
+    },
+    {
+     "id": "F16 head3 on the key, every allowed orientation, M3 pin",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "head vs foot/wheel 0.000 mm3, pin vs bores 0.09 mm3, lifting the head 1 mm drives the pin into the key: True"
+    },
+    {
+     "id": "F16 head2 on the key, every allowed orientation, M3 pin",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "head vs foot/wheel 0.000 mm3, pin vs bores 0.09 mm3, lifting the head 1 mm drives the pin into the key: True"
+    },
+    {
+     "id": "F24 head3 cannot sit with its knob toward the phone top",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "rib in the socket meets the key face without a groove: 0.87 mm3 (the head stops short, the pin won't go in)"
+    },
+    {
+     "id": "F17 M5 screw + nut seat in head3",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F18 wheel passes over the key (measured on the wheel mesh)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "thread crests r 5.233 vs key corners r 4.9: 0.33 mm clearance (>= 0.3)"
+    },
+    {
+     "id": "F19 knob clears head3 by >= 0.8 when seated",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "knob pushed 0.8 toward the head: 0.000 mm3 (neck 1.9 on the screw head)"
+    },
+    {
+     "id": "F20 iphone13mini head3 + knob on the prong plates, hinge +-90, both sides",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "1 mm closer than real: 0.000 mm3; a stock �22 thumbscrew 0.5 closer than real: 0.000 mm3"
+    },
+    {
+     "id": "F20 xiaomi12pro head3 + knob on the prong plates, hinge +-90, both sides",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "1 mm closer than real: 0.000 mm3; a stock �22 thumbscrew 0.5 closer than real: 0.000 mm3"
+    },
+    {
+     "id": "F22 stock �22 x 7 thumbscrew on head2 (mated 3-prong, at x +-7.7)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.5 mm lower than real: 0.000 mm3 (hole axis 23.0 above the bed face of the part)"
+    },
+    {
+     "id": "F22 stock �22 x 7 thumbscrew on shoe2 (mated 3-prong, at x +-7.7)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.5 mm lower than real: 0.000 mm3 (hole axis 18.2 above the bed face of the part)"
+    },
+    {
+     "id": "F23 M4 x 16 steel core clears the pin hole",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "core tip z 16.0, pin hole bottom z 16.7 (foot frame): 0.70 mm"
+    },
+    {
+     "id": "L1 iphone13mini foot slide-out at 10 g",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "load 17.3 N (176 g); 0.4 Nm on the wheel -> 85 N clamp -> friction 51 N (x3.0); upright, the closed end carries it"
+    },
+    {
+     "id": "L2 iphone13mini shoe lips",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "preload 0.8 MPa compression (creep limit 5); 10 g tipping -> lip root 5.3 MPa (along layers, limit 16.7)",
+     "value": 0.8,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L3 iphone13mini stud at the top of the thread (M4 steel core)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "lever 22.4 mm -> 386 Nmm; the printed stud carries 53 %: 1.9 MPa nominal, ~5 with Kt 2.5 (across layers, limit 6.7); steel 59 MPa (A2-70 yields at 450). Hang test >= 386 Nmm",
+     "value": 1.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4a iphone13mini key root (core passes through)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "386 Nmm, printed share -> 1.8 MPa, x1.5 for the stud/key step = 2.7 (limit 6.7)",
+     "value": 1.8,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4b iphone13mini key at the M3 cross hole",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "the socket bears on the key along its height (linear bearing): 26 % of the root moment = 100 Nmm / Z 76 mm3 = 1.3 MPa (bound with no socket: 5.1)"
+    },
+    {
+     "id": "L10 iphone13mini head3 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.7 -> 547 Nmm: across the bolted stack 1.0 MPa, in-plane 1.4 MPa (limit 6.7)",
+     "value": 1.4,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L10 iphone13mini head2 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.7 -> 547 Nmm: across the bolted stack 2.6 MPa, in-plane 2.4 MPa (limit 6.7)",
+     "value": 2.4,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L5 iphone13mini prong plate blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "269 Nmm (3D lever) -> 1.3 MPa across the bolted pair (limit 6.7)",
+     "value": 1.3,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L6 iphone13mini plate pull-out through the TPU back",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "34 kPa shear along the plate edge"
+    },
+    {
+     "id": "L1 xiaomi12pro foot slide-out at 10 g",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "load 25.0 N (254 g); 0.4 Nm on the wheel -> 85 N clamp -> friction 51 N (x2.0); upright, the closed end carries it"
+    },
+    {
+     "id": "L2 xiaomi12pro shoe lips",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "preload 0.8 MPa compression (creep limit 5); 10 g tipping -> lip root 8.0 MPa (along layers, limit 16.7)",
+     "value": 0.8,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L3 xiaomi12pro stud at the top of the thread (M4 steel core)",
+     "group": "Stud and key",
+     "status": "NEAR",
+     "message": "lever 31.4 mm -> 785 Nmm; the printed stud carries 53 %: 3.9 MPa nominal, ~10 with Kt 2.5 (across layers, limit 6.7); steel 120 MPa (A2-70 yields at 450). Hang test >= 785 Nmm",
+     "value": 3.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4a xiaomi12pro key root (core passes through)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "785 Nmm, printed share -> 3.6 MPa, x1.5 for the stud/key step = 5.4 (limit 6.7)",
+     "value": 3.6,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4b xiaomi12pro key at the M3 cross hole",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "the socket bears on the key along its height (linear bearing): 26 % of the root moment = 203 Nmm / Z 76 mm3 = 2.7 MPa (bound with no socket: 10.4)"
+    },
+    {
+     "id": "L10 xiaomi12pro head3 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 38.7 -> 966 Nmm: across the bolted stack 1.8 MPa, in-plane 2.5 MPa (limit 6.7)",
+     "value": 2.5,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L10 xiaomi12pro head2 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 38.7 -> 966 Nmm: across the bolted stack 4.6 MPa, in-plane 4.3 MPa (limit 6.7)",
+     "value": 4.3,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L5 xiaomi12pro prong plate blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "672 Nmm (3D lever) -> 3.2 MPa across the bolted pair (limit 6.7)",
+     "value": 3.2,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L6 xiaomi12pro plate pull-out through the TPU back",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "47 kPa shear along the plate edge"
+    },
+    {
+     "id": "L7 knob glue (neck �9.4 on the head top, minus the socket)",
+     "group": "Other loads",
+     "status": "NEAR",
+     "message": "~0.84 Nm at 4 MPa CA vs 0.5 Nm working (x1.7) + the hex stub; twist test to 1.0 Nm decides"
+    },
+    {
+     "id": "L8 countersunk seat hoop stress (K 0.2)",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "500 N clamp -> 5.3 MPa over the measured ring section 14.9 mm2 per side (across layers at 3 and 9 o clock); torque-to-failure test"
+    },
+    {
+     "id": "L8 countersunk seat hoop stress (K 0.3)",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "333 N clamp -> 3.6 MPa over the measured ring section 14.9 mm2 per side (across layers at 3 and 9 o clock); torque-to-failure test"
+    },
+    {
+     "id": "L11 iphone13mini button cover v43.68 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.6 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.6-7.1 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 7.1,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 iphone13mini button cover v43.68 press force #2",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.6 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.6-7.1 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 7.1,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 xiaomi12pro button cover v49.9 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 5.8 span, 0.7 membrane, 8 mm finger, 0.50 mm travel: 2.9-4.5 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 4.5,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 xiaomi12pro button cover v71.35 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 5.8 span, 0.7 membrane, 8 mm finger, 0.50 mm travel: 2.9-4.5 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 4.5,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L9 temperature",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "use version: plates, feet, heads, wheels in PETG (HDT ~70 C); PLA prints are fit tests only"
+    },
+    {
+     "id": "T11 iphone13mini case + shoe plate weight (solid)",
+     "group": "Targets",
+     "status": "PASS",
+     "message": "35 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+    },
+    {
+     "id": "T11 xiaomi12pro case + shoe plate weight (solid)",
+     "group": "Targets",
+     "status": "NEAR",
+     "message": "49 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+    }
+   ],
+   "summary": {
+    "checks": 107,
+    "pass": 101,
+    "near": 6,
+    "fail": 0
+   },
+   "source": "review_pack/round3/verify_output.txt"
+  },
+  {
+   "round": 4,
+   "label": "Round 4",
+   "date": "2026-11-27",
+   "note": "Phone list corrected to Xiaomi 12T Pro, iPhone 14 Pro Max, iPhone 13 mini: per-phone case back (3.0 / 4.7 / 3.5), the plate thickness follows.",
+   "verdicts": {
+    "functionality": "PASS",
+    "durability": "PASS",
+    "ergonomics": "PASS",
+    "aesthetics": "PASS"
+   },
+   "verdict_notes": {
+    "durability": "with the wheel tightened to 0.5 Nm (14 Pro Max)"
+   },
+   "checks": [
+    {
+     "id": "G1 iphone13mini_case",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 4 sealed voids (want 4), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_band",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want None), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_shoe",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_prongs",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone13mini_plate_prongs_x",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone14promax_case",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 4 sealed voids (want 4), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone14promax_band",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want None), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone14promax_plate_shoe",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone14promax_plate_prongs",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 iphone14promax_plate_prongs_x",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12tpro_case",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 4 sealed voids (want 4), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12tpro_band",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 2 sealed voids (want None), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12tpro_plate_shoe",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12tpro_plate_prongs",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 xiaomi12tpro_plate_prongs_x",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 foot_a",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 foot_b",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 wheel",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 head3",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 head2",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 shoe2",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 knob",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G1 key_coupon",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "1 solid, 0 sealed voids (want 0), watertight True, z0 0.000"
+    },
+    {
+     "id": "G2 variant {'KIT_CLR': '0.0'}",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "ok"
+    },
+    {
+     "id": "G2 variant {'KIT_CLR': '0.25'}",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "ok"
+    },
+    {
+     "id": "G3 iphone13mini case layer 1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "6710 mm2 on the bed = 75 % of the back outline (back chamfer 1.0; holes: camera, window)"
+    },
+    {
+     "id": "G4 iphone13mini camera hole outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 933 mm2 at z 0.02 vs 849 at z 1.2: 0.79 mm wider per side at the outer face"
+    },
+    {
+     "id": "G4 iphone13mini window outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1118 mm2 at z 0.02 vs 1018 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "G3 iphone14promax case layer 1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "9795 mm2 on the bed = 75 % of the back outline (back chamfer 1.0; holes: camera, window)"
+    },
+    {
+     "id": "G4 iphone14promax camera hole outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1904 mm2 at z 0.02 vs 1845 at z 1.2: 0.37 mm wider per side at the outer face"
+    },
+    {
+     "id": "G4 iphone14promax window outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1118 mm2 at z 0.02 vs 1018 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "G3 xiaomi12tpro case layer 1",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "9422 mm2 on the bed = 72 % of the back outline (back chamfer 2.0; holes: camera, window)"
+    },
+    {
+     "id": "G4 xiaomi12tpro camera hole outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1761 mm2 at z 0.02 vs 1636 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "G4 xiaomi12tpro window outer chamfer (measured)",
+     "group": "Printability",
+     "status": "PASS",
+     "message": "opening 1118 mm2 at z 0.02 vs 1018 at z 1.2: 0.78 mm wider per side at the outer face"
+    },
+    {
+     "id": "F1 iphone13mini phone vs case at rest",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 overlap (CLR 0.1; button nubs stop 0.05 short of the buttons)"
+    },
+    {
+     "id": "F2 iphone13mini plate shoe in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.001 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone13mini plate prongs in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone13mini plate prongs_x in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F3 iphone13mini plate flange around the window",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "narrowest flange 16.0 mm (>= 6)"
+    },
+    {
+     "id": "F3b iphone13mini TPU strip pocket -> camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "3.08 mm (>= 3)"
+    },
+    {
+     "id": "F4 iphone13mini plate coverage",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "62 % of the back (target 60 %)",
+     "value": 62.0,
+     "limit": 60.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F5 iphone13mini camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.80 mm around the bump (target 0.8)",
+     "value": 0.8,
+     "limit": 0.8,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "F6 iphone13mini lens protection",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "lens rings 0.49 mm inside the case back; with the shoe plate the receiver holds the back 2.0 mm off a table"
+    },
+    {
+     "id": "F7 iphone13mini lens view cones vs case (diagonal FOV + 4 deg)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "worst overlap 0.00 mm3"
+    },
+    {
+     "id": "F7c iphone13mini flash 112 deg cone vs case",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F1 iphone14promax phone vs case at rest",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 overlap (CLR 0.1; button nubs stop 0.05 short of the buttons)"
+    },
+    {
+     "id": "F2 iphone14promax plate shoe in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.001 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone14promax plate prongs in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 iphone14promax plate prongs_x in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F3 iphone14promax plate flange around the window",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "narrowest flange 23.7 mm (>= 6)"
+    },
+    {
+     "id": "F3b iphone14promax TPU strip pocket -> camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "3.44 mm (>= 3)"
+    },
+    {
+     "id": "F4 iphone14promax plate coverage",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "61 % of the back (target 60 %)",
+     "value": 61.0,
+     "limit": 60.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F5 iphone14promax camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.60 mm around the bump (target 0.6)",
+     "value": 0.6,
+     "limit": 0.6,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "F6 iphone14promax lens protection",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "lens rings 0.52 mm inside the case back; with the shoe plate the receiver holds the back 2.0 mm off a table"
+    },
+    {
+     "id": "F7 iphone14promax lens view cones vs case (diagonal FOV + 4 deg)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "worst overlap 0.00 mm3"
+    },
+    {
+     "id": "F7c iphone14promax flash 112 deg cone vs case",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F1 xiaomi12tpro phone vs case at rest",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 overlap (CLR 0.1; button nubs stop 0.05 short of the buttons)"
+    },
+    {
+     "id": "F2 xiaomi12tpro plate shoe in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.001 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 xiaomi12tpro plate prongs in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F2 xiaomi12tpro plate prongs_x in its pocket",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "plate/case 0.000 mm3, plate/phone 0.000 mm3 (pocket clearance 0.15, plate 0.05 thinner than the pocket)"
+    },
+    {
+     "id": "F3 xiaomi12tpro plate flange around the window",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "narrowest flange 13.8 mm (>= 6)"
+    },
+    {
+     "id": "F3b xiaomi12tpro TPU strip pocket -> camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "3.15 mm (>= 3)"
+    },
+    {
+     "id": "F4 xiaomi12tpro plate coverage",
+     "group": "Fit, ports and buttons",
+     "status": "NEAR",
+     "message": "43 % of the back (target 60 %): the curved back glass limits the plate to the flat middle (hw 28.0); TPU strip to the wall 10.0 mm",
+     "value": 43.0,
+     "limit": 60.0,
+     "unit": "%",
+     "kind": "max"
+    },
+    {
+     "id": "F5 xiaomi12tpro camera hole",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "2.00 mm around the bump (target 2.0)",
+     "value": 2.0,
+     "limit": 2.0,
+     "unit": "mm",
+     "kind": "max"
+    },
+    {
+     "id": "F6 xiaomi12tpro lens protection",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "lens rings 0.50 mm inside the case back; with the shoe plate the receiver holds the back 2.0 mm off a table"
+    },
+    {
+     "id": "F7 xiaomi12tpro lens view cones vs case (diagonal FOV + 4 deg)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "worst overlap 0.00 mm3"
+    },
+    {
+     "id": "F7c xiaomi12tpro flash 112 deg cone vs case",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F7b iphone13mini ultra-wide frame vs the mount stack",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "foot at y -14.0: nothing in frame (head3 in its 3 allowed turns, head2 all 4; every lens that may be the ultra-wide)"
+    },
+    {
+     "id": "F7d iphone13mini a mated GoPro part pointing straight back (16 x 20, 30 mm past the hinge)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "NEAR",
+     "message": "reaches the ultra-wide corner when it points straight out of the back: aim the joint down/sideways (README)"
+    },
+    {
+     "id": "F7b iphone14promax ultra-wide frame vs the mount stack",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "foot at y -10.0: nothing in frame (head3 in its 3 allowed turns, head2 all 4; every lens that may be the ultra-wide)"
+    },
+    {
+     "id": "F7d iphone14promax a mated GoPro part pointing straight back (16 x 20, 30 mm past the hinge)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "NEAR",
+     "message": "reaches the ultra-wide corner when it points straight out of the back: aim the joint down/sideways (README)"
+    },
+    {
+     "id": "F7b xiaomi12tpro ultra-wide frame vs the mount stack",
+     "group": "Cameras and ultra-wide frame",
+     "status": "PASS",
+     "message": "foot at y -30.0: nothing in frame (head3 in its 3 allowed turns, head2 all 4; every lens that may be the ultra-wide)"
+    },
+    {
+     "id": "F7d xiaomi12tpro a mated GoPro part pointing straight back (16 x 20, 30 mm past the hinge)",
+     "group": "Cameras and ultra-wide frame",
+     "status": "NEAR",
+     "message": "reaches the ultra-wide corner when it points straight out of the back: aim the joint down/sideways (README)"
+    },
+    {
+     "id": "F8 iphone13mini openings vs spec parts",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "hole -14.4: 4.37; hole -10.6: 8.15; hole +11.3: 7.38; hole +13.6: 5.13; hole +15.9: 2.88; hole +18.1: 0.61; cover v43.68: recess 19.1 long, nub 16.1; switch slot v23.37: 1.75 past each end; cover v43.68: recess 26.6 long, nub 23.6"
+    },
+    {
+     "id": "F9 iphone13mini Lightning plug keep-out (13.65 x 6.85, 14 mm out)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F9c iphone13mini receiver keep-out (11.7 wide, 0.65-3.0 in, 2.16 above the glass)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 (lip 1.3, relieved to 0.6 over x +-7.0)"
+    },
+    {
+     "id": "F8 iphone14promax openings vs spec parts",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "hole -18.9: 5.86; hole -10.6: 14.15; hole +4.4: 20.36; hole +6.4: 18.34; hole +10.6: 14.15; hole +23.4: 1.36; cover v55.54: recess 19.3 long, nub 16.3; switch slot v31.14: 1.75 past each end; cover v51.69: recess 27.0 long, nub 24.0"
+    },
+    {
+     "id": "F9 iphone14promax Lightning plug keep-out (13.65 x 6.85, 14 mm out)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F9c iphone14promax receiver keep-out (14.4 wide, 0.9-1.65 in, 2.16 above the glass)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.02 mm3 (lip 1.3, relieved to 0.6 over x +-7.5)"
+    },
+    {
+     "id": "F8 xiaomi12tpro openings vs spec parts",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "cover v50.0: recess 24.4 long, nub 21.4; cover v71.5: recess 13.9 long, nub 10.9"
+    },
+    {
+     "id": "F9 xiaomi12tpro USB-C plug keep-out (12.35 x 6.5, 14 mm out)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F9c xiaomi12tpro receiver keep-out (11.7 wide, 0.65-3.0 in, 2.16 above the glass)",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "0.00 mm3 (lip 1.2, relieved to 0.6 over x +-7.0)"
+    },
+    {
+     "id": "F10 iphone13mini foot locked in the receiver",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.000 mm3 (membrane snapped out)"
+    },
+    {
+     "id": "F11 iphone13mini foot insertion path (slide 20.0 mm, lift 12)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "worst overlap 0.000 mm3"
+    },
+    {
+     "id": "F12 iphone13mini lock wheel clears the case back",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "wheel face 2.0 mm off the case back (�30.0)"
+    },
+    {
+     "id": "F10 iphone14promax foot locked in the receiver",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.000 mm3 (membrane snapped out)"
+    },
+    {
+     "id": "F11 iphone14promax foot insertion path (slide 20.0 mm, lift 12)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "worst overlap 0.000 mm3"
+    },
+    {
+     "id": "F12 iphone14promax lock wheel clears the case back",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "wheel face 2.0 mm off the case back (�30.0)"
+    },
+    {
+     "id": "F10 xiaomi12tpro foot locked in the receiver",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.000 mm3 (membrane snapped out)"
+    },
+    {
+     "id": "F11 xiaomi12tpro foot insertion path (slide 20.0 mm, lift 12)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "worst overlap 0.000 mm3"
+    },
+    {
+     "id": "F12 xiaomi12tpro lock wheel clears the case back",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "wheel face 2.0 mm off the case back (�30.0)"
+    },
+    {
+     "id": "F13 finger room between wheel and head",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "3.6 mm; the wheel stands 2.9 mm beyond the head on the nut-boss side"
+    },
+    {
+     "id": "F14 M5 x 20 countersunk reach into the nut",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "4.20 mm in a 4.0 mm nut (head top in the counterbore at x -8.20)"
+    },
+    {
+     "id": "F14b M3 x 16 cross pin reach into its nut",
+     "group": "Fit, ports and buttons",
+     "status": "PASS",
+     "message": "2.55 mm in a 2.4 mm nut"
+    },
+    {
+     "id": "F15 GoPro spacing",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "3-prong gaps [3.2, 3.2]; 2-prong at (-4.7, 1.7) (gap 3.4)"
+    },
+    {
+     "id": "F16 head3 on the key, every allowed orientation, M3 pin",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "head vs foot/wheel 0.000 mm3, pin vs bores 0.09 mm3, lifting the head 1 mm drives the pin into the key: True"
+    },
+    {
+     "id": "F16 head2 on the key, every allowed orientation, M3 pin",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "head vs foot/wheel 0.000 mm3, pin vs bores 0.09 mm3, lifting the head 1 mm drives the pin into the key: True"
+    },
+    {
+     "id": "F24 head3 cannot sit with its knob toward the phone top",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "rib in the socket meets the key face without a groove: 0.87 mm3 (the head stops short, the pin won't go in)"
+    },
+    {
+     "id": "F17 M5 screw + nut seat in head3",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.00 mm3"
+    },
+    {
+     "id": "F18 wheel passes over the key (measured on the wheel mesh)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "thread crests r 5.233 vs key corners r 4.9: 0.33 mm clearance (>= 0.3)"
+    },
+    {
+     "id": "F19 knob clears head3 by >= 0.8 when seated",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "knob pushed 0.8 toward the head: 0.000 mm3 (neck 1.9 on the screw head)"
+    },
+    {
+     "id": "F20 iphone13mini head3 + knob on the prong plates, hinge +-90, both sides",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "1 mm closer than real: 0.000 mm3; a stock �22 thumbscrew 0.5 closer than real: 0.000 mm3"
+    },
+    {
+     "id": "F20 iphone14promax head3 + knob on the prong plates, hinge +-90, both sides",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "1 mm closer than real: 0.000 mm3; a stock �22 thumbscrew 0.5 closer than real: 0.000 mm3"
+    },
+    {
+     "id": "F20 xiaomi12tpro head3 + knob on the prong plates, hinge +-90, both sides",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "1 mm closer than real: 0.000 mm3; a stock �22 thumbscrew 0.5 closer than real: 0.000 mm3"
+    },
+    {
+     "id": "F22 stock �22 x 7 thumbscrew on head2 (mated 3-prong, at x +-7.7)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.5 mm lower than real: 0.000 mm3 (hole axis 23.0 above the bed face of the part)"
+    },
+    {
+     "id": "F22 stock �22 x 7 thumbscrew on shoe2 (mated 3-prong, at x +-7.7)",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "0.5 mm lower than real: 0.000 mm3 (hole axis 18.2 above the bed face of the part)"
+    },
+    {
+     "id": "F23 M4 x 16 steel core clears the pin hole",
+     "group": "Shoe, foot and heads",
+     "status": "PASS",
+     "message": "core tip z 16.0, pin hole bottom z 16.7 (foot frame): 0.70 mm"
+    },
+    {
+     "id": "L1 iphone13mini foot slide-out at 10 g",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "load 17.3 N (176 g); 0.5 Nm on the wheel -> 106 N clamp -> friction 64 N (x3.7); upright, the closed end carries it"
+    },
+    {
+     "id": "L2 iphone13mini shoe lips",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "preload 1.0 MPa compression (creep limit 5); 10 g tipping -> lip root 5.3 MPa (along layers, limit 16.7)",
+     "value": 1.0,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L3 iphone13mini stud at the top of the thread (M4 steel core)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "lever 22.4 mm -> 386 Nmm; the printed stud carries 53 %: 1.9 MPa nominal, ~5 with Kt 2.5 (across layers, limit 6.7); steel 59 MPa (A2-70 yields at 450). Hang test >= 386 Nmm",
+     "value": 1.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4a iphone13mini key root (core passes through)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "386 Nmm, printed share -> 1.8 MPa, x1.5 for the stud/key step = 2.7 (limit 6.7)",
+     "value": 1.8,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4b iphone13mini key at the M3 cross hole",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "the socket bears on the key along its height (linear bearing): 26 % of the root moment = 100 Nmm / Z 76 mm3 = 1.3 MPa (bound with no socket: 5.1)"
+    },
+    {
+     "id": "L10 iphone13mini head3 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.7 -> 547 Nmm: across the bolted stack 1.0 MPa, in-plane 1.4 MPa (limit 6.7)",
+     "value": 1.4,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L10 iphone13mini head2 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.7 -> 547 Nmm: across the bolted stack 2.6 MPa, in-plane 2.4 MPa (limit 6.7)",
+     "value": 2.4,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L5 iphone13mini prong plate blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "269 Nmm (3D lever) -> 1.3 MPa across the bolted pair (limit 6.7)",
+     "value": 1.3,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L6 iphone13mini plate pull-out through the TPU back",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "34 kPa shear along the plate edge"
+    },
+    {
+     "id": "L1 iphone14promax foot slide-out at 10 g",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "load 30.2 N (308 g); 0.5 Nm on the wheel -> 106 N clamp -> friction 64 N (x2.1); upright, the closed end carries it"
+    },
+    {
+     "id": "L2 iphone14promax shoe lips",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "preload 1.0 MPa compression (creep limit 5); 10 g tipping -> lip root 11.7 MPa (along layers, limit 16.7)",
+     "value": 1.0,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L3 iphone14promax stud at the top of the thread (M4 steel core)",
+     "group": "Stud and key",
+     "status": "NEAR",
+     "message": "lever 21.7 mm -> 655 Nmm; the printed stud carries 53 %: 3.3 MPa nominal, ~8 with Kt 2.5 (across layers, limit 6.7); steel 101 MPa (A2-70 yields at 450). Hang test >= 655 Nmm",
+     "value": 3.3,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4a iphone14promax key root (core passes through)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "655 Nmm, printed share -> 3.0 MPa, x1.5 for the stud/key step = 4.5 (limit 6.7)",
+     "value": 3.0,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4b iphone14promax key at the M3 cross hole",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "the socket bears on the key along its height (linear bearing): 26 % of the root moment = 170 Nmm / Z 76 mm3 = 2.2 MPa (bound with no socket: 8.7)"
+    },
+    {
+     "id": "L10 iphone14promax head3 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.8 -> 962 Nmm: across the bolted stack 1.8 MPa, in-plane 2.5 MPa (limit 6.7)",
+     "value": 2.5,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L10 iphone14promax head2 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 31.8 -> 962 Nmm: across the bolted stack 4.6 MPa, in-plane 4.3 MPa (limit 6.7)",
+     "value": 4.3,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L5 iphone14promax prong plate blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "399 Nmm (3D lever) -> 1.9 MPa across the bolted pair (limit 6.7)",
+     "value": 1.9,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L6 iphone14promax plate pull-out through the TPU back",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "49 kPa shear along the plate edge"
+    },
+    {
+     "id": "L1 xiaomi12tpro foot slide-out at 10 g",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "load 25.6 N (261 g); 0.5 Nm on the wheel -> 106 N clamp -> friction 64 N (x2.5); upright, the closed end carries it"
+    },
+    {
+     "id": "L2 xiaomi12tpro shoe lips",
+     "group": "Foot and receiver",
+     "status": "PASS",
+     "message": "preload 1.0 MPa compression (creep limit 5); 10 g tipping -> lip root 9.0 MPa (along layers, limit 16.7)",
+     "value": 1.0,
+     "limit": 5.0,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L3 xiaomi12tpro stud at the top of the thread (M4 steel core)",
+     "group": "Stud and key",
+     "status": "NEAR",
+     "message": "lever 35.2 mm -> 902 Nmm; the printed stud carries 53 %: 4.5 MPa nominal, ~11 with Kt 2.5 (across layers, limit 6.7); steel 139 MPa (A2-70 yields at 450). Hang test >= 902 Nmm",
+     "value": 4.5,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4a xiaomi12tpro key root (core passes through)",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "902 Nmm, printed share -> 4.2 MPa, x1.5 for the stud/key step = 6.3 (limit 6.7)",
+     "value": 4.2,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L4b xiaomi12tpro key at the M3 cross hole",
+     "group": "Stud and key",
+     "status": "PASS",
+     "message": "the socket bears on the key along its height (linear bearing): 26 % of the root moment = 234 Nmm / Z 76 mm3 = 3.1 MPa (bound with no socket: 11.9)"
+    },
+    {
+     "id": "L10 xiaomi12tpro head3 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 42.0 -> 1077 Nmm: across the bolted stack 2.0 MPa, in-plane 2.8 MPa (limit 6.7)",
+     "value": 2.8,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L10 xiaomi12tpro head2 blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "lever 42.0 -> 1077 Nmm: across the bolted stack 5.1 MPa, in-plane 4.8 MPa (limit 6.7)",
+     "value": 4.8,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L5 xiaomi12tpro prong plate blade roots",
+     "group": "GoPro blades",
+     "status": "PASS",
+     "message": "795 Nmm (3D lever) -> 3.8 MPa across the bolted pair (limit 6.7)",
+     "value": 3.8,
+     "limit": 6.7,
+     "unit": "MPa",
+     "kind": "max"
+    },
+    {
+     "id": "L6 xiaomi12tpro plate pull-out through the TPU back",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "49 kPa shear along the plate edge"
+    },
+    {
+     "id": "L7 knob glue (neck �9.4 on the head top, minus the socket)",
+     "group": "Other loads",
+     "status": "NEAR",
+     "message": "~0.84 Nm at 4 MPa CA vs 0.5 Nm working (x1.7) + the hex stub; twist test to 1.0 Nm decides"
+    },
+    {
+     "id": "L8 countersunk seat hoop stress (K 0.2)",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "500 N clamp -> 5.3 MPa over the measured ring section 14.9 mm2 per side (across layers at 3 and 9 o clock); torque-to-failure test"
+    },
+    {
+     "id": "L8 countersunk seat hoop stress (K 0.3)",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "333 N clamp -> 3.6 MPa over the measured ring section 14.9 mm2 per side (across layers at 3 and 9 o clock); torque-to-failure test"
+    },
+    {
+     "id": "L11 iphone13mini button cover v43.68 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.6 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.6-7.1 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 7.1,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 iphone13mini button cover v43.68 press force #2",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.6 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.6-7.1 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 7.1,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 iphone14promax button cover v55.54 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.7 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.3-6.7 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 6.7,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 iphone14promax button cover v51.69 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 4.7 span, 0.7 membrane, 8 mm finger, 0.40 mm travel: 4.5-7.0 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 7.0,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 xiaomi12tpro button cover v50.0 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 5.8 span, 0.7 membrane, 8 mm finger, 0.50 mm travel: 2.9-4.5 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 4.5,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L11 xiaomi12tpro button cover v71.5 press force",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "clamped strip 5.8 span, 0.7 membrane, 8 mm finger, 0.50 mm travel: 2.9-4.5 N (TPU E 26-40 MPa; target <= 10, test with a scale)",
+     "value": 4.5,
+     "limit": 10.0,
+     "unit": "N",
+     "kind": "max"
+    },
+    {
+     "id": "L9 temperature",
+     "group": "Other loads",
+     "status": "PASS",
+     "message": "use version: plates, feet, heads, wheels in PETG (HDT ~70 C); PLA prints are fit tests only"
+    },
+    {
+     "id": "T11 iphone13mini case + shoe plate weight (solid)",
+     "group": "Targets",
+     "status": "PASS",
+     "message": "35 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+    },
+    {
+     "id": "T11 iphone14promax case + shoe plate weight (solid)",
+     "group": "Targets",
+     "status": "NEAR",
+     "message": "68 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+    },
+    {
+     "id": "T11 xiaomi12tpro case + shoe plate weight (solid)",
+     "group": "Targets",
+     "status": "NEAR",
+     "message": "56 g solid (the slicer's infill in the 3 mm back takes some off); target 40 g, see README"
+    }
+   ],
+   "summary": {
+    "checks": 147,
+    "pass": 138,
+    "near": 9,
+    "fail": 0
+   },
+   "source": "review_pack/verify_output.txt"
+  }
+ ],
+ "findings": [
+  {
+   "reviewer": "functionality",
+   "severity": "blocker",
+   "summary": "Head not held on the foot's key",
+   "fix": "M3 x 16 countersunk cross pin through the key's Ø3.4 hole, 4 orientations (F16).",
+   "status": "fixed",
+   "code": "B1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F1"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Phone shoe stack presents 3-prong, standard mounts are 3-prong too",
+   "fix": "head2 (2-prong head on the same key).",
+   "status": "fixed",
+   "code": "M1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F2"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "No portrait on a 3-prong mount",
+   "fix": "new plate prongs_x (hole across the phone).",
+   "status": "fixed",
+   "code": "M2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F3"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Mount stack in the ultra-wide frame",
+   "fix": "foot moved toward the phone bottom; F7b frustum check; shoe2 for accessories.",
+   "status": "fixed",
+   "code": "M3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F4"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Buttons 1.15 mm deep in a slot",
+   "fix": "raised TPU button covers; ring switch slot flared.",
+   "status": "fixed",
+   "code": "M4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F5"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "Phone retention never targeted",
+   "fix": "per-phone lip, earpiece relief, target T12 + hang test.",
+   "status": "fixed",
+   "code": "M5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F6"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Earpiece keep-out unchecked",
+   "fix": "lip relieved to 0.6 over the receiver, F9c.",
+   "status": "fixed",
+   "code": "m1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F7"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Xiaomi USB-C cut marginal",
+   "fix": "U-cut down to the back + USB-C keep-out F9.",
+   "status": "fixed",
+   "code": "m2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F8"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "F8 printed PASS without checking",
+   "fix": "F8 computes margins to Apple's holes.",
+   "status": "fixed",
+   "code": "m3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F9"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "T11 / T3 out of date",
+   "fix": "targets restated.",
+   "status": "fixed",
+   "code": "m4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F10"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Nut falls out",
+   "fix": "pocket 8.05 AF + CA.",
+   "status": "fixed",
+   "code": "m5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F11"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "No positive foot stop",
+   "fix": "not changed: wheel friction x2.0 at 10 g, closed end upright.",
+   "status": "accepted",
+   "code": "m6",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-F12"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Fit tests missing slot height / key fit",
+   "fix": "key coupon; third-party foot in the test plan.",
+   "status": "fixed",
+   "code": "m7",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-F13"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Phone rocks on a table",
+   "fix": "not changed: documented.",
+   "status": "accepted",
+   "code": "m8",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-F14"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "blocker",
+   "summary": "Head slides off the key upside down",
+   "fix": "M3 cross pin, F16 lifts the head 1 mm into the pin.",
+   "status": "fixed",
+   "code": "B1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D15"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "blocker",
+   "summary": "Wheel can't pass the key",
+   "fix": "key 9 AF with rounded corners, M12 stud; F18.",
+   "status": "fixed",
+   "code": "B2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D16"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Phone pop-out never analysed",
+   "fix": "closed walls under covers, per-phone lip, split slots, T12.",
+   "status": "fixed",
+   "code": "M1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D17"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Foot slide-out margin overstated",
+   "fix": "plastic torque coefficient, Ø30 wheel, x2.0.",
+   "status": "fixed",
+   "code": "M2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D18"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Stud and key bending unchecked",
+   "fix": "L3 / L4 added.",
+   "status": "fixed",
+   "code": "M3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D19"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Knob glue gap or clash",
+   "fix": "neck bottoms on the screw head, F19.",
+   "status": "fixed",
+   "code": "M4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D20"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "PLA next to a warm phone",
+   "fix": "PETG for the use version.",
+   "status": "fixed",
+   "code": "M5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D21"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "Countersunk seat across layers",
+   "fix": "outer blade thickened to 4.3 with a counterbore; root fillets back.",
+   "status": "fixed",
+   "code": "M6",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D22"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "No drop protection",
+   "fix": "corner bumpers with air channels; local camera rim not changed (needs supports).",
+   "status": "accepted",
+   "code": "M7",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-D23"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Plate on the back glass",
+   "fix": "plate 0.05 thinner than its pocket, edge chamfer.",
+   "status": "fixed",
+   "code": "m1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D24"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Thin strip to the camera hole",
+   "fix": ">= 3 mm, F3b.",
+   "status": "fixed",
+   "code": "m2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D25"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Verify formulas",
+   "fix": "restated.",
+   "status": "fixed",
+   "code": "m3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D26"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Ragged membrane cut",
+   "fix": "scored membrane.",
+   "status": "fixed",
+   "code": "m4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-D27"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Printed thread untested",
+   "fix": "not changed: coupon in the test plan.",
+   "status": "accepted",
+   "code": "m5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-D28"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Kit knob cuts into the case on the prong plate",
+   "fix": "hole 12 above the case back, F20.",
+   "status": "fixed",
+   "code": "M1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E29"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Knob 0.1 mm from the head",
+   "fix": "neck 1.9 on the screw head, F19.",
+   "status": "fixed",
+   "code": "M2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E30"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Buttons recessed",
+   "fix": "raised covers.",
+   "status": "fixed",
+   "code": "M3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E31"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Head swap without retention",
+   "fix": "M3 pin + key coupon.",
+   "status": "fixed",
+   "code": "M4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E32"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "Frequent plate swaps",
+   "fix": "head2 makes the shoe plate universal.",
+   "status": "fixed",
+   "code": "M5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E33"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Thick and heavy",
+   "fix": "not changed: 3 mm back protects the lenses.",
+   "status": "accepted",
+   "code": "m1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-E34"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Rocks on a table",
+   "fix": "not changed: documented.",
+   "status": "accepted",
+   "code": "m2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-E35"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Wheel clamp overstated, tight grip",
+   "fix": "Ø30 scalloped wheel, corrected K.",
+   "status": "fixed",
+   "code": "m3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E36"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Blind foot entry",
+   "fix": "rails with lead-ins.",
+   "status": "fixed",
+   "code": "m4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E37"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Hidden membrane step",
+   "fix": "scored, in the test plan.",
+   "status": "fixed",
+   "code": "m5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E38"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Loose parts",
+   "fix": "nut pocket 8.05 + CA.",
+   "status": "fixed",
+   "code": "m6",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E39"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Foot width marks",
+   "fix": "not changed: notches.",
+   "status": "accepted",
+   "code": "m7",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-E40"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Boxy edges",
+   "fix": "per-phone back chamfer, lip chamfers.",
+   "status": "fixed",
+   "code": "m8",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E41"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Xiaomi lip on a curved screen",
+   "fix": "per-phone lip.",
+   "status": "fixed",
+   "code": "m9",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-E42"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "blocker",
+   "summary": "Prong plate in a window built for the shoe",
+   "fix": "flush pad fills the window.",
+   "status": "fixed",
+   "code": "B1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A43"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "major",
+   "summary": "Stepped keyhole window",
+   "fix": "one rounded window, rails flush.",
+   "status": "fixed",
+   "code": "M1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A44"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "major",
+   "summary": "Chamfers landed below the bed",
+   "fix": "real 0.8 chamfers, measured in G4.",
+   "status": "fixed",
+   "code": "M2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A45"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "major",
+   "summary": "Renders show colours the plates can't print",
+   "fix": "FAMILY colour roles, grey and orange plates.",
+   "status": "fixed",
+   "code": "M3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A46"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "major",
+   "summary": "Boxy tray profile",
+   "fix": "back chamfer per phone, corner bumpers.",
+   "status": "fixed",
+   "code": "M4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A47"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Off-centre bottom slot",
+   "fix": "symmetric.",
+   "status": "fixed",
+   "code": "m1",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A48"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Square U shoulders",
+   "fix": "flared U.",
+   "status": "fixed",
+   "code": "m2",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A49"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Faceted knurls",
+   "fix": "32 samples per lobe.",
+   "status": "fixed",
+   "code": "m3",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A50"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Knob/wheel edges differ",
+   "fix": "knob crown rounded.",
+   "status": "fixed",
+   "code": "m4",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A51"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Sharp prong edges",
+   "fix": "0.4 chamfers.",
+   "status": "fixed",
+   "code": "m5",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A52"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Head base not square",
+   "fix": "18 x 18.",
+   "status": "fixed",
+   "code": "m6",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A53"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Tall stack, bare thread",
+   "fix": "not changed: finger room.",
+   "status": "accepted",
+   "code": "m7",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-A54"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Wheel vs receiver width",
+   "fix": "Ø30 vs 24.",
+   "status": "fixed",
+   "code": "m8",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A55"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Top-skin texture",
+   "fix": "not changed.",
+   "status": "accepted",
+   "code": "m9",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-A56"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Ragged membrane",
+   "fix": "scored.",
+   "status": "fixed",
+   "code": "m10",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A57"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "No family rules",
+   "fix": "FAMILY in kit_lib.",
+   "status": "fixed",
+   "code": "m11",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "closed_round": 2,
+   "id": "R1-A58"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "Terraced lip",
+   "fix": "not changed.",
+   "status": "accepted",
+   "code": "m12",
+   "round": 1,
+   "fixed_in": "iteration 2",
+   "id": "R1-A59"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "R2-1 foot offset missing from the load levers",
+   "fix": "3D levers, M4 steel core in the stud, blade-root checks.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D60"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "R2-2 wheel clears the key by 0.08 mm on the mesh",
+   "fix": "key corners r 4.9, F18 measures the mesh (0.33).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D61"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "M-a T12 only 5x",
+   "fix": "10x, action use restricted until tested.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D62"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "M-b thin wall between socket and M3 nut",
+   "fix": "not changed: watched in the hang test.",
+   "status": "accepted",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "id": "R2-D63"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "M-c shake test orientations",
+   "fix": "upright, top-down, landscape.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-D64"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "major",
+   "summary": "N1 stock thumbscrew hits head2 / shoe2",
+   "fix": "head2 hole at 23, shoe2 at 12, F22.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E65"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "M-new-1 button press force unchecked",
+   "fix": "membrane 0.7, small bump, fit bands, L11.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E66"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "M-new-2 M3 pin needs a tool",
+   "fix": "nuts glued in, 2 mm key in the box.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E67"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "M-new-3 off-centre foot side effects",
+   "fix": "not changed: documented.",
+   "status": "accepted",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "id": "R2-E68"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "M-new-4 lip vs screen protectors",
+   "fix": "test plan.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-E69"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "major",
+   "summary": "M4b button covers too stiff, 27-68 N",
+   "fix": "membrane 0.7 + small bump: 3-7 N (L11).",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F70"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Ultra-wide check skips two head turns",
+   "fix": "all turns; head3 keyed out of the one that showed (F24).",
+   "status": "fixed",
+   "code": "m10",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F71"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "M3 nut drops out",
+   "fix": "glued in.",
+   "status": "fixed",
+   "code": "m11",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F72"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Xiaomi nub gap on a guessed button",
+   "fix": "0.25 until measured.",
+   "status": "fixed",
+   "code": "m12",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-F73"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "N1 bumper pinch",
+   "fix": "not changed: reads as deliberate.",
+   "status": "accepted",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "id": "R2-A74"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "N2 two grip styles",
+   "fix": "grip rule in FAMILY.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A75"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "N3 knob colour not guaranteed",
+   "fix": "fit plate is orange PLA.",
+   "status": "fixed",
+   "round": 2,
+   "fixed_in": "iteration 3",
+   "closed_round": 3,
+   "id": "R2-A76"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "R3-1 volume cover bump over the gap between buttons",
+   "fix": "one bump per button.",
+   "status": "fixed",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-A77"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Foot can go in turned",
+   "fix": "usage note: notches toward the open end.",
+   "status": "fixed",
+   "code": "m13",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-F78"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Press total and side clamps",
+   "fix": "test total <= 10 N; mount by the plate.",
+   "status": "fixed",
+   "code": "m14",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-F79"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Core share optimistic",
+   "fix": "spare foot to failure at 1.5x in the test plan.",
+   "status": "fixed",
+   "code": "m1",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D80"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "Core head on the sliding face",
+   "fix": "flush check in the test plan.",
+   "status": "fixed",
+   "code": "m2",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "closed_round": 4,
+   "id": "R3-D81"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "Orientation marks",
+   "fix": "not changed: listed as open.",
+   "status": "accepted",
+   "round": 3,
+   "fixed_in": "iteration 4",
+   "id": "R3-E82"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "major",
+   "summary": "R4-1 14 Pro Max foot slide-out x1.7 at 10 g",
+   "fix": "wheel spec 0.5 Nm (x2.1), shake test with the 14 Pro Max.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-D83"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "R4-2 12T Pro stud carries the worst load",
+   "fix": "hang test 902 Nmm, spare foot to failure ~1350 Nmm.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-D84"
+  },
+  {
+   "reviewer": "durability",
+   "severity": "minor",
+   "summary": "R4-3 14 Pro Max hang test 2.4 kg",
+   "fix": "in the test plan.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-D85"
+  },
+  {
+   "reviewer": "aesthetics",
+   "severity": "minor",
+   "summary": "R4-1 14 Pro Max camera hole crowds the edge",
+   "fix": "camera chamfer 0.4, margin 0.6.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-A86"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "R4-1 14 Pro Max boxy back edge",
+   "fix": "not changed: a bigger chamfer would leave a sliver at the camera hole.",
+   "status": "accepted",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "id": "R4-E87"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "R4-2 weight over T11",
+   "fix": "per-phone T11 proposed to the owner.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-E88"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "R4-3 side and volume-down bumps opposite",
+   "fix": "side-button bump moved between the volume bumps.",
+   "status": "fixed",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-E89"
+  },
+  {
+   "reviewer": "ergonomics",
+   "severity": "minor",
+   "summary": "R4-5 12T Pro foot low",
+   "fix": "not changed: documented.",
+   "status": "accepted",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "id": "R4-E90"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "F9c used the 13 mini keep-out",
+   "fix": "per-phone receiver keep-out.",
+   "status": "fixed",
+   "code": "m15",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-F91"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "Flash outer cone / LiDAR with the 4.7 back",
+   "fix": "not changed: 0.1 mm at the chamfer edge, LiDAR clear.",
+   "status": "accepted",
+   "code": "m16",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "id": "R4-F92"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "12T Pro bottom end not in the band",
+   "fix": "U-cut +-8.5 until the USB-C is measured.",
+   "status": "fixed",
+   "code": "m17",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-F93"
+  },
+  {
+   "reviewer": "functionality",
+   "severity": "minor",
+   "summary": "14 Pro Max wheel margin",
+   "fix": "0.5 Nm spec, prong plate for action.",
+   "status": "fixed",
+   "code": "m18",
+   "round": 4,
+   "fixed_in": "iteration 5",
+   "closed_round": 5,
+   "id": "R4-F94"
+  }
+ ],
+ "tests": [
+  {
+   "id": "T0",
+   "what": "Button cover press force (14 Pro Max side button)",
+   "check": "L11 iphone14promax button cover v55.54 press force",
+   "predicted": 7.0,
+   "limit": 10,
+   "kind": "max",
+   "unit": "N",
+   "method": "kitchen scale on the fit band",
+   "measured": null
+  },
+  {
+   "id": "T1",
+   "what": "Phone stays in the case, screen down, 10x its weight (14 Pro Max 2.4 kg) + 20 taps",
+   "check": "",
+   "predicted": "no pop-out",
+   "method": "printed dummy phone",
+   "measured": null
+  },
+  {
+   "id": "T2",
+   "what": "Knob glue twist",
+   "check": "L7 knob glue (neck Ø9.4 on the head top, minus the socket)",
+   "predicted": 0.84,
+   "limit": 1.0,
+   "kind": "min",
+   "unit": "Nm",
+   "method": "torque by lever + scale",
+   "measured": null
+  },
+  {
+   "id": "T3",
+   "what": "head3 torque to failure",
+   "check": "",
+   "predicted": "> 1.25",
+   "limit": 1.25,
+   "kind": "min",
+   "unit": "Nm",
+   "method": "spare head, nut and screw",
+   "measured": null
+  },
+  {
+   "id": "T4",
+   "what": "Stud hang (12T Pro worst case)",
+   "check": "L3 xiaomi12tpro stud at the top of the thread (M4 steel core)",
+   "predicted": "holds",
+   "limit": 902,
+   "kind": "min",
+   "unit": "Nmm",
+   "method": "2.5 kg at 37 mm, 1 min",
+   "measured": null
+  },
+  {
+   "id": "T5",
+   "what": "Head pull-off from the key (coupon)",
+   "check": "",
+   "predicted": "15-30",
+   "limit": [
+    15,
+    30
+   ],
+   "kind": "range",
+   "unit": "N",
+   "method": "key coupon + scale",
+   "measured": null
+  },
+  {
+   "id": "T6",
+   "what": "Wheel threads over the key by hand",
+   "check": "F18 wheel passes over the key (measured on the wheel mesh)",
+   "predicted": "free",
+   "method": "by hand",
+   "measured": null
+  }
+ ],
+ "built": "2026-11-27",
+ "mass": {
+  "axes": "case frame: x across the phones, y along them (+y = top), z through the back (phone at +z, mounts at -z); the three sets sit side by side",
+  "parts": [
+   {
+    "name": "Xiaomi 12T Pro case (TPU)",
+    "kind": "printed",
+    "material": "TPU 95A",
+    "grams": 36.25,
+    "com": [
+     -3.0,
+     0.9,
+     3.0
+    ],
+    "bounds": [
+     [
+      -40.5,
+      -84.2,
+      0.0
+     ],
+     [
+      40.5,
+      84.2,
+      12.9
+     ]
+    ],
+    "source": "36.59 cm3 x 1.21 g/cm3 x fill 0.82"
+   },
+   {
+    "name": "Shoe plate (12T Pro)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 11.05,
+    "com": [
+     0.0,
+     -26.4,
+     0.7
+    ],
+    "bounds": [
+     [
+      -28.0,
+      -73.6,
+      -2.0
+     ],
+     [
+      28.0,
+      20.8,
+      3.5
+     ]
+    ],
+    "source": "9.50 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "Xiaomi 12T Pro (reference, not printed)",
+    "kind": "payload",
+    "material": "reference",
+    "grams": 205,
+    "com": [
+     0.0,
+     0.0,
+     7.8
+    ],
+    "bounds": [
+     [
+      -38.0,
+      -81.6,
+      0.5
+     ],
+     [
+      38.0,
+      81.6,
+      12.1
+     ]
+    ],
+    "source": "spec"
+   },
+   {
+    "name": "Shoe foot b (12T Pro set)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 2.23,
+    "com": [
+     0.0,
+     -30.0,
+     -8.9
+    ],
+    "bounds": [
+     [
+      -9.2,
+      -39.0,
+      -19.6
+     ],
+     [
+      9.2,
+      -21.0,
+      1.8
+     ]
+    ],
+    "source": "1.92 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "Lock wheel (12T Pro set)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 2.97,
+    "com": [
+     0.0,
+     -30.0,
+     -4.5
+    ],
+    "bounds": [
+     [
+      -14.9,
+      -44.9,
+      -7.0
+     ],
+     [
+      14.9,
+      -15.1,
+      -2.0
+     ]
+    ],
+    "source": "2.56 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "GoPro 3-prong head (head3)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 5.99,
+    "com": [
+     -1.5,
+     -30.0,
+     -24.3
+    ],
+    "bounds": [
+     [
+      -12.0,
+      -39.0,
+      -38.1
+     ],
+     [
+      9.0,
+      -21.0,
+      -10.6
+     ]
+    ],
+    "source": "5.15 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "Knob for the M5 x 20 countersunk",
+    "kind": "printed",
+    "material": "PLA",
+    "grams": 2.2,
+    "com": [
+     13.2,
+     -30.0,
+     -30.6
+    ],
+    "bounds": [
+     [
+      6.9,
+      -39.5,
+      -39.9
+     ],
+     [
+      17.1,
+      -20.5,
+      -21.3
+     ]
+    ],
+    "source": "1.92 cm3 x 1.24 g/cm3 x fill 0.93"
+   },
+   {
+    "name": "iPhone 14 Pro Max case (TPU)",
+    "kind": "printed",
+    "material": "TPU 95A",
+    "grams": 35.74,
+    "com": [
+     91.2,
+     1.3,
+     3.2
+    ],
+    "bounds": [
+     [
+      53.6,
+      -83.0,
+      0.0
+     ],
+     [
+      136.4,
+      83.0,
+      13.4
+     ]
+    ],
+    "source": "36.08 cm3 x 1.21 g/cm3 x fill 0.82"
+   },
+   {
+    "name": "Prong plate x, portrait (14 Pro Max)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 24.98,
+    "com": [
+     95.0,
+     -21.0,
+     2.3
+    ],
+    "bounds": [
+     [
+      59.0,
+      -74.4,
+      -19.4
+     ],
+     [
+      131.0,
+      30.6,
+      4.7
+     ]
+    ],
+    "source": "21.49 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "iPhone 14 Pro Max (reference, not printed)",
+    "kind": "payload",
+    "material": "reference",
+    "grams": 240,
+    "com": [
+     95.0,
+     0.0,
+     8.6
+    ],
+    "bounds": [
+     [
+      56.2,
+      -80.4,
+      0.5
+     ],
+     [
+      133.8,
+      80.4,
+      12.6
+     ]
+    ],
+    "source": "spec"
+   },
+   {
+    "name": "iPhone 13 mini case (TPU)",
+    "kind": "printed",
+    "material": "TPU 95A",
+    "grams": 21.68,
+    "com": [
+     183.5,
+     1.5,
+     2.8
+    ],
+    "bounds": [
+     [
+      150.3,
+      -68.3,
+      0.0
+     ],
+     [
+      219.7,
+      68.3,
+      11.4
+     ]
+    ],
+    "source": "21.89 cm3 x 1.21 g/cm3 x fill 0.82"
+   },
+   {
+    "name": "Shoe plate (13 mini)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 7.88,
+    "com": [
+     185.0,
+     -15.0,
+     0.5
+    ],
+    "bounds": [
+     [
+      156.0,
+      -59.8,
+      -2.0
+     ],
+     [
+      214.0,
+      29.8,
+      3.0
+     ]
+    ],
+    "source": "6.77 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "iPhone 13 mini (reference, not printed)",
+    "kind": "payload",
+    "material": "reference",
+    "grams": 141,
+    "com": [
+     185.0,
+     0.0,
+     6.8
+    ],
+    "bounds": [
+     [
+      152.9,
+      -65.8,
+      0.5
+     ],
+     [
+      217.1,
+      65.8,
+      10.6
+     ]
+    ],
+    "source": "spec"
+   },
+   {
+    "name": "Shoe foot b (13 mini set)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 2.23,
+    "com": [
+     185.0,
+     -14.0,
+     -8.9
+    ],
+    "bounds": [
+     [
+      175.8,
+      -23.0,
+      -19.6
+     ],
+     [
+      194.2,
+      -5.0,
+      1.8
+     ]
+    ],
+    "source": "1.92 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "Lock wheel (13 mini set)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 2.97,
+    "com": [
+     185.0,
+     -14.0,
+     -4.5
+    ],
+    "bounds": [
+     [
+      170.1,
+      -28.9,
+      -7.0
+     ],
+     [
+      199.9,
+      0.9,
+      -2.0
+     ]
+    ],
+    "source": "2.56 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "GoPro 2-prong head (head2)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 4.34,
+    "com": [
+     185.0,
+     -14.0,
+     -25.8
+    ],
+    "bounds": [
+     [
+      176.0,
+      -23.0,
+      -41.0
+     ],
+     [
+      194.0,
+      -5.0,
+      -10.6
+     ]
+    ],
+    "source": "3.74 cm3 x 1.27 g/cm3 x fill 0.92"
+   },
+   {
+    "name": "Accessory shoe on a 2-prong (shoe2)",
+    "kind": "printed",
+    "material": "PETG",
+    "grams": 3.93,
+    "com": [
+     -75.0,
+     -20.0,
+     12.8
+    ],
+    "bounds": [
+     [
+      -87.0,
+      -30.8,
+      0.0
+     ],
+     [
+      -63.0,
+      -9.2,
+      25.6
+     ]
+    ],
+    "source": "3.38 cm3 x 1.27 g/cm3 x fill 0.92"
+   }
+  ],
+  "total_g": 750.4,
+  "printed_g": 164.4,
+  "com": [
+   81.7,
+   -1.9,
+   6.2
+  ],
+  "mounts": [
+   {
+    "name": "12T Pro on head3 (GoPro pivot)",
+    "point": [
+     0,
+     -30,
+     -30.6
+    ],
+    "axis": "x",
+    "parts": [
+     "Xiaomi 12T Pro",
+     "Shoe plate (12T Pro)"
+    ],
+    "carried_g": 252.3,
+    "carried_com": [
+     -0.4,
+     -1.0,
+     6.8
+    ],
+    "offset": [
+     -0.4,
+     29.0,
+     37.4
+    ],
+    "lever_mm": 29.0,
+    "moment_Nmm": 71.7,
+    "moment_10g_side_Nmm": 925.7
+   },
+   {
+    "name": "14 Pro Max on its prong plate (pivot)",
+    "point": [
+     95,
+     -10,
+     -12.0
+    ],
+    "axis": "x",
+    "parts": [
+     "iPhone 14 Pro Max",
+     "Prong plate x"
+    ],
+    "carried_g": 300.7,
+    "carried_com": [
+     94.5,
+     -1.6,
+     7.4
+    ],
+    "offset": [
+     -0.5,
+     8.4,
+     19.4
+    ],
+    "lever_mm": 8.4,
+    "moment_Nmm": 24.8,
+    "moment_10g_side_Nmm": 573.3
+   },
+   {
+    "name": "13 mini on head2 (GoPro pivot)",
+    "point": [
+     185,
+     -14,
+     -33.6
+    ],
+    "axis": "y",
+    "parts": [
+     "iPhone 13 mini",
+     "Shoe plate (13 mini)"
+    ],
+    "carried_g": 170.6,
+    "carried_com": [
+     184.8,
+     -0.5,
+     6.0
+    ],
+    "offset": [
+     -0.2,
+     13.5,
+     39.6
+    ],
+    "lever_mm": 0.2,
+    "moment_Nmm": 0.3,
+    "moment_10g_side_Nmm": 662.6
+   }
+  ],
+  "calibration": {
+   "TPU 95A": {
+    "plate": "plate_gas_tpu_a.gcode",
+    "slicer_grams": 71.99,
+    "solid_cm3": 72.67,
+    "fill": 0.819
+   },
+   "PETG": {
+    "plate": "plate_tnt_orange_b.gcode",
+    "slicer_grams": 67.49,
+    "solid_cm3": 58.05,
+    "fill": 0.915
+   },
+   "PLA": {
+    "plate": "plate_tnt_fit_b.gcode",
+    "slicer_grams": 30.35,
+    "solid_cm3": 26.38,
+    "fill": 0.928
+   }
+  },
+  "views": [
+   [
+    "x",
+    "y",
+    "Back"
+   ],
+   [
+    "y",
+    "z",
+    "Side"
+   ]
+  ]
+ }
+}
